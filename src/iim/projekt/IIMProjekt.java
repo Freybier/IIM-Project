@@ -4,6 +4,7 @@
  */
 package iim.projekt;
 
+
 /**
  *
  * @author frey
@@ -14,8 +15,8 @@ public class IIMProjekt {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Das ist ja sehr Jüdisch");
+        Test.testmethode();
+
     }
     
 }

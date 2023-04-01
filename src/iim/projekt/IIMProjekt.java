@@ -4,6 +4,7 @@
  */
 package iim.projekt;
 
+import iim.Test;
 /**
  *
  * @author frey
@@ -15,7 +16,8 @@ public class IIMProjekt {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Das ist ja sehr Jüdisch");
+        Test.hallo();
+        System.out.println("disch");
     }
     
 }

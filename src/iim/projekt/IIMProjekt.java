@@ -4,7 +4,9 @@
  */
 package iim.projekt;
 
+
 import iim.Test;
+
 /**
  *
  * @author frey
@@ -15,9 +17,12 @@ public class IIMProjekt {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         // TODO code application logic here
         Test.hallo();
         System.out.println("disch");
+        System.out.println("Penis");
+
     }
     
 }

@@ -21,6 +21,7 @@ public class IIMProjekt {
         // TODO code application logic here
         Test.hallo();
         System.out.println("disch");
+        System.out.println("Penis");
 
     }
     

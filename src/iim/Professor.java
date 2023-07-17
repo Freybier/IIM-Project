@@ -9,38 +9,61 @@ package iim;
  * @author Yann Leymann
  */
 public class Professor {
-     private String kuerzel;
-    private boolean verfuegbar;
-    private boolean willNicht;
-    private int[][] time = new int[6][6]; 
+    private String name;
+    private String zeiten;
+
+    public Professor(String name, String zeiten) {
+        this.name = name;
+        this.zeiten = zeiten;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getZeiten() {
+        return zeiten;
+    }
     
-    public Professor(String kuerzel) {
-        this.kuerzel = kuerzel;
-        this.verfuegbar = false;
-        this.willNicht = false;
-    }
-
-    public String getKuerzel() {
-        return kuerzel;
-    }
     
-    public int[][] getTime(){
-        return time;
-    }
+public void wochenZeiten() {
+        System.out.println(this.getName() + " | 1. block | 2. block | 3. block | 4. block | 5. block | 6. block");
 
-    public boolean isVerfuegbar() {
-        return verfuegbar;
-    }
+        String[] tage = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
+        String[] blocks = {"1. block", "2. block", "3. block", "4. block", "5. block", "6. block"};
+        int countTage = 0;
+        
+        for (int i = 0; i < this.getZeiten().length(); i++) {
+            char zeit = this.getZeiten().charAt(i);
+            String status;
+            if(i%6 == 0)
+            {
+                System.out.print(tage[countTage] + " | ");
+                countTage++;
+            }
+            
+            if (zeit == ' ') {
+                
+                    status = "verfügbar";
+                
+            } else if (zeit == 'X') {
+                status = "kann nicht";
+            } else if (zeit == 'x') {
+                status = "will nicht";
+            } else {
+                status = "";
+            }
 
-    public void setVerfuegbar(boolean verfuegbar) {
-        this.verfuegbar = verfuegbar;
-    }
+            System.out.print(status + " | ");
 
-    public boolean isWillNicht() {
-        return willNicht;
-    }
-
-    public void setWillNicht(boolean willNicht) {
-        this.willNicht = willNicht;
+            if (i % 6 == 5) {
+                System.out.println();
+                if (i < this.getZeiten().length() - 1) {
+                    //System.out.print("         | ");
+                }
+            }
+            
+        }
+        System.out.println();
     }
 }

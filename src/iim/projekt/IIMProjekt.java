@@ -6,6 +6,7 @@ package iim.projekt;
 
 
 import iim.Test;
+import iim.Handtuch.readhandtuch;
 
 /**
  *
@@ -22,7 +23,7 @@ public class IIMProjekt {
         Test.hallo();
         System.out.println("disch");
         System.out.println("Penis");
-
+        String[][] handtuchData = readhandtuch.read();
     }
     
 }

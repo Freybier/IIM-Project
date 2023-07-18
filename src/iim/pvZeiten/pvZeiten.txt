@@ -1,0 +1,60 @@
+AHLX     X X   X     X     X         
+ANDxx     x   x     x     x    XXXXXX
+BEGxxxxxx                        XXXX
+BERXx  xxX     X    xXX   xX    x    
+BID                XX      xxxxxxXXXX
+BILx     x     x     x   xxXXXXXX    
+BUC      XXXXXXxxxxxx                
+CAKx     x     x     x     XXXXXX    
+CLAx   xX    xX    xX    xX   xXX    
+DIRXXXXXXx     x     x     x   xx    
+FRA                xX    xX  xxxxXXXX
+FUXX x         X  xXXX x   X  xxx    
+GIEXXXXXXxxxxxx                      
+GOTXXXXXX                            
+GRA     X     X     X     X     X Xx 
+GREX     X     X     X     X         
+GRMX     X     X     X     X     Xxxx
+GROXXX   XXX         xxxxxx          
+GUIX     X     X     X     X    xXxxx
+HAG     x   xxx    xx          XXXXXX
+HAN   xXX                   xxxxxXXXX
+HEK                                  
+HOFXX    X     X     X     X    x    
+HOSX     Xxx   X     X     XXxxxx    
+HOYxxxXxx         XxX         XXX    
+HUKx                      xXXXXXXxxxx
+JANX     X     X     X     X     X   
+JASxxxxxx         XXX         XXX    
+KAL            XXx         xxxxx XXXX
+KASX     X     X     X     X     X   
+KLAXX    XX    x     x     x  XXxxx  
+KLO            xx          XXXXXXxxxx
+KOE            xxxxxx      XXXXXX    
+LIEXXXXXX                  xxxxxx    
+LUEXxxx  x     X     x     XXXX      
+MARxx   X     X     X     X  xxXX    
+MEYxx                      xxxxXXXXXX
+NAD   Xx    Xx    X      X XxxXx     
+PASXXXXXXxx    x     x     x     x   
+PFAXXXXXXx     x     x     x     xx  
+PFE    XX          XX          XX    
+PFUX     x     X    X    X x   XX    
+PINxxxxxx                  XXXXXX    
+QUAX     X     X     X     X     Xxxx
+RAKX    XX     X     X  xxxX     x xx
+REU                      XX      XXXX
+SAKXxxxxXX     X    xX    xX         
+SAL            XXXXXX          xxxxxx
+SCHX           XX            XX      
+SIDX     X     X     X     X     Xxxx
+SMUX   x X  Xx X   x X   x X  xx     
+STHXXXXXX                  xxxxxx    
+STK            XXXXX       xxxxx     
+STLX     X     X     X     X   xxXxxx
+STRXXX    X           XX  x     xxxxx
+VENX    xXXx   X    xX    xX   xx    
+WADXXXXXX                      xxxxxx
+WEB      XXX   XXXxxx         xxx    
+WIM            X     X           XXXX
+WOL     x     x     x   xxX    xXXXXX

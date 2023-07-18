@@ -8,12 +8,16 @@ package iim.projekt;
 import DB.DB;
 import iim.Professor;
 import iim.Test;
+
 import iim.Zeiten;
 import static iim.Zeiten.parseStundenplan;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import iim.Handtuch.readhandtuch;
+
 /**
  *
  * @author frey
@@ -27,6 +31,7 @@ public class IIMProjekt {
 
         // TODO code application logic here
         Test.hallo();
+
         
             String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
         
@@ -41,6 +46,8 @@ public class IIMProjekt {
         for (Professor professor : professoren) {
         professor.wochenZeiten();
         System.out.println();
+        String[][] handtuchData = readhandtuch.read();
+
     }
         
         // DB.speichern(professoren);

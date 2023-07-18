@@ -5,8 +5,15 @@
 package iim.projekt;
 
 
+import DB.DB;
+import iim.Professor;
 import iim.Test;
-
+import iim.Zeiten;
+import static iim.Zeiten.parseStundenplan;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author frey
@@ -20,9 +27,24 @@ public class IIMProjekt {
 
         // TODO code application logic here
         Test.hallo();
-        System.out.println("disch");
-        System.out.println("Penis");
+        
+            String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
+        
+        List<Professor> professoren = Zeiten.parseStundenplan(relativePath);
 
+        // Durchlauf der Liste der Professoren und Ausgabe der Namen und Zeiten
+        for (Professor professor : professoren) {
+            System.out.println("Name: " + professor.getName());
+            System.out.println("Zeiten: " + professor.getZeiten());
+        }
+        
+        for (Professor professor : professoren) {
+        professor.wochenZeiten();
+        System.out.println();
     }
-    
+        
+        // DB.speichern(professoren);
 }
+}
+    
+

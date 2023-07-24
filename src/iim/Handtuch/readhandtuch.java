@@ -12,6 +12,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import javax.lang.model.element.Element;
+import javax.lang.model.util.Elements;
+import javax.swing.text.Document;
 /**
  *
  * @author Frey

@@ -50,7 +50,7 @@ public class IIMProjekt {
 
     }
         
-        // DB.speichern(professoren);
+        //DB.speichern(professoren);
 }
 }
     

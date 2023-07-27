@@ -77,7 +77,34 @@ public class readhandtuch {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        createCSV(tableData);
         return tableData;
     }
+     
+    public static void createCSV(String data[][]){
+        String filePath = "src/iim/Handtuch/output.csv";
+        String[] titel = {"Zug", "LV-Kürzel", "PO", "Bezeichnung", "LVA", "SWS", "geblockt", "online", "SPT", "Dozent"};
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (int i = 0; i < data.length; i++) {
+                for (int j = 0; j < data[i].length; j++) {
+                    if (i == 0){
+                        writer.append(titel[j]);
+                        writer.append(",");
+                    }else{
+                    writer.append(data[i][j]);
+                    if (j < data[i].length - 1) {
+                        writer.append(",");
+                    }
+                    }
+                }
+                writer.append("\n");
+            }
+            System.out.println("CSV file created successfully!");
+        } catch (IOException e) {
+            System.err.println("Error while creating CSV file: " + e.getMessage());
+        }
+    }
+
     
 }

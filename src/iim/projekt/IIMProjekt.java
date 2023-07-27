@@ -77,6 +77,9 @@ public class IIMProjekt {
         List<String[]> data = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data));
         
+
+        //DB.speichern(professoren);
+
 }
 }
     

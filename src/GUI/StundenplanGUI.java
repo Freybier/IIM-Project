@@ -8,7 +8,7 @@ package GUI;
  *
  * @author Yann Leymann
  */
-import iim.Professor;
+import iim.pvZeiten.Professor;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;

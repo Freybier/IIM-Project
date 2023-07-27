@@ -4,7 +4,7 @@
  */
 package DB;
 
-import iim.Professor;
+import iim.pvZeiten.Professor;
 import java.sql.Connection;
 //import java.beans.Statement;
 import java.sql.Statement;
@@ -22,7 +22,7 @@ public class DB {
     public static void speichern(List<Professor> professoren) {
     try {
             // Verbindung zur Datenbank herstellen
-            Connection conn = DriverManager.getConnection("jdbc:derby:mydatabase");
+            Connection conn = DriverManager.getConnection("jdbc:derby:IIM-DB;create=true");
 
             // Tabelle erstellen
             Statement stmt = (Statement) conn.createStatement();

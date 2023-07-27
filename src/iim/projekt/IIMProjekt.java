@@ -5,18 +5,24 @@
 package iim.projekt;
 
 
-import DB.DB;
-import iim.Professor;
-import iim.Test;
+//import iim.GUI.StundenplanFrame;
 
-import iim.Zeiten;
-import static iim.Zeiten.parseStundenplan;
+import DB.DB;
+import GUI.StundenplanGUI;
+import GUI.TxtToCsvTable;
+import static GUI.TxtToCsvTable.readCsvFromFile;
+import iim.pvZeiten.Professor;
+import iim.pvZeiten.Test;
+import iim.pvZeiten.Zeiten;
+import static iim.pvZeiten.Zeiten.parseStundenplan;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import iim.Handtuch.readhandtuch;
+import iim.pvZeiten.ProfToCSV;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -36,7 +42,7 @@ public class IIMProjekt {
             String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
         
         List<Professor> professoren = Zeiten.parseStundenplan(relativePath);
-
+        /*
         // Durchlauf der Liste der Professoren und Ausgabe der Namen und Zeiten
         for (Professor professor : professoren) {
             System.out.println("Name: " + professor.getName());
@@ -46,11 +52,34 @@ public class IIMProjekt {
         for (Professor professor : professoren) {
         professor.wochenZeiten();
         System.out.println();
-        String[][] handtuchData = readhandtuch.read();
+       // String[][] handtuchData = readhandtuch.read();
 
     }
+*/
+        SwingUtilities.invokeLater(() -> {
+            //new StundenplanGUI(professoren);
+        });
         
+       
+       
+             DB.speichern(professoren);
+             
+              // Dateinamen für die CSV-Datei
+        String filename = "professoren.csv";
+
+        // Instanz der ProfVerarbeitung-Klasse erstellen
+        ProfToCSV verarbeitung = new ProfToCSV();
+
+        // Daten in CSV-Format speichern
+        verarbeitung.speichernAlsCSV(professoren, filename);
+        String filePath = "professoren.csv";
+
+        List<String[]> data = readCsvFromFile(filePath);
+        SwingUtilities.invokeLater(() -> new TxtToCsvTable(data));
+        
+
         //DB.speichern(professoren);
+
 }
 }
     

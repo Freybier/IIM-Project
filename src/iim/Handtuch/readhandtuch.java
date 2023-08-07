@@ -105,6 +105,41 @@ public class readhandtuch {
             System.err.println("Error while creating CSV file: " + e.getMessage());
         }
     }
+ 
+    public static String[][] readFromWebsite(String url) {
+        
+        String[][] tableData = null;
+        try {
+            // Fetch the HTML content of the website using Jsoup
+            Document doc = Jsoup.connect(url).get();
 
-    
+            // Find the table element
+            Element table = doc.select("table").first();
+
+            // Get all rows from the table
+            Elements rows = table.select("tr");
+
+            // Rest of the code remains the same
+            // ...
+            // (your existing code for processing the table data)
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return tableData;
+    }
+
+    // Rest of your existing code (createCSV method) remains the same
+
+    public static void webReader(String[] args) {
+        String websiteUrl = "https://example.com";  // Replace with the actual website URL
+        String[][] tableData = readFromWebsite(websiteUrl);
+
+        if (tableData != null) {
+            // Call the createCSV method to create the CSV file
+            createCSV(tableData);
+        }
+    }
 }
+

@@ -10,18 +10,18 @@ package iim.projekt;
 import GUI.StundenplanGUI;
 import GUI.TxtToCsvTable;
 import static GUI.TxtToCsvTable.readCsvFromFile;
-import iim.pvZeiten.Professor;
-import iim.pvZeiten.Zeiten;
-import static iim.pvZeiten.Zeiten.parseStundenplan;
+import iim.pvZeiten.Lecturer;
+import iim.pvZeiten.pvZeitenToLecturer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import iim.Handtuch.ReadHandtuch2;
-import iim.pvZeiten.ProfToCSV;
+import iim.pvZeiten.LecturerToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
+import static iim.pvZeiten.pvZeitenToLecturer.splittNameWishList;
 
 /**
  *
@@ -35,40 +35,43 @@ public class IIMProjekt {
     public static void main(String[] args) {
 
 
-            String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
+            String relativePath = "src/iim/pvZeiten/pvZeitenTest.txt";
         
-        List<Professor> professoren = Zeiten.parseStundenplan(relativePath);
+        List<Lecturer> lecturers = pvZeitenToLecturer.splittNameWishList(relativePath);
         
         SwingUtilities.invokeLater(() -> {
-            //new StundenplanGUI(professoren);
+            //new StundenplanGUI(lecturers);
         });
-        
-       
-       
-             
+            
               // Dateinamen für die CSV-Datei
-        String filename = "professoren.csv";
+        String filename = "lecturers.csv";
 
         // Instanz der ProfVerarbeitung-Klasse erstellen
-        ProfToCSV verarbeitung = new ProfToCSV();
+        LecturerToCSV verarbeitung = new LecturerToCSV();
 
         // Daten in CSV-Format speichern
-        verarbeitung.speichernAlsCSV(professoren, filename);
+        verarbeitung.speichernAlsCSV(lecturers, filename);
         
         ReadHandtuch2.read();
         
-        //String filePath = "professoren.csv";
+        //String filePath = "lecturers.csv";
         String filePath = "src/iim/Handtuch/HandtuchOutput.csv";
         List<String[]> data = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data));
         
         
-        filePath = "professoren.csv";
+        filePath = "lecturers.csv";
          List<String[]> data2 = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data2));
 
-        //DB.speichern(professoren);
+        //DB.speichern(lecturers);
         StundenplanFrame gui = new StundenplanFrame(); 
+        
+        for(Lecturer lecturer : lecturers){
+            if(lecturer.getName().equals("YAN")){
+                System.out.print(lecturer.getAvailable());
+            }
+        }
 }
 }
     

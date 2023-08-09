@@ -16,7 +16,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public StundenplanFrame() {
         initComponents();
         build();
-    }
+        setVisible(true);    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,7 +112,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StundenplanFrame().setVisible(true);
+                
             }
         });
     }

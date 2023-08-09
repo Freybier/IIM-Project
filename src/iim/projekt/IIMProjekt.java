@@ -7,7 +7,6 @@ package iim.projekt;
 
 //import iim.GUI.StundenplanFrame;
 
-import DB.DB;
 import GUI.StundenplanGUI;
 import GUI.TxtToCsvTable;
 import static GUI.TxtToCsvTable.readCsvFromFile;
@@ -46,7 +45,6 @@ public class IIMProjekt {
         
        
        
-             DB.speichern(professoren);
              
               // Dateinamen für die CSV-Datei
         String filename = "professoren.csv";

@@ -19,9 +19,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import iim.Handtuch.readhandtuch;
+import iim.Handtuch.ReadHandtuch;
 import iim.pvZeiten.ProfToCSV;
 import javax.swing.SwingUtilities;
+import GUI.StundenplanFrame;
 
 /**
  *
@@ -55,8 +56,11 @@ public class IIMProjekt {
 
         // Daten in CSV-Format speichern
         verarbeitung.speichernAlsCSV(professoren, filename);
+        
+        ReadHandtuch.read();
+        
         //String filePath = "professoren.csv";
-        String filePath = "src/iim/Handtuch/output.csv";
+        String filePath = "src/iim/Handtuch/HandtuchOutput.csv";
         List<String[]> data = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data));
         
@@ -66,7 +70,7 @@ public class IIMProjekt {
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data2));
 
         //DB.speichern(professoren);
-
+        StundenplanFrame gui = new StundenplanFrame(); 
 }
 }
     

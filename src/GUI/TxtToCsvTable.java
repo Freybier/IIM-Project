@@ -42,7 +42,7 @@ public class TxtToCsvTable extends JFrame{
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] row = line.split(","); // Hier ',' als Trennzeichen, kann auch ';' sein
+                String[] row = line.split(";"); // Hier ',' als Trennzeichen, kann auch ';' sein
                 data.add(row);
             }
         } catch (IOException e) {

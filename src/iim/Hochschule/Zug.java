@@ -4,6 +4,9 @@
  */
 package iim.Hochschule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Yann Leymann
@@ -11,25 +14,22 @@ package iim.Hochschule;
 public class Zug {
     private final String name;
     private long scheduled = 0;
-    private int numberOfLV;
-    private String[] lv;
+    private List<LV> lv = new ArrayList<>();
 
-    public Zug(String name, int numberOfLV) {
+    public Zug(String name) {
         this.name = name;
-        this.numberOfLV = numberOfLV;
-        this.lv = new String[numberOfLV];
     }
     
     public String getName(){
         return name;
     }
     
-    public String[] getLV(){
+    public List<LV> getLV(){
     return lv;
     }
     
-    public void setLV(String[] lv){
-        this.lv = lv;
+    public void addLV(LV lv){
+        this.lv.add(lv);
     }
         
     public long getScheduled(){

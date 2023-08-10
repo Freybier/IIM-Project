@@ -50,8 +50,7 @@ public static List<Dozent> splittNameWishList(String filename) {
         } catch (IOException e) {
             e.printStackTrace();
         }
-            ReadCSVs readCSVs = new ReadCSVs();        
-            readCSVs.getLVforDozentfromCSV(dozentenList);
+            
         return dozentenList;
     }
 

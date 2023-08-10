@@ -4,16 +4,42 @@
  */
 package iim.Hochschule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Yann Leymann
  */
 public class LV {
     private final String name;
-    private int numberOfDozenten;
-    private String[] dozent;
+    private String fullName;
+    private String po;
+    private List<String> dozenten = new ArrayList<>();
 
-    public LV() {
-        this.name = null;
+    public LV(String name, String fullName, String po) {
+        this.name = name;
+        this.fullName = fullName;
+        this.po = po;      
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public String getFullName(){
+        return fullName;
+    }
+    
+    public String getPO(){
+        return po;
+    }
+    
+    public List<String> getDozenten(){
+        return dozenten;
+    }
+    
+    public void addDozenten(String dozenten){
+        this.dozenten.add(dozenten);
     }
 }

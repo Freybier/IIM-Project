@@ -21,6 +21,9 @@ import iim.Handtuch.ReadHandtuch2;
 import iim.pvZeiten.DozentToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
+import iim.Hochschule.LV;
+import iim.Hochschule.ReadCSVs;
+import iim.Hochschule.Zug;
 import static iim.pvZeiten.pvZeitenToDozent.splittNameWishList;
 
 /**
@@ -35,29 +38,42 @@ public class IIMProjekt {
     public static void main(String[] args) {
 
 
-            String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
+        String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
         
-        List<Dozent> dozenten = pvZeitenToDozent.splittNameWishList(relativePath);
+        
         
         SwingUtilities.invokeLater(() -> {
             //new StundenplanGUI(dozenten);
         });
             
               // Dateinamen für die CSV-Datei
-        String filename = "dozenten.csv";
+        
 
         // Instanz der ProfVerarbeitung-Klasse erstellen
         DozentToCSV verarbeitung = new DozentToCSV();
 
         // Daten in CSV-Format speichern
-        verarbeitung.saveAsCSV(dozenten, filename);
+        
         
         ReadHandtuch2.read();
         
-        //String filePath = "dozenten.csv";
+        List<LV> lvList = ReadCSVs.createLVListFromCSV("src/iim/Handtuch/HandtuchOutput.csv");
+        
+        List<Dozent> dozenten = pvZeitenToDozent.splittNameWishList(relativePath);
+        
+        ReadCSVs readCSVs = new ReadCSVs();        
+        readCSVs.getLVforDozentfromCSV(dozenten, lvList);
+            
+        String filename = "dozenten.csv";
+        verarbeitung.saveAsCSV(dozenten, filename);
+        
         String filePath = "src/iim/Handtuch/HandtuchOutput.csv";
         List<String[]> data = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data));
+        
+        String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchOutput.csv";
+        List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
+        
         
         
         filePath = "dozenten.csv";

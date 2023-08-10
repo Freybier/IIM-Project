@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package iim.pvZeiten;
+import iim.Hochschule.Dozent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,10 +13,10 @@ import java.util.List;
  *
  * @author Yann Leymann
  */
-public class pvZeitenToLecturer {
+public class pvZeitenToDozent {
 
-public static List<Lecturer> splittNameWishList(String filename) {
-        List<Lecturer> lecturers = new ArrayList<>();
+public static List<Dozent> splittNameWishList(String filename) {
+        List<Dozent> dozenten = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -41,14 +42,14 @@ public static List<Lecturer> splittNameWishList(String filename) {
                 doesNotWant = doesNotWant << 1;
                 }
             }
-                Lecturer lecturer = new Lecturer(name, wishList, available, doesNotWant, scheduled);
-                lecturers.add(lecturer);
+                Dozent dozent = new Dozent(name, wishList, available, doesNotWant, scheduled);
+                dozenten.add(dozent);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return lecturers;
+        return dozenten;
     }
 
     

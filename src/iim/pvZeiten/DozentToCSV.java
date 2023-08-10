@@ -14,19 +14,19 @@ import java.util.List;
  * @author Yann Leymann
  */
 public class DozentToCSV {
-       public void saveAsCSV(List<Dozent> lecturers, String filename) {
+       public void saveAsCSV(List<Dozent> dozenten, String filename) {
         try (FileWriter writer = new FileWriter(filename)) {
             writer.append("Name;Montag 1. Block;Montag 2. Block;Montag 3. Block;Montag 4. Block;Montag 5. Block;Montag 6. Block;Dienstag 1. Block;Dienstag 2. Block;Dienstag 3. Block;Dienstag 4. Block;Dienstag 5. Block;Dienstag 6. Block;Mittwoch 1. Block;Mittwoch 2. Block;Mittwoch 3. Block;Mittwoch 4. Block;Mittwoch 5. Block;Mittwoch 6. Block;Donnerstag 1. Block;Donnerstag 2. Block;Donnerstag 3. Block;Donnerstag 4. Block;Donnerstag 5. Block;Donnerstag 6. Block;Freitag 1. Block;Freitag 2. Block;Freitag 3. Block;Freitag 4. Block;Freitag 5. Block;Freitag 6. Block;Samstag 1. Block;Samstag 2. Block;Samstag 3. Block;Samstag 4. Block\n");
 
             String[] tage = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
             String[] blocks = {"1. block", "2. block", "3. block", "4. block", "5. block", "6. block"};
             
-            for (Dozent lecturer : lecturers) {
-            StringBuilder line = new StringBuilder(lecturer.getName());
+            for (Dozent dozent : dozenten) {
+            StringBuilder line = new StringBuilder(dozent.getName());
 
             int countBlocks = 0;
-            for (int i = 0; i < lecturer.getWishList().length(); i++) {
-                char pos = lecturer.getWishList().charAt(i);
+            for (int i = 0; i < dozent.getWishList().length(); i++) {
+                char pos = dozent.getWishList().charAt(i);
                 String status;
 
                 if (pos == ' ') {

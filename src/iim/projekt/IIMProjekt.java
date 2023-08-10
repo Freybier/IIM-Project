@@ -35,7 +35,7 @@ public class IIMProjekt {
     public static void main(String[] args) {
 
 
-            String relativePath = "src/iim/pvZeiten/pvZeitenTest.txt";
+            String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
         
         List<Dozent> dozenten = pvZeitenToDozent.splittNameWishList(relativePath);
         
@@ -66,13 +66,14 @@ public class IIMProjekt {
 
         //DB.speichern(dozenten);
         StundenplanFrame gui = new StundenplanFrame(); 
-        
+        /*
         for(Dozent lecturer : dozenten){
             if(lecturer.getName().equals("YAN")){
                 System.out.print(lecturer.getAvailable());
             }
-        }
+        }*/
 }
 }
+
     
 

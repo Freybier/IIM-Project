@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package iim.pvZeiten;
+import iim.Hochschule.ReadCSVs;
 import iim.Hochschule.Dozent;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,7 +17,7 @@ import java.util.List;
 public class pvZeitenToDozent {
 
 public static List<Dozent> splittNameWishList(String filename) {
-        List<Dozent> dozenten = new ArrayList<>();
+        List<Dozent> dozentenList = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -27,7 +28,7 @@ public static List<Dozent> splittNameWishList(String filename) {
                 long available = 0;
                 long doesNotWant = 0;
                 
-                long scheduled = 0;
+                
                 
             for (int i = 0; i < wishList.length(); i++) {
                 char pos = wishList.charAt(i);
@@ -42,14 +43,16 @@ public static List<Dozent> splittNameWishList(String filename) {
                 doesNotWant = doesNotWant << 1;
                 }
             }
-                Dozent dozent = new Dozent(name, wishList, available, doesNotWant, scheduled);
-                dozenten.add(dozent);
+                Dozent dozent = new Dozent(name, wishList, available, doesNotWant);
+                dozentenList.add(dozent);
             }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return dozenten;
+            ReadCSVs readCSVs = new ReadCSVs();        
+            readCSVs.getLVforDozentfromCSV(dozentenList);
+        return dozentenList;
     }
 
     

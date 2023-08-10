@@ -4,6 +4,9 @@
  */
 package iim.Hochschule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Yann Leymann
@@ -13,14 +16,15 @@ public class Dozent {
     private String wishList;
     private long available;
     private long doesNotWant;
-    private long scheduled;
+    private long scheduled = 0;
+    private List<String> lv = new ArrayList<>();
 
-    public Dozent(String name, String wishList, long available, long doesNotWant, long scheduled) {
+    public Dozent(String name, String wishList, long available, long doesNotWant) {
         this.name = name;
         this.wishList = wishList;
         this.available = available;
         this.doesNotWant = doesNotWant;
-        this.scheduled = scheduled;
+        
     }
 
     public String getName() {
@@ -48,8 +52,15 @@ public class Dozent {
     public long getScheduled() {
         return scheduled;
     }
-    public void setScheduled(long doesNotWant) {
+    public void setScheduled(long scheduled) {
         this.scheduled = scheduled;
     }
-
+    
+     public List<String> getLV(){
+        return lv;
+    }
+    
+    public void addLV(String lv){
+        this.lv.add(lv);
+    }
 }

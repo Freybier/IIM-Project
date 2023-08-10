@@ -4,6 +4,14 @@
  */
 package GUI;
 
+import iim.Handtuch.ReadHandtuch2;
+import java.util.Set;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Yann Leymann
@@ -16,8 +24,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public StundenplanFrame() {
         initComponents();
         build();
-        setVisible(true);    }
-
+        setVisible(true);    
+        
+    }
+    public TableRowSorter<TableModel> sorter;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,7 +66,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(6).setHeaderValue("Samstag");
         }
 
-        ProfName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ProfName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alle" }));
+        ProfName.setToolTipText("");
+        ProfName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProfNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,8 +101,23 @@ public class StundenplanFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ProfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfNameActionPerformed
+        // TODO add your handling code here:
+        if (ProfName.getSelectedItem().toString().equalsIgnoreCase("Alle")){
+            sorter.setRowFilter(null);
+        }else{
+            String prof = ProfName.getSelectedItem().toString();
+            filterTable(prof);
+        }
+    }//GEN-LAST:event_ProfNameActionPerformed
     
-    public static void build() {
+    public void filterTable(String name){
+        
+        // Filter the table based on a specific column
+        sorter.setRowFilter(RowFilter.regexFilter(name, 9));
+    }
+    
+    public void build() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -115,6 +147,35 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 
             }
         });
+        buildJTable();
+        updateComboBox();
+    }
+    
+    
+    /**
+    public void updateJTable(){
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(ReadHandtuch2.getObjectTable(), new String[]{
+            "Zug", "LV-Kürzel", "PO", "Bezeichnung", "LVA", "SWS", "geblockt", "online", "SPT", "Dozent"
+        }));
+    }
+    */
+    
+    public void buildJTable(){
+        Object[][] data = ReadHandtuch2.getObjectTable();
+        String[] columnNames = {"Zug", "LV-Kürzel", "PO", "Bezeichnung", "LVA", "SWS", "geblockt", "online", "SPT", "Dozent"};
+        
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        jTable1.setModel(model);
+        
+        
+        sorter = new TableRowSorter<>(model);
+        jTable1.setRowSorter(sorter);
+    }
+    public void updateComboBox(){
+        Set names = ReadHandtuch2.getNames();
+        for(Object name : names){
+            ProfName.addItem((String)name);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

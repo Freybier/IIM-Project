@@ -13,13 +13,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Frey
  */
 public class ReadHandtuch2 {
-     public static String[][] read() {
-         String[][] tableData = null;
+    private static String[][] tableData = null;
+    public static int numRows = 0;
+    public static int numCols = 0;
+    
+    
+    public static String[][] read() {
+         
         try {
             // Read the HTML file using Jsoup
             Document doc = Jsoup.parse(new File("src/iim/Handtuch/Handtuch.html"), "UTF-8");
@@ -34,8 +42,8 @@ public class ReadHandtuch2 {
             BufferedWriter writer = new BufferedWriter(new FileWriter("src/iim/Handtuch/HandtuchOutput.txt"));
             
              // Count the number of rows and columns
-            int numRows = rows.size();
-            int numCols = 0;
+            numRows = rows.size();
+            numCols = 0;
             for (Element row : rows) {
                 Elements cells = row.select("td");
                 numCols = Math.max(numCols, cells.size());
@@ -141,5 +149,36 @@ public class ReadHandtuch2 {
             createCSV(tableData);
         }
     }
+    
+    public static Object[][] getObjectTable(){
+        String convertable[][] = tableData; 
+        Object[][] tableObject= convert(convertable);
+        
+        return tableObject;
+    }
+    
+    public static Object[][] convert(String[][] stringArray) {
+        numRows = stringArray.length;
+        numCols = stringArray[0].length;
+
+        Object[][] objectArray = new Object[numRows][numCols];
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                objectArray[i][j] = stringArray[i][j];
+            }
+        }
+        return objectArray;
+    }
+    
+    public static Set getNames(){
+        
+        Set<String> names = new HashSet<>();
+        for(int i = 1; i < numRows; i++){
+            names.add(tableData[i][9]);
+        }
+        return names;
+    }
+    
 }
 

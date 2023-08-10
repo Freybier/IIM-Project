@@ -20,11 +20,11 @@ import java.util.Set;
  * @author Frey
  */
 public class ReadHandtuch2 {
+
     private static String[][] tableData = null;
     public static int numRows = 0;
     public static int numCols = 0;
-    
-    
+
     public static String[][] readFromFile() {
         String[][] tableArray = null;
         try {
@@ -32,61 +32,57 @@ public class ReadHandtuch2 {
             Document doc = Jsoup.parse(new File("src/iim/Handtuch/Handtuch.html"), "UTF-8");
 
             tableArray = read(doc);
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return tableArray;
     }
-    
+
     public static String[][] read(Document doc) {
-            // Find the table element
-            Element table = doc.select("table").first();
+        // Find the table element
+        Element table = doc.select("table").first();
 
-            // Get all rows from the table
-            Elements rows = table.select("tr");
+        // Get all rows from the table
+        Elements rows = table.select("tr");
 
-            
-             // Count the number of rows and columns
-            numRows = rows.size();
-            numCols = 0;
-            for (Element row : rows) {
-                Elements cells = row.select("td");
-                numCols = Math.max(numCols, cells.size());
+        // Count the number of rows and columns
+        numRows = rows.size();
+        numCols = 0;
+        for (Element row : rows) {
+            Elements cells = row.select("td, th");
+            numCols = Math.max(numCols, cells.size());
+        }
+
+        // Create a two-dimensional array to store the table entries
+        tableData = new String[numRows][numCols];
+
+        // Iterate over the rows and columns, and store the table entries in the array
+        for (int i = 0; i < numRows; i++) {
+            Element row = rows.get(i);
+            Elements cells = row.select("td, th");
+            for (int j = 0; j < cells.size(); j++) {
+                Element cell = cells.get(j);
+
+                tableData[i][j] = cell.text();
             }
-            
-            // Create a two-dimensional array to store the table entries
-            tableData = new String[numRows][numCols];
-            
-             // Iterate over the rows and columns, and store the table entries in the array
-            for (int i = 0; i < numRows; i++) {
-                Element row = rows.get(i);
-                Elements cells = row.select("td");
-                for (int j = 0; j < cells.size(); j++) {
-                    Element cell = cells.get(j);
-                    tableData[i][j] = cell.text();
-                }
-            }
+        }
         String[][] tableArray = tableData;
         createCSV(tableArray);
         return tableArray;
     }
-     
-    public static void createCSV(String data[][]){
+
+    public static void createCSV(String data[][]) {
         String filePath = "src/iim/Handtuch/HandtuchOutput.csv";
-        String[] titel = {"Zug", "LV-Kürzel", "PO", "Bezeichnung", "LVA", "SWS", "geblockt", "online", "SPT", "Dozent"};
         try (FileWriter writer = new FileWriter(filePath)) {
             for (int i = 0; i < data.length; i++) {
                 for (int j = 0; j < data[i].length; j++) {
-                    if (i == 0){
-                        writer.append(titel[j]);
-                        writer.append(";");
-                    }else{
+
                     writer.append(data[i][j]);
                     if (j < data[i].length - 1) {
                         writer.append(";");
-                    }
+
                     }
                 }
                 writer.append("\n");
@@ -96,16 +92,15 @@ public class ReadHandtuch2 {
             System.err.println("Error while creating CSV file: " + e.getMessage());
         }
     }
- 
+
     public static String[][] readFromWebsite(String url) {
-        
+
         String[][] tableArray = null;
         try {
             // Fetch the HTML content of the website using Jsoup
             Document doc = Jsoup.connect(url).get();
 
             tableArray = read(doc);
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,7 +110,6 @@ public class ReadHandtuch2 {
     }
 
     // Rest of your existing code (createCSV method) remains the same
-
     public static void webReader() {
         String websiteUrl = "https://example.com";  // Replace with the actual website URL
         tableData = readFromWebsite(websiteUrl);
@@ -125,14 +119,14 @@ public class ReadHandtuch2 {
             createCSV(tableData);
         }
     }
-    
-    public static Object[][] getObjectTable(){
-        String convertable[][] = tableData; 
-        Object[][] tableObject= convert(convertable);
-        
+
+    public static Object[][] getObjectTable() {
+        String convertable[][] = tableData;
+        Object[][] tableObject = convert(convertable);
+
         return tableObject;
     }
-    
+
     public static Object[][] convert(String[][] stringArray) {
         numRows = stringArray.length;
         numCols = stringArray[0].length;
@@ -147,32 +141,96 @@ public class ReadHandtuch2 {
         return objectArray;
     }
     
-    public static Set getNames(){
-        
+    
+
+    public static Set getDozent() {
+
         Set<String> names = new HashSet<>();
-        for(int i = 1; i < numRows; i++){
+        for (int i = 0; i < numRows; i++) {
             names.add(tableData[i][9]);
         }
         return names;
     }
-    
-    public static Set getZug(){
-        
+
+    public static Set getZug() {
+
         Set<String> zuege = new HashSet<>();
-        for(int i = 1; i < numRows; i++){
+        for (int i = 0; i < numRows; i++) {
             zuege.add(tableData[i][0]);
         }
         return zuege;
     }
-    
-    public static Set getLV(){
-        
-        Set<String> names = new HashSet<>();
-        for(int i = 1; i < numRows; i++){
-            names.add(tableData[i][1]);
+
+    public static Set getLV() {
+
+        Set<String> lv = new HashSet<>();
+        for (int i = 0; i < numRows; i++) {
+            lv.add(tableData[i][4]);
         }
-        return names;
+        return lv;
     }
     
-}
+    public static Set getLVK() {
 
+        Set<String> lv = new HashSet<>();
+        for (int i = 0; i < numRows; i++) {
+            lv.add(tableData[i][1]);
+        }
+        return lv;
+    }
+    
+    public static Set getPO() {
+
+        Set<String> lv = new HashSet<>();
+        for (int i = 0; i < numRows; i++) {
+            lv.add(tableData[i][2]);
+        }
+        return lv;
+    }
+    
+    public static Set getBezeichnung() {
+
+        Set<String> lv = new HashSet<>();
+        for (int i = 0; i < numRows; i++) {
+            lv.add(tableData[i][3]);
+        }
+        return lv;
+    }
+    
+    public static Set getSWS() {
+
+        Set<String> lv = new HashSet<>();
+        for (int i = 0; i < numRows; i++) {
+            lv.add(tableData[i][5]);
+        }
+        return lv;
+    }
+    
+    public static Set getGeblockt() {
+
+        Set<String> lv = new HashSet<>();
+        for (int i = 0; i < numRows; i++) {
+            lv.add(tableData[i][6]);
+        }
+        return lv;
+    }
+    
+    public static Set getOnline() {
+
+        Set<String> lv = new HashSet<>();
+        for (int i = 0; i < numRows; i++) {
+            lv.add(tableData[i][7]);
+        }
+        return lv;
+    }
+    
+    public static Set getSPT() {
+
+        Set<String> lv = new HashSet<>();
+        for (int i = 0; i < numRows; i++) {
+            lv.add(tableData[i][8]);
+        }
+        return lv;
+    }
+
+}

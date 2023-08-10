@@ -8,7 +8,7 @@ package GUI;
  *
  * @author Yann Leymann
  */
-import iim.pvZeiten.Lecturer;
+import iim.Hochschule.Dozent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
@@ -17,18 +17,18 @@ public class StundenplanGUI {
     private JFrame frame;
     private JTable table;
     private JComboBox<String> professorDropdown;
-    private List<Lecturer> profs;
+    private List<Dozent> profs;
 
-    public StundenplanGUI(List<Lecturer> profs) {
+    public StundenplanGUI(List<Dozent> profs) {
         this.profs = profs;
         frame = new JFrame("Stundenplan");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Dropdown-Menü für Professoren
-        String[] professoren = profs.stream().map(Lecturer::getName).toArray(String[]::new);
+        String[] professoren = profs.stream().map(Dozent::getName).toArray(String[]::new);
         professorDropdown = new JComboBox<>(professoren);
         professorDropdown.addActionListener(e -> {
-            // Aktualisiere die Tabelle, wenn ein Lecturer ausgewählt wird
+            // Aktualisiere die Tabelle, wenn ein Dozent ausgewählt wird
             String selectedProfessor = (String) professorDropdown.getSelectedItem();
             updateTable(selectedProfessor);
         });
@@ -48,11 +48,11 @@ public class StundenplanGUI {
     }
 
     private void updateTable(String selectedProfessor) {
-        // Hier können Sie die Tabelle basierend auf dem ausgewählten Lecturer aktualisieren
+        // Hier können Sie die Tabelle basierend auf dem ausgewählten Dozent aktualisieren
         // Z.B. durch Zugriff auf die Datenbank oder ein anderes Datenmodell
 
-        // Beispiel: Finde den ausgewählten Lecturer in der Liste der Professoren
-        Lecturer professor = profs.stream()
+        // Beispiel: Finde den ausgewählten Dozent in der Liste der Professoren
+        Dozent professor = profs.stream()
                 .filter(p -> p.getName().equals(selectedProfessor))
                 .findFirst()
                 .orElse(null);

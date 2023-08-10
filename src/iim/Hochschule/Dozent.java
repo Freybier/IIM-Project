@@ -2,25 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package iim.pvZeiten;
+package iim.Hochschule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Yann Leymann
  */
-public class Lecturer {
+public class Dozent {
     private final String name;
     private String wishList;
     private long available;
     private long doesNotWant;
-    private long scheduled;
+    private long scheduled = 0;
+    private List<LV> lv = new ArrayList<>();
 
-    public Lecturer(String name, String wishList, long available, long doesNotWant, long scheduled) {
+    public Dozent(String name, String wishList, long available, long doesNotWant) {
         this.name = name;
         this.wishList = wishList;
         this.available = available;
         this.doesNotWant = doesNotWant;
-        this.scheduled = scheduled;
+        
     }
 
     public String getName() {
@@ -48,8 +52,15 @@ public class Lecturer {
     public long getScheduled() {
         return scheduled;
     }
-    public void setScheduled(long doesNotWant) {
+    public void setScheduled(long scheduled) {
         this.scheduled = scheduled;
     }
-
+    
+     public List<LV> getLV(){
+        return lv;
+    }
+    
+    public void addLV(LV lv){
+        this.lv.add(lv);
+    }
 }

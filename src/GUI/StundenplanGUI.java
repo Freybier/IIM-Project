@@ -8,7 +8,7 @@ package GUI;
  *
  * @author Yann Leymann
  */
-import iim.pvZeiten.Professor;
+import iim.pvZeiten.Lecturer;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
@@ -17,18 +17,18 @@ public class StundenplanGUI {
     private JFrame frame;
     private JTable table;
     private JComboBox<String> professorDropdown;
-    private List<Professor> profs;
+    private List<Lecturer> profs;
 
-    public StundenplanGUI(List<Professor> profs) {
+    public StundenplanGUI(List<Lecturer> profs) {
         this.profs = profs;
         frame = new JFrame("Stundenplan");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Dropdown-Menü für Professoren
-        String[] professoren = profs.stream().map(Professor::getName).toArray(String[]::new);
+        String[] professoren = profs.stream().map(Lecturer::getName).toArray(String[]::new);
         professorDropdown = new JComboBox<>(professoren);
         professorDropdown.addActionListener(e -> {
-            // Aktualisiere die Tabelle, wenn ein Professor ausgewählt wird
+            // Aktualisiere die Tabelle, wenn ein Lecturer ausgewählt wird
             String selectedProfessor = (String) professorDropdown.getSelectedItem();
             updateTable(selectedProfessor);
         });
@@ -48,11 +48,11 @@ public class StundenplanGUI {
     }
 
     private void updateTable(String selectedProfessor) {
-        // Hier können Sie die Tabelle basierend auf dem ausgewählten Professor aktualisieren
+        // Hier können Sie die Tabelle basierend auf dem ausgewählten Lecturer aktualisieren
         // Z.B. durch Zugriff auf die Datenbank oder ein anderes Datenmodell
 
-        // Beispiel: Finde den ausgewählten Professor in der Liste der Professoren
-        Professor professor = profs.stream()
+        // Beispiel: Finde den ausgewählten Lecturer in der Liste der Professoren
+        Lecturer professor = profs.stream()
                 .filter(p -> p.getName().equals(selectedProfessor))
                 .findFirst()
                 .orElse(null);
@@ -63,7 +63,7 @@ public class StundenplanGUI {
             table.setModel(model);
 
             // Beispiel: Fülle die Tabelle mit den Zeiten des Professors
-            String[] zeiten = professor.getZeiten().split(",");
+            String[] zeiten = professor.getWishList().split(",");
             for (int row = 0; row < zeiten.length; row++) {
                 String[] blockZeiten = zeiten[row].trim().split("\\s+");
                 for (int col = 0; col < blockZeiten.length; col++) {

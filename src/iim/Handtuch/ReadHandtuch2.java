@@ -8,7 +8,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
@@ -26,20 +25,28 @@ public class ReadHandtuch2 {
     public static int numCols = 0;
     
     
-    public static String[][] read() {
-         
+    public static String[][] readFromFile() {
+        String[][] tableArray = null;
         try {
             // Read the HTML file using Jsoup
             Document doc = Jsoup.parse(new File("src/iim/Handtuch/Handtuch.html"), "UTF-8");
 
+            tableArray = read(doc);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return tableArray;
+    }
+    
+    public static String[][] read(Document doc) {
             // Find the table element
             Element table = doc.select("table").first();
 
             // Get all rows from the table
             Elements rows = table.select("tr");
 
-            // Create a BufferedWriter to write to a text file
-            BufferedWriter writer = new BufferedWriter(new FileWriter("src/iim/Handtuch/HandtuchOutput.txt"));
             
              // Count the number of rows and columns
             numRows = rows.size();
@@ -61,33 +68,9 @@ public class ReadHandtuch2 {
                     tableData[i][j] = cell.text();
                 }
             }
-
-            // Iterate over the rows and write the content to the text file
-            for (Element row : rows) {
-                Elements cells = row.select("td");
-                for (Element cell : cells) {
-                    String cellText = cell.text();
-                    if(cellText == null){
-                        continue;
-                    }
-                    else if(cellText.isEmpty()){
-                        writer.write("noInfo");
-                    }else{
-                        writer.write(cellText);
-                    }
-                    writer.newLine();
-                }
-                writer.newLine();
-            }
-
-            // Close the writer
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        createCSV(tableData);
-        return tableData;
+        String[][] tableArray = tableData;
+        createCSV(tableArray);
+        return tableArray;
     }
      
     public static void createCSV(String data[][]){
@@ -116,33 +99,26 @@ public class ReadHandtuch2 {
  
     public static String[][] readFromWebsite(String url) {
         
-        String[][] tableData = null;
+        String[][] tableArray = null;
         try {
             // Fetch the HTML content of the website using Jsoup
             Document doc = Jsoup.connect(url).get();
 
-            // Find the table element
-            Element table = doc.select("table").first();
+            tableArray = read(doc);
 
-            // Get all rows from the table
-            Elements rows = table.select("tr");
-
-            // Rest of the code remains the same
-            // ...
-            // (your existing code for processing the table data)
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return tableData;
+        return tableArray;
     }
 
     // Rest of your existing code (createCSV method) remains the same
 
-    public static void webReader(String[] args) {
+    public static void webReader() {
         String websiteUrl = "https://example.com";  // Replace with the actual website URL
-        String[][] tableData = readFromWebsite(websiteUrl);
+        tableData = readFromWebsite(websiteUrl);
 
         if (tableData != null) {
             // Call the createCSV method to create the CSV file
@@ -176,6 +152,24 @@ public class ReadHandtuch2 {
         Set<String> names = new HashSet<>();
         for(int i = 1; i < numRows; i++){
             names.add(tableData[i][9]);
+        }
+        return names;
+    }
+    
+    public static Set getZug(){
+        
+        Set<String> zuege = new HashSet<>();
+        for(int i = 1; i < numRows; i++){
+            zuege.add(tableData[i][0]);
+        }
+        return zuege;
+    }
+    
+    public static Set getLV(){
+        
+        Set<String> names = new HashSet<>();
+        for(int i = 1; i < numRows; i++){
+            names.add(tableData[i][1]);
         }
         return names;
     }

@@ -52,7 +52,7 @@ public class IIMProjekt {
         // Daten in CSV-Format speichern
         verarbeitung.speichernAlsCSV(lecturers, filename);
         
-        ReadHandtuch2.read();
+        ReadHandtuch2.readFromFile();
         
         //String filePath = "lecturers.csv";
         String filePath = "src/iim/Handtuch/HandtuchOutput.csv";

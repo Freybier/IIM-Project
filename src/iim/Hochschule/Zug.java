@@ -14,14 +14,20 @@ import java.util.List;
 public class Zug {
     private final String name;
     private long scheduled = 0;
+    private String po;
     private List<LV> lv = new ArrayList<>();
 
-    public Zug(String name) {
+    public Zug(String name, String po) {
         this.name = name;
+        this.po = po;
     }
     
     public String getName(){
         return name;
+    }
+    
+    public String getPO(){
+        return po;
     }
     
     public List<LV> getLV(){

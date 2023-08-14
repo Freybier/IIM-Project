@@ -5,6 +5,7 @@
 package GUI;
 
 import iim.Handtuch.ReadHandtuch2;
+import java.io.IOException;
 import java.util.Set;
 
 import javax.swing.*;
@@ -17,7 +18,8 @@ import javax.swing.table.TableRowSorter;
  * @author Yann Leymann
  */
 public class StundenplanFrame extends javax.swing.JFrame {
-
+    
+    public int columnNr = 10;
     /**
      * Creates new form StundenplanFrame
      */
@@ -41,7 +43,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         ProfName = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,10 +77,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ungeordnet" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -90,10 +92,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ProfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,9 +105,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(36, 36, 36)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(ProfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
@@ -115,22 +117,84 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void ProfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfNameActionPerformed
         // TODO add your handling code here:
+        System.out.println(evt);
+        try{
         if (ProfName.getSelectedItem().toString().equalsIgnoreCase("Alle")){
             sorter.setRowFilter(null);
         }else{
-            String prof = ProfName.getSelectedItem().toString();
-            filterTable(prof);
+            String filter = ProfName.getSelectedItem().toString();
+            filterUpdate(filter, columnNr);
+        }
+        }catch(Exception e){
+            System.out.println(e);
         }
     }//GEN-LAST:event_ProfNameActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-    
-    public void filterTable(String name){
+        String chosentitle = jComboBox1.getSelectedItem().toString();
         
+        Set<String> words;
+        ProfName.removeAllItems();
+        switch (chosentitle) {
+            case "Zug":
+                columnNr = 0;
+                words = ReadHandtuch2.getZug();
+                break;
+            case "LV-Kürzel":
+                columnNr = 1;
+                words = ReadHandtuch2.getLVK();
+                break;
+            case "PO":
+                columnNr = 2;
+                words = ReadHandtuch2.getPO();
+                break;
+            case "Bezeichnung":
+                columnNr = 3;
+                words = ReadHandtuch2.getBezeichnung();
+                break;
+            case "LVA":
+                columnNr = 4;
+                words = ReadHandtuch2.getLV();
+                break;
+            case "SWS":
+                columnNr = 5;
+                words = ReadHandtuch2.getSWS();
+                break;
+            case "geblockt":
+                columnNr = 6;
+                words = ReadHandtuch2.getGeblockt();
+                break;
+            case "online":
+                columnNr = 7;
+                words = ReadHandtuch2.getOnline();
+                break;
+            case "SPT":
+                columnNr = 8;
+                words = ReadHandtuch2.getSPT();
+                break;
+            case "Dozent":
+                columnNr = 9;
+                words = ReadHandtuch2.getDozent();
+                updateComboBox(ReadHandtuch2.getDozent());
+                break;
+            default:
+                words = null;
+                columnNr = 10;
+                System.out.println("Invalid Entry");
+        }
+        updateComboBox(words);
+        filterUpdate(ProfName.getSelectedItem().toString(), columnNr);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+    
+    public void filterUpdate(String word, int index){
         // Filter the table based on a specific column
-        sorter.setRowFilter(RowFilter.regexFilter(name, 9));
+        if (ProfName.getSelectedItem().toString().equalsIgnoreCase("Alle") || index == 10 || ProfName.getSelectedItem().toString().equalsIgnoreCase(jComboBox1.getSelectedItem().toString())){
+            sorter.setRowFilter(null);
+        }else{
+            sorter.setRowFilter(RowFilter.regexFilter(word, index));
+        }
+        
     }
     
     public void build() {
@@ -164,40 +228,42 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
         });
         buildJTable();
-        updateComboBox();
+        //updateComboBox();
     }
-    
-    
-    /**
-    public void updateJTable(){
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(ReadHandtuch2.getObjectTable(), new String[]{
-            "Zug", "LV-Kürzel", "PO", "Bezeichnung", "LVA", "SWS", "geblockt", "online", "SPT", "Dozent"
-        }));
-    }
-    */
     
     public void buildJTable(){
         Object[][] data = ReadHandtuch2.getObjectTable();
-        String[] columnNames = {"Zug", "LV-Kürzel", "PO", "Bezeichnung", "LVA", "SWS", "geblockt", "online", "SPT", "Dozent"};
+        Object[] columnNames = data[0];
+        Object[][] content = new Object[data.length-1][];
         
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        for (int i = 1; i < data.length; i++) {
+            content[i - 1] = data[i];
+        }
+        
+        DefaultTableModel model = new DefaultTableModel(content, columnNames);
         jTable1.setModel(model);
-        
         
         sorter = new TableRowSorter<>(model);
         jTable1.setRowSorter(sorter);
+        columnNameFilterBox(columnNames);
     }
-    public void updateComboBox(){
-        Set names = ReadHandtuch2.getNames();
-        for(Object name : names){
-            ProfName.addItem((String)name);
+    
+    public void updateComboBox(Set words){
+        for(Object word : words){
+            ProfName.addItem((String)word);
+        }
+    }
+    
+    public void columnNameFilterBox(Object[] columnames){
+        for(Object title : columnames){
+            jComboBox1.addItem((String)title);
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ProfName;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -141,96 +141,11 @@ public class ReadHandtuch2 {
         return objectArray;
     }
     
-    
-
-    public static Set getDozent() {
-
-        Set<String> names = new HashSet<>();
+    public static Set getter(int spalte){
+        Set<String> content = new HashSet<>();
         for (int i = 0; i < numRows; i++) {
-            names.add(tableData[i][9]);
+            content.add(tableData[i][spalte]);
         }
-        return names;
+        return content;
     }
-
-    public static Set getZug() {
-
-        Set<String> zuege = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            zuege.add(tableData[i][0]);
-        }
-        return zuege;
-    }
-
-    public static Set getLV() {
-
-        Set<String> lv = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            lv.add(tableData[i][4]);
-        }
-        return lv;
-    }
-    
-    public static Set getLVK() {
-
-        Set<String> lv = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            lv.add(tableData[i][1]);
-        }
-        return lv;
-    }
-    
-    public static Set getPO() {
-
-        Set<String> lv = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            lv.add(tableData[i][2]);
-        }
-        return lv;
-    }
-    
-    public static Set getBezeichnung() {
-
-        Set<String> lv = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            lv.add(tableData[i][3]);
-        }
-        return lv;
-    }
-    
-    public static Set getSWS() {
-
-        Set<String> lv = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            lv.add(tableData[i][5]);
-        }
-        return lv;
-    }
-    
-    public static Set getGeblockt() {
-
-        Set<String> lv = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            lv.add(tableData[i][6]);
-        }
-        return lv;
-    }
-    
-    public static Set getOnline() {
-
-        Set<String> lv = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            lv.add(tableData[i][7]);
-        }
-        return lv;
-    }
-    
-    public static Set getSPT() {
-
-        Set<String> lv = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
-            lv.add(tableData[i][8]);
-        }
-        return lv;
-    }
-
 }

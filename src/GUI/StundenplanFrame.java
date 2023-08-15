@@ -20,12 +20,14 @@ import javax.swing.table.TableRowSorter;
 public class StundenplanFrame extends javax.swing.JFrame {
     
     public int columnNr = 10;
+    private Object[] columnNames;
     /**
      * Creates new form StundenplanFrame
      */
     public StundenplanFrame() {
         initComponents();
         build();
+        buildJTable();
         setVisible(true);    
         
     }
@@ -117,7 +119,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void ProfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfNameActionPerformed
         // TODO add your handling code here:
-        System.out.println(evt);
         try{
         if (ProfName.getSelectedItem().toString().equalsIgnoreCase("Alle")){
             sorter.setRowFilter(null);
@@ -131,60 +132,22 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfNameActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-        String chosentitle = jComboBox1.getSelectedItem().toString();
         
-        Set<String> words;
+        String chosentitle = jComboBox1.getSelectedItem().toString();
+        Set<String> words = null;
         ProfName.removeAllItems();
-        switch (chosentitle) {
-            case "Zug":
-                columnNr = 0;
-                words = ReadHandtuch2.getZug();
+        
+        for(int i = 0; i<columnNames.length; i++){
+            if(chosentitle.equals(this.columnNames[i].toString())){
+            columnNr = i;
+                words = ReadHandtuch2.getter(i);
                 break;
-            case "LV-Kürzel":
-                columnNr = 1;
-                words = ReadHandtuch2.getLVK();
-                break;
-            case "PO":
-                columnNr = 2;
-                words = ReadHandtuch2.getPO();
-                break;
-            case "Bezeichnung":
-                columnNr = 3;
-                words = ReadHandtuch2.getBezeichnung();
-                break;
-            case "LVA":
-                columnNr = 4;
-                words = ReadHandtuch2.getLV();
-                break;
-            case "SWS":
-                columnNr = 5;
-                words = ReadHandtuch2.getSWS();
-                break;
-            case "geblockt":
-                columnNr = 6;
-                words = ReadHandtuch2.getGeblockt();
-                break;
-            case "online":
-                columnNr = 7;
-                words = ReadHandtuch2.getOnline();
-                break;
-            case "SPT":
-                columnNr = 8;
-                words = ReadHandtuch2.getSPT();
-                break;
-            case "Dozent":
-                columnNr = 9;
-                words = ReadHandtuch2.getDozent();
-                updateComboBox(ReadHandtuch2.getDozent());
-                break;
-            default:
-                words = null;
-                columnNr = 10;
-                System.out.println("Invalid Entry");
+            }
         }
+        
         updateComboBox(words);
         filterUpdate(ProfName.getSelectedItem().toString(), columnNr);
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
     
     public void filterUpdate(String word, int index){
@@ -227,13 +190,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 
             }
         });
-        buildJTable();
-        //updateComboBox();
     }
     
     public void buildJTable(){
         Object[][] data = ReadHandtuch2.getObjectTable();
-        Object[] columnNames = data[0];
+        this.columnNames = data[0];
         Object[][] content = new Object[data.length-1][];
         
         for (int i = 1; i < data.length; i++) {

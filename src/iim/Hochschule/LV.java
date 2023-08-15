@@ -13,14 +13,18 @@ import java.util.List;
  */
 public class LV {
     private final String name;
-    private String fullName;
-    private String po;
-    private List<String> dozenten = new ArrayList<>();
+    private final String fullName;
+    private final String po;
+    //private final List<String> dozentenNameList = new ArrayList<>();
+    private final String dozentName;
+    private final List<String> zugNameList = new ArrayList<>();
+    private final List<Zug> zugList = new ArrayList<>();
 
-    public LV(String name, String fullName, String po) {
+    public LV(String name, String fullName, String po, String dozentName) {
         this.name = name;
         this.fullName = fullName;
-        this.po = po;      
+        this.po = po;
+        this.dozentName = dozentName;
     }
     
     public String getName(){
@@ -35,11 +39,25 @@ public class LV {
         return po;
     }
     
-    public List<String> getDozenten(){
-        return dozenten;
+    public String getDozentName(){
+        return dozentName;
     }
     
-    public void addDozenten(String dozenten){
-        this.dozenten.add(dozenten);
+    public List<String> getZugNameList(){
+        return zugNameList;
     }
+    
+    public void addZugToNameList(String zugName){
+        this.zugNameList.add(zugName);
+    }
+    
+    public List<Zug> getZugList(){
+    return zugList;
+    }
+    
+    public void addZug(Zug zug){
+        zugList.add(zug);
+    }
+    
+    
 }

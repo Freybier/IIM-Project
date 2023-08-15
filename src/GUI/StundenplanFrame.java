@@ -169,6 +169,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
             .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
@@ -176,6 +177,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
+
         );
 
         pack();

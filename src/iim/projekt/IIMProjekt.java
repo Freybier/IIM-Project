@@ -74,7 +74,7 @@ public class IIMProjekt {
         String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchOutput.csv";
         List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
         
-        
+        readCSVs.addZugToLV(lvList, zugList);
         
         filePath = "dozenten.csv";
          List<String[]> data2 = readCsvFromFile(filePath);
@@ -88,6 +88,25 @@ public class IIMProjekt {
                 System.out.print(lecturer.getAvailable());
             }
         }*/
+        
+        for (LV lv : lvList) {
+            System.out.println("LV Name: " + lv.getName());
+            System.out.println("LV Full Name: " + lv.getFullName());
+            System.out.println("LV PO: " + lv.getPO());
+            System.out.println("Dozenten: " + lv.getDozentName());
+            System.out.println("Zug Name: " + lv.getZugNameList());
+            System.out.println("Zug: " + lv.getZugList());
+
+            /*List<Zug> zugListe = lv.getZugList();
+            System.out.println("Zug Liste:");
+            for (Zug zug : zugListe) {
+                System.out.println("- Zug Name: " + zug.getName());
+                System.out.println("  Zug PO: " + zug.getPO());
+                // Weitere Informationen über den Zug ausgeben
+            }*/
+
+            System.out.println("----------------------------------");
+        }
 }
 }
 

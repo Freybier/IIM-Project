@@ -19,82 +19,107 @@ import java.util.Map;
 public class ReadCSVs {
 
     public static List<LV> createLVListFromCSV(String handtuchCSVFilePath) {
+    List<LV> lvList = new ArrayList<>();
+    Map<String, LV> lvMap = new HashMap<>();
 
-        List<LV> lvList = new ArrayList<>();
-        Map<String, LV> lvMap = new HashMap<>();
+    try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {
+        String line;
+        String[] header = br.readLine().split(";");
+        int lvKuerzelIndex = getColumnIndex("LV-Kürzel", header);
+        int poIndex = getColumnIndex("PO", header);
+        int fullNameIndex = getColumnIndex("Bezeichnung", header);
+        int dozentNameIndex = getColumnIndex("Dozent", header);
 
-        try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {
-            String line;
-            br.readLine(); // Überspringen der Header-Zeile
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split(";");
+            String lvKuerzel = parts[lvKuerzelIndex];
+            String po = parts[poIndex];
+            String fullName = parts[fullNameIndex];
+            String dozentName = parts[dozentNameIndex];
 
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                String lvKuerzel = parts[1];
-                String po = parts[2];
-                String fullName = parts[3];
-                String dozentName = parts[9];
-
-                String lvKey = lvKuerzel + ";" + po;
-                if (!lvMap.containsKey(lvKey)) {
-                    LV newLV = new LV(lvKuerzel, fullName, po);
-                    lvList.add(newLV);
-                    lvMap.put(lvKey, newLV);
-                }
-
-                LV lv = lvMap.get(lvKey);
-                lv.addDozenten(dozentName);
+            String lvKey = lvKuerzel + ";" + po;
+            if (!lvMap.containsKey(lvKey)) {
+                LV newLV = new LV(lvKuerzel, fullName, po);
+                lvList.add(newLV);
+                lvMap.put(lvKey, newLV);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            LV lv = lvMap.get(lvKey);
+            lv.addDozenten(dozentName);
         }
-
-        return lvList;
-
+    } catch (IOException e) {
+        e.printStackTrace();
     }
 
+    return lvList;
+}
+
+private static int getColumnIndex(String columnName, String[] header) {
+    for (int i = 0; i < header.length; i++) {
+        if (header[i].equals(columnName)) {
+            return i;
+        }
+    }
+    return -1; // Column not found
+}
+
+
+
+
+
     public void getLVforDozentfromCSV(List<Dozent> dozenten, List<LV> lvList) {
-        String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchOutput.csv";
-        try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {
-            String line;
+    String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchOutput.csv";
 
-            while ((line = br.readLine()) != null) {
-                String[] columns = line.split(";");
+    try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {
+        String line;
+        String[] header = br.readLine().split(";");
 
-                String dozentFromCsv = columns[9]; // Index basiert auf Ihrer Spaltenreihenfolge
-                String lvKuerzel = columns[1]; // Index basiert auf Ihrer Spaltenreihenfolge
-                String poFromCsv = columns[2]; // Index basiert auf Ihrer Spaltenreihenfolge
+        int dozentIndex = getColumnIndex("Dozent", header);
+        int lvKuerzelIndex = getColumnIndex("LV-Kürzel", header);
+        int poIndex = getColumnIndex("PO", header);
 
-                for (Dozent dozent : dozenten) {
-                    if (dozent.getName().equals(dozentFromCsv)) {
-                        for (LV lv : lvList) {
-                            if (lv.getName().equals(lvKuerzel) && lv.getPO().equals(poFromCsv)) {
-                                dozent.addLV(lv); // Das LV-Objekt zur Dozenten-Instanz hinzufügen
-                                break; // Wenn das LV-Objekt gefunden wurde, die Schleife verlassen
-                            }
+        while ((line = br.readLine()) != null) {
+            String[] columns = line.split(";");
+
+            String dozentFromCsv = columns[dozentIndex];
+            String lvKuerzel = columns[lvKuerzelIndex];
+            String poFromCsv = columns[poIndex];
+
+            for (Dozent dozent : dozenten) {
+                if (dozent.getName().equals(dozentFromCsv)) {
+                    for (LV lv : lvList) {
+                        if (lv.getName().equals(lvKuerzel) && lv.getPO().equals(poFromCsv)) {
+                            dozent.addLV(lv); // Das LV-Objekt zur Dozenten-Instanz hinzufügen
+                            break; // Wenn das LV-Objekt gefunden wurde, die Schleife verlassen
                         }
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     public static List<Zug> createZugListfromCSV(String handtuchCSVFilePath, List<LV> lvList) {
-          List<Zug> zugList = new ArrayList<>();
+    List<Zug> zugList = new ArrayList<>();
     Map<String, Zug> zugMap = new HashMap<>();
 
     try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {
         String line;
-        br.readLine(); // Überspringen der Header-Zeile
+        String[] header = br.readLine().split(";"); // Header-Zeile einlesen und Spaltennamen speichern
+        int zugIndex = getColumnIndex("Zug", header);
+        int lvKuerzelIndex = getColumnIndex("LV-Kürzel", header);
+        int poIndex = getColumnIndex("PO", header);
 
         while ((line = br.readLine()) != null) {
             String[] parts = line.split(";");
-            String zugName = parts[0];
-            String lvKuerzel = parts[1];
+            String zugName = parts[zugIndex];
+            String lvKuerzel = parts[lvKuerzelIndex];
+            String zugPO = parts[poIndex];
 
             if (!zugMap.containsKey(zugName)) {
-                Zug newZug = new Zug(zugName);
+                Zug newZug = new Zug(zugName, zugPO);
                 zugList.add(newZug);
                 zugMap.put(zugName, newZug);
             }
@@ -103,11 +128,11 @@ public class ReadCSVs {
 
             // Suche nach übereinstimmendem LV-Objekt in der LV-Liste
             LV matchingLV = lvList.stream()
-                    .filter(lv -> lv.getName().equals(lvKuerzel))
+                    .filter(lv -> lv.getName().equals(lvKuerzel) && lv.getPO().equals(zugPO))
                     .findFirst()
                     .orElse(null);
 
-            if (matchingLV != null && matchingLV.getPO().equals(parts[2])) {
+            if (matchingLV != null) {
                 zug.addLV(matchingLV); // Füge das LV-Objekt dem Zug hinzu
             }
         }
@@ -115,7 +140,9 @@ public class ReadCSVs {
         e.printStackTrace();
     }
     return zugList;
+}
 
-    }
+
+
 
 }

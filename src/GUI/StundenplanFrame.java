@@ -6,6 +6,7 @@ package GUI;
 
 import iim.Handtuch.ReadHandtuch2;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.swing.*;
@@ -49,12 +50,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         ProfName = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ungeordnet" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---------" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -83,7 +85,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(6).setHeaderValue("Samstag");
         }
 
-        ProfName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alle" }));
+        ProfName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---------" }));
         ProfName.setToolTipText("");
         ProfName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,59 +100,67 @@ public class StundenplanFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(ProfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))
+                        .addGap(26, 26, 26)
+                        .addComponent(ProfName, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 79, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addGap(112, 112, 112))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(ProfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(197, 197, 197))
         );
 
         jTabbedPane1.addTab("tab1", jPanel1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 696, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 604, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("tab1", jPanel3);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 696, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 604, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("tab2", jPanel4);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(205, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jTabbedPane2)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab2", jPanel2);
@@ -159,15 +169,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
@@ -177,40 +183,45 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void ProfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfNameActionPerformed
         // TODO add your handling code here:
-        try{
-        if (ProfName.getSelectedItem().toString().equalsIgnoreCase("Alle")){
-            sorter.setRowFilter(null);
+        if(ProfName.getSelectedItem() != null){
+            try{
+                if (ProfName.getSelectedItem().toString().equalsIgnoreCase("---------")){
+                    sorter.setRowFilter(null);
+                }else{
+                    String filter = ProfName.getSelectedItem().toString();
+                    filterUpdate(filter, columnNr);
+                }
+            }catch(Exception e){
+                System.out.println(e);
+            }
         }else{
-            String filter = ProfName.getSelectedItem().toString();
-            filterUpdate(filter, columnNr);
+            sorter.setRowFilter(null);
         }
-        }catch(Exception e){
-            System.out.println(e);
-        }
+        
     }//GEN-LAST:event_ProfNameActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        
+
         String chosentitle = jComboBox1.getSelectedItem().toString();
         Set<String> words = null;
         ProfName.removeAllItems();
-        
+
         for(int i = 0; i<columnNames.length; i++){
             if(chosentitle.equals(this.columnNames[i].toString())){
-            columnNr = i;
+                columnNr = i;
                 words = ReadHandtuch2.getter(i);
                 break;
             }
         }
-        
+        if (words != null){
         updateComboBox(words);
         filterUpdate(ProfName.getSelectedItem().toString(), columnNr);
-        
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
     
     public void filterUpdate(String word, int index){
         // Filter the table based on a specific column
-        if (ProfName.getSelectedItem().toString().equalsIgnoreCase("Alle") || index == 10 || ProfName.getSelectedItem().toString().equalsIgnoreCase(jComboBox1.getSelectedItem().toString())){
+        if (ProfName.getSelectedItem().toString().equalsIgnoreCase("---------") || index == 10 || ProfName.getSelectedItem().toString().equalsIgnoreCase(jComboBox1.getSelectedItem().toString())){
             sorter.setRowFilter(null);
         }else{
             sorter.setRowFilter(RowFilter.regexFilter(word, index));
@@ -268,26 +279,44 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }
     
     public void updateComboBox(Set words){
+        ProfName.addItem("---------");
         for(Object word : words){
             ProfName.addItem((String)word);
         }
+        sort(ProfName);
     }
     
     public void columnNameFilterBox(Object[] columnames){
         for(Object title : columnames){
             jComboBox1.addItem((String)title);
         }
+        sort(jComboBox1);
     }
+    
+    private void sort(JComboBox<String> comboBox) {
+        Object[] o = new Object[comboBox.getItemCount()];
+        for(int i=0; i<o.length; i++) {
+            o[i] = comboBox.getItemAt(i);
+        }
+        Arrays.sort(o);
+        for(int i=0; i<o.length; i++) {
+            comboBox.removeItemAt(i);
+            comboBox.insertItemAt((String) o[i], i);
+        }
+        comboBox.setSelectedIndex(0);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ProfName;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

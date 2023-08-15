@@ -143,7 +143,7 @@ public class ReadHandtuch2 {
     
     public static Set getter(int spalte){
         Set<String> content = new HashSet<>();
-        for (int i = 0; i < numRows; i++) {
+        for (int i = 1; i < numRows; i++) {
             content.add(tableData[i][spalte]);
         }
         return content;

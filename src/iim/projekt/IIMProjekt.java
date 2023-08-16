@@ -78,7 +78,7 @@ public class IIMProjekt {
         
         List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
         
-        readCSVs.addZugToLV(lvList, zugList);
+        //readCSVs.addZugToLV(lvList, zugList);
         
         filePath = "dozenten.csv";
          List<String[]> dozentenPVZeitenList = readCsvFromFile(filePath);

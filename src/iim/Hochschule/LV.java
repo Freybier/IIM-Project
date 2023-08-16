@@ -12,6 +12,7 @@ import java.util.List;
  * @author Yann Leymann
  */
 public class LV {
+
     private final String name;
     private final String fullName;
     //private final String po;
@@ -20,62 +21,85 @@ public class LV {
     private final String dozentName;
     private final List<String> zugNameList = new ArrayList<>();
     private final List<Zug> zugList = new ArrayList<>();
+    private String sws;
+    private boolean geblockt;
+    private String lva;
 
-    public LV(String name, String fullName, String dozentName) {
+    public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva) {
         this.name = name;
         this.fullName = fullName;
         //this.po = po;
         this.dozentName = dozentName;
+        this.sws = sws;
+        this.geblockt = geblockt;
+        this.lva = lva;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    
-    public String getFullName(){
+
+    public String getFullName() {
         return fullName;
     }
+
     /*
     public String getPO(){
         return po;
     }
-    */
-    public String getDozentName(){
+     */
+    public String getDozentName() {
         return dozentName;
     }
-    
-    public List<String> getZugNameList(){
+
+    public List<String> getZugNameList() {
         return zugNameList;
     }
-    
-    public void addZugToNameList(String zugName){
+
+    public void addZugToNameList(String zugName) {
         this.zugNameList.add(zugName);
     }
-    
-    public List<Zug> getZugList(){
-    return zugList;
+
+    public List<Zug> getZugList() {
+        return zugList;
     }
-    
-    public void addZug(Zug zug){
+
+    public void addZug(Zug zug) {
         zugList.add(zug);
         //System.out.println("add sucsess!");
     }
-     public long getScheduledLV() {
+
+    public long getScheduledLV() {
         return scheduledLV;
     }
+
     public void setScheduledLV(long scheduled) {
         this.scheduledLV = scheduled;
     }
-    
+
+    public String getSWS() {
+        return this.sws;
+    }
+
+    public boolean getGeblockt() {
+        return this.geblockt;
+    }
+
+    public String getLVA() {
+        return this.lva;
+    }
+
     @Override
     public String toString() {
-    return "LV Name: " + name +
-           "\nLV Full Name: " + fullName +
-           //"\nLV PO: " + po +
-           "\nDozenten: " + dozentName +
-           "\nZug Name: " + zugNameList +
-           "\nZug: " + zugList;
-}
-    
-    
+        return "LV Name: " + name
+                + "\nLV Full Name: " + fullName
+                + //"\nLV PO: " + po +
+                "\nDozenten: " + dozentName
+                + "\nZug Name: " + zugNameList
+                + "\nZug: " + zugList
+                + "\nSWS: " + sws
+                + "\ngeblockt: " + geblockt
+                + "\nLVA: " + lva;
+    }
+
 }

@@ -19,62 +19,54 @@ import java.util.Map;
 public class ReadCSVs {
 
     public static List<LV> createLVListFromCSV(String handtuchCSVFilePath) {
-        List<LV> lvList = new ArrayList<>();
-        Map<String, LV> lvMap = new HashMap<>();
+    List<LV> lvList = new ArrayList<>();
+    Map<String, LV> lvMap = new HashMap<>();
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath));
-            String line;
-            String[] header = br.readLine().split(";");
-            int lvKuerzelIndex = getColumnIndex("LV-Kürzel", header);
-            int poIndex = getColumnIndex("PO", header);
-            int fullNameIndex = getColumnIndex("Bezeichnung", header);
-            int dozentNameIndex = getColumnIndex("Dozent", header);
-            int zugNameIndex = getColumnIndex("Zug", header);
+    try {
+        BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath));
+        String line;
+        String[] header = br.readLine().split(";");
+        int zugNameIndex = getColumnIndex("Zug", header);
+        int lvKuerzelIndex = getColumnIndex("LV-Kürzel", header);
+        int dozentNameIndex = getColumnIndex("Dozent", header);
+        int fullNameIndex = getColumnIndex("Bezeichnung", header);
+        int swsIndex = getColumnIndex("SWS", header);
+        int geblocktIndex = getColumnIndex("geblockt", header);
+        int lvaIndex = getColumnIndex("LVA", header);
 
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                String lvKuerzel = parts[lvKuerzelIndex];
-                String po = parts[poIndex];
-                String fullName = parts[fullNameIndex];
-                String dozentName = parts[dozentNameIndex];
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split(";");
+            String zugName = parts[zugNameIndex];
+            String lvKuerzel = parts[lvKuerzelIndex];
+            String dozentName = parts[dozentNameIndex];
+            String fullName = parts[fullNameIndex];
+            String swsValue = parts[swsIndex];
+            String geblocktValue = parts[geblocktIndex];
+            boolean geblockt = geblocktValue.equalsIgnoreCase("ja");
+            String lva = parts[lvaIndex];
 
-                String lvKey = lvKuerzel  + ";" + dozentName;
-                if (!lvMap.containsKey(lvKey)) {
-                    LV newLV = new LV(lvKuerzel, fullName, dozentName);
-                    lvList.add(newLV);
-                    lvMap.put(lvKey, newLV);
-                }
+            String lvKey = lvKuerzel + ";" + dozentName;
+            if (!lvMap.containsKey(lvKey)) {
+                LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva);
+                lvList.add(newLV);
+                lvMap.put(lvKey, newLV);
             }
 
-            br.close(); // Schließe den BufferedReader
-
-            br = new BufferedReader(new FileReader(handtuchCSVFilePath));
-            // Überspringe die Header-Zeile
-            br.readLine();
-
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                String lvKuerzel = parts[lvKuerzelIndex];
-                String po = parts[poIndex];
-                String dozentName = parts[dozentNameIndex];
-                String zugName = parts[zugNameIndex];
-
-                String lvKey = lvKuerzel  + ";" + dozentName;
-                if (lvMap.containsKey(lvKey)) {
-                    LV lv = lvMap.get(lvKey);
-                    lv.addZugToNameList(zugName);
-                    //System.out.println(lv.getName() + " " + zugName + " " + lv.getDozentName());
-                }
+            if (lvMap.containsKey(lvKey)) {
+                LV lv = lvMap.get(lvKey);
+                lv.addZugToNameList(zugName);
             }
-
-            br.close(); // Schließe den BufferedReader erneut
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        return lvList;
+        br.close(); // Schließe den BufferedReader
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+
+    return lvList;
+}
+
 
     private static int getColumnIndex(String columnName, String[] header) {
         for (int i = 0; i < header.length; i++) {

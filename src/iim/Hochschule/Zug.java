@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Zug {
     private final String name;
-    private long scheduled = 0;
+    private long scheduledZug = 0;
     private String po;
     private List<LV> lv = new ArrayList<>();
 
@@ -38,14 +38,19 @@ public class Zug {
         this.lv.add(lv);
     }
         
-    public long getScheduled(){
-        return scheduled;
+    public long getScheduledZug(){
+        return scheduledZug;
     }
     
-    public void setScheduled(long scheduled){
-        this.scheduled = scheduled;
+    public void setScheduledZug(long scheduled){
+        this.scheduledZug = scheduled;
     }
     
+    @Override
+    public String toString() {
+    return "Zug Name: " + name +
+           "\nZug PO: " + po + "\n";
+}
     
     
     

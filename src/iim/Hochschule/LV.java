@@ -14,17 +14,17 @@ import java.util.List;
 public class LV {
     private final String name;
     private final String fullName;
-    private final String po;
+    //private final String po;
     private long scheduledLV = 0;
     //private final List<String> dozentenNameList = new ArrayList<>();
     private final String dozentName;
     private final List<String> zugNameList = new ArrayList<>();
     private final List<Zug> zugList = new ArrayList<>();
 
-    public LV(String name, String fullName, String po, String dozentName) {
+    public LV(String name, String fullName, String dozentName) {
         this.name = name;
         this.fullName = fullName;
-        this.po = po;
+        //this.po = po;
         this.dozentName = dozentName;
     }
     
@@ -35,11 +35,11 @@ public class LV {
     public String getFullName(){
         return fullName;
     }
-    
+    /*
     public String getPO(){
         return po;
     }
-    
+    */
     public String getDozentName(){
         return dozentName;
     }
@@ -58,6 +58,7 @@ public class LV {
     
     public void addZug(Zug zug){
         zugList.add(zug);
+        //System.out.println("add sucsess!");
     }
      public long getScheduledLV() {
         return scheduledLV;
@@ -70,7 +71,7 @@ public class LV {
     public String toString() {
     return "LV Name: " + name +
            "\nLV Full Name: " + fullName +
-           "\nLV PO: " + po +
+           //"\nLV PO: " + po +
            "\nDozenten: " + dozentName +
            "\nZug Name: " + zugNameList +
            "\nZug: " + zugList;

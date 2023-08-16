@@ -15,6 +15,7 @@ public class LV {
     private final String name;
     private final String fullName;
     private final String po;
+    private long scheduledLV = 0;
     //private final List<String> dozentenNameList = new ArrayList<>();
     private final String dozentName;
     private final List<String> zugNameList = new ArrayList<>();
@@ -58,6 +59,22 @@ public class LV {
     public void addZug(Zug zug){
         zugList.add(zug);
     }
+     public long getScheduledLV() {
+        return scheduledLV;
+    }
+    public void setScheduledLV(long scheduled) {
+        this.scheduledLV = scheduled;
+    }
+    
+    @Override
+    public String toString() {
+    return "LV Name: " + name +
+           "\nLV Full Name: " + fullName +
+           "\nLV PO: " + po +
+           "\nDozenten: " + dozentName +
+           "\nZug Name: " + zugNameList +
+           "\nZug: " + zugList;
+}
     
     
 }

@@ -88,14 +88,10 @@ public class IIMProjekt {
                 System.out.print(lecturer.getAvailable());
             }
         }*/
-        
+       
         for (LV lv : lvList) {
-            System.out.println("LV Name: " + lv.getName());
-            System.out.println("LV Full Name: " + lv.getFullName());
-            System.out.println("LV PO: " + lv.getPO());
-            System.out.println("Dozenten: " + lv.getDozentName());
-            System.out.println("Zug Name: " + lv.getZugNameList());
-            System.out.println("Zug: " + lv.getZugList());
+            String output = lv.toString();
+            System.out.println(output);
 
             /*List<Zug> zugListe = lv.getZugList();
             System.out.println("Zug Liste:");
@@ -105,8 +101,8 @@ public class IIMProjekt {
                 // Weitere Informationen über den Zug ausgeben
             }*/
 
-            System.out.println("----------------------------------");
-        }
+            System.out.println("----------------------------------"); 
+        } 
 }
 }
 

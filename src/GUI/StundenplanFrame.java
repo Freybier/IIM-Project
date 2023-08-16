@@ -56,13 +56,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jScrollKurse = new javax.swing.JScrollPane();
         jSuchfeldKurse = new javax.swing.JTextField();
         jLabelName = new javax.swing.JLabel();
-        jSuhfeldName = new javax.swing.JTextField();
         jButtonSpeichern = new javax.swing.JButton();
         jButtonZurücksetzen = new javax.swing.JButton();
         jRadioDozent = new javax.swing.JRadioButton();
         jRadioZug = new javax.swing.JRadioButton();
         jKonfliktFeld = new javax.swing.JPanel();
         jInfoFeld = new javax.swing.JPanel();
+        jComboDoZug = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,22 +164,30 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jLabelName.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         jLabelName.setText("Name:");
 
-        jSuhfeldName.setText("Suche");
-        jSuhfeldName.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSpeichern.setText("Speichern");
+        jButtonSpeichern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jSuhfeldNameActionPerformed(evt);
+                jButtonSpeichernActionPerformed(evt);
             }
         });
-
-        jButtonSpeichern.setText("Speichern");
 
         jButtonZurücksetzen.setText("Zurücksetzten");
 
         buttonGroup1.add(jRadioDozent);
         jRadioDozent.setText("Dozent*in");
+        jRadioDozent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioDozentActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioZug);
         jRadioZug.setText("Zug");
+        jRadioZug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioZugActionPerformed(evt);
+            }
+        });
 
         jKonfliktFeld.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -206,6 +215,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jComboDoZug.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboDoZug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboDoZugActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -214,30 +237,32 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(30, 30, 30)
-                        .addComponent(jInfoFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jKonfliktFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSuchfeldKurse, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollKurse, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jSuhfeldName, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioDozent)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioZug)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabelName)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                            .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jInfoFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jKonfliktFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -248,8 +273,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioZug)
-                            .addComponent(jSuhfeldName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioDozent))
+                            .addComponent(jRadioDozent)
+                            .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabelName)
@@ -257,17 +283,15 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jSuchfeldKurse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSuchfeldKurse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollKurse)
-                        .addGap(3, 3, 3)))
+                        .addComponent(jScrollKurse)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButtonSpeichern, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
                     .addComponent(jKonfliktFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jInfoFeld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -322,15 +346,51 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
         }
         if (words != null){
-        updateComboBox(words);
+        updateComboBox(words, ProfName);
         filterUpdate(ProfName.getSelectedItem().toString(), columnNr);
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jSuhfeldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSuhfeldNameActionPerformed
+    private void jButtonSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeichernActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jSuhfeldNameActionPerformed
-    
+    }//GEN-LAST:event_jButtonSpeichernActionPerformed
+
+    private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
+        // TODO add your handling code here:
+        if(jComboDoZug.getSelectedItem() != null){
+            int tabIndex = jTabbedPane1.getSelectedIndex();
+            String jLabelText = jComboDoZug.getSelectedItem().toString();
+            
+            jLabelName.setText(jLabelText);
+            // if-construction for not changing the Handtuch-Title
+            if(tabIndex != 0){
+                jTabbedPane1.setTitleAt(tabIndex, jLabelText);
+            }
+        }
+    }//GEN-LAST:event_jComboDoZugActionPerformed
+
+    private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
+        // TODO add your handling code here:
+        Set words = ReadHandtuch2.getter(9);
+        jComboDoZug.removeAllItems();
+        updateComboBox(words, jComboDoZug);
+    }//GEN-LAST:event_jRadioDozentActionPerformed
+
+    private void jRadioZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioZugActionPerformed
+        // TODO add your handling code here:
+        Set words = ReadHandtuch2.getter(0);
+        jComboDoZug.removeAllItems();
+        updateComboBox(words, jComboDoZug);
+    }//GEN-LAST:event_jRadioZugActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        JPanel panel = new JPanel();
+        
+        jTabbedPane1.add(panel);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void filterUpdate(String word, int index){
         // Filter the table based on a specific column
         if (ProfName.getSelectedItem().toString().equalsIgnoreCase("---------") || index == 10 || ProfName.getSelectedItem().toString().equalsIgnoreCase(jComboBox1.getSelectedItem().toString())){
@@ -371,6 +431,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 
             }
         });
+        jRadioDozent.doClick();
     }
     
     public void buildJTable(){
@@ -390,12 +451,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
         columnNameFilterBox(columnNames);
     }
     
-    public void updateComboBox(Set words){
-        ProfName.addItem("---------");
+    public void updateComboBox(Set words, JComboBox<String> comboBox){
+        comboBox.addItem("---------");
         for(Object word : words){
-            ProfName.addItem((String)word);
+            comboBox.addItem((String)word);
         }
-        sort(ProfName);
+        sort(comboBox);
     }
     
     public void columnNameFilterBox(Object[] columnames){
@@ -422,9 +483,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ProfName;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSpeichern;
     private javax.swing.JButton jButtonZurücksetzen;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboDoZug;
     private javax.swing.JPanel jInfoFeld;
     private javax.swing.JPanel jKonfliktFeld;
     private javax.swing.JLabel jLabelName;
@@ -436,7 +499,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jSuchfeldKurse;
-    private javax.swing.JTextField jSuhfeldName;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JTable jTable1;

@@ -5,6 +5,7 @@
 package GUI;
 
 import iim.Handtuch.ReadHandtuch2;
+import GUI.CSVToObjectArrayConverter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
@@ -22,13 +23,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
     
     public int columnNr = 10;
     private Object[] columnNames;
+    public CSVToObjectArrayConverter oArray;
     /**
      * Creates new form StundenplanFrame
      */
     public StundenplanFrame() {
+        oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
         initComponents();
         build();
         buildJTable();
+        
         setVisible(true);    
         
     }
@@ -341,7 +345,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         for(int i = 0; i<columnNames.length; i++){
             if(chosentitle.equals(this.columnNames[i].toString())){
                 columnNr = i;
-                words = ReadHandtuch2.getter(i);
+                words = oArray.getter(i);
                 break;
             }
         }
@@ -371,14 +375,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
         // TODO add your handling code here:
-        Set words = ReadHandtuch2.getter(9);
+        int index = oArray.getColumnIndex("Dozent");
+        Set words = oArray.getter(index);
         jComboDoZug.removeAllItems();
         updateComboBox(words, jComboDoZug);
     }//GEN-LAST:event_jRadioDozentActionPerformed
 
     private void jRadioZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioZugActionPerformed
         // TODO add your handling code here:
-        Set words = ReadHandtuch2.getter(0);
+        int index = oArray.getColumnIndex("Zug");
+        Set words = oArray.getter(index);
         jComboDoZug.removeAllItems();
         updateComboBox(words, jComboDoZug);
     }//GEN-LAST:event_jRadioZugActionPerformed
@@ -393,7 +399,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     public void filterUpdate(String word, int index){
         // Filter the table based on a specific column
-        if (ProfName.getSelectedItem().toString().equalsIgnoreCase("---------") || index == 10 || ProfName.getSelectedItem().toString().equalsIgnoreCase(jComboBox1.getSelectedItem().toString())){
+        if (ProfName.getSelectedItem().toString().equalsIgnoreCase("---------") || ProfName.getSelectedItem().toString().equalsIgnoreCase(jComboBox1.getSelectedItem().toString())){
             sorter.setRowFilter(null);
         }else{
             sorter.setRowFilter(RowFilter.regexFilter(word, index));
@@ -435,7 +441,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }
     
     public void buildJTable(){
-        Object[][] data = ReadHandtuch2.getObjectTable();
+        
+        Object[][] data = oArray.getData();
         this.columnNames = data[0];
         Object[][] content = new Object[data.length-1][];
         

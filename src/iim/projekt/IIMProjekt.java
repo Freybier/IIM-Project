@@ -85,7 +85,7 @@ public class IIMProjekt {
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(dozentenPVZeitenList));
 
         //DB.speichern(dozenten);
-        StundenplanFrame gui = new StundenplanFrame(); 
+        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList); 
         /*
         for(Dozent lecturer : dozenten){
             if(lecturer.getName().equals("YAN")){

@@ -49,7 +49,7 @@ public class Zug {
     @Override
     public String toString() {
     return "Zug Name: " + name +
-           "\nZug PO: " + po + "\n";
+           "\nZug PO: " + po ;
 }
     
     

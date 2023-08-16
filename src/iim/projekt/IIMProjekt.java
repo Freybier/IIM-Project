@@ -21,6 +21,7 @@ import iim.Handtuch.ReadHandtuch2;
 import iim.pvZeiten.DozentToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
+import iim.Handtuch.UpdateHandtuchCSV;
 import iim.Hochschule.LV;
 import iim.Hochschule.ReadCSVs;
 import iim.Hochschule.Zug;
@@ -39,7 +40,7 @@ public class IIMProjekt {
 
 
         String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
-        
+        String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchOutput.csv";
         
         
         SwingUtilities.invokeLater(() -> {
@@ -57,28 +58,31 @@ public class IIMProjekt {
         
         ReadHandtuch2.readFromFile();
         
-        List<LV> lvList = ReadCSVs.createLVListFromCSV("src/iim/Handtuch/HandtuchOutput.csv");
         
-        List<Dozent> dozenten = pvZeitenToDozent.splittNameWishList(relativePath);
+        List<LV> lvList = ReadCSVs.createLVListFromCSV(handtuchCSVFilePath);
+        
+        List<Dozent> dozentenList = pvZeitenToDozent.splittNameWishList(relativePath);
+        
+        
         
         ReadCSVs readCSVs = new ReadCSVs();        
-        readCSVs.getLVforDozentfromCSV(dozenten, lvList);
+        readCSVs.getLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
             
         String filename = "dozenten.csv";
-        verarbeitung.saveAsCSV(dozenten, filename);
+        verarbeitung.saveAsCSV(dozentenList, filename);
         
         String filePath = "src/iim/Handtuch/HandtuchOutput.csv";
         List<String[]> data = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data));
         
-        String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchOutput.csv";
+        
         List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
         
         readCSVs.addZugToLV(lvList, zugList);
         
         filePath = "dozenten.csv";
-         List<String[]> data2 = readCsvFromFile(filePath);
-        SwingUtilities.invokeLater(() -> new TxtToCsvTable(data2));
+         List<String[]> dozentenPVZeitenList = readCsvFromFile(filePath);
+        SwingUtilities.invokeLater(() -> new TxtToCsvTable(dozentenPVZeitenList));
 
         //DB.speichern(dozenten);
         StundenplanFrame gui = new StundenplanFrame(); 
@@ -89,11 +93,20 @@ public class IIMProjekt {
             }
         }*/
        
+        
+        String handtuchOutputUpdatePath = "src/iim/Handtuch/HandtuchOutputUpdate.csv";
+        UpdateHandtuchCSV update = new UpdateHandtuchCSV(); 
+        update.updateHandtuchCSV(handtuchCSVFilePath, dozentenList, zugList, lvList);
+        update.addParallel(handtuchOutputUpdatePath);
+        
+        lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
+        zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
+        readCSVs.addZugToLV(lvList, zugList);
         for (LV lv : lvList) {
-            String output = lv.toString();
-            System.out.println(output);
-
-            /*List<Zug> zugListe = lv.getZugList();
+            
+            System.out.println(lv.toString());
+            /*
+            List<Zug> zugListe = lv.getZugList();
             System.out.println("Zug Liste:");
             for (Zug zug : zugListe) {
                 System.out.println("- Zug Name: " + zug.getName());

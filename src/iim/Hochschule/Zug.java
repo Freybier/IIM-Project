@@ -15,7 +15,7 @@ public class Zug {
     private final String name;
     private long scheduledZug = 0;
     private String po;
-    private List<LV> lv = new ArrayList<>();
+    private List<LV> lvList = new ArrayList<>();
 
     public Zug(String name, String po) {
         this.name = name;
@@ -31,11 +31,11 @@ public class Zug {
     }
     
     public List<LV> getLV(){
-    return lv;
+    return lvList;
     }
     
     public void addLV(LV lv){
-        this.lv.add(lv);
+        this.lvList.add(lv);
     }
         
     public long getScheduledZug(){
@@ -49,7 +49,9 @@ public class Zug {
     @Override
     public String toString() {
     return "Zug Name: " + name +
-           "\nZug PO: " + po ;
+           "\nZug PO: " + po 
+            // + "\nLV Liste von Zug" + lvList
+            ;
 }
     
     

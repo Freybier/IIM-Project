@@ -12,8 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -139,13 +139,5 @@ public class ReadHandtuch2 {
             }
         }
         return objectArray;
-    }
-    
-    public static Set getter(int spalte){
-        Set<String> content = new HashSet<>();
-        for (int i = 1; i < numRows; i++) {
-            content.add(tableData[i][spalte]);
-        }
-        return content;
     }
 }

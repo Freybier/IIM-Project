@@ -4,13 +4,16 @@
  */
 package GUI;
 
-import iim.Handtuch.ReadHandtuch2;
 import GUI.CSVToObjectArrayConverter;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
+import iim.Hochschule.LV;
+
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
+import java.util.Collections;
+
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +34,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public JPanel layoutpanel;
     public List<Dozent> dozentenList;
     public List<Zug> zugList;
+    private Boolean lvLististZug;
+    private Boolean lvLististDozent;
     /**
      * Creates new form StundenplanFrame
      */
@@ -58,7 +63,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jColumnFilter = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         SubFilter = new javax.swing.JComboBox<>();
@@ -80,10 +85,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---------" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jColumnFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---------" }));
+        jColumnFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jColumnFilterActionPerformed(evt);
             }
         });
 
@@ -124,7 +129,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jColumnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SubFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
@@ -134,7 +139,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jColumnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(SubFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(415, Short.MAX_VALUE))
@@ -225,7 +230,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jComboDoZug.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboDoZug.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bitte wähle Dozent oder Zug" }));
         jComboDoZug.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboDoZugActionPerformed(evt);
@@ -249,7 +254,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jSuchfeldKurse, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,16 +351,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_SubFilterActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jColumnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jColumnFilterActionPerformed
 
-        String chosentitle = jComboBox1.getSelectedItem().toString();
+        String chosentitle = jColumnFilter.getSelectedItem().toString();
         Set<String> words = null;
         SubFilter.removeAllItems();
 
         for(int i = 0; i<columnNames.length; i++){
             if(chosentitle.equals(this.columnNames[i].toString())){
-                columnNr = i;
-                words = oArray.getter(i);
+                columnNr = oArray.getColumnIndex(chosentitle);
+                words = oArray.getter(columnNr);
                 break;
             }
         }
@@ -363,7 +368,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         updateHandtuchComboBox(words, SubFilter);
         filterUpdate(SubFilter.getSelectedItem().toString(), columnNr);
         }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jColumnFilterActionPerformed
 
     private void jButtonSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeichernActionPerformed
         // TODO add your handling code here:
@@ -374,20 +379,64 @@ public class StundenplanFrame extends javax.swing.JFrame {
         if(jComboDoZug.getSelectedItem() != null){
             int tabIndex = jTabbedPane1.getSelectedIndex();
             String jLabelText = jComboDoZug.getSelectedItem().toString();
-            
             jLabelName.setText(jLabelText);
             // if-construction for not changing the Handtuch-Title
             if(tabIndex != 0){
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
-            //Hier kommt die logic für die Liste rein
+            if(lvLististZug && !lvLististDozent){
+                jLVList.setModel(setLVZugtList());
+            }else{
+                jLVList.setModel(setLVDozentList());
+            }
+            
         }
     }//GEN-LAST:event_jComboDoZugActionPerformed
-
+    
+    private DefaultListModel setLVDozentList(){
+        
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
+        if(dozent != null){
+                for(LV lvElement: dozent.getLV()){
+                    listModel.addElement(lvElement.getName());
+                }
+        }
+        return listModel; 
+    }
+    
+    private DefaultListModel setLVZugtList(){
+        
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        Zug zug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
+        if(zug  != null){
+                for(LV lvElement: zug.getLV()){
+                    listModel.addElement(lvElement.getName());
+                }
+        }
+        return listModel; 
+    }
+    
+    
+    private <T> T getObjectFromName(String name, List<T> objectList) {
+        T foundObject = null;
+        for (T object : objectList) {
+            if (object instanceof Dozent && ((Dozent) object).getName().equals(name)) {
+                foundObject = object;
+                break;
+            } else if (object instanceof Zug && ((Zug) object).getName().equals(name)) {
+                foundObject = object;
+                break;
+            }
+        }
+        return foundObject;
+    }
+    
+    
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
         // TODO add your handling code here:
-        int index = oArray.getColumnIndex("Dozent");
-        Set words = oArray.getter(index);
+        this.lvLististZug = false;
+        this.lvLististDozent = true;
         
         jComboDoZug.removeAllItems();
         updateDozentComboBox(dozentenList, jComboDoZug);
@@ -395,10 +444,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jRadioZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioZugActionPerformed
         // TODO add your handling code here:
-        int index = oArray.getColumnIndex("Zug");
-        Set words = oArray.getter(index);
+        this.lvLististDozent = false;
+        this.lvLististZug = true;
+        
         jComboDoZug.removeAllItems();
-        updateZugComboBox(this.zugList, jComboDoZug);
+        updateZugComboBox(this.zugList, jComboDoZug);    
     }//GEN-LAST:event_jRadioZugActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -416,7 +466,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     public void filterUpdate(String word, int index){
         // Filter the table based on a specific column
-        if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------") || SubFilter.getSelectedItem().toString().equalsIgnoreCase(jComboBox1.getSelectedItem().toString())){
+        if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------") || SubFilter.getSelectedItem().toString().equalsIgnoreCase(jColumnFilter.getSelectedItem().toString())){
             sorter.setRowFilter(null);
         }else{
             sorter.setRowFilter(RowFilter.regexFilter(word, index));
@@ -454,8 +504,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 
             }
         });
-        jRadioDozent.doClick();
-        layoutpanel = new JPanel(jPanel5.getLayout());
     }
     
     public void buildJTable(){
@@ -478,18 +526,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
     
     public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<String> comboBox){
         comboBox.addItem("---------");
+        Collections.sort(dozentenListe, (Dozent dozent1, Dozent dozent2) -> dozent1.getName().compareTo(dozent2.getName()));
+        
         for(Dozent dozent : dozentenListe){
             comboBox.addItem(dozent.getName());
         }
-        sort(comboBox);
     }
     
     public void updateZugComboBox(List<Zug> zugListe, JComboBox<String> comboBox){
         comboBox.addItem("---------");
+        Collections.sort(zugListe, (Zug zug1, Zug zug2) -> zug1.getName().compareTo(zug2.getName()));
+        
         for(Zug zug : zugListe){
             comboBox.addItem(zug.getName());
         }
-        sort(comboBox);
     }
     
     public void updateHandtuchComboBox(Set words, JComboBox<String> comboBox){
@@ -497,27 +547,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
         for(Object word : words){
             comboBox.addItem((String)word);
         }
-        sort(comboBox);
     }
     
     public void columnNameFilterBox(Object[] columnames){
+        Arrays.sort(columnames);
         for(Object title : columnames){
-            jComboBox1.addItem((String)title);
+            jColumnFilter.addItem((String)title);
         }
-        sort(jComboBox1);
-    }
-    
-    private void sort(JComboBox<String> comboBox) {
-        Object[] o = new Object[comboBox.getItemCount()];
-        for(int i=0; i<o.length; i++) {
-            o[i] = comboBox.getItemAt(i);
-        }
-        Arrays.sort(o);
-        for(int i=0; i<o.length; i++) {
-            comboBox.removeItemAt(i);
-            comboBox.insertItemAt((String) o[i], i);
-        }
-        comboBox.setSelectedIndex(0);
     }
 
 
@@ -527,7 +563,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSpeichern;
     private javax.swing.JButton jButtonZurücksetzen;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jColumnFilter;
     private javax.swing.JComboBox<String> jComboDoZug;
     private javax.swing.JPanel jInfoFeld;
     private javax.swing.JPanel jKonfliktFeld;

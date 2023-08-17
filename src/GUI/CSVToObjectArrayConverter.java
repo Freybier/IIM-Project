@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class CSVToObjectArrayConverter {
     private Object[][] data;
@@ -78,7 +79,7 @@ public class CSVToObjectArrayConverter {
     }
     
     public Set getter(int spalte){
-        Set<String> content = new HashSet<>();
+        Set<String> content = new TreeSet<>();
         for (int i = 1; i < this.numRows; i++) {
             content.add((String)this.data[i][spalte]);
         }

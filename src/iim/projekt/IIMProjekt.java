@@ -21,6 +21,7 @@ import iim.Handtuch.ReadHandtuch2;
 import iim.pvZeiten.DozentToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
+import GUI.TestYann;
 import iim.Handtuch.UpdateHandtuchCSV;
 import iim.Hochschule.LV;
 import iim.Hochschule.ReadCSVs;
@@ -102,20 +103,19 @@ public class IIMProjekt {
         lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
         zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
         readCSVs.addZugToLV(lvList, zugList);
-        for (LV lv : lvList) {
-            
+        
+        for (LV lv : lvList) {     
             System.out.println(lv.toString());
-            /*
-            List<Zug> zugListe = lv.getZugList();
-            System.out.println("Zug Liste:");
-            for (Zug zug : zugListe) {
-                System.out.println("- Zug Name: " + zug.getName());
-                System.out.println("  Zug PO: " + zug.getPO());
-                // Weitere Informationen über den Zug ausgeben
-            }*/
-
             System.out.println("----------------------------------"); 
         } 
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"); 
+        for(Zug zug : zugList){
+            System.out.println(zug.getLV());
+            System.out.println("----------------------------------"); 
+        }
+        
+        TestYann testYann = new TestYann();
+        testYann.frame();
 }
 }
 

@@ -21,6 +21,7 @@ import iim.Handtuch.ReadHandtuch2;
 import iim.pvZeiten.DozentToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
+import GUI.TestYann;
 import iim.Handtuch.UpdateHandtuchCSV;
 import iim.Hochschule.LV;
 import iim.Hochschule.ReadCSVs;
@@ -112,6 +113,9 @@ public class IIMProjekt {
             System.out.println(zug.getLV());
             System.out.println("----------------------------------"); 
         }
+        
+        TestYann testYann = new TestYann();
+        testYann.frame();
 }
 }
 

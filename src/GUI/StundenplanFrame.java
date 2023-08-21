@@ -9,6 +9,8 @@ import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.io.IOException;
 
@@ -84,6 +86,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jLVList = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -336,6 +339,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Name", jPanel5);
 
+        jLabel1.setText("jLabel1");
+        jTabbedPane1.addTab("+", jLabel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -400,15 +406,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        JPanel panel = new JPanel();
+        /*JPanel panel = new JPanel();
 
         jTabbedPane1.add(panel);
         JTable tableCopy = new JTable(jTable.getModel());
         panel.add(tableCopy);
 
         jTabbedPane1.revalidate();
-        jTabbedPane1.repaint();
+        jTabbedPane1.repaint();*/
     }//GEN-LAST:event_jButton1ActionPerformed
+
 
     private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
         // TODO add your handling code here:
@@ -490,36 +497,35 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jColumnFilterActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        int selectedIndex = jTabbedPane1.getSelectedIndex();
-        if (selectedIndex != -1 && jTabbedPane1.getTitleAt(selectedIndex).equals("+")) {
-            addNewStundenplanTab();
+        JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
+        int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
+
+        if (selectedTabIndex != -1) {
+            Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
+            if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
+                addNewTab("");
+            }
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
-    
-private void addNewStundenplanTab() {
-    // Create a new tab panel and table
-    JPanel newTabPanel = new JPanel();
-    JTable newTable = new JTable(jTable.getModel());
-    newTabPanel.add(newTable);
 
-    // Insert the new tab at the specified index (just before the "+" tab)
-    int newTabIndex = jTabbedPane1.getTabCount() - 1;
-    jTabbedPane1.insertTab("Stundenplan", null, newTabPanel, null, newTabIndex);
-
-    // Set the custom tab component for the "+" tab
-    jTabbedPane1.setTabComponentAt(newTabIndex, createTabComponent("+"));
-
-    // Select the newly added tab
-    jTabbedPane1.setSelectedIndex(newTabIndex);
-}
+   
+    private void addNewTab(String string) {
+        JPanel tabContent = new JPanel(); // Hier können Sie den Inhalt der Registerkarte hinzufügen
+        jTabbedPane1.addTab("", tabContent);
+        int newIndex = jTabbedPane1.indexOfComponent(tabContent);
+        jTabbedPane1.setTabComponentAt(newIndex, createTabComponent());
+        jTabbedPane1.setSelectedIndex(newIndex);
+    }
 
 
-private Component createTabComponent(String title) {
-    JPanel tabComponent = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-    JLabel tabLabel = new JLabel(title);
-    tabComponent.add(tabLabel);
-    return tabComponent;
-}
+
+    private JPanel createTabComponent() {
+        JPanel tabComponent = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        JLabel tabLabel = new JLabel();
+        tabComponent.add(tabLabel);
+        return tabComponent;
+    }
+
 
     public void filterUpdate(String word, int index){
         // Filter the table based on a specific column
@@ -625,6 +631,7 @@ private Component createTabComponent(String title) {
     private javax.swing.JPanel jInfoFeld;
     private javax.swing.JPanel jKonfliktFeld;
     private javax.swing.JList<String> jLVList;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;

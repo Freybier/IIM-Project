@@ -107,7 +107,7 @@ public class TestYann {
         tabbedPane.setTabComponentAt(0, addButton);
 
         window.add(tabbedPane);
-        window.setVisible(true);
+        //window.setVisible(true);
     }
 
 }

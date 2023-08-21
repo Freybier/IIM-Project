@@ -3,11 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package GUI;
-
 import GUI.CSVToObjectArrayConverter;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
+import java.awt.Component;
+import java.awt.FlowLayout;
 
 import java.io.IOException;
 
@@ -39,6 +40,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     /**
      * Creates new form StundenplanFrame
      */
+    
     public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList) {
         oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
         this.dozentenList = dozentenList;
@@ -84,6 +86,22 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jLVList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jColumnFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---------" }));
         jColumnFilter.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +150,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     .addComponent(jColumnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SubFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -300,7 +318,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                         .addComponent(jLabelName)
                         .addGap(9, 9, 9)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jSuchfeldKurse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -308,9 +326,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                        .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                     .addComponent(jKonfliktFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jInfoFeld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -331,67 +349,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SubFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubFilterActionPerformed
-        // TODO add your handling code here:
-        if(SubFilter.getSelectedItem() != null){
-            try{
-                if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------")){
-                    sorter.setRowFilter(null);
-                }else{
-                    String filter = SubFilter.getSelectedItem().toString();
-                    filterUpdate(filter, columnNr);
-                }
-            }catch(Exception e){
-                System.out.println(e);
-            }
-        }else{
-            sorter.setRowFilter(null);
-        }
-        
-    }//GEN-LAST:event_SubFilterActionPerformed
-
-    private void jColumnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jColumnFilterActionPerformed
-
-        String chosentitle = jColumnFilter.getSelectedItem().toString();
-        Set<String> words = null;
-        SubFilter.removeAllItems();
-
-        for(int i = 0; i<columnNames.length; i++){
-            if(chosentitle.equals(this.columnNames[i].toString())){
-                columnNr = oArray.getColumnIndex(chosentitle);
-                words = oArray.getter(columnNr);
-                break;
-            }
-        }
-        if (words != null){
-        updateHandtuchComboBox(words, SubFilter);
-        filterUpdate(SubFilter.getSelectedItem().toString(), columnNr);
-        }
-    }//GEN-LAST:event_jColumnFilterActionPerformed
-
-    private void jButtonSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeichernActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeichernActionPerformed
-
-    private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
-        // TODO add your handling code here:
-        if(jComboDoZug.getSelectedItem() != null){
-            int tabIndex = jTabbedPane1.getSelectedIndex();
-            String jLabelText = jComboDoZug.getSelectedItem().toString();
-            jLabelName.setText(jLabelText);
-            // if-construction for not changing the Handtuch-Title
-            if(tabIndex != 0){
-                jTabbedPane1.setTitleAt(tabIndex, jLabelText);
-            }
-            if(lvLististZug && !lvLististDozent){
-                jLVList.setModel(setLVZugtList());
-            }else{
-                jLVList.setModel(setLVDozentList());
-            }
-            
-        }
-    }//GEN-LAST:event_jComboDoZugActionPerformed
     
     private DefaultListModel setLVDozentList(){
         
@@ -432,37 +389,137 @@ public class StundenplanFrame extends javax.swing.JFrame {
         return foundObject;
     }
     
-    
-    private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+    }//GEN-LAST:event_formMouseClicked
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        /*addNewStundenplanTab();
+        System.out.println("Hallo");*/
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        this.lvLististZug = false;
-        this.lvLististDozent = true;
-        
-        jComboDoZug.removeAllItems();
-        updateDozentComboBox(dozentenList, jComboDoZug);
-    }//GEN-LAST:event_jRadioDozentActionPerformed
+
+        JPanel panel = new JPanel();
+
+        jTabbedPane1.add(panel);
+        JTable tableCopy = new JTable(jTable.getModel());
+        panel.add(tableCopy);
+
+        jTabbedPane1.revalidate();
+        jTabbedPane1.repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
+        // TODO add your handling code here:
+        if(jComboDoZug.getSelectedItem() != null){
+            int tabIndex = jTabbedPane1.getSelectedIndex();
+            String jLabelText = jComboDoZug.getSelectedItem().toString();
+            jLabelName.setText(jLabelText);
+            // if-construction for not changing the Handtuch-Title
+            if(tabIndex != 0){
+                jTabbedPane1.setTitleAt(tabIndex, jLabelText);
+            }
+            if(lvLististZug && !lvLististDozent){
+                jLVList.setModel(setLVZugtList());
+            }else{
+                jLVList.setModel(setLVDozentList());
+            }
+
+        }
+    }//GEN-LAST:event_jComboDoZugActionPerformed
 
     private void jRadioZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioZugActionPerformed
         // TODO add your handling code here:
         this.lvLististDozent = false;
         this.lvLististZug = true;
-        
+
         jComboDoZug.removeAllItems();
-        updateZugComboBox(this.zugList, jComboDoZug);    
+        updateZugComboBox(this.zugList, jComboDoZug);
     }//GEN-LAST:event_jRadioZugActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
         // TODO add your handling code here:
-        
-        JPanel panel = new JPanel();
-        
-        jTabbedPane1.add(panel);
-        JTable tableCopy = new JTable(jTable.getModel());
-        panel.add(tableCopy);
-        
-        jTabbedPane1.revalidate();
-        jTabbedPane1.repaint();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.lvLististZug = false;
+        this.lvLististDozent = true;
+
+        jComboDoZug.removeAllItems();
+        updateDozentComboBox(dozentenList, jComboDoZug);
+    }//GEN-LAST:event_jRadioDozentActionPerformed
+
+    private void jButtonSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeichernActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSpeichernActionPerformed
+
+    private void SubFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubFilterActionPerformed
+        // TODO add your handling code here:
+        if(SubFilter.getSelectedItem() != null){
+            try{
+                if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------")){
+                    sorter.setRowFilter(null);
+                }else{
+                    String filter = SubFilter.getSelectedItem().toString();
+                    filterUpdate(filter, columnNr);
+                }
+            }catch(Exception e){
+                System.out.println(e);
+            }
+        }else{
+            sorter.setRowFilter(null);
+        }
+
+    }//GEN-LAST:event_SubFilterActionPerformed
+
+    private void jColumnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jColumnFilterActionPerformed
+
+        String chosentitle = jColumnFilter.getSelectedItem().toString();
+        Set<String> words = null;
+        SubFilter.removeAllItems();
+
+        for(int i = 0; i<columnNames.length; i++){
+            if(chosentitle.equals(this.columnNames[i].toString())){
+                columnNr = oArray.getColumnIndex(chosentitle);
+                words = oArray.getter(columnNr);
+                break;
+            }
+        }
+        if (words != null){
+            updateHandtuchComboBox(words, SubFilter);
+            filterUpdate(SubFilter.getSelectedItem().toString(), columnNr);
+        }
+    }//GEN-LAST:event_jColumnFilterActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        int selectedIndex = jTabbedPane1.getSelectedIndex();
+        if (selectedIndex != -1 && jTabbedPane1.getTitleAt(selectedIndex).equals("+")) {
+            addNewStundenplanTab();
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+    
+private void addNewStundenplanTab() {
+    // Create a new tab panel and table
+    JPanel newTabPanel = new JPanel();
+    JTable newTable = new JTable(jTable.getModel());
+    newTabPanel.add(newTable);
+
+    // Insert the new tab at the specified index (just before the "+" tab)
+    int newTabIndex = jTabbedPane1.getTabCount() - 1;
+    jTabbedPane1.insertTab("Stundenplan", null, newTabPanel, null, newTabIndex);
+
+    // Set the custom tab component for the "+" tab
+    jTabbedPane1.setTabComponentAt(newTabIndex, createTabComponent("+"));
+
+    // Select the newly added tab
+    jTabbedPane1.setSelectedIndex(newTabIndex);
+}
+
+
+private Component createTabComponent(String title) {
+    JPanel tabComponent = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+    JLabel tabLabel = new JLabel(title);
+    tabComponent.add(tabLabel);
+    return tabComponent;
+}
 
     public void filterUpdate(String word, int index){
         // Filter the table based on a specific column

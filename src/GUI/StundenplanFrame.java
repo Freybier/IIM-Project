@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 
 import java.io.IOException;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -30,6 +31,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -63,37 +65,37 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jLVList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                
+
                 if (!e.getValueIsAdjusting()) {
-                    
+
                     // Überprüfen Sie, ob ein Element ausgewählt wurde
                     if (!jLVList.isSelectionEmpty()) {
-                        
-                        // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
 
+                        // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
                         int selectedIndex = jLVList.getSelectedIndex();
                         LV selectedLV = null;
 
                         if (jComboDoZug.getSelectedItem() != null) {
-                            
+
                             int tabIndex = jTabbedPane1.getSelectedIndex();
                             String jLabelText = jComboDoZug.getSelectedItem().toString();
                             jLabelName.setText(jLabelText);
                             // if-construction for not changing the Handtuch-Title
                             if (tabIndex != 0) {
-                                
+
                                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
                             }
 
                             // Direkter Zugriff auf das ausgewählte Dozenten- oder Zug-Objekt
                             if (lvLististZug && !lvLististDozent) {
-                                
+
                                 Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
                                 selectedLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
                             } else {
-                                
+
                                 Dozent selectedDozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
-                                selectedLV = selectedDozent.getLV().get(selectedIndex); // LV-Objekt aus den Dozenten auswählen
+                                selectedLV = selectedDozent.getLV().get(selectedIndex);
+
                             }
                         }
 
@@ -108,6 +110,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 }
             }
         });
+
+        String[] columnNames = {"Zeit", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (int i = 8; i <= 18; i += 2) {
+            String time = i + ":00";
+            model.addRow(new Object[]{time, null, null, null, null, null, null});
+        }
+
+        jTable = new javax.swing.JTable(model);
+        jScrollPane3.setViewportView(jTable);
+
+        // Jetzt kannst du die Zellen in den Zeilen aktualisieren
     }
 
     public TableRowSorter<TableModel> sorter;
@@ -239,7 +254,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
+                "Time", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -409,6 +424,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
         if (dozent != null) {
+            System.out.println("Oi");// LV-Objekt aus den Dozenten auswählen
+            updateTableCells(jTable);
             for (LV lvElement : dozent.getLV()) {
                 listModel.addElement(lvElement.getName());
                 System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
@@ -556,7 +573,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
-
     private void addNewTab() {
         JPanel tabContent = (JPanel) new Test().getContentPane(); // Erhalte den Inhalt der Test-Klasse
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount() + 1); // Titel für die neue Registerkarte
@@ -658,8 +674,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }
 
     private void updateInfoPanel(LV selectedLV) {
-        
-        
+
         // Löschen Sie alle Komponenten aus dem jInfoFeld-Panel
         jInfoFeld.removeAll();
 
@@ -680,6 +695,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jInfoFeld.repaint();
     }
 
+private void updateTableCells(JTable jTable) {
+
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SubFilter;

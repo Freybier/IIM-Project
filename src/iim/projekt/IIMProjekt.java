@@ -115,14 +115,14 @@ public class IIMProjekt {
             System.out.println(zug.getLV());
             System.out.println("----------------------------------"); 
         }
-        */
+        
         
         for(Dozent dozent: dozentenList){
             System.out.println("Dozent Name: " + dozent.getName());
             System.out.println("LVs: " + dozent.getLV());
             System.out.println("------------------------");
             
-        }
+        }*/
         
         StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList); 
         TestYann testYann = new TestYann();

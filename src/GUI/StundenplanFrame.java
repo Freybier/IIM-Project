@@ -550,24 +550,18 @@ public class StundenplanFrame extends javax.swing.JFrame {
         if (selectedTabIndex != -1) {
             Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
             if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
-                addNewTab("");
+                addNewTab();
             }
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
-    private void addNewTab(String string) {
-        JPanel tabContent = new JPanel(); // Hier können Sie den Inhalt der Registerkarte hinzufügen
-        jTabbedPane1.addTab("", tabContent);
-        int newIndex = jTabbedPane1.indexOfComponent(tabContent);
-        jTabbedPane1.setTabComponentAt(newIndex, createTabComponent());
-        jTabbedPane1.setSelectedIndex(newIndex);
-    }
 
-    private JPanel createTabComponent() {
-        JPanel tabComponent = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        JLabel tabLabel = new JLabel();
-        tabComponent.add(tabLabel);
-        return tabComponent;
+    private void addNewTab() {
+        JPanel tabContent = (JPanel) new Test().getContentPane(); // Erhalte den Inhalt der Test-Klasse
+        String tabTitle = "Tab " + (jTabbedPane1.getTabCount() + 1); // Titel für die neue Registerkarte
+        jTabbedPane1.addTab(tabTitle, tabContent);
+        jTabbedPane1.setSelectedComponent(tabContent);
+
     }
 
     public void filterUpdate(String word, int index) {

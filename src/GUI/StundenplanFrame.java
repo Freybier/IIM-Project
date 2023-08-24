@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package GUI;
+
 import GUI.CSVToObjectArrayConverter;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
@@ -25,12 +26,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author Yann Leymann
  */
 public class StundenplanFrame extends javax.swing.JFrame {
-    
+
     public int columnNr = 10;
     private Object[] columnNames;
     public CSVToObjectArrayConverter oArray;
@@ -39,10 +47,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public List<Zug> zugList;
     private Boolean lvLististZug;
     private Boolean lvLististDozent;
+
     /**
      * Creates new form StundenplanFrame
      */
-    
     public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList) {
         oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
         this.dozentenList = dozentenList;
@@ -50,11 +58,60 @@ public class StundenplanFrame extends javax.swing.JFrame {
         initComponents();
         build();
         buildJTable();
-        setVisible(true);    
-        
+        setVisible(true);
+
+        jLVList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                
+                if (!e.getValueIsAdjusting()) {
+                    
+                    // Überprüfen Sie, ob ein Element ausgewählt wurde
+                    if (!jLVList.isSelectionEmpty()) {
+                        
+                        // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
+
+                        int selectedIndex = jLVList.getSelectedIndex();
+                        LV selectedLV = null;
+
+                        if (jComboDoZug.getSelectedItem() != null) {
+                            
+                            int tabIndex = jTabbedPane1.getSelectedIndex();
+                            String jLabelText = jComboDoZug.getSelectedItem().toString();
+                            jLabelName.setText(jLabelText);
+                            // if-construction for not changing the Handtuch-Title
+                            if (tabIndex != 0) {
+                                
+                                jTabbedPane1.setTitleAt(tabIndex, jLabelText);
+                            }
+
+                            // Direkter Zugriff auf das ausgewählte Dozenten- oder Zug-Objekt
+                            if (lvLististZug && !lvLististDozent) {
+                                
+                                Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
+                                selectedLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
+                            } else {
+                                
+                                Dozent selectedDozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
+                                selectedLV = selectedDozent.getLV().get(selectedIndex); // LV-Objekt aus den Dozenten auswählen
+                            }
+                        }
+
+                        // Hier überprüfen, ob selectedLV nicht null ist
+                        if (selectedLV != null) {
+                            // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
+                            updateInfoPanel(selectedLV);
+
+                            // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
+                        }
+                    }
+                }
+            }
+        });
     }
+
     public TableRowSorter<TableModel> sorter;
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -239,17 +296,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         );
 
         jInfoFeld.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jInfoFeldLayout = new javax.swing.GroupLayout(jInfoFeld);
-        jInfoFeld.setLayout(jInfoFeldLayout);
-        jInfoFeldLayout.setHorizontalGroup(
-            jInfoFeldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInfoFeldLayout.setVerticalGroup(
-            jInfoFeldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jInfoFeld.setLayout(new java.awt.BorderLayout());
 
         jComboDoZug.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bitte wähle Dozent oder Zug" }));
         jComboDoZug.addActionListener(new java.awt.event.ActionListener() {
@@ -355,32 +402,32 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private DefaultListModel setLVDozentList(){
-        
+
+    private DefaultListModel setLVDozentList() {
+
         DefaultListModel<String> listModel = new DefaultListModel<>();
         Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
-        if(dozent != null){
-                for(LV lvElement: dozent.getLV()){
-                    listModel.addElement(lvElement.getName());
-                }
+        if (dozent != null) {
+            for (LV lvElement : dozent.getLV()) {
+                listModel.addElement(lvElement.getName());
+                System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
+            }
         }
-        return listModel; 
+        return listModel;
     }
-    
-    private DefaultListModel setLVZugtList(){
-        
+
+    private DefaultListModel setLVZugtList() {
+
         DefaultListModel<String> listModel = new DefaultListModel<>();
         Zug zug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
-        if(zug  != null){
-                for(LV lvElement: zug.getLV()){
-                    listModel.addElement(lvElement.getName());
-                }
+        if (zug != null) {
+            for (LV lvElement : zug.getLV()) {
+                listModel.addElement(lvElement.getName());
+            }
         }
-        return listModel; 
+        return listModel;
     }
-    
-    
+
     private <T> T getObjectFromName(String name, List<T> objectList) {
         T foundObject = null;
         for (T object : objectList) {
@@ -394,7 +441,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
         return foundObject;
     }
-    
+
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
     }//GEN-LAST:event_formMouseClicked
 
@@ -419,17 +466,17 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
         // TODO add your handling code here:
-        if(jComboDoZug.getSelectedItem() != null){
+        if (jComboDoZug.getSelectedItem() != null) {
             int tabIndex = jTabbedPane1.getSelectedIndex();
             String jLabelText = jComboDoZug.getSelectedItem().toString();
             jLabelName.setText(jLabelText);
             // if-construction for not changing the Handtuch-Title
-            if(tabIndex != 0){
+            if (tabIndex != 0) {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
-            if(lvLististZug && !lvLististDozent){
+            if (lvLististZug && !lvLististDozent) {
                 jLVList.setModel(setLVZugtList());
-            }else{
+            } else {
                 jLVList.setModel(setLVDozentList());
             }
 
@@ -460,18 +507,18 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void SubFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubFilterActionPerformed
         // TODO add your handling code here:
-        if(SubFilter.getSelectedItem() != null){
-            try{
-                if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------")){
+        if (SubFilter.getSelectedItem() != null) {
+            try {
+                if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------")) {
                     sorter.setRowFilter(null);
-                }else{
+                } else {
                     String filter = SubFilter.getSelectedItem().toString();
                     filterUpdate(filter, columnNr);
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
-        }else{
+        } else {
             sorter.setRowFilter(null);
         }
 
@@ -483,14 +530,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
         Set<String> words = null;
         SubFilter.removeAllItems();
 
-        for(int i = 0; i<columnNames.length; i++){
-            if(chosentitle.equals(this.columnNames[i].toString())){
+        for (int i = 0; i < columnNames.length; i++) {
+            if (chosentitle.equals(this.columnNames[i].toString())) {
                 columnNr = oArray.getColumnIndex(chosentitle);
                 words = oArray.getter(columnNr);
                 break;
             }
         }
-        if (words != null){
+        if (words != null) {
             updateHandtuchComboBox(words, SubFilter);
             filterUpdate(SubFilter.getSelectedItem().toString(), columnNr);
         }
@@ -508,7 +555,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
-   
     private void addNewTab(String string) {
         JPanel tabContent = new JPanel(); // Hier können Sie den Inhalt der Registerkarte hinzufügen
         jTabbedPane1.addTab("", tabContent);
@@ -517,8 +563,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(newIndex);
     }
 
-
-
     private JPanel createTabComponent() {
         JPanel tabComponent = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         JLabel tabLabel = new JLabel();
@@ -526,17 +570,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
         return tabComponent;
     }
 
-
-    public void filterUpdate(String word, int index){
+    public void filterUpdate(String word, int index) {
         // Filter the table based on a specific column
-        if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------") || SubFilter.getSelectedItem().toString().equalsIgnoreCase(jColumnFilter.getSelectedItem().toString())){
+        if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------") || SubFilter.getSelectedItem().toString().equalsIgnoreCase(jColumnFilter.getSelectedItem().toString())) {
             sorter.setRowFilter(null);
-        }else{
+        } else {
             sorter.setRowFilter(RowFilter.regexFilter(word, index));
         }
-        
+
     }
-    
+
     public void build() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -564,59 +607,82 @@ public class StundenplanFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
             }
         });
     }
-    
-    public void buildJTable(){
-        
+
+    public void buildJTable() {
+
         Object[][] data = oArray.getData();
         this.columnNames = data[0];
-        Object[][] content = new Object[data.length-1][];
-        
+        Object[][] content = new Object[data.length - 1][];
+
         for (int i = 1; i < data.length; i++) {
             content[i - 1] = data[i];
         }
-        
+
         DefaultTableModel model = new DefaultTableModel(content, columnNames);
         jTable1.setModel(model);
-        
+
         sorter = new TableRowSorter<>(model);
         jTable1.setRowSorter(sorter);
         columnNameFilterBox(columnNames);
     }
-    
-    public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<String> comboBox){
+
+    public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<String> comboBox) {
         comboBox.addItem("---------");
         Collections.sort(dozentenListe, (Dozent dozent1, Dozent dozent2) -> dozent1.getName().compareTo(dozent2.getName()));
-        
-        for(Dozent dozent : dozentenListe){
+
+        for (Dozent dozent : dozentenListe) {
             comboBox.addItem(dozent.getName());
         }
     }
-    
-    public void updateZugComboBox(List<Zug> zugListe, JComboBox<String> comboBox){
+
+    public void updateZugComboBox(List<Zug> zugListe, JComboBox<String> comboBox) {
         comboBox.addItem("---------");
         Collections.sort(zugListe, (Zug zug1, Zug zug2) -> zug1.getName().compareTo(zug2.getName()));
-        
-        for(Zug zug : zugListe){
+
+        for (Zug zug : zugListe) {
             comboBox.addItem(zug.getName());
         }
     }
-    
-    public void updateHandtuchComboBox(Set words, JComboBox<String> comboBox){
+
+    public void updateHandtuchComboBox(Set words, JComboBox<String> comboBox) {
         comboBox.addItem("---------");
-        for(Object word : words){
-            comboBox.addItem((String)word);
+        for (Object word : words) {
+            comboBox.addItem((String) word);
         }
     }
-    
-    public void columnNameFilterBox(Object[] columnames){
+
+    public void columnNameFilterBox(Object[] columnames) {
         Arrays.sort(columnames);
-        for(Object title : columnames){
-            jColumnFilter.addItem((String)title);
+        for (Object title : columnames) {
+            jColumnFilter.addItem((String) title);
         }
+    }
+
+    private void updateInfoPanel(LV selectedLV) {
+        
+        
+        // Löschen Sie alle Komponenten aus dem jInfoFeld-Panel
+        jInfoFeld.removeAll();
+
+        // Fügen Sie die Informationen zur Lehrveranstaltung hinzu
+        JLabel nameLabel = new JLabel("   Name: " + selectedLV.getFullName());
+        JLabel dozentenLabel = new JLabel("   Dozent: " + selectedLV.getDozentName());
+        JLabel zugNameLabel = new JLabel("   ZugList: " + selectedLV.getZugNameList());
+        // Hier können Sie weitere Informationen hinzufügen, je nach Bedarf
+
+        // Fügen Sie die Labels oder andere Komponenten zum jInfoFeld-Panel hinzu
+        jInfoFeld.add(nameLabel, BorderLayout.NORTH);
+        jInfoFeld.add(zugNameLabel, BorderLayout.CENTER);
+        jInfoFeld.add(dozentenLabel, BorderLayout.SOUTH);
+        // Fügen Sie weitere Komponenten hinzu
+
+        // Aktualisieren Sie das jInfoFeld-Panel
+        jInfoFeld.revalidate();
+        jInfoFeld.repaint();
     }
 
 

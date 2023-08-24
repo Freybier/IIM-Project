@@ -18,6 +18,7 @@ public class Dozent {
     private long doesNotWant;
     private long scheduledDozent = 0;
     private List<LV> lv = new ArrayList<>();
+    private List<String> lvName = new ArrayList<>();
 
     public Dozent(String name, String wishList, long available, long doesNotWant) {
         this.name = name;
@@ -62,5 +63,12 @@ public class Dozent {
     
     public void addLV(LV lv){
         this.lv.add(lv);
+        addLVName(lv.getName());
+    }
+    public void addLVName(String lvName){
+        this.lvName.add(lvName);
+    }
+    public List<String> getLVName(){
+        return this.lvName;
     }
 }

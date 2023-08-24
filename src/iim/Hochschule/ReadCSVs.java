@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -131,18 +132,22 @@ public class ReadCSVs {
                     }
                 }
                 for (Dozent dozent : dozenten) {
-                    int lvSize = dozent.getLV().size();
-                    for (int i = 0; i < lvSize; i++) {
-                        String name = dozent.getLVName().get(i);
-                        for (int j = i + 1; j < lvSize; j++) {
-                            if (name.equals(dozent.getLVName().get(j))) {
-                                dozent.getLV().remove(j);
-                                lvSize--;
-                            }
+                    Set<String> uniqueLVNames = new HashSet<>();
+                    Iterator<LV> iterator = dozent.getLV().iterator();
+
+                    while (iterator.hasNext()) {
+                        LV lv = iterator.next();
+                        String lvName = lv.getName();
+
+                        // Überprüfen, ob der Name bereits in der Menge enthalten ist
+                        if (uniqueLVNames.contains(lvName)) {
+                            // Duplikat gefunden, entferne es
+                            iterator.remove();
+                        } else {
+                            // Einzigartiger Name, füge ihn zur Menge hinzu
+                            uniqueLVNames.add(lvName);
                         }
-
                     }
-
                 }
             }
         } catch (IOException e) {

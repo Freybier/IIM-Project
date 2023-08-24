@@ -120,9 +120,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
 
         jTable = new javax.swing.JTable(model);
+        // Jetzt kannst du die Zellen in den Zeilen aktualisieren
+        TableCellRenderer renderer = new CustomTableCellRenderer();
+        jTable.setDefaultRenderer(Integer.class, renderer);
+        
         jScrollPane3.setViewportView(jTable);
 
-        // Jetzt kannst du die Zellen in den Zeilen aktualisieren
+        
+
     }
 
     public TableRowSorter<TableModel> sorter;
@@ -695,9 +700,18 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jInfoFeld.repaint();
     }
 
-private void updateTableCells(JTable jTable) {
+    private void updateTableCells(JTable jTable) {
+        System.out.println("updateTabelMethode");
+        String a = "-1";
+        // Ersetzen Sie "CustomTableModel" durch den tatsächlichen Namen Ihres TableModels
+        // Setzen Sie den Wert in die Zelle (Zeile 0, Spalte 1) auf 1
+        jTable.setValueAt(a, 0, 1);
 
-}
+        TableCellRenderer renderer = new CustomTableCellRenderer();
+        System.out.println("Hallo?");
+        jTable.setDefaultRenderer(Object.class, renderer);
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SubFilter;

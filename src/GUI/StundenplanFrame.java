@@ -181,6 +181,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 "Name vom Prof", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
             }
         ));
+        jTable1.setRowHeight(46);
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setHeaderValue("Name vom Prof");

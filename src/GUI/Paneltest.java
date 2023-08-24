@@ -66,6 +66,7 @@ public class Paneltest extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable.setRowHeight(46);
         jScrollPane3.setViewportView(jTable);
 
         jSuchfeldKurse.setText("Suche");

@@ -79,14 +79,14 @@ public class IIMProjekt {
         
         List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
         
-        //readCSVs.addZugToLV(lvList, zugList);
+        readCSVs.addZugToLV(lvList, zugList);
         
         filePath = "dozenten.csv";
          List<String[]> dozentenPVZeitenList = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(dozentenPVZeitenList));
 
         //DB.speichern(dozenten);
-        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList); 
+        
         /*
         for(Dozent lecturer : dozenten){
             if(lecturer.getName().equals("YAN")){
@@ -104,6 +104,8 @@ public class IIMProjekt {
         zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
         readCSVs.addZugToLV(lvList, zugList);
         
+        
+        /*
         for (LV lv : lvList) {     
             System.out.println(lv.toString());
             System.out.println("----------------------------------"); 
@@ -113,9 +115,20 @@ public class IIMProjekt {
             System.out.println(zug.getLV());
             System.out.println("----------------------------------"); 
         }
+        */
         
+        for(Dozent dozent: dozentenList){
+            System.out.println("Dozent Name: " + dozent.getName());
+            System.out.println("LVs: " + dozent.getLV());
+            System.out.println("------------------------");
+            
+        }
+        
+        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList); 
         TestYann testYann = new TestYann();
         testYann.frame();
+        
+        
 }
 }
 

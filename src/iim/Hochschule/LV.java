@@ -22,6 +22,8 @@ public class LV {
     private final List<String> zugNameList = new ArrayList<>();
     private final List<Zug> zugList = new ArrayList<>();
     private String sws;
+    private int swsBlocks = 0;
+    private int swsBlocksTook = 0;
     private boolean geblockt;
     private String lva;
 
@@ -31,6 +33,18 @@ public class LV {
         //this.po = po;
         this.dozentName = dozentName;
         this.sws = sws;
+        try {
+            Double check = Double.parseDouble(sws);
+            if(check%0.5 == 0){
+                check = (check + 0.5);
+            }
+            if(check%2 != 0){
+                check++;
+            } 
+        this.swsBlocks = (int)(check/2);            
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
         this.geblockt = geblockt;
         this.lva = lva;
     }
@@ -80,7 +94,18 @@ public class LV {
     public String getSWS() {
         return this.sws;
     }
-
+    public int getSWSBlocks() {
+        return this.swsBlocks;
+    }
+    public int getSWSBlocksTook() {
+        return this.swsBlocksTook;
+    }    
+    public void substractOneSWSBlocksTook() {
+        this.swsBlocksTook--;
+    }
+    public void addOneSWSBlocksTook() {
+        this.swsBlocksTook++;
+    }
     public boolean getGeblockt() {
         return this.geblockt;
     }

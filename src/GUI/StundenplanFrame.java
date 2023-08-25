@@ -61,6 +61,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         build();
         buildJTable();
         setVisible(true);
+        timeToJTable();
 
         jLVList.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -110,24 +111,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 }
             }
         });
-
-        String[] columnNames = {"Zeit", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        for (int i = 8; i <= 18; i += 2) {
-            String time = i + ":00";
-            model.addRow(new Object[]{time, null, null, null, null, null, null});
-        }
-
-        jTable = new javax.swing.JTable(model);
-        // Jetzt kannst du die Zellen in den Zeilen aktualisieren
-        TableCellRenderer renderer = new CustomTableCellRenderer();
-        jTable.setDefaultRenderer(Integer.class, renderer);
         
-        jScrollPane3.setViewportView(jTable);
+        jLVList.setDragEnabled(true);
+        jLVList.setTransferHandler(new ListTransferHandler(jLVList));
+        jTable.setTransferHandler(new TableTransferHandler(jTable));
 
-        
-
+        // Erstellen Sie eine Instanz des MyTableCellRenderer
+        //jScrollPane3.setViewportView(jTable);
     }
 
     public TableRowSorter<TableModel> sorter;
@@ -250,7 +240,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -430,7 +419,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
         Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
         if (dozent != null) {
             System.out.println("Oi");// LV-Objekt aus den Dozenten auswählen
-            updateTableCells(jTable);
+            //updateTableCells(jTable);
+            MyTableCellRenderer cellRenderer = new MyTableCellRenderer(dozent);
+
+            // Setzen Sie den Renderer für die gewünschte Spalte (in diesem Fall Spalte 0)
+            for (int i = 1; i < 7; i++) {
+                jTable.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+            }
             for (LV lvElement : dozent.getLV()) {
                 listModel.addElement(lvElement.getName());
                 System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
@@ -700,18 +695,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jInfoFeld.repaint();
     }
 
-    private void updateTableCells(JTable jTable) {
-        System.out.println("updateTabelMethode");
-        String a = "-1";
-        // Ersetzen Sie "CustomTableModel" durch den tatsächlichen Namen Ihres TableModels
-        // Setzen Sie den Wert in die Zelle (Zeile 0, Spalte 1) auf 1
-        jTable.setValueAt(a, 0, 1);
+    private void timeToJTable() {
+        List<String> textList = Arrays.asList("8:00", "10:00", "12:00", "14:00", "16:00", "18:00");
 
-        TableCellRenderer renderer = new CustomTableCellRenderer();
-        System.out.println("Hallo?");
-        jTable.setDefaultRenderer(Object.class, renderer);
-
+        for (int i = 0; i < textList.size(); i++) {
+        jTable.setValueAt(textList.get(i), i, 0); // Fügen Sie den Text in die erste Spalte ein
     }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SubFilter;

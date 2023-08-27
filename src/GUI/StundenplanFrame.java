@@ -53,7 +53,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     /**
      * Creates new form StundenplanFrame
      */
-    public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList) {
+    public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList) {
         oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
         this.dozentenList = dozentenList;
         this.zugList = zugList;
@@ -123,7 +123,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jLVList.setDragEnabled(true);
         jLVList.setTransferHandler(new ListTransferHandler(jLVList));
-        jTable.setTransferHandler(new TableTransferHandler(jTable));
+        jTable.setTransferHandler(new TableTransferHandler(jTable, lvList, dozentenList, zugList));
 
         // Erstellen Sie eine Instanz des MyTableCellRenderer
         //jScrollPane3.setViewportView(jTable);

@@ -67,7 +67,7 @@ public class IIMProjekt {
         
         
         ReadCSVs readCSVs = new ReadCSVs();        
-        readCSVs.getLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
+        
             
         String filename = "dozenten.csv";
         verarbeitung.saveAsCSV(dozentenList, filename);
@@ -101,6 +101,7 @@ public class IIMProjekt {
         update.addParallel(handtuchOutputUpdatePath);
         
         lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
+        readCSVs.getLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
         zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
         readCSVs.addZugToLV(lvList, zugList);
         
@@ -124,7 +125,7 @@ public class IIMProjekt {
             
         }*/
         
-        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList); 
+        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList); 
         TestYann testYann = new TestYann();
         testYann.frame();
         

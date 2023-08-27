@@ -105,13 +105,22 @@ public class StundenplanFrame extends javax.swing.JFrame {
                             // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
                             updateInfoPanel(selectedLV);
 
+                            for (Dozent dozent : dozentenList) {
+                                if (selectedLV.getDozentName().equals(dozent.getName())) {
+                                    MyTableCellRenderer cellRenderer = new MyTableCellRenderer(dozent);
+                                    for (int i = 1; i < 7; i++) {
+                                        jTable.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+                                    }
+                                }
+                            }
+
                             // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
                         }
                     }
                 }
             }
         });
-        
+
         jLVList.setDragEnabled(true);
         jLVList.setTransferHandler(new ListTransferHandler(jLVList));
         jTable.setTransferHandler(new TableTransferHandler(jTable));
@@ -428,7 +437,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
             for (LV lvElement : dozent.getLV()) {
                 listModel.addElement(lvElement.getName());
-                System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
+                //System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
             }
         }
         return listModel;
@@ -699,8 +708,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
         List<String> textList = Arrays.asList("8:00", "10:00", "12:00", "14:00", "16:00", "18:00");
 
         for (int i = 0; i < textList.size(); i++) {
-        jTable.setValueAt(textList.get(i), i, 0); // Fügen Sie den Text in die erste Spalte ein
-    }
+            jTable.setValueAt(textList.get(i), i, 0); // Fügen Sie den Text in die erste Spalte ein
+        }
     }
 
 

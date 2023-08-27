@@ -88,7 +88,7 @@ public class LV {
     }
 
     public void setScheduledLV(long scheduled) {
-        this.scheduledLV = scheduled;
+        scheduledLV = scheduled;
     }
 
     public String getSWS() {
@@ -113,7 +113,7 @@ public class LV {
     public String getLVA() {
         return this.lva;
     }
-
+/*
     @Override
     public String toString() {
         return "LV Name: " + name
@@ -126,5 +126,6 @@ public class LV {
                 + "\ngeblockt: " + geblockt
                 + "\nLVA: " + lva;
     }
+*/
 
 }

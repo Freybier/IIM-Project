@@ -58,10 +58,12 @@ public class TableTransferHandler extends TransferHandler {
                     long scheduled = 1;
                     int check = 33 - ((col * 6) - 6) - row;
                     scheduled = scheduled << check;
-                    scheduled = scheduled & lv.getScheduledLV();
+                    scheduled = scheduled | lv.getScheduledLV();
                     lv.setScheduledLV(scheduled);
+                    System.out.println(lv);
+                    System.out.println(lv.getScheduledLV());
                     System.out.println("LVScheduled wurde geseted");
-
+                    
                 }
             }
 

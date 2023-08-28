@@ -58,8 +58,17 @@ public class TableTransferHandler extends TransferHandler {
                     long scheduled = 1;
                     int check = 33 - ((col * 6) - 6) - row;
                     scheduled = scheduled << check;
+                    long dozentScheduled = scheduled;
                     scheduled = scheduled | lv.getScheduledLV();
+                    
                     lv.setScheduledLV(scheduled);
+                    
+                    for(Dozent doz : dozentenList){
+                        if(lv.getDozentName().equals(doz.getName())){
+                            dozentScheduled = dozentScheduled | doz.getScheduledDozent();
+                            doz.setScheduledDozent(dozentScheduled);
+                        }
+                    }
                     System.out.println(lv);
                     System.out.println(lv.getScheduledLV());
                     System.out.println("LVScheduled wurde geseted");

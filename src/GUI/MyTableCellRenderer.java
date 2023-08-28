@@ -33,6 +33,7 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
         int checkSum = 0;
         long schiebAvailable = dozent.getAvailable();
         long schiebDoesNotWant = dozent.getDoesNotWant();
+        long scheduledDozent = dozent.getScheduledDozent();
 
         if (!(column == 0)) {
             if (!(column == 6 && row == 5)) {
@@ -41,6 +42,7 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
 
                     schiebAvailable = schiebAvailable >> checkSum;
                     schiebDoesNotWant = schiebDoesNotWant >> checkSum;
+                    scheduledDozent = scheduledDozent >> checkSum;
                     // Überprüfen, ob es sich um die erste Zelle (row = 0, column = 0) handelt
                     if (schiebAvailable % 2 == 1) {
                         cellComponent.setBackground(Color.GREEN);
@@ -51,6 +53,9 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
                     } else {
                         // Setzen Sie die Standardhintergrundfarbe für andere Zellen
                         cellComponent.setBackground(table.getBackground());
+                    }
+                    if(scheduledDozent % 2 == 1){
+                        cellComponent.setBackground(Color.CYAN);
                     }
                 }else {
                         // Setzen Sie die Standardhintergrundfarbe für andere Zellen

@@ -217,7 +217,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable.setRowHeight(46);
+        jTable.setRowHeight(53);
         jScrollPane3.setViewportView(jTable);
 
         jSuchfeldKurse.setText("Suche");

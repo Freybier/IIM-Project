@@ -51,7 +51,6 @@ public class Test extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
@@ -66,7 +65,7 @@ public class Test extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable.setRowHeight(46);
+        jTable.setRowHeight(53);
         jScrollPane3.setViewportView(jTable);
 
         jSuchfeldKurse.setText("Suche");

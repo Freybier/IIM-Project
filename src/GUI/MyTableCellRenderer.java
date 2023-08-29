@@ -11,15 +11,19 @@ package GUI;
 import iim.Hochschule.Dozent;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class MyTableCellRenderer extends DefaultTableCellRenderer {
-
+    
+    private List<Dozent> dozentList;
     private Dozent dozent;
 
-    public MyTableCellRenderer(Dozent dozent) {
+    public MyTableCellRenderer(Dozent dozent, List<Dozent> dozentList) {
         this.dozent = dozent;
+        this.dozentList = dozentList;
+        
         //System.out.println(dozent);
     }
 
@@ -34,7 +38,12 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
         long schiebAvailable = dozent.getAvailable();
         long schiebDoesNotWant = dozent.getDoesNotWant();
         long scheduledDozent = dozent.getScheduledDozent();
-
+        
+            if(dozent== null){
+                cellComponent.setBackground(table.getBackground());
+                return cellComponent;
+            }
+        
         if (!(column == 0)) {
             if (!(column == 6 && row == 5)) {
                 if (!(column == 6 && row == 4)) {

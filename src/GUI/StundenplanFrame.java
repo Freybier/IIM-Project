@@ -457,6 +457,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
         // TODO add your handling code here:
         if (jComboDoZug.getSelectedItem() != null) {
+            DefaultTableCellRenderer();
             int tabIndex = jTabbedPane1.getSelectedIndex();
             String jLabelText = jComboDoZug.getSelectedItem().toString();
             jLabelName.setText(jLabelText);
@@ -480,6 +481,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jComboDoZug.removeAllItems();
         updateZugComboBox(this.zugList, jComboDoZug);
+        jTable.revalidate();
+        jTable.repaint();
+        DefaultTableCellRenderer();
+        
     }//GEN-LAST:event_jRadioZugActionPerformed
 
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
@@ -489,6 +494,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jComboDoZug.removeAllItems();
         updateDozentComboBox(dozentenList, jComboDoZug);
+        
+        DefaultTableCellRenderer();
     }//GEN-LAST:event_jRadioDozentActionPerformed
 
     private void jButtonSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeichernActionPerformed
@@ -730,9 +737,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                             updateInfoPanel(selectedLV);
                                 jTable.revalidate();
                                 jTable.repaint();
-                            
-                        
-                            
+                         
                             for (Dozent dozent : dozentenList) {
                                 if (selectedLV.getDozentName().equals(dozent.getName())) {
                                     cellRenderer = new MyTableCellRenderer(dozent);
@@ -740,6 +745,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                         jTable.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                                     }
                                     //setLVforJTable(dozent);
+                                }else if(selectedLV.getDozentName().equals("-") || selectedLV.getDozentName().equals("_")){
+                                    DefaultTableCellRenderer();
                                 }
                             }
 
@@ -757,7 +764,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         //System.out.println(dozentLV);
         //System.out.println(dozentLV.getScheduledLV());
         if (lv.getScheduledLV() != 0) {
-            System.out.println("get Scheduled LV!");
+            //System.out.println("get Scheduled LV!");
             long lvScheduled = lv.getScheduledLV();
             for (int i = 39; i > 5; i--) {
                 if (lvScheduled % 2 == 1) {
@@ -774,6 +781,15 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
 
     }
+    
+    public void DefaultTableCellRenderer(){
+    DefaultTableCellRenderer defaultRenderer = new DefaultTableCellRenderer();
+
+        // Setze den Renderer für alle Spalten und Zeilen
+        for (int i = 0; i < jTable.getColumnCount(); i++) {
+            jTable.getColumnModel().getColumn(i).setCellRenderer(defaultRenderer);
+        }
+    };
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

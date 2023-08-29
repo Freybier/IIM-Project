@@ -59,11 +59,11 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
                     }
                 }else {
                         // Setzen Sie die Standardhintergrundfarbe für andere Zellen
-                        cellComponent.setBackground(table.getBackground());
+                        cellComponent.setBackground(Color.LIGHT_GRAY);
                     }
             }else {
                         // Setzen Sie die Standardhintergrundfarbe für andere Zellen
-                        cellComponent.setBackground(table.getBackground());
+                        cellComponent.setBackground((Color.LIGHT_GRAY));
                     }
         }
 

@@ -41,7 +41,8 @@ public class LV {
             if(check%2 != 0){
                 check++;
             } 
-        this.swsBlocks = (int)(check/2);            
+        this.swsBlocks = (int)(check/2);
+        
         } catch (NumberFormatException e) {
             System.out.println(e);
         }

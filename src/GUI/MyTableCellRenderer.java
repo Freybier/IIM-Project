@@ -20,7 +20,7 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
 
     public MyTableCellRenderer(Dozent dozent) {
         this.dozent = dozent;
-        System.out.println(dozent);
+        //System.out.println(dozent);
     }
 
     @Override

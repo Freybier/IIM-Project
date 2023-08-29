@@ -484,7 +484,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jTable.revalidate();
         jTable.repaint();
         DefaultTableCellRenderer();
-        
+
     }//GEN-LAST:event_jRadioZugActionPerformed
 
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
@@ -494,7 +494,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jComboDoZug.removeAllItems();
         updateDozentComboBox(dozentenList, jComboDoZug);
-        
+
         DefaultTableCellRenderer();
     }//GEN-LAST:event_jRadioDozentActionPerformed
 
@@ -735,9 +735,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                         if (selectedLV != null) {
                             // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
                             updateInfoPanel(selectedLV);
-                                jTable.revalidate();
-                                jTable.repaint();
-                         
+                            jTable.revalidate();
+                            jTable.repaint();
+
                             for (Dozent dozent : dozentenList) {
                                 if (selectedLV.getDozentName().equals(dozent.getName())) {
                                     cellRenderer = new MyTableCellRenderer(dozent);
@@ -745,17 +745,17 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                         jTable.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                                     }
                                     //setLVforJTable(dozent);
-                                }else if(selectedLV.getDozentName().equals("-") || selectedLV.getDozentName().equals("_")){
+                                } else if (selectedLV.getDozentName().equals("-") || selectedLV.getDozentName().equals("_")) {
                                     DefaultTableCellRenderer();
                                 }
                             }
-
+                            //getZugforLVinTable(selectedLV);
                             // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
                         }
                     }
                 }
             }
-            
+
         });
     }
 
@@ -770,8 +770,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 if (lvScheduled % 2 == 1) {
                     int row = i % 6;
                     int column = i / 6;
-
-                    jTable.setValueAt(lv.getName(), row, column);
+                    String cellContent = "";
+                    
+                        cellContent += lv.getName();
+                    
+                    jTable.setValueAt(cellContent, row, column);
                     ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
 
                 }
@@ -781,15 +784,44 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
 
     }
-    
-    public void DefaultTableCellRenderer(){
-    DefaultTableCellRenderer defaultRenderer = new DefaultTableCellRenderer();
+
+    public void DefaultTableCellRenderer() {
+        DefaultTableCellRenderer defaultRenderer = new DefaultTableCellRenderer();
 
         // Setze den Renderer für alle Spalten und Zeilen
         for (int i = 0; i < jTable.getColumnCount(); i++) {
             jTable.getColumnModel().getColumn(i).setCellRenderer(defaultRenderer);
         }
-    };
+    }
+
+    ;
+    
+    public void getZugforLVinTable(LV lv) {
+        for (Zug zug : lv.getZugList()) {
+            for (LV lvZug : zug.getLV()) {
+                if (lvZug.getScheduledLV() != 0) {
+                    //System.out.println("get Scheduled LV!");
+                    long lvScheduled = lv.getScheduledLV();
+                    for (int i = 39; i > 5; i--) {
+                        if (lvScheduled % 2 == 1) {
+                            int row = i % 6;
+                            int column = i / 6;
+                            String cellContent = "";
+                            cellContent = (String) jTable.getValueAt(row, column);
+                            cellContent += "   " + zug.getName() + ": " + lv.getName() + "   ";
+                            
+                            jTable.setValueAt(cellContent, row, column);
+                            ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
+
+                        }
+                        lvScheduled = lvScheduled >> 1;
+
+                    }
+                }
+            }
+        }
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

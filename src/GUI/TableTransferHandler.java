@@ -69,9 +69,9 @@ public class TableTransferHandler extends TransferHandler {
                             doz.setScheduledDozent(dozentScheduled);
                         }
                     }
-                    System.out.println(lv);
-                    System.out.println(lv.getScheduledLV());
-                    System.out.println("LVScheduled wurde geseted");
+                    //System.out.println(lv);
+                    //System.out.println(lv.getScheduledLV());
+                    //System.out.println("LVScheduled wurde geseted");
                     
                 }
             }

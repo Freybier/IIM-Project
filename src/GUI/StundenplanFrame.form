@@ -362,6 +362,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Suche"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jSuchfeldKurseKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelName">
               <Properties>

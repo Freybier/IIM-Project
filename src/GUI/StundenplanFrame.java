@@ -4,18 +4,12 @@
  */
 package GUI;
 
-import GUI.CSVToObjectArrayConverter;
+
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
 import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import java.io.IOException;
-
-import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
@@ -29,14 +23,12 @@ import javax.swing.table.TableRowSorter;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -294,6 +286,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable);
 
         jSuchfeldKurse.setText("Suche");
+        jSuchfeldKurse.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jSuchfeldKurseKeyReleased(evt);
+            }
+        });
 
         jLabelName.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         jLabelName.setText("Name:");
@@ -627,6 +624,34 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
+    private void jSuchfeldKurseKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldKurseKeyReleased
+        // TODO add your handling code here:
+        String entry = this.jSuchfeldKurse.getText();
+        System.out.println(entry);
+        findMatchingObjects(entry);
+    }//GEN-LAST:event_jSuchfeldKurseKeyReleased
+
+    public void findMatchingObjects(String input) {
+        
+        DefaultListModel<String> suchListModel = new DefaultListModel<>();
+        try{
+            for (Dozent obj : dozentenList) {
+                if (obj.getName().toLowerCase().contains(input.toLowerCase())) {
+                    suchListModel.addElement(obj.getName());
+                }
+            }
+            
+            for (Zug zugObj : zugList) {
+                if (zugObj.getName().toLowerCase().contains(input.toLowerCase())) {
+                    suchListModel.addElement(zugObj.getName());
+                }
+            }
+            jLVList.setModel(suchListModel);
+        }catch(java.lang.NullPointerException ex){
+            
+        }
+    }
+    
     private void addNewTab() {
         JPanel tabContent = (JPanel) new Test().getContentPane(); // Erhalte den Inhalt der Test-Klasse
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount() + 1); // Titel für die neue Registerkarte

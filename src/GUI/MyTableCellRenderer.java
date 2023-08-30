@@ -11,8 +11,12 @@ package GUI;
 import iim.Hochschule.Dozent;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class MyTableCellRenderer extends DefaultTableCellRenderer {
@@ -64,7 +68,9 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
                         cellComponent.setBackground(table.getBackground());
                     }
                     if(scheduledDozent % 2 == 1){
-                        cellComponent.setBackground(Color.CYAN);
+                        //cellComponent.setForeground(Color.PINK);
+                         cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                         setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
                     }
                 }else {
                         // Setzen Sie die Standardhintergrundfarbe für andere Zellen

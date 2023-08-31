@@ -64,6 +64,8 @@ public class TableTransferHandler extends TransferHandler {
         Transferable transferable = support.getTransferable();
        try {
             String data = (String) transferable.getTransferData(DataFlavor.stringFlavor);
+            String splitter[] = data.split(" ");
+            data = splitter[0];
             //DataFlavor customDataFlavor = new DataFlavor(LV.class, "Custom LV Object");
             //LV lvObjekt = (LV) transferable.getTransferData(customDataFlavor);
             //System.out.println(data);
@@ -89,6 +91,8 @@ public class TableTransferHandler extends TransferHandler {
                         jLVList.setCellRenderer(new CustomListCellRenderer(lvJLVList, lv));
                         
                         jTable.setValueAt(data, row, col);
+                        jLVList.revalidate();
+                        jLVList.repaint();
                     } else {
                         return false;
 

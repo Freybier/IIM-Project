@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import GUI.StundenplanFrame;
 
 public class CustomListCellRenderer extends DefaultListCellRenderer {
 
@@ -40,8 +41,19 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         String lvRenderer = (String) value;
-
+        
+        String lvUndZahl[] = lvRenderer.split(" ");
+        System.out.println(lvUndZahl.length);
+        
         for (LV lvList : lvJLVList) {
+            
+            lvUndZahl[1] = Integer.toString(lvList.getSWSBlocks() - lvList.getSWSBlocksTook());
+            String lvRendererZusammen = lvUndZahl[0] + " " + lvUndZahl[1];
+            lvRenderer = lvUndZahl[0];
+            DefaultListModel<String> listModel = (DefaultListModel)list.getModel();
+            listModel.setElementAt(lvRendererZusammen, index);
+            
+            
             // Überprüfe, ob eine benutzerdefinierte Hintergrundfarbe für diesen Eintrag festgelegt wurde
             if (lvList.getSWSBlocksTook() == lvList.getSWSBlocks() && lvList.getName().equals(lvRenderer)) {
                 System.out.println(lvList.getName() + " !!!!!!!!!!!! " + lvRenderer + " &&&&& " + index + " §§§§§§ " + lvList.getSWSBlocks() + " ========= " + lvList.getSWSBlocksTook());

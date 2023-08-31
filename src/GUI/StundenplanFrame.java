@@ -448,7 +448,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
         if (dozent != null) {
-
+            
+            jLVList.updateUI();
+            
             // LV-Objekt aus den Dozenten auswählen
             //updateTableCells(jTable);
             this.tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList);
@@ -463,14 +465,21 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
             }
             for (LV lvElement : dozent.getLV()) {
-                listModel.addElement(lvElement.getName());
-                jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), lvElement));
+
+                
+                int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
+                listModel.addElement(lvElement.getName() + " " + swsUebrig);
+                
+
+                //listModel.addElement(lvElement.getName());
+                //jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), lvElement));
+
                 //System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
             }
         }
         return listModel;
     }
-
+   
     private DefaultListModel setLVZugtList() {
 
         emptyJTable();

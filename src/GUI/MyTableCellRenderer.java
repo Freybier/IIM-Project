@@ -43,7 +43,7 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
         long schiebDoesNotWant = dozent.getDoesNotWant();
         long scheduledDozent = dozent.getScheduledDozent();
         
-            if(dozent== null){
+            if(dozent== null || !dozent.getDoesHavePVZeiten()){
                 cellComponent.setBackground(table.getBackground());
                 return cellComponent;
             }

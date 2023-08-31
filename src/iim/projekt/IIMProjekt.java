@@ -101,7 +101,7 @@ public class IIMProjekt {
         update.addParallel(handtuchOutputUpdatePath);
         
         lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
-        readCSVs.getDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath);
+        dozentenList = readCSVs.getDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath);
         readCSVs.getLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
         zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
         readCSVs.addZugToLV(lvList, zugList);

@@ -78,7 +78,7 @@ public class ReadCSVs {
         }
         return -1; // Column not found
     }
-    public void getDozentNotInPVZeiten(List<Dozent> dozenten, String handtuchCSVFilePath){
+    public List<Dozent> getDozentNotInPVZeiten(List<Dozent> dozenten, String handtuchCSVFilePath){
         try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {
             String line;
             String[] header = br.readLine().split(";");
@@ -104,12 +104,15 @@ public class ReadCSVs {
                 }
                 if (index == 0){
                     Dozent dozent = new Dozent(dozentFromCsv);
+                    dozent.setDoesHavePVZeiten(false);
+                    dozenten.add(dozent);
                 }
                 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return dozenten;
     }
     public void getLVforDozentfromCSV(List<Dozent> dozenten, List<LV> lvList, String handtuchCSVFilePath) {
 

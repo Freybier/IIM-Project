@@ -19,6 +19,7 @@ public class Dozent {
     private long scheduledDozent = 0;
     private List<LV> lv = new ArrayList<>();
     private List<String> lvName = new ArrayList<>();
+    private boolean pvZeiten = true;
 
     public Dozent(String name) {
         this.name = name;    
@@ -74,5 +75,11 @@ public class Dozent {
     }
     public List<String> getLVName(){
         return this.lvName;
+    }
+    public void setDoesHavePVZeiten(boolean pvZeiten){
+        this.pvZeiten = pvZeiten;
+    }
+    public boolean getDoesHavePVZeiten(){
+        return pvZeiten;
     }
 }

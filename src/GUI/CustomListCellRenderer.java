@@ -41,24 +41,24 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         String lvRenderer = (String) value;
-        
-        String lvUndZahl[] = lvRenderer.split(" ");
-        System.out.println(lvUndZahl.length);
-        
+
+        String[] lvUndZahl = lvRenderer.split(" ");
+
         for (LV lvList : lvJLVList) {
-            
-            lvUndZahl[1] = Integer.toString(lvList.getSWSBlocks() - lvList.getSWSBlocksTook());
-            String lvRendererZusammen = lvUndZahl[0] + " " + lvUndZahl[1];
-            lvRenderer = lvUndZahl[0];
-            DefaultListModel<String> listModel = (DefaultListModel)list.getModel();
-            listModel.setElementAt(lvRendererZusammen, index);
-            
-            
-            // Überprüfe, ob eine benutzerdefinierte Hintergrundfarbe für diesen Eintrag festgelegt wurde
-            if (lvList.getSWSBlocksTook() == lvList.getSWSBlocks() && lvList.getName().equals(lvRenderer)) {
-                System.out.println(lvList.getName() + " !!!!!!!!!!!! " + lvRenderer + " &&&&& " + index + " §§§§§§ " + lvList.getSWSBlocks() + " ========= " + lvList.getSWSBlocksTook());
-                renderer.setBackground(LIGHT_GRAY);
-                return renderer; // Hier beenden, nachdem die Farbe festgelegt wurde
+            if (lvList.getName().equals(lvUndZahl[0])) {
+                lvUndZahl[1] = Integer.toString(lvList.getSWSBlocks() - lvList.getSWSBlocksTook());
+                lvRenderer = lvUndZahl[0] + " " + lvUndZahl[1];
+
+                DefaultListModel<String> listModel = (DefaultListModel<String>) list.getModel();
+                listModel.setElementAt(lvRenderer, index);
+                list.revalidate();
+                list.repaint();
+
+                // Überprüfe, ob eine benutzerdefinierte Hintergrundfarbe für diesen Eintrag festgelegt wurde
+                if (lvList.getSWSBlocksTook() == lvList.getSWSBlocks()) {
+                    renderer.setBackground(LIGHT_GRAY);
+                    return renderer; // Hier beenden, nachdem die Farbe festgelegt wurde
+                }
             }
         }
 
@@ -68,4 +68,5 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
         //setBorder(new EmptyBorder(5, 10, 5, 10)); // optional: Füge einen Innenabstand hinzu
         return renderer;
     }
+
 }

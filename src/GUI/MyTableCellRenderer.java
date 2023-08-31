@@ -9,6 +9,8 @@ package GUI;
  * @author Yann Leymann
  */
 import iim.Hochschule.Dozent;
+import iim.Hochschule.LV;
+import iim.Hochschule.Zug;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -20,15 +22,23 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class MyTableCellRenderer extends DefaultTableCellRenderer {
-    
+
     private List<Dozent> dozentList;
     private Dozent dozent;
+    private Zug zug;
 
     public MyTableCellRenderer(Dozent dozent, List<Dozent> dozentList) {
         this.dozent = dozent;
         this.dozentList = dozentList;
-        
+
         //System.out.println(dozent);
+    }
+
+    public void setZug(Zug zug) {
+        this.zug = zug;
+        if (zug != null) {
+            System.out.println(zug.getName());
+        }
     }
 
     @Override
@@ -42,16 +52,16 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
         long schiebAvailable = dozent.getAvailable();
         long schiebDoesNotWant = dozent.getDoesNotWant();
         long scheduledDozent = dozent.getScheduledDozent();
-        
-            if(dozent== null || !dozent.getDoesHavePVZeiten()){
-                cellComponent.setBackground(table.getBackground());
-                return cellComponent;
-            }
-        
+
+        if (dozent == null || !dozent.getDoesHavePVZeiten()) {
+            cellComponent.setBackground(table.getBackground());
+            return cellComponent;
+        }
+
         if (!(column == 0)) {
             if (!(column == 6 && row == 5)) {
                 if (!(column == 6 && row == 4)) {
-                    checkSum = 33 - ((column) * 6) + (6-row);
+                    checkSum = 33 - ((column) * 6) + (6 - row);
 
                     schiebAvailable = schiebAvailable >> checkSum;
                     schiebDoesNotWant = schiebDoesNotWant >> checkSum;
@@ -61,25 +71,42 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
                         cellComponent.setBackground(Color.GREEN);
                     } else if (schiebDoesNotWant % 2 == 1) {
                         cellComponent.setBackground(Color.YELLOW);
-                    } else if ((schiebAvailable ^ schiebDoesNotWant)%2 == 0) {
+                    } else if ((schiebAvailable ^ schiebDoesNotWant) % 2 == 0) {
                         cellComponent.setBackground(Color.RED);
                     } else {
                         // Setzen Sie die Standardhintergrundfarbe für andere Zellen
                         cellComponent.setBackground(table.getBackground());
                     }
-                    if(scheduledDozent % 2 == 1){
+                    if (scheduledDozent % 2 == 1 && zug == null) {
                         //cellComponent.setForeground(Color.PINK);
-                         cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
-                         setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
+                        cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                        setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
+                    }else if (zug != null) {
+                        System.out.println("zug ungleich null!!");
+                        if (scheduledDozent % 2 == 1) {
+                            System.out.println("CYAN!!!!!!!!!");
+                            cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                            setBorder(new CompoundBorder(new LineBorder(Color.CYAN, 5), new EmptyBorder(5, 5, 5, 5)));
+                            for (LV lvDozent : dozent.getLV()) {
+                                for (Zug zugLV : lvDozent.getZugList()) {
+                                    if (zugLV.getName().equals(zug.getName())) {
+                                        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBLue!!!!!!!!!");
+                                        cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                                        setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
+                                    }
+                                }
+                            }
+
+                        }
                     }
-                }else {
-                        // Setzen Sie die Standardhintergrundfarbe für andere Zellen
-                        cellComponent.setBackground(Color.LIGHT_GRAY);
-                    }
-            }else {
-                        // Setzen Sie die Standardhintergrundfarbe für andere Zellen
-                        cellComponent.setBackground((Color.LIGHT_GRAY));
-                    }
+                } else {
+                    // Setzen Sie die Standardhintergrundfarbe für andere Zellen
+                    cellComponent.setBackground(Color.LIGHT_GRAY);
+                }
+            } else {
+                // Setzen Sie die Standardhintergrundfarbe für andere Zellen
+                cellComponent.setBackground((Color.LIGHT_GRAY));
+            }
         }
 
         return cellComponent;

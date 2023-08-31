@@ -120,7 +120,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                                     lvZugTable.substractOneSWSBlocksTook();
                                                     tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList);
                                                     jTable.setValueAt("", row, col);
-                                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentLV.getLV(), lvZugTable));
+                                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable));
                                                     jTable.revalidate();
                                                     jTable.repaint();
                                                 }
@@ -465,10 +465,15 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
             }
             for (LV lvElement : dozent.getLV()) {
+
                 
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
                 listModel.addElement(lvElement.getName() + " " + swsUebrig);
                 
+
+                //listModel.addElement(lvElement.getName());
+                //jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), lvElement));
+
                 //System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
             }
         }
@@ -486,6 +491,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             for (LV lvElement : zug.getLV()) {
                 listModel.addElement(lvElement.getName());
                 setLVforJTable(lvElement);
+                jLVList.setCellRenderer(new CustomListCellRenderer(zug.getLV(), lvElement));
 
             }
 
@@ -852,7 +858,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                     //setLVforJTable(dozent);
                                 } else if (selectedLV.getDozentName().equals("-") || selectedLV.getDozentName().equals("_")) {
                                     DefaultTableCellRenderer();
-                                }
+                                } 
+                                    
+                                
                             }
 
                             getZugforLVinTable(selectedLV);

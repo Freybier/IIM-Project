@@ -20,13 +20,17 @@ public class Dozent {
     private List<LV> lv = new ArrayList<>();
     private List<String> lvName = new ArrayList<>();
 
-    public Dozent(String name, String wishList, long available, long doesNotWant) {
-        this.name = name;
-        this.wishList = wishList;
+    public Dozent(String name) {
+        this.name = name;    
+    }
+    
+    public void setPVZeiten( String wishList, long available, long doesNotWant){
+       this.wishList = wishList;              
         this.available = available;
         this.doesNotWant = doesNotWant;
-        
     }
+    
+    
 
     public String getName() {
         return name;

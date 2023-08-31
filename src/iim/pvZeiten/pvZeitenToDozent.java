@@ -43,7 +43,8 @@ public static List<Dozent> splittNameWishList(String filename) {
                 doesNotWant = doesNotWant << 1;
                 }
             }
-                Dozent dozent = new Dozent(name, wishList, available, doesNotWant);
+                Dozent dozent = new Dozent(name);
+                dozent.setPVZeiten(wishList, available, doesNotWant);
                 dozentenList.add(dozent);
             }
             

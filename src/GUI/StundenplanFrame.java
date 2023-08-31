@@ -489,9 +489,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
         if (zug != null) {
             tableTransferHandler.setLVJLVList(zug.getLV());
             for (LV lvElement : zug.getLV()) {
-                listModel.addElement(lvElement.getName());
+                //listModel.addElement(lvElement.getName());
                 setLVforJTable(lvElement);
-                jLVList.setCellRenderer(new CustomListCellRenderer(zug.getLV(), lvElement));
+               // jLVList.setCellRenderer(new CustomListCellRenderer(zug.getLV(), lvElement));
+                
+                
+                int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
+                listModel.addElement(lvElement.getName() + " " + swsUebrig);
 
             }
 

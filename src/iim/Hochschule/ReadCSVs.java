@@ -78,7 +78,39 @@ public class ReadCSVs {
         }
         return -1; // Column not found
     }
+    public void getDozentNotInPVZeiten(List<Dozent> dozenten, String handtuchCSVFilePath){
+        try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {
+            String line;
+            String[] header = br.readLine().split(";");
 
+            int dozentIndex = getColumnIndex("Dozent", header);
+            int lvKuerzelIndex = getColumnIndex("LV-Kürzel", header);
+            
+
+            while ((line = br.readLine()) != null) {
+                String[] columns = line.split(";");
+
+                String dozentFromCsv = columns[dozentIndex];
+                String lvKuerzel = columns[lvKuerzelIndex];
+                int index = 0;
+
+                for (Dozent dozent : dozenten) {
+
+                    if (dozent.getName().equals(dozentFromCsv)) {
+
+                        index ++;
+                        //System.out.println("DOZENT: " + dozent.getName() + " LVs: " + dozent.getLVName());
+                    }
+                }
+                if (index == 0){
+                    Dozent dozent = new Dozent(dozentFromCsv);
+                }
+                
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void getLVforDozentfromCSV(List<Dozent> dozenten, List<LV> lvList, String handtuchCSVFilePath) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {

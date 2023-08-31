@@ -44,7 +44,7 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
         for (LV lvList : lvJLVList) {
             // Überprüfe, ob eine benutzerdefinierte Hintergrundfarbe für diesen Eintrag festgelegt wurde
             if (lvList.getSWSBlocksTook() == lvList.getSWSBlocks() && lvList.getName().equals(lvRenderer)) {
-                //System.out.println(lvList.getName() + " !!!!!!!!!!!!!!!!!!!!!!!!!!!! " + lvRenderer + "&&&&&" + index);
+                System.out.println(lvList.getName() + " !!!!!!!!!!!! " + lvRenderer + " &&&&& " + index + " §§§§§§ " + lvList.getSWSBlocks() + " ========= " + lvList.getSWSBlocksTook());
                 renderer.setBackground(LIGHT_GRAY);
                 return renderer; // Hier beenden, nachdem die Farbe festgelegt wurde
             }

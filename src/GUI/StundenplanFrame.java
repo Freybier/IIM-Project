@@ -43,8 +43,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public List<Zug> zugList;
     //public JTable jTable;
     public TableTransferHandler tableTransferHandler;
-    private Boolean lvLististZug;
-    private Boolean lvLististDozent;
+    private Boolean radioButtonZugBoolean;
+    private Boolean radioButtonDozentBoolean;
     public MyTableCellRenderer tableCellRenderer;
     public CustomListCellRenderer listCellRenderer;
 
@@ -484,7 +484,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             if (tabIndex != 0) {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
-            if (lvLististZug && !lvLististDozent) {
+            if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
                 jLVList.setModel(setLVZugtList());
                 jLVList.revalidate();
                 jLVList.repaint();
@@ -499,8 +499,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jRadioZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioZugActionPerformed
         // TODO add your handling code here:
-        this.lvLististDozent = false;
-        this.lvLististZug = true;
+        this.radioButtonDozentBoolean = false;
+        this.radioButtonZugBoolean = true;
 
         jComboDoZug.removeAllItems();
         updateZugComboBox(this.zugList, jComboDoZug);
@@ -512,8 +512,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
         // TODO add your handling code here:
-        this.lvLististZug = false;
-        this.lvLististDozent = true;
+        this.radioButtonZugBoolean = false;
+        this.radioButtonDozentBoolean = true;
 
         jComboDoZug.removeAllItems();
         updateDozentComboBox(dozentenList, jComboDoZug);
@@ -832,6 +832,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
                             int tabIndex = jTabbedPane1.getSelectedIndex();
                             String jLabelText = jComboDoZug.getSelectedItem().toString();
+                            
+                            //Sets the Name in the top left corner of the Panel
                             jLabelName.setText(jLabelText);
                             // if-construction for not changing the Handtuch-Title
                             if (tabIndex != 0) {
@@ -840,7 +842,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                             }
 
                             // Direkter Zugriff auf das ausgewählte Dozenten- oder Zug-Objekt
-                            if (lvLististZug && !lvLististDozent) {
+                            //The Radiobuttons decides wich variable radioButtonZugBoolean or radioButtonDozentBoolean is true respectively false
+                            //
+                            if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
 
                                 Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
                                 selectedLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen

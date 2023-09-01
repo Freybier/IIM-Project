@@ -72,13 +72,34 @@ public class TableTransferHandler extends TransferHandler {
             for (LV lv : lvList) {
                 if (lv.getName().equals(data) && lv.getDozentName().equals(dozentenName)) {
                     if (lv.getSWSBlocks() > lv.getSWSBlocksTook()) {
-                        lv.addOneSWSBlocksTook();
+                        
                         long scheduled = 1;
                         int check = 33 - ((col * 6) - 6) - row;
                         scheduled = scheduled << check;
                         long dozentScheduled = scheduled;
+                        
+                        
+                        for(Dozent dozentcheck: dozentenList ){
+                            if (lv.getDozentName().equals(dozentcheck.getName())){
+                                for(LV lvCheck: dozentcheck.getLV()){
+                                    if((lvCheck.getScheduledLV() >> check) % 2 == 1){
+                                        return false;
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        
+                        for(Zug zugLV : lv.getZugList()){
+                            for(LV lvZug : zugLV.getLV()){
+                                if((lvZug.getScheduledLV()>> check) % 2 == 1){
+                                        return false;
+                                    }
+                            }
+                        }
+                        
+                        lv.addOneSWSBlocksTook();
                         scheduled = scheduled | lv.getScheduledLV();
-
                         lv.setScheduledLV(scheduled);
 
                         for (Dozent doz : dozentenList) {

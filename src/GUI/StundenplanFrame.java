@@ -11,7 +11,6 @@ import java.awt.Component;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +21,6 @@ import javax.swing.table.TableRowSorter;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.event.ListSelectionEvent;
@@ -41,6 +39,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public JPanel layoutpanel;
     public List<Dozent> dozentenList;
     public List<Zug> zugList;
+    public List<LV> lvList;
     //public JTable jTable;
     public TableTransferHandler tableTransferHandler;
     private Boolean radioButtonZugBoolean;
@@ -55,6 +54,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
         this.dozentenList = dozentenList;
         this.zugList = zugList;
+        this.lvList = lvList;
         initComponents();
         build();
         buildJTable();
@@ -93,7 +93,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
-        jSuchfeldKurse = new javax.swing.JTextField();
+        jSuchfeldDoZug = new javax.swing.JTextField();
         jLabelName = new javax.swing.JLabel();
         jButtonSpeichern = new javax.swing.JButton();
         jButtonZurücksetzen = new javax.swing.JButton();
@@ -105,6 +105,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jLVList = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        dozentZugList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -172,7 +174,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     .addComponent(jColumnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SubFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,7 +184,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addComponent(jColumnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(SubFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addContainerGap(555, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -219,10 +221,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTable);
 
-        jSuchfeldKurse.setText("Suche");
-        jSuchfeldKurse.addKeyListener(new java.awt.event.KeyAdapter() {
+        jSuchfeldDoZug.setText("Suche");
+        jSuchfeldDoZug.setToolTipText("SucheDozent/Zug");
+        jSuchfeldDoZug.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jSuchfeldDoZugFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jSuchfeldDoZugFocusLost(evt);
+            }
+        });
+        jSuchfeldDoZug.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jSuchfeldKurseKeyReleased(evt);
+                jSuchfeldDoZugKeyReleased(evt);
             }
         });
 
@@ -286,6 +297,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jLVList);
 
+        dozentZugList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dozentZugListMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(dozentZugList);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -295,11 +313,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jSuchfeldKurse, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+                            .addComponent(jSuchfeldDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(173, 173, 173)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioDozent)
@@ -307,10 +325,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                 .addComponent(jRadioZug)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1)
-                                .addGap(0, 131, Short.MAX_VALUE))
+                                .addGap(16, 461, Short.MAX_VALUE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane3))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 961, Short.MAX_VALUE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabelName)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -318,8 +338,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                             .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jInfoFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(22, 22, 22)
+                        .addComponent(jInfoFeld, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jKonfliktFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -340,17 +360,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
                         .addComponent(jLabelName)
                         .addGap(9, 9, 9)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jSuchfeldKurse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSuchfeldDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                        .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
                     .addComponent(jKonfliktFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jInfoFeld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -381,6 +403,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         DefaultListModel<String> listModel = new DefaultListModel<>();
         Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
+        if(!jSuchfeldDoZug.getText().equals("Suche")){
+            dozent = getObjectFromName(jLabelName.getText(), dozentenList);
+        }
         if (dozent != null) {
 
             jLVList.updateUI();
@@ -412,12 +437,17 @@ public class StundenplanFrame extends javax.swing.JFrame {
         return listModel;
     }
 
-    private DefaultListModel setLVZugtList() {
+   
+    private DefaultListModel setLVZugList() {
+
 
         emptyJTable();
 
         DefaultListModel<String> listModel = new DefaultListModel<>();
         Zug zug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
+        if(!jSuchfeldDoZug.getText().equals("Suche")){
+            zug = getObjectFromName(jLabelName.getText(), zugList);
+        }
         if (zug != null) {
             tableTransferHandler.setLVJLVList(zug.getLV());
             for (LV lvElement : zug.getLV()) {
@@ -468,7 +498,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jTabbedPane1.revalidate();
         jTabbedPane1.repaint();*/
-        setLVZugtList();
+        setLVZugList();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -484,10 +514,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
             if (tabIndex != 0) {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
-            if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
-                jLVList.setModel(setLVZugtList());
-                jLVList.revalidate();
-                jLVList.repaint();
+
+            if (lvLististZug && !lvLististDozent) {
+                jLVList.setModel(setLVZugList());
+
             } else {
                 jLVList.setModel(setLVDozentList());
                 jLVList.revalidate();
@@ -575,12 +605,44 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
-    private void jSuchfeldKurseKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldKurseKeyReleased
+    private void jSuchfeldDoZugKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugKeyReleased
         // TODO add your handling code here:
-        String entry = this.jSuchfeldKurse.getText();
+        String entry = this.jSuchfeldDoZug.getText();
         System.out.println(entry);
         findMatchingObjects(entry);
-    }//GEN-LAST:event_jSuchfeldKurseKeyReleased
+    }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
+
+    private void jSuchfeldDoZugFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusGained
+        // TODO add your handling code here:
+        if(jSuchfeldDoZug.getText().equals("Suche")){
+        jSuchfeldDoZug.setText("");
+        }
+    }//GEN-LAST:event_jSuchfeldDoZugFocusGained
+
+
+    private void jSuchfeldDoZugFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusLost
+        // TODO add your handling code here:
+        if(jSuchfeldDoZug.getText().isEmpty()){
+            jSuchfeldDoZug.setText("Suche");
+        }
+    }//GEN-LAST:event_jSuchfeldDoZugFocusLost
+
+    private void dozentZugListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dozentZugListMouseClicked
+        // TODO add your handling code here:
+        String textLabel = dozentZugList.getSelectedValue();
+        if(getObjectFromName(textLabel, zugList) != null || getObjectFromName(textLabel, dozentenList) != null){
+            jLabelName.setText(textLabel);
+            if(getObjectFromName(textLabel, zugList) != null){
+                jLVList.setModel(setLVZugList());
+            }else if(getObjectFromName(textLabel, dozentenList) != null){
+                jLVList.setModel(setLVDozentList());
+            }
+        }
+        
+    }//GEN-LAST:event_dozentZugListMouseClicked
+    
+    
+
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         // TODO add your handling code here:
@@ -667,8 +729,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     suchListModel.addElement(zugObj.getName());
                 }
             }
-            jLVList.setModel(suchListModel);
-        } catch (java.lang.NullPointerException ex) {
+
+            
+            for (LV lvObj : lvList) {
+                if (lvObj.getName().toLowerCase().contains(input.toLowerCase())) {
+                    suchListModel.addElement(lvObj.getName());
+                }
+            }
+            dozentZugList.setModel(suchListModel);
+        }catch(java.lang.NullPointerException ex){
+            
 
         }
     }
@@ -1035,6 +1105,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SubFilter;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JList<String> dozentZugList;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSpeichern;
     private javax.swing.JButton jButtonZurücksetzen;
@@ -1052,7 +1123,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jSuchfeldKurse;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextField jSuchfeldDoZug;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JTable jTable1;

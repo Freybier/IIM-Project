@@ -417,13 +417,13 @@ public class MusterPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (jComboDoZug.getSelectedItem() != null) {
             DefaultTableCellRenderer();
-            //int tabIndex = jTabbedPane1.getSelectedIndex();
+            int tabIndex = jTabbedPane1.getSelectedIndex();
             String jLabelText = jComboDoZug.getSelectedItem().toString();
             jLabelName.setText(jLabelText);
             // if-construction for not changing the Handtuch-Title
-            /*if (tabIndex != 0) {
+            if (tabIndex != 0) {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
-            }*/
+            }
             if (lvLististZug && !lvLististDozent) {
                 jLVList.setModel(setLVZugList());
             } else {

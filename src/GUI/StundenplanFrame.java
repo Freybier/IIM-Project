@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import iim.Handtuch.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -40,6 +42,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public List<Dozent> dozentenList;
     public List<Zug> zugList;
     public List<LV> lvList;
+    public List<Leading> leadingList;
     //public JTable jTable;
     public TableTransferHandler tableTransferHandler;
 
@@ -55,11 +58,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
     /**
      * Creates new form StundenplanFrame
      */
-    public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList) {
+    public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList, List<Leading> leadingList) {
         oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
         this.dozentenList = dozentenList;
         this.zugList = zugList;
         this.lvList = lvList;
+        this.leadingList = leadingList;
         initComponents();
         build();
         buildJTable();
@@ -112,7 +116,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jLVList = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        dozentZugList = new javax.swing.JList<>();
+        sucheList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -312,12 +316,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jLVList);
 
-        dozentZugList.addMouseListener(new java.awt.event.MouseAdapter() {
+        sucheList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dozentZugListMouseClicked(evt);
+                sucheListMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(dozentZugList);
+        jScrollPane4.setViewportView(sucheList);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -440,9 +444,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         emptyJTable();
 
-        DefaultListModel<String> listModel = new DefaultListModel<>();
+        DefaultListModel<Object> listModel = new DefaultListModel<>();
         Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
-        if(!jSuchfeldDoZug.getText().equals("Suche")){
+        if (!jSuchfeldDoZug.getText().equals("Suche")) {
             dozent = getObjectFromName(jLabelName.getText(), dozentenList);
         }
         if (dozent != null) {
@@ -466,7 +470,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             for (LV lvElement : dozent.getLV()) {
 
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
-                listModel.addElement(lvElement.getName() + " " + swsUebrig);
+                listModel.addElement(lvElement + " " + swsUebrig);
 
                 //listModel.addElement(lvElement.getName());
                 //jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), lvElement));
@@ -476,15 +480,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
         return listModel;
     }
 
-   
     private DefaultListModel setLVZugList() {
-
 
         emptyJTable();
 
-        DefaultListModel<String> listModel = new DefaultListModel<>();
+        DefaultListModel<Object> listModel = new DefaultListModel<>();
         Zug zug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
-        if(!jSuchfeldDoZug.getText().equals("Suche")){
+        if (!jSuchfeldDoZug.getText().equals("Suche")) {
             zug = getObjectFromName(jLabelName.getText(), zugList);
         }
         if (zug != null) {
@@ -496,7 +498,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
                 //tableCellRenderer.setZug(zug);
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
-                listModel.addElement(lvElement.getName() + " " + swsUebrig);
+                listModel.addElement(lvElement + " " + swsUebrig);
 
             }
 
@@ -553,7 +555,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
 
-            if (lvLististZug && !lvLististDozent) {
+            if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
                 jLVList.setModel(setLVZugList());
 
             } else {
@@ -652,31 +654,85 @@ public class StundenplanFrame extends javax.swing.JFrame {
      
     private void jSuchfeldDoZugFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusGained
         // TODO add your handling code here:
-        if(jSuchfeldDoZug.getText().equals("Suche")){
-        jSuchfeldDoZug.setText("");
+        if (jSuchfeldDoZug.getText().equals("Suche")) {
+            jSuchfeldDoZug.setText("");
         }
     }//GEN-LAST:event_jSuchfeldDoZugFocusGained
       
     private void jSuchfeldDoZugFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusLost
         // TODO add your handling code here:
-        if(jSuchfeldDoZug.getText().isEmpty()){
+        if (jSuchfeldDoZug.getText().isEmpty()) {
             jSuchfeldDoZug.setText("Suche");
         }
     }//GEN-LAST:event_jSuchfeldDoZugFocusLost
 
-    private void dozentZugListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dozentZugListMouseClicked
+    private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
         // TODO add your handling code here:
-        String textLabel = dozentZugList.getSelectedValue();
-        if(getObjectFromName(textLabel, zugList) != null || getObjectFromName(textLabel, dozentenList) != null){
-            jLabelName.setText(textLabel);
-            if(getObjectFromName(textLabel, zugList) != null){
-                jLVList.setModel(setLVZugList());
-            }else if(getObjectFromName(textLabel, dozentenList) != null){
-                jLVList.setModel(setLVDozentList());
+        System.out.println(" suche MouseClicked. ");
+        //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
+        Object selectedObject = sucheList.getSelectedValue();
+        DefaultListModel<LV> listModel = new DefaultListModel<>();
+        if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
+            
+            System.out.println(" set Label. ");
+            if (selectedObject instanceof Zug) {
+                //DefaultListModel<LV> listModel = new DefaultListModel<>();
+                for (LV lvZug : ((Zug) selectedObject).getLV()) {
+                    listModel.addElement(lvZug);
+                }
+                jLabelName.setText(selectedObject.toString());
+                jLVList.setModel(listModel);
+
+            } else if (selectedObject instanceof Dozent) {
+                //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
+                for (LV lvDozent : ((Dozent) selectedObject).getLV()) {
+                    listModel.addElement(lvDozent);
+                }
+                jLabelName.setText(selectedObject.toString());
+                jLVList.setModel(listModel);
+
+            } else if (selectedObject instanceof LV) {
+                if (((LV) selectedObject).getLeading()) {
+                    boolean check = true;
+                    for (Leading leading : leadingList) {
+                        if (((LV) selectedObject).getDozentName().equals(leading.getDozent()) && ((LV) selectedObject).getName().equals(leading.getLv())) {
+                            
+                            for (Zug zugLV : ((LV) selectedObject).getZugList()) {
+                                
+                                if (zugLV.getName().equals(leading.getZug()) && check) {
+                                    //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
+                                    for (LV lvZugLV : zugLV.getLV()) {
+                                        listModel.addElement(lvZugLV);
+                                        
+                                    }
+                                    jLabelName.setText(zugLV.toString());
+                                    jLVList.setModel(listModel);
+                                    System.out.println(" Leading. ");
+                                    check = false;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    for (Zug zugLV : ((LV) selectedObject).getZugList()) {
+                        for (LV lvZugLV : zugLV.getLV()) {
+                            listModel.addElement(lvZugLV);
+                        }
+                        jLVList.setModel(listModel);
+                        System.out.println(" nur einen Zug. ");
+                    }
+                }
+                 System.out.println(" is LV. ");
+                  System.out.println(((LV) selectedObject).getLeading());
             }
+
         }
-        
-    }//GEN-LAST:event_dozentZugListMouseClicked
+
+        jLVList.revalidate();
+        jLVList.repaint();
+    }//GEN-LAST:event_sucheListMouseClicked
+
+
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         // TODO add your handling code here:
@@ -750,29 +806,27 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     public void findMatchingObjects(String input) {
 
-        DefaultListModel<String> suchListModel = new DefaultListModel<>();
+        DefaultListModel<Object> suchListModel = new DefaultListModel<>();
         try {
-            for (Dozent obj : dozentenList) {
-                if (obj.getName().toLowerCase().contains(input.toLowerCase())) {
-                    suchListModel.addElement(obj.getName());
+            for (Dozent dozentObj : dozentenList) {
+                if (dozentObj.getName().toLowerCase().contains(input.toLowerCase())) {
+                    suchListModel.addElement(dozentObj);
                 }
             }
 
             for (Zug zugObj : zugList) {
                 if (zugObj.getName().toLowerCase().contains(input.toLowerCase())) {
-                    suchListModel.addElement(zugObj.getName());
+                    suchListModel.addElement(zugObj);
                 }
             }
 
-            
             for (LV lvObj : lvList) {
                 if (lvObj.getName().toLowerCase().contains(input.toLowerCase())) {
-                    suchListModel.addElement(lvObj.getName());
+                    suchListModel.addElement(lvObj);
                 }
             }
-            dozentZugList.setModel(suchListModel);
-        }catch(java.lang.NullPointerException ex){
-            
+            sucheList.setModel(suchListModel);
+        } catch (java.lang.NullPointerException ex) {
 
         }
     }
@@ -806,16 +860,24 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StundenplanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StundenplanFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StundenplanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StundenplanFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StundenplanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StundenplanFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StundenplanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StundenplanFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -918,7 +980,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }
 
     public void addSelectionListenerJList() {
-        
+
         jLVList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -936,7 +998,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
                             int tabIndex = jTabbedPane1.getSelectedIndex();
                             String jLabelText = jComboDoZug.getSelectedItem().toString();
-                            
+
                             //Sets the Name in the top left corner of the Panel
                             jLabelName.setText(jLabelText);
                             // if-construction for not changing the Handtuch-Title
@@ -1031,7 +1093,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         // When a LV is chosen (selectedLV) in the jLVList, it checks wich Zug also has to take selectedLV.
         // When checked it sets in jTable all LVs from all Zugs to display where it is NOT possible to place the selectedLV.
         // When done it checks wich Dozent is giving the selectedLV and displays(partly by overriting) all the LVs from this Dozent.
-        
+
         emptyJTable();
         jTable.revalidate();
         jTable.repaint();
@@ -1097,7 +1159,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
         }
     }
-    
+
     //Test für Kompakteren Code
     /*
     public void getZugLVandDozentLVforSelectedLVinTable(LV lv) {
@@ -1139,7 +1201,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SubFilter;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JList<String> dozentZugList;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSpeichern;
     private javax.swing.JButton jButtonZurücksetzen;
@@ -1147,7 +1208,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboDoZug;
     private javax.swing.JPanel jInfoFeld;
     private javax.swing.JPanel jKonfliktFeld;
-    private javax.swing.JList<String> jLVList;
+    private javax.swing.JList<LV> jLVList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JMenu jMenu1;
@@ -1170,5 +1231,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JTable jTable1;
+    private javax.swing.JList<Object> sucheList;
     // End of variables declaration//GEN-END:variables
 }

@@ -57,10 +57,9 @@ public class Zug {
     
     @Override
     public String toString() {
-    return "Zug Name: " + name +
-           "\nZug PO: " + po 
-            // + "\nLV Liste von Zug" + lvList
-            ;
+    return name ;
+           
+            
 }
     
     

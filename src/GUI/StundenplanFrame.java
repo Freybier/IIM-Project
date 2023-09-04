@@ -436,8 +436,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
         return listModel;
     }
+
    
     private DefaultListModel setLVZugList() {
+
 
         emptyJTable();
 
@@ -512,8 +514,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
             if (tabIndex != 0) {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
+
             if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
+
                 jLVList.setModel(setLVZugList());
+
             } else {
                 jLVList.setModel(setLVDozentList());
                 jLVList.revalidate();
@@ -727,6 +732,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     suchListModel.addElement(zugObj.getName());
                 }
             }
+
             
             for (LV lvObj : lvList) {
                 if (lvObj.getName().toLowerCase().contains(input.toLowerCase())) {
@@ -736,6 +742,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             dozentZugList.setModel(suchListModel);
         }catch(java.lang.NullPointerException ex){
             
+
         }
     }
 

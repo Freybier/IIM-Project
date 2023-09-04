@@ -12,24 +12,24 @@ import iim.Hochschule.LV;
  *
  * @author Yann Leymann
  */
-public class LeadingLV {
+public class Leading {
 
-    private String name;
+    private String lv;
     private String dozent;
     private String zug;
     private String LVName;
     private boolean leading;
-    private LV lv;
+    private LV lvObject;
     
     
 
-    public LeadingLV(String name, String dozent, String zug) {
-        this.name = name;
+    public Leading(String lv, String dozent, String zug) {
+        this.lv = lv;
         this.dozent = dozent;
         this.zug = zug;
     }
     
-    public void setLeading(boolean haupt){
+    public void setLeading(boolean leading){
         this.leading = leading;
     }
     
@@ -37,8 +37,8 @@ public class LeadingLV {
         return leading;
     }
     
-    public String getName(){
-        return name;
+    public String getLv(){
+        return lv;
     }
     
     public String getDozent(){
@@ -48,8 +48,8 @@ public class LeadingLV {
     public String getZug(){
         return zug;
     }
-    public LV getLV(){
-        return lv;
+    public LV getLVObject(){
+        return lvObject;
     }
 
 }

@@ -4,6 +4,7 @@
  */
 package iim.Hochschule;
 
+import iim.Handtuch.Leading;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -247,6 +248,20 @@ public class ReadCSVs {
                 }
             }
         }
+    }
+    
+    public void setLVLeading(List<LV> lvList, List<Leading> leadingList){
+        for(LV lv: lvList){
+            int count = 0;
+            for(Zug zugLV : lv.getZugList()){
+                count++;
+            }
+            if(count > 1){
+                lv.setLeading(true);
+            }
+        }
+        //return lvList;
+        
     }
 
 }

@@ -22,7 +22,7 @@ import iim.pvZeiten.DozentToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
 import GUI.TestYann;
-import iim.Handtuch.LeadingLV;
+import iim.Handtuch.Leading;
 import iim.Handtuch.UpdateHandtuchCSV;
 import iim.Hochschule.LV;
 import iim.Hochschule.ReadCSVs;
@@ -109,10 +109,11 @@ public class IIMProjekt {
         
         readCSVs.addZugToLV(lvList, zugList);
         
-        List<LeadingLV> leadingLVList = update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList, zugList);
-        for(LeadingLV leadingLV: leadingLVList){
+        List<Leading> leadingList = update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList, zugList);
+        for(Leading leadingLV: leadingList){
             //System.out.println(leadingLV.getName() + " " + leadingLV.getZug() + " " + leadingLV.getDozent());
         }
+        readCSVs.setLVLeading(lvList, leadingList);
         /*
         for (LV lv : lvList) {     
             System.out.println(lv.toString());
@@ -132,7 +133,7 @@ public class IIMProjekt {
             
         }*/
         
-        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList); 
+        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList, leadingList); 
         TestYann testYann = new TestYann();
         testYann.frame();
         

@@ -944,21 +944,21 @@ private void addNewTab() {
         columnNameFilterBox(columnNames);
     }
 
-    public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<String> comboBox) {
+    public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<Object> comboBox) {
         comboBox.addItem("---------");
         Collections.sort(dozentenListe, (Dozent dozent1, Dozent dozent2) -> dozent1.getName().compareTo(dozent2.getName()));
 
         for (Dozent dozent : dozentenListe) {
-            comboBox.addItem(dozent.getName());
+            comboBox.addItem(dozent);
         }
     }
 
-    public void updateZugComboBox(List<Zug> zugListe, JComboBox<String> comboBox) {
+    public void updateZugComboBox(List<Zug> zugListe, JComboBox<Object> comboBox) {
         comboBox.addItem("---------");
         Collections.sort(zugListe, (Zug zug1, Zug zug2) -> zug1.getName().compareTo(zug2.getName()));
 
         for (Zug zug : zugListe) {
-            comboBox.addItem(zug.getName());
+            comboBox.addItem(zug);
         }
     }
 
@@ -1242,7 +1242,7 @@ private void addNewTab() {
     private javax.swing.JButton jButtonSpeichern;
     private javax.swing.JButton jButtonZurücksetzen;
     private javax.swing.JComboBox<String> jColumnFilter;
-    private javax.swing.JComboBox<String> jComboDoZug;
+    private javax.swing.JComboBox<Object> jComboDoZug;
     private javax.swing.JPanel jInfoFeld;
     private javax.swing.JPanel jKonfliktFeld;
     private javax.swing.JList<LV> jLVList;

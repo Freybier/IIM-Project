@@ -27,13 +27,14 @@ public class TxtToCsvTable extends JFrame{
 
         table = new JTable(tableData.toArray(new Object[0][]), columnNames);
         JScrollPane scrollPane = new JScrollPane(table);
-
+        /**
         getContentPane().add(scrollPane);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setTitle("CSV Table Viewer");
         setVisible(true);
+        **/
     }
 
     public static List<String[]> readCsvFromFile(String filePath) {

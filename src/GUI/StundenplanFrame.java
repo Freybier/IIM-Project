@@ -22,6 +22,8 @@ import javax.swing.table.TableRowSorter;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
@@ -143,6 +145,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MousePressed(evt);
             }
         });
 
@@ -633,16 +638,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jColumnFilterActionPerformed
 
+    private boolean isAddingTab = false; // Füge diese Variable der Klasse hinzu
+    
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
-        int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
+    JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
+    int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
 
-        if (selectedTabIndex != -1) {
-            Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
-            if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
-                addNewTab();
-            }
+    if (!isAddingTab && selectedTabIndex != -1) {
+        Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
+        if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
+            isAddingTab = true; // Setze die Flag auf true, um die erneute Ausführung zu verhindern
+            addNewTab();
+            isAddingTab = false; // Setze die Flag wieder auf false
         }
+    }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jSuchfeldDoZugKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugKeyReleased
@@ -804,6 +813,27 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableMouseClicked
 
+    private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
+                if (SwingUtilities.isRightMouseButton(evt)) {
+
+                    int index = jTabbedPane1.getSelectedIndex();
+
+                    if (index != 0) {
+                        JPopupMenu popupMenu = new JPopupMenu();
+                        JMenuItem delete = new JMenuItem("Delete");
+                        delete.addActionListener(new ActionListener() {
+
+                            @Override
+                            public void actionPerformed(ActionEvent evt) {
+                                jTabbedPane1.remove(index);
+                            }
+                        });
+                        popupMenu.add(delete);
+                        popupMenu.show(this, evt.getX(), evt.getY());
+                    }
+                }
+    }//GEN-LAST:event_jTabbedPane1MousePressed
+
     public void findMatchingObjects(String input) {
 
         DefaultListModel<Object> suchListModel = new DefaultListModel<>();
@@ -831,13 +861,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }
 
-    private void addNewTab() {
-        JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
-        String tabTitle = "Tab " + (jTabbedPane1.getTabCount() + 1); // Titel für die neue Registerkarte
-        jTabbedPane1.addTab(tabTitle, tabContent);
-        jTabbedPane1.setSelectedComponent(tabContent);
+private void addNewTab() {
+    try {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        e.printStackTrace();
 
-    }
+    JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
+    String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
+    int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab
+    System.out.println(position);
+    jTabbedPane1.insertTab(tabTitle, null, tabContent, null, position);
+    jTabbedPane1.setSelectedComponent(tabContent);
+}
+
 
     public void filterUpdate(String word, int index) {
         // Filter the table based on a specific column

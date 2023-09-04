@@ -26,6 +26,7 @@ public class LV {
     private int swsBlocksTook = 0;
     private boolean geblockt;
     private String lva;
+    
 
     public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva) {
         this.name = name;

@@ -866,7 +866,7 @@ private void addNewTab() {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
         e.printStackTrace();
-
+    }
     JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
     String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
     int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab

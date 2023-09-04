@@ -82,4 +82,10 @@ public class Dozent {
     public boolean getDoesHavePVZeiten(){
         return pvZeiten;
     }
+    
+    @Override
+    public String toString() {
+        return  name;
+                
+    }
 }

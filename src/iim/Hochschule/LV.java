@@ -25,7 +25,9 @@ public class LV {
     private int swsBlocks = 0;
     private int swsBlocksTook = 0;
     private boolean geblockt;
+    private boolean leading;
     private String lva;
+    
 
     public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva) {
         this.name = name;
@@ -114,19 +116,20 @@ public class LV {
     public String getLVA() {
         return this.lva;
     }
-/*
+    
+    public void setLeading(boolean leading){
+        this.leading = leading;
+    }
+    
+    public boolean getLeading(){
+        return leading;
+    }
+
     @Override
     public String toString() {
-        return "LV Name: " + name
-                + "\nLV Full Name: " + fullName
-                + //"\nLV PO: " + po +
-                "\nDozenten: " + dozentName
-                + "\nZug Name: " + zugNameList
-                + "\nZug: " + zugList
-                + "\nSWS: " + sws
-                + "\ngeblockt: " + geblockt
-                + "\nLVA: " + lva;
+        return name;
+                
     }
-*/
+
 
 }

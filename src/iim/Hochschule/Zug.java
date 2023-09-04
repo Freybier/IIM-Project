@@ -16,6 +16,7 @@ public class Zug {
     private long scheduledZug = 0;
     private String po;
     private List<LV> lvList = new ArrayList<>();
+    private boolean leading;
 
     public Zug(String name, String po) {
         this.name = name;
@@ -46,12 +47,19 @@ public class Zug {
         this.scheduledZug = scheduled;
     }
     
+    public void setLeading(boolean leading){
+        this.leading = leading;
+    }
+    
+    public boolean getLeading(){
+        return leading;
+    }
+    
     @Override
     public String toString() {
-    return "Zug Name: " + name +
-           "\nZug PO: " + po 
-            // + "\nLV Liste von Zug" + lvList
-            ;
+    return name ;
+           
+            
 }
     
     

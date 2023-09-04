@@ -14,7 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -112,7 +114,6 @@ public class UpdateHandtuchCSV {
                 for (String[] otherRow : rows) {
                     if (!Arrays.equals(otherRow, row)) {
                         if (lvKuerzel.equals(otherRow[lvKuerzelColumnIndex])
-                                
                                 && dozent.equals(otherRow[dozentColumnIndex])) {
                             parallelColumn.add(otherRow[0]); // Annahme: Index des "Zug"-Felds ist 0
                         }
@@ -127,6 +128,85 @@ public class UpdateHandtuchCSV {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<LeadingLV> findLeadingLVs(String csvFilePath, List<LV> lvList, List<Zug> zugList) {
+        List<LeadingLV> leadings = new ArrayList<>();
+        
+        //System.out.println("HALLLLLLO");
+        // Erstelle eine Liste, um die gefundenen Leading-Objekte zu speichern
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            // Map<String, String> zugToLvMap = new HashMap<>();
+            String[] header = reader.readLine().split(";");
+            int zugIndex = getColumnIndex("Zug", header);
+            int lvIndex = getColumnIndex("LV-Kürzel", header);
+            int dozentIndex = getColumnIndex("Dozent", header);
+            // Durchlaufe jede Zeile der CSV-Datei
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(";");
+
+                String zug = parts[zugIndex];
+                String lv = parts[lvIndex];
+                String dozent = parts[dozentIndex];
+                for (Zug zugCheck : zugList) {
+                    if (zugCheck.getName().equals(dozent)) {
+                        //System.out.println(dozent);
+                        leadings.add(setLeadingLV(zug, lv, dozent, csvFilePath));
+                    }
+                }
+
+                // Speichere die Zuordnung zwischen Zug und LV-Kürzel
+                //zugToLvMap.put(zug, lv);
+            }
+            return leadings;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static int getColumnIndex(String columnName, String[] header) {
+        for (int i = 0; i < header.length; i++) {
+            if (header[i].equals(columnName)) {
+                return i;
+            }
+        }
+        return -1; // Column not found
+    }
+
+    public LeadingLV setLeadingLV(String zug, String lv, String dozent, String path) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            Map<String, String> zugToLvMap = new HashMap<>();
+            String[] header = reader.readLine().split(";");
+            int zugIndex = getColumnIndex("Zug", header);
+            int lvIndex = getColumnIndex("LV-Kürzel", header);
+            int dozentIndex = getColumnIndex("Dozent", header);
+            // Durchlaufe jede Zeile der CSV-Datei
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(";");
+
+                String zugCompare = parts[zugIndex];
+                String lvCompare = parts[lvIndex];
+                String dozentCompare = parts[dozentIndex];
+
+                if ( lv.equals(lvCompare) && dozent.equals(zugCompare)) {
+                    LeadingLV leadingLV = new LeadingLV(lvCompare, dozentCompare, zugCompare);
+                    leadingLV.setLeading(true);
+                    return leadingLV;
+
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+       return null; // Nun hast du die Liste der Leading-Objekte, die du weiter verarbeiten kannst
     }
 
 }

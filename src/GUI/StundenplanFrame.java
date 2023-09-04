@@ -4,7 +4,6 @@
  */
 package GUI;
 
-
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
@@ -43,8 +42,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public List<LV> lvList;
     //public JTable jTable;
     public TableTransferHandler tableTransferHandler;
-    private Boolean lvLististZug;
-    private Boolean lvLististDozent;
+    private Boolean radioButtonZugBoolean;
+    private Boolean radioButtonDozentBoolean;
     public MyTableCellRenderer tableCellRenderer;
     public CustomListCellRenderer listCellRenderer;
 
@@ -68,9 +67,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jLVList.setTransferHandler(new ListTransferHandler(jLVList));
         this.tableTransferHandler = new TableTransferHandler(jTable, lvList, dozentenList, zugList, jLVList);
         jTable.setTransferHandler(tableTransferHandler);
-
-        
-        
 
         // Erstellen Sie eine Instanz des MyTableCellRenderer
         //jScrollPane3.setViewportView(jTable);
@@ -411,9 +407,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
             dozent = getObjectFromName(jLabelName.getText(), dozentenList);
         }
         if (dozent != null) {
-            
+
             jLVList.updateUI();
-            
+
             // LV-Objekt aus den Dozenten auswählen
             //updateTableCells(jTable);
             this.tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList);
@@ -430,21 +426,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
             for (LV lvElement : dozent.getLV()) {
 
-                
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
                 listModel.addElement(lvElement.getName() + " " + swsUebrig);
-                
 
                 //listModel.addElement(lvElement.getName());
                 //jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), lvElement));
-
                 //System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
             }
         }
         return listModel;
     }
+
    
     private DefaultListModel setLVZugList() {
+
 
         emptyJTable();
 
@@ -458,8 +453,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
             for (LV lvElement : zug.getLV()) {
                 //listModel.addElement(lvElement.getName());
                 setLVforJTable(lvElement);
-               // jLVList.setCellRenderer(new CustomListCellRenderer(zug.getLV(), lvElement));
-                
+                // jLVList.setCellRenderer(new CustomListCellRenderer(zug.getLV(), lvElement));
+
                 //tableCellRenderer.setZug(zug);
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
                 listModel.addElement(lvElement.getName() + " " + swsUebrig);
@@ -519,10 +514,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
             if (tabIndex != 0) {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
+
             if (lvLististZug && !lvLististDozent) {
                 jLVList.setModel(setLVZugList());
+
             } else {
                 jLVList.setModel(setLVDozentList());
+                jLVList.revalidate();
+                jLVList.repaint();
             }
 
         }
@@ -530,8 +529,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jRadioZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioZugActionPerformed
         // TODO add your handling code here:
-        this.lvLististDozent = false;
-        this.lvLististZug = true;
+        this.radioButtonDozentBoolean = false;
+        this.radioButtonZugBoolean = true;
 
         jComboDoZug.removeAllItems();
         updateZugComboBox(this.zugList, jComboDoZug);
@@ -543,8 +542,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
         // TODO add your handling code here:
-        this.lvLististZug = false;
-        this.lvLististDozent = true;
+        this.radioButtonZugBoolean = false;
+        this.radioButtonDozentBoolean = true;
 
         jComboDoZug.removeAllItems();
         updateDozentComboBox(dozentenList, jComboDoZug);
@@ -647,89 +646,90 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         // TODO add your handling code here:
-                        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() == 1) {
-                    int row = jTable.rowAtPoint(evt.getPoint());
-                    int col = jTable.columnAtPoint(evt.getPoint());
+        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() == 1) {
+            int row = jTable.rowAtPoint(evt.getPoint());
+            int col = jTable.columnAtPoint(evt.getPoint());
 
-                    // Überprüfen, ob der Klick innerhalb einer gültigen Zelle war
-                    if (row >= 0 && col >= 1) {
-                        // Hier können Sie Ihre Bearbeitungslogik implementieren
-                        //Object cellValue = jTable.getValueAt(row, col);
-                        System.out.println("ROW: " + row + "\tCOLUMN: " + col);
-                        if (jTable.getValueAt(row, col) != null) {
-                            Object cellValue = jTable.getValueAt(row, col);
-                            //System.out.println(cellValue.getClass());
-                            String check = jLabelName.getText();
-                            for (Dozent dozentTable : dozentenList) {
-                                if (dozentTable.getName().equals(check)) {
-                                    for (LV lvDozentTable : dozentTable.getLV()) {
-                                        if (lvDozentTable.getName().equals(cellValue)) {
-                                            int checkSum = 33 - ((col) * 6) + (6 - row);
-                                            long delete = 1;
-                                            delete = delete << checkSum;
-                                            lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
-                                            dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
-                                            lvDozentTable.substractOneSWSBlocksTook();
-                                            tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList);
-                                            //tableCellRenderer.setZug(null);
+            // Überprüfen, ob der Klick innerhalb einer gültigen Zelle war
+            if (row >= 0 && col >= 1) {
+                // Hier können Sie Ihre Bearbeitungslogik implementieren
+                //Object cellValue = jTable.getValueAt(row, col);
+                System.out.println("ROW: " + row + "\tCOLUMN: " + col);
+                if (jTable.getValueAt(row, col) != null) {
+                    Object cellValue = jTable.getValueAt(row, col);
+                    //System.out.println(cellValue.getClass());
+                    String check = jLabelName.getText();
+                    for (Dozent dozentTable : dozentenList) {
+                        if (dozentTable.getName().equals(check)) {
+                            for (LV lvDozentTable : dozentTable.getLV()) {
+                                if (lvDozentTable.getName().equals(cellValue)) {
+                                    int checkSum = 33 - ((col) * 6) + (6 - row);
+                                    long delete = 1;
+                                    delete = delete << checkSum;
+                                    lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
+                                    dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
+                                    lvDozentTable.substractOneSWSBlocksTook();
+                                    tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList);
+                                    //tableCellRenderer.setZug(null);
+                                    jTable.setValueAt("", row, col);
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable));
+                                    jTable.revalidate();
+                                    jTable.repaint();
+                                }
+                            }
+                            System.out.println("Dozent: " + cellValue.getClass());
+                        }
+                    }
+                    for (Zug zugTable : zugList) {
+                        if (zugTable.getName().equals(check)) {
+                            for (LV lvZugTable : zugTable.getLV()) {
+                                if (lvZugTable.getName().equals(cellValue)) {
+                                    int checkSum = 33 - ((col) * 6) + (6 - row);
+                                    long delete = 1;
+                                    delete = delete << checkSum;
+                                    lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
+                                    String dozentLVName = lvZugTable.getDozentName();
+                                    for (Dozent dozentLV : dozentenList) {
+                                        if (dozentLV.getName().equals(dozentLVName)) {
+                                            dozentLV.setScheduledDozent(dozentLV.getScheduledDozent() ^ delete);
+                                            lvZugTable.substractOneSWSBlocksTook();
+                                            tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList);
+                                            //tableCellRenderer.setZug(zugTable);
                                             jTable.setValueAt("", row, col);
-                                            jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable));
+                                            jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable));
                                             jTable.revalidate();
                                             jTable.repaint();
                                         }
                                     }
-                                    System.out.println("Dozent: " + cellValue.getClass());
-                                }
-                            }
-                            for (Zug zugTable : zugList) {
-                                if (zugTable.getName().equals(check)) {
-                                    for (LV lvZugTable : zugTable.getLV()) {
-                                        if (lvZugTable.getName().equals(cellValue)) {
-                                            int checkSum = 33 - ((col) * 6) + (6 - row);
-                                            long delete = 1;
-                                            delete = delete << checkSum;
-                                            lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
-                                            String dozentLVName = lvZugTable.getDozentName();
-                                            for (Dozent dozentLV : dozentenList) {
-                                                if (dozentLV.getName().equals(dozentLVName)) {
-                                                    dozentLV.setScheduledDozent(dozentLV.getScheduledDozent() ^ delete);
-                                                    lvZugTable.substractOneSWSBlocksTook();
-                                                    tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList);
-                                                    //tableCellRenderer.setZug(zugTable);
-                                                    jTable.setValueAt("", row, col);
-                                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable));
-                                                    jTable.revalidate();
-                                                    jTable.repaint();
-                                                }
-                                            }
 
-                                        }
-                                    }
-                                    System.out.println("Zug: " + cellValue.getClass());
                                 }
                             }
+                            System.out.println("Zug: " + cellValue.getClass());
                         }
-                        // Öffnen Sie ein Eingabefeld oder ein Dialogfeld zur Bearbeitung des Zellwerts
-                        // Aktualisieren Sie Ihre Datenstruktur und die Tabelle nach der Bearbeitung
                     }
                 }
+                // Öffnen Sie ein Eingabefeld oder ein Dialogfeld zur Bearbeitung des Zellwerts
+                // Aktualisieren Sie Ihre Datenstruktur und die Tabelle nach der Bearbeitung
+            }
+        }
     }//GEN-LAST:event_jTableMouseClicked
 
     public void findMatchingObjects(String input) {
-        
+
         DefaultListModel<String> suchListModel = new DefaultListModel<>();
-        try{
+        try {
             for (Dozent obj : dozentenList) {
                 if (obj.getName().toLowerCase().contains(input.toLowerCase())) {
                     suchListModel.addElement(obj.getName());
                 }
             }
-            
+
             for (Zug zugObj : zugList) {
                 if (zugObj.getName().toLowerCase().contains(input.toLowerCase())) {
                     suchListModel.addElement(zugObj.getName());
                 }
             }
+
             
             for (LV lvObj : lvList) {
                 if (lvObj.getName().toLowerCase().contains(input.toLowerCase())) {
@@ -739,9 +739,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
             dozentZugList.setModel(suchListModel);
         }catch(java.lang.NullPointerException ex){
             
+
         }
     }
-    
+
     private void addNewTab() {
         JPanel tabContent = (JPanel) new Test().getContentPane(); // Erhalte den Inhalt der Test-Klasse
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount() + 1); // Titel für die neue Registerkarte
@@ -883,6 +884,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }
 
     public void addSelectionListenerJList() {
+        
         jLVList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -895,11 +897,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
                         // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
                         int selectedIndex = jLVList.getSelectedIndex();
                         LV selectedLV = null;
-
+                        // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
                         if (jComboDoZug.getSelectedItem() != null) {
 
                             int tabIndex = jTabbedPane1.getSelectedIndex();
                             String jLabelText = jComboDoZug.getSelectedItem().toString();
+                            
+                            //Sets the Name in the top left corner of the Panel
                             jLabelName.setText(jLabelText);
                             // if-construction for not changing the Handtuch-Title
                             if (tabIndex != 0) {
@@ -908,7 +912,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                             }
 
                             // Direkter Zugriff auf das ausgewählte Dozenten- oder Zug-Objekt
-                            if (lvLististZug && !lvLististDozent) {
+                            //The Radiobuttons decides wich variable radioButtonZugBoolean or radioButtonDozentBoolean is true respectively false
+                            //
+                            if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
 
                                 Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
                                 selectedLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
@@ -938,12 +944,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                     //setLVforJTable(dozent);
                                 } else if (selectedLV.getDozentName().equals("-") || selectedLV.getDozentName().equals("_")) {
                                     DefaultTableCellRenderer();
-                                } 
-                                    
-                                
+                                }
+
                             }
 
-                            getZugforLVinTable(selectedLV);
+                            getZugLVandDozentLVforSelectedLVinTable(selectedLV);
                             // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
                         }
                     }
@@ -988,19 +993,33 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }
 
-    ;
-    
-    public void getZugforLVinTable(LV lv) {
+    public void getZugLVandDozentLVforSelectedLVinTable(LV selectedLV) {
+        // When a LV is chosen (selectedLV) in the jLVList, it checks wich Zug also has to take selectedLV.
+        // When checked it sets in jTable all LVs from all Zugs to display where it is NOT possible to place the selectedLV.
+        // When done it checks wich Dozent is giving the selectedLV and displays(partly by overriting) all the LVs from this Dozent.
+        
         emptyJTable();
         jTable.revalidate();
         jTable.repaint();
-        for (Zug zug : lv.getZugList()) {
+
+        //All LVs from all Zugs wich also has to take selectedLV
+        getZugLVforSelectedLV(selectedLV);
+        //All LVs from the Dozent giving the selectedLV
+        getDozentLVforSelectedLV(selectedLV);
+    }
+
+    //All LVs from all Zugs wich also has to take selectedLV
+    public void getZugLVforSelectedLV(LV selectedLV) {
+        for (Zug zug : selectedLV.getZugList()) {
             for (LV lvZug : zug.getLV()) {
+
                 if (lvZug.getScheduledLV() != 0) {
-                    //System.out.println("get Scheduled LV!");
+
                     long lvScheduled = lvZug.getScheduledLV();
                     for (int i = 39; i > 5; i--) {
+
                         if (lvScheduled % 2 == 1) {
+
                             int row = i % 6;
                             int column = i / 6;
                             String cellContent = "";
@@ -1009,20 +1028,26 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
                             jTable.setValueAt(cellContent, row, column);
                             ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
-
                         }
                         lvScheduled = lvScheduled >> 1;
-
                     }
                 }
             }
         }
+    }
+
+    //All LVs from the Dozent giving the selectedLV
+    public void getDozentLVforSelectedLV(LV selectedLV) {
         for (Dozent dozent : dozentenList) {
-            if (lv.getDozentName().equals(dozent.getName())) {
+
+            if (selectedLV.getDozentName().equals(dozent.getName())) {
+
                 for (LV lvDozent : dozent.getLV()) {
                     long lvScheduled = lvDozent.getScheduledLV();
                     for (int i = 39; i > 5; i--) {
+
                         if (lvScheduled % 2 == 1) {
+
                             int row = i % 6;
                             int column = i / 6;
                             String cellContent = "";
@@ -1031,17 +1056,51 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
                             jTable.setValueAt(cellContent, row, column);
                             ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
-
                         }
                         lvScheduled = lvScheduled >> 1;
-
                     }
                 }
             }
         }
-
+    }
+    
+    //Test für Kompakteren Code
+    /*
+    public void getZugLVandDozentLVforSelectedLVinTable(LV lv) {
+        emptyJTable();
+        jTable.revalidate();
+        jTable.repaint();
+        for (Zug zug : lv.getZugList()) {
+            updateTableForLVList(zug.getLV());
+        }
+        for (Dozent dozent : dozentenList) {
+            if (lv.getDozentName().equals(dozent.getName())) {
+                updateTableForLVList(dozent.getLV());
+            }
+        }
     }
 
+    private void updateTableForLVList(List<LV> lvList) {
+        for (LV lvZug : lvList) {
+            if (lvZug.getScheduledLV() != 0) {
+                long lvScheduled = lvZug.getScheduledLV();
+                for (int i = 39; i > 5; i--) {
+                    if (lvScheduled % 2 == 1) {
+                        int row = i % 6;
+                        int column = i / 6;
+                        String cellContent = "";
+
+                        cellContent +=  lvZug.getName();
+
+                        jTable.setValueAt(cellContent, row, column);
+                        ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
+                    }
+                    lvScheduled = lvScheduled >> 1;
+                }
+            }
+        }
+    }
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SubFilter;

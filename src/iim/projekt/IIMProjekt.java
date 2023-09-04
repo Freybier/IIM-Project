@@ -22,6 +22,7 @@ import iim.pvZeiten.DozentToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
 import GUI.TestYann;
+import iim.Handtuch.LeadingLV;
 import iim.Handtuch.UpdateHandtuchCSV;
 import iim.Hochschule.LV;
 import iim.Hochschule.ReadCSVs;
@@ -101,12 +102,17 @@ public class IIMProjekt {
         update.addParallel(handtuchOutputUpdatePath);
         
         lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
+        //update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList);
         dozentenList = readCSVs.getDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath);
         readCSVs.getLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
         zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
+        
         readCSVs.addZugToLV(lvList, zugList);
         
-        
+        List<LeadingLV> leadingLVList = update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList, zugList);
+        for(LeadingLV leadingLV: leadingLVList){
+            //System.out.println(leadingLV.getName() + " " + leadingLV.getZug() + " " + leadingLV.getDozent());
+        }
         /*
         for (LV lv : lvList) {     
             System.out.println(lv.toString());

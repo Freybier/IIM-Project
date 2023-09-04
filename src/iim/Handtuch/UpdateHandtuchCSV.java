@@ -130,8 +130,8 @@ public class UpdateHandtuchCSV {
         }
     }
 
-    public List<LeadingLV> findLeadingLVs(String csvFilePath, List<LV> lvList, List<Zug> zugList) {
-        List<LeadingLV> leadings = new ArrayList<>();
+    public List<Leading> findLeadings(String csvFilePath, List<LV> lvList, List<Zug> zugList) {
+        List<Leading> leadings = new ArrayList<>();
         
         //System.out.println("HALLLLLLO");
         // Erstelle eine Liste, um die gefundenen Leading-Objekte zu speichern
@@ -153,7 +153,7 @@ public class UpdateHandtuchCSV {
                 for (Zug zugCheck : zugList) {
                     if (zugCheck.getName().equals(dozent)) {
                         //System.out.println(dozent);
-                        leadings.add(setLeadingLV(zug, lv, dozent, csvFilePath));
+                        leadings.add(setLeading(zug, lv, dozent, csvFilePath));
                     }
                 }
 
@@ -177,7 +177,7 @@ public class UpdateHandtuchCSV {
         return -1; // Column not found
     }
 
-    public LeadingLV setLeadingLV(String zug, String lv, String dozent, String path) {
+    public Leading setLeading(String zug, String lv, String dozent, String path) {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
@@ -196,7 +196,7 @@ public class UpdateHandtuchCSV {
                 String dozentCompare = parts[dozentIndex];
 
                 if ( lv.equals(lvCompare) && dozent.equals(zugCompare)) {
-                    LeadingLV leadingLV = new LeadingLV(lvCompare, dozentCompare, zugCompare);
+                    Leading leadingLV = new Leading(lvCompare, dozentCompare, zugCompare);
                     leadingLV.setLeading(true);
                     return leadingLV;
 

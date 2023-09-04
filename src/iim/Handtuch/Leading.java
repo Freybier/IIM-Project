@@ -12,7 +12,7 @@ import iim.Hochschule.LV;
  *
  * @author Yann Leymann
  */
-public class LeadingLV {
+public class Leading {
 
     private String name;
     private String dozent;
@@ -23,7 +23,7 @@ public class LeadingLV {
     
     
 
-    public LeadingLV(String name, String dozent, String zug) {
+    public Leading(String name, String dozent, String zug) {
         this.name = name;
         this.dozent = dozent;
         this.zug = zug;

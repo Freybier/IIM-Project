@@ -371,7 +371,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                     tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList);
                                     //tableCellRenderer.setZug(null);
                                     jTable.setValueAt("", row, col);
-                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable));
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
                                     jTable.revalidate();
                                     jTable.repaint();
                                 }
@@ -395,7 +395,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                             tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList);
                                             //tableCellRenderer.setZug(zugTable);
                                             jTable.setValueAt("", row, col);
-                                            jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable));
+                                            jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
                                             jTable.revalidate();
                                             jTable.repaint();
                                         }

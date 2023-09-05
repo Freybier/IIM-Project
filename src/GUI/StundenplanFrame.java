@@ -63,8 +63,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
         this.zugList = zugList;
         this.lvList = lvList;
         this.leadingList = leadingList;
-        initComponents();
         build();
+        initComponents();
         buildJTable();
         addNewTab();
         setVisible(true);
@@ -876,12 +876,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }
 
     private void addNewTab() {
+        /**
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            System.out.println("Try to look and feel");
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+        */
         JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
+        //JPanel tabContent = new DesignTestPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
         int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab
         System.out.println(position);
@@ -907,8 +911,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                System.out.println(info.getName());
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    System.out.println(info.getClassName());
                     break;
 
                 }

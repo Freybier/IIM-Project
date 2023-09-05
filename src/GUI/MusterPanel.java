@@ -63,7 +63,6 @@ public class MusterPanel extends javax.swing.JPanel {
         this.jTabbedPane1 = jTabbedPane;
         
         initComponents();
-        //setLookAndFeelToSystem();
         timeToJTable();
         addSelectionListenerJList();
         
@@ -81,13 +80,6 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
     
-    private void setLookAndFeelToSystem() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -336,14 +328,12 @@ public class MusterPanel extends javax.swing.JPanel {
 
         //DefaultListModel<Object> listModel = new DefaultListModel<>();
         if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
-
+            int tabIndex = jTabbedPane1.getSelectedIndex();
+            String jLabelText = selectedObject.toString();
             // System.out.println(" set Label. ");
             if (selectedObject instanceof Zug) {
                 
-                String jLabelText = selectedObject.toString();
                 jLabelName.setText(jLabelText);
-                int tabIndex = jTabbedPane1.getSelectedIndex();
-                
                 // if-construction for not changing the Handtuch-Title
                 if (tabIndex != 0) {
                     jTabbedPane1.setTitleAt(tabIndex, jLabelText);
@@ -366,8 +356,14 @@ public class MusterPanel extends javax.swing.JPanel {
 
                                 if (zugLV.getName().equals(leading.getZug()) && check) {
                                     //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
+                                    jLabelText = zugLV.toString();
                                     
-                                    jLabelName.setText(zugLV.toString());
+                                    jLabelName.setText(jLabelText);
+
+                                    if (tabIndex != 0) {
+                                        
+                                        jTabbedPane1.setTitleAt(tabIndex, jLabelText);
+                                    }
                                     jLVList.setModel(setLVZugList(zugLV));
                                     //System.out.println(" Leading. ");
                                     check = false;
@@ -379,8 +375,13 @@ public class MusterPanel extends javax.swing.JPanel {
                     for (Zug zugLV : ((LV) selectedObject).getZugList()) {
                         
                             
-                        
-                        jLabelName.setText(zugLV.toString());
+                        System.out.println("I wanna change");
+                        jLabelText = zugLV.toString();
+                        if (tabIndex != 0) {
+                                        
+                            jTabbedPane1.setTitleAt(tabIndex, jLabelText);
+                        }
+                        jLabelName.setText(jLabelText);
                         jLVList.setModel(setLVZugList(zugLV));
                         //System.out.println(" nur einen Zug. ");
                         //jTableMouseClicke(evt);

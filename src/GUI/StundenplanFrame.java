@@ -914,7 +914,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 System.out.println(info.getName());
                 if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    System.out.println(info.getClassName());
                     break;
 
                 }

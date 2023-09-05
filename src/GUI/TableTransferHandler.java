@@ -24,7 +24,10 @@ public class TableTransferHandler extends TransferHandler {
     private JList jLVList;
     
     private List<LV> lvJLVList;
+    private CustomListCellRenderer listCellRenderer;
 
+    private Object obj;
+    
     public TableTransferHandler(JTable jTable, List<LV> lvList, List<Dozent> dozentenList, List<Zug> zugList, JList jLVList) {
         this.jTable = jTable;
         this.lvList = lvList;
@@ -40,6 +43,14 @@ public class TableTransferHandler extends TransferHandler {
 
     public void setDozentenName(String dozentenName) {
         this.dozentenName = dozentenName;
+    }
+    
+    public void setListCellRenderer(CustomListCellRenderer listCellRenderer){
+        this.listCellRenderer = listCellRenderer;
+    }
+    public void setObject(Object obj) {
+        this.obj = obj;
+        System.out.println(obj);
     }
 
     @Override
@@ -109,8 +120,8 @@ public class TableTransferHandler extends TransferHandler {
                             }
                         }
                         
-                        jLVList.setCellRenderer(new CustomListCellRenderer(lvJLVList, lv));
-                        
+                        jLVList.setCellRenderer(new CustomListCellRenderer(lvJLVList, lv, obj));
+                        System.out.println("ListCellRenderer geseted");
                         jTable.setValueAt(data, row, col);
                         jLVList.revalidate();
                         jLVList.repaint();

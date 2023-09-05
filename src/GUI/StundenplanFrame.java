@@ -47,8 +47,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public List<Leading> leadingList;
     //public JTable jTable;
     public TableTransferHandler tableTransferHandler;
+
     private Boolean radioButtonZugBoolean = false;
     private Boolean radioButtonDozentBoolean = false;
+
     public MyTableCellRenderer tableCellRenderer;
     public CustomListCellRenderer listCellRenderer;
 
@@ -1057,7 +1059,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
                         LV selectedLV = null;
                         // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
                         if (radioButtonZugBoolean || radioButtonDozentBoolean) {
-                            System.out.println("jComboDoZug ist gleich null, also kann das hier nicht geprintet werden");
+
+
                             int tabIndex = jTabbedPane1.getSelectedIndex();
                             String jLabelText = jComboDoZug.getSelectedItem().toString();
 

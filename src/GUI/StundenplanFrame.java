@@ -316,6 +316,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
         });
 
+        jLVList.setSelectionForeground(new java.awt.Color(51, 51, 51));
         jScrollPane2.setViewportView(jLVList);
 
         sucheList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -442,12 +443,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private DefaultListModel setLVDozentList() {
+    private DefaultListModel setLVDozentList(Dozent dozent) {
 
         emptyJTable();
 
         DefaultListModel<Object> listModel = new DefaultListModel<>();
-        Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
+        
         if (!jSuchfeldDoZug.getText().equals("Suche")) {
             dozent = getObjectFromName(jLabelName.getText(), dozentenList);
 
@@ -487,12 +488,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
         return listModel;
     }
 
-    private DefaultListModel setLVZugList() {
+    private DefaultListModel setLVZugList(Zug zug) {
 
         emptyJTable();
 
         DefaultListModel<Object> listModel = new DefaultListModel<>();
-        Zug zug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
+        
         if (!jSuchfeldDoZug.getText().equals("Suche")) {
             zug = getObjectFromName(jLabelName.getText(), zugList);
 
@@ -551,7 +552,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jTabbedPane1.revalidate();
         jTabbedPane1.repaint();*/
-        setLVZugList();
+        //setLVZugList();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -568,12 +569,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
 
             if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
-                jLVList.setModel(setLVZugList());
+                Zug zug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
+                jLVList.setModel(setLVZugList(zug));
                 jLVList.revalidate();
                 jLVList.repaint();
 
             } else if (!radioButtonZugBoolean && radioButtonDozentBoolean) {
-                jLVList.setModel(setLVDozentList());
+                Dozent dozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
+                jLVList.setModel(setLVDozentList(dozent));
                 jLVList.revalidate();
                 jLVList.repaint();
             }
@@ -703,27 +706,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
         
         Object selectedObject = sucheList.getSelectedValue();
 
-        DefaultListModel<Object> listModel = new DefaultListModel<>();
+        //DefaultListModel<Object> listModel = new DefaultListModel<>();
         if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
 
             // System.out.println(" set Label. ");
             if (selectedObject instanceof Zug) {
-                //DefaultListModel<LV> listModel = new DefaultListModel<>();
-                for (LV lvZug : ((Zug) selectedObject).getLV()) {
-                    int swsUebrig = lvZug.getSWSBlocks() - lvZug.getSWSBlocksTook();
-                    listModel.addElement(lvZug + " " + swsUebrig);
-                }
+                
                 jLabelName.setText(selectedObject.toString());
-                jLVList.setModel(listModel);
+                jLVList.setModel(setLVZugList((Zug)selectedObject));
 
             } else if (selectedObject instanceof Dozent) {
                 //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
-                for (LV lvDozent : ((Dozent) selectedObject).getLV()) {
-                    int swsUebrig = lvDozent.getSWSBlocks() - lvDozent.getSWSBlocksTook();
-                    listModel.addElement(lvDozent + " " + swsUebrig);
-                }
+               
                 jLabelName.setText(selectedObject.toString());
-                jLVList.setModel(listModel);
+                jLVList.setModel(setLVDozentList((Dozent)selectedObject));
 
             } else if (selectedObject instanceof LV) {
                 if (((LV) selectedObject).getLeading()) {
@@ -735,14 +731,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
                                 if (zugLV.getName().equals(leading.getZug()) && check) {
                                     //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
-                                    for (LV lvZugLV : zugLV.getLV()) {
-                                        int swsUebrig = lvZugLV.getSWSBlocks() - lvZugLV.getSWSBlocksTook();
-                                        listModel.addElement(lvZugLV + " " + swsUebrig);
-                                        //listModel.addElement(lvZugLV);
-
-                                    }
+                                    
                                     jLabelName.setText(zugLV.toString());
-                                    jLVList.setModel(listModel);
+                                    jLVList.setModel(setLVZugList(zugLV));
                                     //System.out.println(" Leading. ");
                                     check = false;
                                 }
@@ -751,12 +742,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     }
                 } else {
                     for (Zug zugLV : ((LV) selectedObject).getZugList()) {
-                        for (LV lvZugLV : zugLV.getLV()) {
-                            int swsUebrig = lvZugLV.getSWSBlocks() - lvZugLV.getSWSBlocksTook();
-                            listModel.addElement(lvZugLV + " " + swsUebrig);
-                        }
+                        
+                            
+                        
                         jLabelName.setText(zugLV.toString());
-                        jLVList.setModel(listModel);
+                        jLVList.setModel(setLVZugList(zugLV));
                         //System.out.println(" nur einen Zug. ");
                         //jTableMouseClicke(evt);
                     }
@@ -1115,6 +1105,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                         jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
                                     }
                                     //setLVforJTable(dozent);
+                                    //§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
                                 } else if (selectedLV.getDozentName().equals("-") || selectedLV.getDozentName().equals("_")) {
                                     DefaultTableCellRenderer();
                                 }

@@ -684,7 +684,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
         // TODO add your handling code here:
-        //System.out.println(" suche MouseClicked. ");
+        
+        jComboDoZug.removeAllItems();
+
+        radioButtonZugBoolean = false;
+        radioButtonDozentBoolean = false;
+        buttonGroup1.clearSelection();
+
+        jRadioDozent.repaint();
+        jRadioDozent.revalidate();
+        
+        jRadioZug.repaint();
+        jRadioZug.revalidate();
+        
         //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
         Object selectedObject = sucheList.getSelectedValue();
 

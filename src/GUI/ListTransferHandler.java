@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ListTransferHandler extends TransferHandler {
-    private JList<LV> jList;
+    private JList<Object> jList;
 
-    public ListTransferHandler(JList<LV> jList) {
+    public ListTransferHandler(JList<Object> jList) {
         this.jList = jList;
     }
 

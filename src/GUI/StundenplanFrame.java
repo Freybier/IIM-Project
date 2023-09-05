@@ -22,6 +22,8 @@ import javax.swing.table.TableRowSorter;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
@@ -36,7 +38,7 @@ import javax.swing.table.AbstractTableModel;
 public class StundenplanFrame extends javax.swing.JFrame {
 
     public int columnNr = 10;
-    private Object[] columnNames;
+    public Object[] columnNames;
     public CSVToObjectArrayConverter oArray;
     public JPanel layoutpanel;
     public List<Dozent> dozentenList;
@@ -88,6 +90,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jMenu3 = new javax.swing.JMenu();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jColumnFilter = new javax.swing.JComboBox<>();
@@ -112,6 +115,15 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         sucheList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -128,6 +140,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MousePressed(evt);
             }
         });
 
@@ -188,7 +203,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addComponent(jColumnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(SubFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(555, Short.MAX_VALUE))
+                .addContainerGap(532, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -364,7 +379,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                         .addComponent(jLabelName)
                         .addGap(9, 9, 9)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jSuchfeldDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,9 +389,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                        .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
                     .addComponent(jKonfliktFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jInfoFeld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -386,6 +401,30 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
         jTabbedPane1.addTab("+", jLabel1);
+
+        jMenu1.setText("File");
+
+        jMenuItem3.setText("Importieren");
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Exportieren");
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setText("Speichern");
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem2.setText("Zurücksetzten");
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -498,7 +537,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         /*addNewStundenplanTab();
         System.out.println("Hallo");*/
     }//GEN-LAST:event_jTabbedPane1MouseClicked
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
@@ -513,8 +552,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         setLVZugList();
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
-
+   
     private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
         // TODO add your handling code here:
         if (jComboDoZug.getSelectedItem() != null) {
@@ -540,7 +578,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jComboDoZugActionPerformed
-
+  
     private void jRadioZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioZugActionPerformed
         // TODO add your handling code here:
         this.radioButtonDozentBoolean = false;
@@ -553,7 +591,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         DefaultTableCellRenderer();
 
     }//GEN-LAST:event_jRadioZugActionPerformed
-
+ 
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
         // TODO add your handling code here:
         this.radioButtonZugBoolean = false;
@@ -607,16 +645,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jColumnFilterActionPerformed
 
+    private boolean isAddingTab = false; // Füge diese Variable der Klasse hinzu
+    
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
-        int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
+    JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
+    int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
 
-        if (selectedTabIndex != -1) {
-            Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
-            if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
-                addNewTab();
-            }
+    if (!isAddingTab && selectedTabIndex != -1) {
+        Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
+        if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
+            isAddingTab = true; // Setze die Flag auf true, um die erneute Ausführung zu verhindern
+            addNewTab();
+            isAddingTab = false; // Setze die Flag wieder auf false
         }
+    }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jSuchfeldDoZugKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugKeyReleased
@@ -625,15 +667,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
         System.out.println(entry);
         findMatchingObjects(entry);
     }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
-
+     
     private void jSuchfeldDoZugFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusGained
         // TODO add your handling code here:
         if (jSuchfeldDoZug.getText().equals("Suche")) {
             jSuchfeldDoZug.setText("");
         }
     }//GEN-LAST:event_jSuchfeldDoZugFocusGained
-
-
+      
     private void jSuchfeldDoZugFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusLost
         // TODO add your handling code here:
         if (jSuchfeldDoZug.getText().isEmpty()) {
@@ -704,9 +745,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
 
         }
+
         jLVList.revalidate();
         jLVList.repaint();
     }//GEN-LAST:event_sucheListMouseClicked
+
 
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
@@ -779,6 +822,27 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableMouseClicked
 
+    private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
+                if (SwingUtilities.isRightMouseButton(evt)) {
+
+                    int index = jTabbedPane1.getSelectedIndex();
+
+                    if (index != 0) {
+                        JPopupMenu popupMenu = new JPopupMenu();
+                        JMenuItem delete = new JMenuItem("Delete");
+                        delete.addActionListener(new ActionListener() {
+
+                            @Override
+                            public void actionPerformed(ActionEvent evt) {
+                                jTabbedPane1.remove(index);
+                            }
+                        });
+                        popupMenu.add(delete);
+                        popupMenu.show(this, evt.getX(), evt.getY());
+                    }
+                }
+    }//GEN-LAST:event_jTabbedPane1MousePressed
+
     public void findMatchingObjects(String input) {
 
         DefaultListModel<Object> suchListModel = new DefaultListModel<>();
@@ -806,13 +870,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }
 
-    private void addNewTab() {
-        JPanel tabContent = (JPanel) new Test().getContentPane(); // Erhalte den Inhalt der Test-Klasse
-        String tabTitle = "Tab " + (jTabbedPane1.getTabCount() + 1); // Titel für die neue Registerkarte
-        jTabbedPane1.addTab(tabTitle, tabContent);
-        jTabbedPane1.setSelectedComponent(tabContent);
-
+private void addNewTab() {
+    try {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        e.printStackTrace();
     }
+    JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
+    String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
+    int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab
+    System.out.println(position);
+    jTabbedPane1.insertTab(tabTitle, null, tabContent, null, position);
+    jTabbedPane1.setSelectedComponent(tabContent);
+}
+
 
     public void filterUpdate(String word, int index) {
         // Filter the table based on a specific column
@@ -882,21 +953,21 @@ public class StundenplanFrame extends javax.swing.JFrame {
         columnNameFilterBox(columnNames);
     }
 
-    public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<String> comboBox) {
+    public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<Object> comboBox) {
         comboBox.addItem("---------");
         Collections.sort(dozentenListe, (Dozent dozent1, Dozent dozent2) -> dozent1.getName().compareTo(dozent2.getName()));
 
         for (Dozent dozent : dozentenListe) {
-            comboBox.addItem(dozent.getName());
+            comboBox.addItem(dozent);
         }
     }
 
-    public void updateZugComboBox(List<Zug> zugListe, JComboBox<String> comboBox) {
+    public void updateZugComboBox(List<Zug> zugListe, JComboBox<Object> comboBox) {
         comboBox.addItem("---------");
         Collections.sort(zugListe, (Zug zug1, Zug zug2) -> zug1.getName().compareTo(zug2.getName()));
 
         for (Zug zug : zugListe) {
-            comboBox.addItem(zug.getName());
+            comboBox.addItem(zug);
         }
     }
 
@@ -1192,12 +1263,20 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSpeichern;
     private javax.swing.JButton jButtonZurücksetzen;
     private javax.swing.JComboBox<String> jColumnFilter;
-    private javax.swing.JComboBox<String> jComboDoZug;
+    private javax.swing.JComboBox<Object> jComboDoZug;
     private javax.swing.JPanel jInfoFeld;
     private javax.swing.JPanel jKonfliktFeld;
     private javax.swing.JList<LV> jLVList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelName;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioDozent;

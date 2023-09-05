@@ -698,17 +698,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jRadioZug.revalidate();
         
         //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
-        jComboDoZug.removeAllItems();
-
-        radioButtonZugBoolean = false;
-        radioButtonDozentBoolean = false;
-        buttonGroup1.clearSelection();
-
-        jRadioDozent.repaint();
-        jRadioDozent.revalidate();
-        
-        jRadioZug.repaint();
-        jRadioZug.revalidate();
         
         Object selectedObject = sucheList.getSelectedValue();
 

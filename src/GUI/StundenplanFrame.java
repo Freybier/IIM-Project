@@ -537,7 +537,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         /*addNewStundenplanTab();
         System.out.println("Hallo");*/
     }//GEN-LAST:event_jTabbedPane1MouseClicked
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
@@ -552,7 +552,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         setLVZugList();
 
     }//GEN-LAST:event_jButton1ActionPerformed
-   
+
     private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
         // TODO add your handling code here:
         if (jComboDoZug.getSelectedItem() != null) {
@@ -570,7 +570,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 jLVList.revalidate();
                 jLVList.repaint();
 
-            } else if(!radioButtonZugBoolean && radioButtonDozentBoolean){
+            } else if (!radioButtonZugBoolean && radioButtonDozentBoolean) {
                 jLVList.setModel(setLVDozentList());
                 jLVList.revalidate();
                 jLVList.repaint();
@@ -578,7 +578,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jComboDoZugActionPerformed
-  
+
     private void jRadioZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioZugActionPerformed
         // TODO add your handling code here:
         this.radioButtonDozentBoolean = false;
@@ -591,7 +591,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         DefaultTableCellRenderer();
 
     }//GEN-LAST:event_jRadioZugActionPerformed
- 
+
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
         // TODO add your handling code here:
         this.radioButtonZugBoolean = false;
@@ -646,19 +646,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jColumnFilterActionPerformed
 
     private boolean isAddingTab = false; // Füge diese Variable der Klasse hinzu
-    
-    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-    JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
-    int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
 
-    if (!isAddingTab && selectedTabIndex != -1) {
-        Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
-        if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
-            isAddingTab = true; // Setze die Flag auf true, um die erneute Ausführung zu verhindern
-            addNewTab();
-            isAddingTab = false; // Setze die Flag wieder auf false
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
+        int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
+
+        if (!isAddingTab && selectedTabIndex != -1) {
+            Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
+            if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
+                isAddingTab = true; // Setze die Flag auf true, um die erneute Ausführung zu verhindern
+                addNewTab();
+                isAddingTab = false; // Setze die Flag wieder auf false
+            }
         }
-    }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jSuchfeldDoZugKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugKeyReleased
@@ -667,14 +667,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
         System.out.println(entry);
         findMatchingObjects(entry);
     }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
-     
+
     private void jSuchfeldDoZugFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusGained
         // TODO add your handling code here:
         if (jSuchfeldDoZug.getText().equals("Suche")) {
             jSuchfeldDoZug.setText("");
         }
     }//GEN-LAST:event_jSuchfeldDoZugFocusGained
-      
+
     private void jSuchfeldDoZugFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusLost
         // TODO add your handling code here:
         if (jSuchfeldDoZug.getText().isEmpty()) {
@@ -684,7 +684,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
         // TODO add your handling code here:
-        //System.out.println(" suche MouseClicked. ");
+        
+        jComboDoZug.removeAllItems();
+
+        radioButtonZugBoolean = false;
+        radioButtonDozentBoolean = false;
+        buttonGroup1.clearSelection();
+
+        jRadioDozent.repaint();
+        jRadioDozent.revalidate();
+        
+        jRadioZug.repaint();
+        jRadioZug.revalidate();
+        
         //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
         jComboDoZug.removeAllItems();
 
@@ -699,14 +711,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jRadioZug.revalidate();
         
         Object selectedObject = sucheList.getSelectedValue();
-        DefaultListModel<LV> listModel = new DefaultListModel<>();
+
+        DefaultListModel<Object> listModel = new DefaultListModel<>();
         if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
 
             // System.out.println(" set Label. ");
             if (selectedObject instanceof Zug) {
                 //DefaultListModel<LV> listModel = new DefaultListModel<>();
                 for (LV lvZug : ((Zug) selectedObject).getLV()) {
-                    listModel.addElement(lvZug);
+                    int swsUebrig = lvZug.getSWSBlocks() - lvZug.getSWSBlocksTook();
+                    listModel.addElement(lvZug + " " + swsUebrig);
                 }
                 jLabelName.setText(selectedObject.toString());
                 jLVList.setModel(listModel);
@@ -714,7 +728,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
             } else if (selectedObject instanceof Dozent) {
                 //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
                 for (LV lvDozent : ((Dozent) selectedObject).getLV()) {
-                    listModel.addElement(lvDozent);
+                    int swsUebrig = lvDozent.getSWSBlocks() - lvDozent.getSWSBlocksTook();
+                    listModel.addElement(lvDozent + " " + swsUebrig);
                 }
                 jLabelName.setText(selectedObject.toString());
                 jLVList.setModel(listModel);
@@ -730,7 +745,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                 if (zugLV.getName().equals(leading.getZug()) && check) {
                                     //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
                                     for (LV lvZugLV : zugLV.getLV()) {
-                                        listModel.addElement(lvZugLV);
+                                        int swsUebrig = lvZugLV.getSWSBlocks() - lvZugLV.getSWSBlocksTook();
+                                        listModel.addElement(lvZugLV + " " + swsUebrig);
+                                        //listModel.addElement(lvZugLV);
 
                                     }
                                     jLabelName.setText(zugLV.toString());
@@ -744,7 +761,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 } else {
                     for (Zug zugLV : ((LV) selectedObject).getZugList()) {
                         for (LV lvZugLV : zugLV.getLV()) {
-                            listModel.addElement(lvZugLV);
+                            int swsUebrig = lvZugLV.getSWSBlocks() - lvZugLV.getSWSBlocksTook();
+                            listModel.addElement(lvZugLV + " " + swsUebrig);
                         }
                         jLabelName.setText(zugLV.toString());
                         jLVList.setModel(listModel);
@@ -760,7 +778,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jLVList.revalidate();
         jLVList.repaint();
     }//GEN-LAST:event_sucheListMouseClicked
-
 
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
@@ -834,24 +851,24 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
-                if (SwingUtilities.isRightMouseButton(evt)) {
+        if (SwingUtilities.isRightMouseButton(evt)) {
 
-                    int index = jTabbedPane1.getSelectedIndex();
+            int index = jTabbedPane1.getSelectedIndex();
 
-                    if (index != 0) {
-                        JPopupMenu popupMenu = new JPopupMenu();
-                        JMenuItem delete = new JMenuItem("Delete");
-                        delete.addActionListener(new ActionListener() {
+            if (index != 0 && index != 1) {
+                JPopupMenu popupMenu = new JPopupMenu();
+                JMenuItem delete = new JMenuItem("Delete");
+                delete.addActionListener(new ActionListener() {
 
-                            @Override
-                            public void actionPerformed(ActionEvent evt) {
-                                jTabbedPane1.remove(index);
-                            }
-                        });
-                        popupMenu.add(delete);
-                        popupMenu.show(this, evt.getX(), evt.getY());
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        jTabbedPane1.remove(index);
                     }
-                }
+                });
+                popupMenu.add(delete);
+                popupMenu.show(this, evt.getX(), evt.getY());
+            }
+        }
     }//GEN-LAST:event_jTabbedPane1MousePressed
 
     public void findMatchingObjects(String input) {
@@ -881,20 +898,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }
 
-private void addNewTab() {
-    try {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-        e.printStackTrace();
+    private void addNewTab() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
+        String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
+        int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab
+        System.out.println(position);
+        jTabbedPane1.insertTab(tabTitle, null, tabContent, null, position);
+        jTabbedPane1.setSelectedComponent(tabContent);
     }
-    JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
-    String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
-    int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab
-    System.out.println(position);
-    jTabbedPane1.insertTab(tabTitle, null, tabContent, null, position);
-    jTabbedPane1.setSelectedComponent(tabContent);
-}
-
 
     public void filterUpdate(String word, int index) {
         // Filter the table based on a specific column
@@ -1051,7 +1067,7 @@ private void addNewTab() {
                         int selectedIndex = jLVList.getSelectedIndex();
                         LV selectedLV = null;
                         // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
-                        if (jComboDoZug.getSelectedItem() != null) {
+                        if (radioButtonZugBoolean || radioButtonDozentBoolean) {
                             System.out.println("jComboDoZug ist gleich null, also kann das hier nicht geprintet werden");
                             int tabIndex = jTabbedPane1.getSelectedIndex();
                             String jLabelText = jComboDoZug.getSelectedItem().toString();
@@ -1072,7 +1088,7 @@ private void addNewTab() {
                                 Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
                                 selectedLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
                                 tableTransferHandler.setDozentenName(selectedLV.getDozentName());
-                            } else if(!radioButtonZugBoolean && radioButtonDozentBoolean) {
+                            } else if (!radioButtonZugBoolean && radioButtonDozentBoolean) {
 
                                 Dozent selectedDozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
                                 selectedLV = selectedDozent.getLV().get(selectedIndex);
@@ -1277,7 +1293,7 @@ private void addNewTab() {
     private javax.swing.JComboBox<Object> jComboDoZug;
     private javax.swing.JPanel jInfoFeld;
     private javax.swing.JPanel jKonfliktFeld;
-    private javax.swing.JList<LV> jLVList;
+    private javax.swing.JList<Object> jLVList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JMenu jMenu1;

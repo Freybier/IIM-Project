@@ -37,7 +37,7 @@ public class ReadCSVs {
             int swsIndex = getColumnIndex("SWS", header);
             int geblocktIndex = getColumnIndex("geblockt", header);
             int lvaIndex = getColumnIndex("LVA", header);
-
+            int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
                 String zugName = parts[zugNameIndex];
@@ -49,9 +49,15 @@ public class ReadCSVs {
                 boolean geblockt = geblocktValue.equalsIgnoreCase("ja");
                 String lva = parts[lvaIndex];
 
-                String lvKey = lvKuerzel + ";" + dozentName;
+                String lvKey = lvKuerzel + ";" + dozentName + ";" + zugName;
                 if (!lvMap.containsKey(lvKey)) {
                     LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva);
+                    
+                    if(lvKuerzel.equals("INF") && dozentName.equals("VEN")){
+                        i++;
+                        System.out.println("HUUUUUIIII\t" + i);
+                        
+                    }
                     lvList.add(newLV);
                     lvMap.put(lvKey, newLV);
                 }

@@ -686,6 +686,18 @@ public class StundenplanFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         //System.out.println(" suche MouseClicked. ");
         //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
+        jComboDoZug.removeAllItems();
+
+        radioButtonZugBoolean = false;
+        radioButtonDozentBoolean = false;
+        buttonGroup1.clearSelection();
+
+        jRadioDozent.repaint();
+        jRadioDozent.revalidate();
+        
+        jRadioZug.repaint();
+        jRadioZug.revalidate();
+        
         Object selectedObject = sucheList.getSelectedValue();
         DefaultListModel<LV> listModel = new DefaultListModel<>();
         if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
@@ -745,7 +757,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
 
         }
-
         jLVList.revalidate();
         jLVList.repaint();
     }//GEN-LAST:event_sucheListMouseClicked

@@ -340,7 +340,14 @@ public class MusterPanel extends javax.swing.JPanel {
             // System.out.println(" set Label. ");
             if (selectedObject instanceof Zug) {
                 
-                jLabelName.setText(selectedObject.toString());
+                String jLabelText = selectedObject.toString();
+                jLabelName.setText(jLabelText);
+                int tabIndex = jTabbedPane1.getSelectedIndex();
+                
+                // if-construction for not changing the Handtuch-Title
+                if (tabIndex != 0) {
+                    jTabbedPane1.setTitleAt(tabIndex, jLabelText);
+                }
                 jLVList.setModel(setLVZugList((Zug)selectedObject));
 
             } else if (selectedObject instanceof Dozent) {

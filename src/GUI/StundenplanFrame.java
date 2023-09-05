@@ -117,6 +117,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         sucheList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -404,6 +405,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
         jTabbedPane1.addTab("+", jLabel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1183, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 632, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab4", jPanel2);
 
         jMenu1.setText("File");
 
@@ -885,7 +899,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
+        JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
         int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab
         System.out.println(position);
@@ -1288,6 +1302,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioDozent;
     private javax.swing.JRadioButton jRadioZug;

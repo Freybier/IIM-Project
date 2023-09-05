@@ -461,7 +461,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
             // LV-Objekt aus den Dozenten auswählen
             //updateTableCells(jTable);
-            this.tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList);
+            this.tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, dozent.getLV());
             //tableCellRenderer.setZug(null);
             tableTransferHandler.setDozentenName(dozent.getName());
             tableTransferHandler.setLVJLVList(dozent.getLV());
@@ -615,8 +615,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 if (((LV) selectedObject).getLeading()) {
                     boolean check = true;
                     for (Leading leading : leadingList) {
+                        System.out.println(leading.getDozent() + "   " + leading.getZug());
                         if (((LV) selectedObject).getDozentName().equals(leading.getDozent()) && ((LV) selectedObject).getName().equals(leading.getLv())) {
-
+                            System.out.println("Leading Prof: " + ((LV) selectedObject).getDozentName());
                             for (Zug zugLV : ((LV) selectedObject).getZugList()) {
 
                                 if (zugLV.getName().equals(leading.getZug()) && check) {
@@ -763,7 +764,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                     lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
                                     dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
                                     lvDozentTable.substractOneSWSBlocksTook();
-                                    tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList);
+                                    tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
                                     //tableCellRenderer.setZug(null);
                                     jTable.setValueAt("", row, col);
                                     jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
@@ -787,7 +788,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                         if (dozentLV.getName().equals(dozentLVName)) {
                                             dozentLV.setScheduledDozent(dozentLV.getScheduledDozent() ^ delete);
                                             lvZugTable.substractOneSWSBlocksTook();
-                                            tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList);
+                                            tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList, zugTable.getLV());
                                             //tableCellRenderer.setZug(zugTable);
                                             jTable.setValueAt("", row, col);
                                             jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
@@ -1100,7 +1101,21 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
                             for (Dozent dozent : dozentenList) {
                                 if (selectedLV.getDozentName().equals(dozent.getName())) {
-                                    tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList);
+                                    
+                                    for(Dozent dozentLable : dozentenList)
+                                    if(jLabelName.getText().equals(dozentLable.getName())){
+                                      tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, dozent.getLV());  
+                                    }
+                                        
+                                    for(Zug zugLable : zugList){
+                                        if(jLabelName.getText().equals(zugLable.getName())){
+                                            tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, zugLable.getLV());
+                                        }
+                                    }
+                                    
+                                    
+                                    
+                                    
                                     //tableCellRenderer.setZug(null);
                                     for (int i = 1; i < 7; i++) {
                                         jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);

@@ -14,6 +14,7 @@ import iim.Hochschule.Zug;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;
@@ -26,10 +27,12 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
     private List<Dozent> dozentList;
     private Dozent dozent;
     private Zug zug;
+    private List<LV> lvList;
 
-    public MyTableCellRenderer(Dozent dozent, List<Dozent> dozentList) {
+    public MyTableCellRenderer(Dozent dozent, List<Dozent> dozentList,List<LV> lvList) {
         this.dozent = dozent;
         this.dozentList = dozentList;
+        this.lvList = lvList;
 
         //System.out.println(dozent);
     }
@@ -52,7 +55,12 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
         long schiebAvailable = dozent.getAvailable();
         long schiebDoesNotWant = dozent.getDoesNotWant();
         long scheduledDozent = dozent.getScheduledDozent();
-
+        
+        List<String> stringList = new ArrayList<>();
+        for(LV lv: lvList){
+            stringList.add(lv.getName());
+        }
+        
         if (dozent == null || !dozent.getDoesHavePVZeiten()) {
             cellComponent.setBackground(table.getBackground());
             return cellComponent;
@@ -81,12 +89,17 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
                         //cellComponent.setForeground(Color.PINK);
                         cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
                         setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
+                        
+                            if(!stringList.contains(value.toString())){
+                                cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                            setBorder(new CompoundBorder(new LineBorder(Color.DARK_GRAY, 5), new EmptyBorder(5, 5, 5, 5)));
+                            }
+                        
                     }else if (zug != null) {
                         System.out.println("zug ungleich null!!");
                         if (scheduledDozent % 2 == 1) {
                             System.out.println("CYAN!!!!!!!!!");
-                            cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
-                            setBorder(new CompoundBorder(new LineBorder(Color.CYAN, 5), new EmptyBorder(5, 5, 5, 5)));
+                            
                             for (LV lvDozent : dozent.getLV()) {
                                 for (Zug zugLV : lvDozent.getZugList()) {
                                     if (zugLV.getName().equals(zug.getName())) {

@@ -66,6 +66,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         initComponents();
         build();
         buildJTable();
+        addNewTab();
         setVisible(true);
         timeToJTable();
 
@@ -117,7 +118,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         sucheList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -196,7 +196,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     .addComponent(jColumnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SubFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -348,12 +348,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
                                 .addComponent(jRadioZug)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1)
-                                .addGap(16, 461, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 961, Short.MAX_VALUE))))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabelName)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -372,18 +372,15 @@ public class StundenplanFrame extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioZug)
-                            .addComponent(jRadioDozent)
-                            .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabelName)
-                        .addGap(9, 9, 9)))
+                    .addComponent(jLabelName)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioZug)
+                        .addComponent(jRadioDozent)
+                        .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jSuchfeldDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -395,7 +392,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButtonSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                        .addComponent(jButtonZurücksetzen, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
                     .addComponent(jKonfliktFeld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jInfoFeld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -405,19 +402,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
         jTabbedPane1.addTab("+", jLabel1);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1183, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 632, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab4", jPanel2);
 
         jMenu1.setText("File");
 
@@ -447,7 +431,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,10 +537,116 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
     }//GEN-LAST:event_formMouseClicked
 
+    private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
+        if (SwingUtilities.isRightMouseButton(evt)) {
+
+            int index = jTabbedPane1.getSelectedIndex();
+
+            if (index != 0 && index != 1) {
+                JPopupMenu popupMenu = new JPopupMenu();
+                JMenuItem delete = new JMenuItem("Delete");
+                delete.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        jTabbedPane1.remove(index);
+                    }
+                });
+                popupMenu.add(delete);
+                popupMenu.show(this, evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_jTabbedPane1MousePressed
+
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         /*addNewStundenplanTab();
         System.out.println("Hallo");*/
     }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
+        int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
+
+        if (!isAddingTab && selectedTabIndex != -1) {
+            Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
+            if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
+                isAddingTab = true; // Setze die Flag auf true, um die erneute Ausführung zu verhindern
+                addNewTab();
+                isAddingTab = false; // Setze die Flag wieder auf false
+            }
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
+        // TODO add your handling code here:
+
+        jComboDoZug.removeAllItems();
+
+        radioButtonZugBoolean = false;
+        radioButtonDozentBoolean = false;
+        buttonGroup1.clearSelection();
+
+        jRadioDozent.repaint();
+        jRadioDozent.revalidate();
+
+        jRadioZug.repaint();
+        jRadioZug.revalidate();
+
+        //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
+
+        Object selectedObject = sucheList.getSelectedValue();
+
+        //DefaultListModel<Object> listModel = new DefaultListModel<>();
+        if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
+
+            // System.out.println(" set Label. ");
+            if (selectedObject instanceof Zug) {
+
+                jLabelName.setText(selectedObject.toString());
+                jLVList.setModel(setLVZugList((Zug)selectedObject));
+
+            } else if (selectedObject instanceof Dozent) {
+                //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
+
+                jLabelName.setText(selectedObject.toString());
+                jLVList.setModel(setLVDozentList((Dozent)selectedObject));
+
+            } else if (selectedObject instanceof LV) {
+                if (((LV) selectedObject).getLeading()) {
+                    boolean check = true;
+                    for (Leading leading : leadingList) {
+                        if (((LV) selectedObject).getDozentName().equals(leading.getDozent()) && ((LV) selectedObject).getName().equals(leading.getLv())) {
+
+                            for (Zug zugLV : ((LV) selectedObject).getZugList()) {
+
+                                if (zugLV.getName().equals(leading.getZug()) && check) {
+                                    //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
+
+                                    jLabelName.setText(zugLV.toString());
+                                    jLVList.setModel(setLVZugList(zugLV));
+                                    //System.out.println(" Leading. ");
+                                    check = false;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    for (Zug zugLV : ((LV) selectedObject).getZugList()) {
+
+                        jLabelName.setText(zugLV.toString());
+                        jLVList.setModel(setLVZugList(zugLV));
+                        //System.out.println(" nur einen Zug. ");
+                        //jTableMouseClicke(evt);
+                    }
+                }
+                //System.out.println(" is LV. ");
+                // System.out.println(((LV) selectedObject).getLeading());
+            }
+
+        }
+        jLVList.revalidate();
+        jLVList.repaint();
+    }//GEN-LAST:event_sucheListMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -567,7 +660,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jTabbedPane1.revalidate();
         jTabbedPane1.repaint();*/
         //setLVZugList();
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
@@ -608,7 +700,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jTable.revalidate();
         jTable.repaint();
         DefaultTableCellRenderer();
-
     }//GEN-LAST:event_jRadioZugActionPerformed
 
     private void jRadioDozentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioDozentActionPerformed
@@ -626,73 +717,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSpeichernActionPerformed
 
-    private void SubFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubFilterActionPerformed
-        // TODO add your handling code here:
-        if (SubFilter.getSelectedItem() != null) {
-            try {
-                if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------")) {
-                    sorter.setRowFilter(null);
-                } else {
-                    String filter = SubFilter.getSelectedItem().toString();
-                    filterUpdate(filter, columnNr);
-                }
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        } else {
-            sorter.setRowFilter(null);
-        }
-
-    }//GEN-LAST:event_SubFilterActionPerformed
-
-    private void jColumnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jColumnFilterActionPerformed
-
-        String chosentitle = jColumnFilter.getSelectedItem().toString();
-        Set<String> words = null;
-        SubFilter.removeAllItems();
-
-        for (int i = 0; i < columnNames.length; i++) {
-            if (chosentitle.equals(this.columnNames[i].toString())) {
-                columnNr = oArray.getColumnIndex(chosentitle);
-                words = oArray.getter(columnNr);
-                break;
-            }
-        }
-        if (words != null) {
-            updateHandtuchComboBox(words, SubFilter);
-            filterUpdate(SubFilter.getSelectedItem().toString(), columnNr);
-        }
-    }//GEN-LAST:event_jColumnFilterActionPerformed
-
-    private boolean isAddingTab = false; // Füge diese Variable der Klasse hinzu
-
-    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
-        int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
-
-        if (!isAddingTab && selectedTabIndex != -1) {
-            Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
-            if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
-                isAddingTab = true; // Setze die Flag auf true, um die erneute Ausführung zu verhindern
-                addNewTab();
-                isAddingTab = false; // Setze die Flag wieder auf false
-            }
-        }
-    }//GEN-LAST:event_jTabbedPane1StateChanged
-
     private void jSuchfeldDoZugKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugKeyReleased
         // TODO add your handling code here:
         String entry = this.jSuchfeldDoZug.getText();
         System.out.println(entry);
         findMatchingObjects(entry);
     }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
-
-    private void jSuchfeldDoZugFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusGained
-        // TODO add your handling code here:
-        if (jSuchfeldDoZug.getText().equals("Suche")) {
-            jSuchfeldDoZug.setText("");
-        }
-    }//GEN-LAST:event_jSuchfeldDoZugFocusGained
 
     private void jSuchfeldDoZugFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusLost
         // TODO add your handling code here:
@@ -701,79 +731,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jSuchfeldDoZugFocusLost
 
-    private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
+    private void jSuchfeldDoZugFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusGained
         // TODO add your handling code here:
-        
-        jComboDoZug.removeAllItems();
-
-        radioButtonZugBoolean = false;
-        radioButtonDozentBoolean = false;
-        buttonGroup1.clearSelection();
-
-        jRadioDozent.repaint();
-        jRadioDozent.revalidate();
-        
-        jRadioZug.repaint();
-        jRadioZug.revalidate();
-        
-        //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
-        
-        Object selectedObject = sucheList.getSelectedValue();
-
-        //DefaultListModel<Object> listModel = new DefaultListModel<>();
-        if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
-
-            // System.out.println(" set Label. ");
-            if (selectedObject instanceof Zug) {
-                
-                jLabelName.setText(selectedObject.toString());
-                jLVList.setModel(setLVZugList((Zug)selectedObject));
-
-            } else if (selectedObject instanceof Dozent) {
-                //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
-               
-                jLabelName.setText(selectedObject.toString());
-                jLVList.setModel(setLVDozentList((Dozent)selectedObject));
-
-            } else if (selectedObject instanceof LV) {
-                if (((LV) selectedObject).getLeading()) {
-                    boolean check = true;
-                    for (Leading leading : leadingList) {
-                        if (((LV) selectedObject).getDozentName().equals(leading.getDozent()) && ((LV) selectedObject).getName().equals(leading.getLv())) {
-
-                            for (Zug zugLV : ((LV) selectedObject).getZugList()) {
-
-                                if (zugLV.getName().equals(leading.getZug()) && check) {
-                                    //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
-                                    
-                                    jLabelName.setText(zugLV.toString());
-                                    jLVList.setModel(setLVZugList(zugLV));
-                                    //System.out.println(" Leading. ");
-                                    check = false;
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    for (Zug zugLV : ((LV) selectedObject).getZugList()) {
-                        
-                            
-                        
-                        jLabelName.setText(zugLV.toString());
-                        jLVList.setModel(setLVZugList(zugLV));
-                        //System.out.println(" nur einen Zug. ");
-                        //jTableMouseClicke(evt);
-                    }
-                }
-                //System.out.println(" is LV. ");
-                // System.out.println(((LV) selectedObject).getLeading());
-            }
-
+        if (jSuchfeldDoZug.getText().equals("Suche")) {
+            jSuchfeldDoZug.setText("");
         }
-        jLVList.revalidate();
-        jLVList.repaint();
-    }//GEN-LAST:event_sucheListMouseClicked
-
+    }//GEN-LAST:event_jSuchfeldDoZugFocusGained
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         // TODO add your handling code here:
@@ -845,26 +808,45 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableMouseClicked
 
-    private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
-        if (SwingUtilities.isRightMouseButton(evt)) {
+    private void SubFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubFilterActionPerformed
+        // TODO add your handling code here:
+        if (SubFilter.getSelectedItem() != null) {
+            try {
+                if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------")) {
+                    sorter.setRowFilter(null);
+                } else {
+                    String filter = SubFilter.getSelectedItem().toString();
+                    filterUpdate(filter, columnNr);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else {
+            sorter.setRowFilter(null);
+        }
+    }//GEN-LAST:event_SubFilterActionPerformed
 
-            int index = jTabbedPane1.getSelectedIndex();
+    private void jColumnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jColumnFilterActionPerformed
 
-            if (index != 0 && index != 1) {
-                JPopupMenu popupMenu = new JPopupMenu();
-                JMenuItem delete = new JMenuItem("Delete");
-                delete.addActionListener(new ActionListener() {
+        String chosentitle = jColumnFilter.getSelectedItem().toString();
+        Set<String> words = null;
+        SubFilter.removeAllItems();
 
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        jTabbedPane1.remove(index);
-                    }
-                });
-                popupMenu.add(delete);
-                popupMenu.show(this, evt.getX(), evt.getY());
+        for (int i = 0; i < columnNames.length; i++) {
+            if (chosentitle.equals(this.columnNames[i].toString())) {
+                columnNr = oArray.getColumnIndex(chosentitle);
+                words = oArray.getter(columnNr);
+                break;
             }
         }
-    }//GEN-LAST:event_jTabbedPane1MousePressed
+        if (words != null) {
+            updateHandtuchComboBox(words, SubFilter);
+            filterUpdate(SubFilter.getSelectedItem().toString(), columnNr);
+        }
+    }//GEN-LAST:event_jColumnFilterActionPerformed
+
+    private boolean isAddingTab = false; // Füge diese Variable der Klasse hinzu
+
 
     public void findMatchingObjects(String input) {
 
@@ -1302,7 +1284,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioDozent;
     private javax.swing.JRadioButton jRadioZug;

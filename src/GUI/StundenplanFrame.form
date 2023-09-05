@@ -84,7 +84,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -125,7 +129,7 @@
                           <Component id="SubFilter" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="1018" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="1006" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -276,13 +280,13 @@
                                       <Component id="jRadioZug" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="16" pref="461" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jScrollPane2" min="-2" pref="91" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane3" pref="961" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane3" pref="955" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -310,22 +314,17 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jRadioZug" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioDozent" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboDoZug" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabelName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                          <Component id="jLabelName" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jRadioZug" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRadioDozent" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboDoZug" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane3" alignment="0" pref="405" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="0" pref="403" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jSuchfeldDoZug" min="-2" pref="25" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -340,7 +339,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jButtonSpeichern" pref="78" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonZurücksetzen" pref="78" max="32767" attributes="0"/>
+                              <Component id="jButtonZurücksetzen" pref="77" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jKonfliktFeld" max="32767" attributes="0"/>
                           <Component id="jInfoFeld" alignment="1" max="32767" attributes="0"/>
@@ -586,28 +585,6 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel2">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab4">
-                <Property name="tabTitle" type="java.lang.String" value="tab4"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="1183" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="632" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
       </SubComponents>
     </Container>
   </SubComponents>

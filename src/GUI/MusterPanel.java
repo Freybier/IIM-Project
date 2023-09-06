@@ -13,6 +13,7 @@ import iim.Hochschule.Zug;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -820,11 +821,14 @@ public class MusterPanel extends javax.swing.JPanel {
      
      //All LVs from all Zugs wich also has to take selectedLV
     public void getZugLVforSelectedLV(LV selectedLV) {
+        List<String> checkList = new ArrayList<>();
         for (Zug zug : selectedLV.getZugList()) {
+           // List<String> checkList = new ArrayList<>();
             for (LV lvZug : zug.getLV()) {
-
-                if (lvZug.getScheduledLV() != 0) {
-
+                
+                if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
+                    System.out.println(checkList);
+                    System.out.println("help");
                     long lvScheduled = lvZug.getScheduledLV();
                     for (int i = 39; i > 5; i--) {
 
@@ -835,7 +839,7 @@ public class MusterPanel extends javax.swing.JPanel {
                             String cellContent = "";
                             cellContent = (String) jTable.getValueAt(row, column);
                             cellContent += "   " + zug.getName() + ": " + lvZug.getName() + "   ";
-
+                            checkList.add(lvZug.getName());
                             jTable.setValueAt(cellContent, row, column);
                             ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
                         }
@@ -888,7 +892,7 @@ public class MusterPanel extends javax.swing.JPanel {
                     String cellContent = "";
 
                     cellContent += lv.getName();
-
+                    
                     jTable.setValueAt(cellContent, row, column);
                     ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
 
@@ -915,10 +919,12 @@ public class MusterPanel extends javax.swing.JPanel {
         emptyJTable();
         jTable.revalidate();
         jTable.repaint();
+        List<String> checkList = new ArrayList<>();
         for (Zug zug : lv.getZugList()) {
+             
             for (LV lvZug : zug.getLV()) {
-                if (lvZug.getScheduledLV() != 0) {
-                    //System.out.println("get Scheduled LV!");
+                if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
+                    System.out.println("get Scheduled LV!");
                     long lvScheduled = lvZug.getScheduledLV();
                     for (int i = 39; i > 5; i--) {
                         if (lvScheduled % 2 == 1) {
@@ -927,7 +933,8 @@ public class MusterPanel extends javax.swing.JPanel {
                             String cellContent = "";
                             cellContent = (String) jTable.getValueAt(row, column);
                             cellContent += "   " + zug.getName() + ": " + lvZug.getName() + "   ";
-
+                            checkList.add(lvZug.getName());
+                            
                             jTable.setValueAt(cellContent, row, column);
                             ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
 

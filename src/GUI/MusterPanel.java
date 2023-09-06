@@ -529,6 +529,7 @@ public class MusterPanel extends javax.swing.JPanel {
         JLabel swsLabel = new JLabel("   SWS: " + selectedLV.getSWS() + "(" + ((selectedLV.getSWSBlocks() - selectedLV.getSWSBlocksTook())*2) + ")");
         JLabel raumLabel = new JLabel("   RaumNr: " + "-");
         JLabel fuehrendLabel = new JLabel("   FührenderKurs: " + selectedLV.getLeading());
+        JLabel geblocktLabel = new JLabel("   Geblockt: " + selectedLV.getGeblockt());
         
         // Hier können Sie weitere Informationen hinzufügen, je nach Bedarf
         jInfoFeld.setLayout(new BoxLayout(jInfoFeld, BoxLayout.Y_AXIS));
@@ -539,6 +540,7 @@ public class MusterPanel extends javax.swing.JPanel {
         jInfoFeld.add(dozentenLabel);
         jInfoFeld.add(raumLabel);
         jInfoFeld.add(fuehrendLabel);
+        jInfoFeld.add(geblocktLabel);
         // Fügen Sie weitere Komponenten hinzu
         // Aktualisieren Sie das jInfoFeld-Panel
         jInfoFeld.revalidate();

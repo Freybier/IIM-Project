@@ -17,6 +17,7 @@ public class Import extends javax.swing.JFrame {
      */
     public Import() {
         initComponents();
+        build();
         setVisible(true);
     }
 
@@ -32,7 +33,7 @@ public class Import extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jFileChooser1 = new javax.swing.JFileChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jFileChooser1.setAcceptAllFileFilterUsed(false);
         jFileChooser1.setFileFilter(new MyCustomFilter());
@@ -82,7 +83,7 @@ public class Import extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void build() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -109,7 +110,7 @@ public class Import extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Import().setVisible(true);
+                
             }
         });
     }

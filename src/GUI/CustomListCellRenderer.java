@@ -57,7 +57,7 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
 
                 if (lvZug.getName().equals(lvUndZahl[0])) {
                     lvUndZahl[1] = Integer.toString(lvZug.getSWSBlocks() - lvZug.getSWSBlocksTook());
-                    lvRenderer = lvUndZahl[0] + " " + lvUndZahl[1];
+                    lvRenderer = lvUndZahl[0] + "     " + lvUndZahl[1];
 
                     DefaultListModel<String> listModel = (DefaultListModel<String>) list.getModel();
                     listModel.setElementAt(lvRenderer, index);
@@ -77,7 +77,7 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
 
                 if (lvDozent.getName().equals(lvUndZahl[0])) {
                     lvUndZahl[1] = Integer.toString(lvDozent.getSWSBlocks() - lvDozent.getSWSBlocksTook());
-                    lvRenderer = lvUndZahl[0] + " " + lvUndZahl[1];
+                    lvRenderer = lvUndZahl[0] + "      " + lvUndZahl[1];
 
                     DefaultListModel<String> listModel = (DefaultListModel<String>) list.getModel();
                     listModel.setElementAt(lvRenderer, index);

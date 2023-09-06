@@ -8,6 +8,7 @@ import iim.Handtuch.Leading;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ import java.util.Set;
  *
  * @author Yann Leymann
  */
-public class ReadCSVs {
+public class ReadCSVs implements Serializable {
 
     public static List<LV> createLVListFromCSV(String handtuchCSVFilePath) {
         List<LV> lvList = new ArrayList<>();

@@ -179,9 +179,19 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         jMenuItem3.setText("Importieren");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Exportieren");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
@@ -295,6 +305,14 @@ public class StundenplanFrame extends javax.swing.JFrame {
             filterUpdate(SubFilter.getSelectedItem().toString(), columnNr);
         }
     }//GEN-LAST:event_jColumnFilterActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Import importWindow = new Import();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Export exportWindow = new Export(lvList, dozentenList, zugList);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void addNewTab() {
         JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse

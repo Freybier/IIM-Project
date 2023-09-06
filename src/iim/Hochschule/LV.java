@@ -4,6 +4,7 @@
  */
 package iim.Hochschule;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author Yann Leymann
  */
-public class LV {
+public class LV implements Serializable {
 
     private final String name;
     private final String fullName;

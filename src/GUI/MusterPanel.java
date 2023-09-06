@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -175,7 +176,6 @@ public class MusterPanel extends javax.swing.JPanel {
         );
 
         jInfoFeld.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jInfoFeld.setLayout(new java.awt.BorderLayout());
 
         jScrollPane3.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -304,7 +304,6 @@ public class MusterPanel extends javax.swing.JPanel {
     private void jSuchfeldDoZugKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugKeyReleased
         // TODO add your handling code here:
         String entry = this.jSuchfeldDoZug.getText();
-        System.out.println(entry);
         findMatchingObjects(entry);
     }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
 
@@ -524,14 +523,20 @@ public class MusterPanel extends javax.swing.JPanel {
         JLabel nameLabel = new JLabel("   Name: " + selectedLV.getFullName());
         JLabel dozentenLabel = new JLabel("   Dozent: " + selectedLV.getDozentName());
         JLabel zugNameLabel = new JLabel("   ZugList: " + selectedLV.getZugNameList());
+        JLabel swsLabel = new JLabel("   SWS: " + selectedLV.getSWS() + "(" + ((selectedLV.getSWSBlocks() - selectedLV.getSWSBlocksTook())*2) + ")");
+        JLabel raumLabel = new JLabel("   RaumNr: " + "-");
+        JLabel fuehrendLabel = new JLabel("   FührenderKurs: " + selectedLV.getLeading());
+        
         // Hier können Sie weitere Informationen hinzufügen, je nach Bedarf
-
+        jInfoFeld.setLayout(new BoxLayout(jInfoFeld, BoxLayout.Y_AXIS));
         // Fügen Sie die Labels oder andere Komponenten zum jInfoFeld-Panel hinzu
-        jInfoFeld.add(nameLabel, BorderLayout.NORTH);
-        jInfoFeld.add(zugNameLabel, BorderLayout.CENTER);
-        jInfoFeld.add(dozentenLabel, BorderLayout.SOUTH);
+        jInfoFeld.add(nameLabel);
+        jInfoFeld.add(swsLabel);
+        jInfoFeld.add(zugNameLabel);
+        jInfoFeld.add(dozentenLabel);
+        jInfoFeld.add(raumLabel);
+        jInfoFeld.add(fuehrendLabel);
         // Fügen Sie weitere Komponenten hinzu
-
         // Aktualisieren Sie das jInfoFeld-Panel
         jInfoFeld.revalidate();
         jInfoFeld.repaint();

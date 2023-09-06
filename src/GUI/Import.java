@@ -37,6 +37,7 @@ public class Import extends javax.swing.JFrame {
 
         jFileChooser1.setAcceptAllFileFilterUsed(false);
         jFileChooser1.setFileFilter(new MyCustomFilter());
+        jFileChooser1.setMultiSelectionEnabled(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

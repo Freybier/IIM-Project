@@ -432,12 +432,15 @@ public class MusterPanel extends javax.swing.JPanel {
                 System.out.println("ROW: " + row + "\tCOLUMN: " + col);
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
+                    String cellString = (String) cellValue;
+                    String[] cellArray = cellString.split(" ");
                     //System.out.println(cellValue.getClass());
                     String check = jLabelName.getText();
                     for (Dozent dozentTable : dozentenList) {
                         if (dozentTable.getName().equals(check)) {
                             for (LV lvDozentTable : dozentTable.getLV()) {
-                                if (lvDozentTable.getName().equals(cellValue)) {
+                                String indexCheck = (dozentTable.getLV().indexOf(lvDozentTable)+1) + " " + lvDozentTable.getName();
+                                if (lvDozentTable.getName().equals(cellString)) {
                                     int checkSum = 33 - ((col) * 6) + (6 - row);
                                     long delete = 1;
                                     delete = delete << checkSum;
@@ -581,11 +584,12 @@ public class MusterPanel extends javax.swing.JPanel {
             for (int i = 1; i < 7; i++) {
                 jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
             }
+            int i = 1;
             for (LV lvElement : dozent.getLV()) {
 
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
                 listModel.addElement(lvElement + " " + swsUebrig);
-
+                
                 //listModel.addElement(lvElement.getName());
                 //jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), lvElement));
                 //System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
@@ -609,6 +613,7 @@ public class MusterPanel extends javax.swing.JPanel {
             tableTransferHandler.setLVJLVList(zug.getLV());
 
             System.out.println("Zug an listcellrenderer übergeben");
+            int i = 1;
             for (LV lvElement : zug.getLV()) {
                 //listModel.addElement(lvElement.getName());
                 setLVforJTable(lvElement);
@@ -839,7 +844,7 @@ public class MusterPanel extends javax.swing.JPanel {
         for (Dozent dozent : dozentenList) {
 
             if (selectedLV.getDozentName().equals(dozent.getName())) {
-
+                
                 for (LV lvDozent : dozent.getLV()) {
                     long lvScheduled = lvDozent.getScheduledLV();
                     for (int i = 39; i > 5; i--) {

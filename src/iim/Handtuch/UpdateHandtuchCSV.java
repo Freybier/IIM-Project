@@ -39,7 +39,7 @@ public class UpdateHandtuchCSV {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             List<String[]> rows = new ArrayList<>();
-            String header = reader.readLine(); // Lese die Kopfzeile, um Spaltennamen zu erhalten
+            String header = reader.readLine(); 
             String[] headerColumns = header.split(";");
             int dozentColumnIndex = Arrays.asList(headerColumns).indexOf("Dozent"); // Finde den Index der "Dozent"-Spalte
             int lvKuerzelColumnIndex = Arrays.asList(headerColumns).indexOf("LV-Kürzel"); // Finde den Index der "LV-Kürzel"-Spalte
@@ -207,6 +207,23 @@ public class UpdateHandtuchCSV {
         }
 
        return null; // Nun hast du die Liste der Leading-Objekte, die du weiter verarbeiten kannst
+    }
+    
+    public void setSingleLeading(List<LV> lvList, List<Leading> leadingList){
+        System.out.println("setSingel");
+        for(LV lv: lvList){
+            //System.out.println(lv.getZugList().size());
+            //System.out.println(lv.getZugList());
+            if(lv.getZugList().size() == 2){
+                for(Zug zug : lv.getZugList()){
+                 Leading leadingLV = new Leading(lv.getName(), lv.getDozentName(), zug.getName()); 
+                 leadingLV.setLeading(true);
+                 leadingList.add(leadingLV);
+                 //System.out.println(leadingLV);
+                }
+                
+            }
+        }
     }
 
 }

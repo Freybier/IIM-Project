@@ -79,6 +79,7 @@ public class IIMProjekt {
         
         
         List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
+        //readCSVs.setLVforZug(lvList, zugList);
         
         readCSVs.addZugToLV(lvList, zugList);
         
@@ -101,7 +102,7 @@ public class IIMProjekt {
         update.updateHandtuchCSV(handtuchCSVFilePath, dozentenList, zugList, lvList);
         update.addParallel(handtuchOutputUpdatePath);
         
-        lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
+        //lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
         //update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList);
         dozentenList = readCSVs.getDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath);
         readCSVs.getLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
@@ -110,10 +111,15 @@ public class IIMProjekt {
         readCSVs.addZugToLV(lvList, zugList);
         
         List<Leading> leadingList = update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList, zugList);
+        update.setSingleLeading(lvList, leadingList);
         for(Leading leadingLV: leadingList){
             //System.out.println(leadingLV.getName() + " " + leadingLV.getZug() + " " + leadingLV.getDozent());
         }
         readCSVs.setLVLeading(lvList, leadingList);
+        
+        readCSVs.setLVforZug(lvList, zugList);
+        readCSVs.cleanZugLVListDouble(zugList);
+        readCSVs.cleanZugLVListWrongLV(zugList);
         /*
         for (LV lv : lvList) {     
             System.out.println(lv.toString());

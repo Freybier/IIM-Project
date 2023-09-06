@@ -13,13 +13,14 @@ import java.util.List;
  */
 public class LV {
 
-    private final String name;
+    private  String name;
     private final String fullName;
     //private final String po;
     private long scheduledLV = 0;
     //private final List<String> dozentenNameList = new ArrayList<>();
     private final String dozentName;
-    private final List<String> zugNameList = new ArrayList<>();
+    private List<String> zugNameList = new ArrayList<>();
+    private String leadingLVName;
     private final List<Zug> zugList = new ArrayList<>();
     private String sws;
     private int swsBlocks = 0;
@@ -52,6 +53,9 @@ public class LV {
         this.lva = lva;
     }
 
+    public void setName(String  name){
+        this.name = name;
+    }
     public String getName() {
         return name;
     }
@@ -75,6 +79,7 @@ public class LV {
 
     public void addZugToNameList(String zugName) {
         this.zugNameList.add(zugName);
+        //System.out.println(zugNameList);
     }
 
     public List<Zug> getZugList() {
@@ -83,6 +88,7 @@ public class LV {
 
     public void addZug(Zug zug) {
         zugList.add(zug);
+        //addZugToNameList(zug.getName());
         //System.out.println("add sucsess!");
     }
 
@@ -123,6 +129,12 @@ public class LV {
     
     public boolean getLeading(){
         return leading;
+    }
+    public void setLeadingLVName(String leadingLVName){
+        this.leadingLVName = leadingLVName;
+    }
+    public String getLeadingLVName(){
+        return leadingLVName;
     }
 
     @Override

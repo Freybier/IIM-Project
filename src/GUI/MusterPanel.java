@@ -289,14 +289,14 @@ public class MusterPanel extends javax.swing.JPanel {
 
     private void jSuchfeldDoZugFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusGained
         // TODO add your handling code here:
-        if(jSuchfeldDoZug.getText().equals("Suche")){
+        if (jSuchfeldDoZug.getText().equals("Suche")) {
             jSuchfeldDoZug.setText("");
         }
     }//GEN-LAST:event_jSuchfeldDoZugFocusGained
 
     private void jSuchfeldDoZugFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusLost
         // TODO add your handling code here:
-        if(jSuchfeldDoZug.getText().isEmpty()){
+        if (jSuchfeldDoZug.getText().isEmpty()) {
             jSuchfeldDoZug.setText("Suche");
         }
     }//GEN-LAST:event_jSuchfeldDoZugFocusLost
@@ -375,7 +375,6 @@ public class MusterPanel extends javax.swing.JPanel {
                     for (Zug zugLV : ((LV) selectedObject).getZugList()) {
                         
                             
-                        System.out.println("I wanna change");
                         jLabelText = zugLV.toString();
                         if (tabIndex != 0) {
                                         
@@ -684,13 +683,6 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
 
-    public void updateHandtuchComboBox(Set words, JComboBox<String> comboBox) {
-        comboBox.addItem("---------");
-        for (Object word : words) {
-            comboBox.addItem((String) word);
-        }
-    }
-
     public void emptyJTable() {
 
         for (int row = 0; row < 6; row++) {
@@ -761,14 +753,24 @@ public class MusterPanel extends javax.swing.JPanel {
                         // Hier überprüfen, ob selectedLV nicht null ist
                         if (selectedLV != null) {
                             // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
-                            System.out.println(selectedLV);
                             updateInfoPanel(selectedLV);
                             jTable.revalidate();
                             jTable.repaint();
 
                             for (Dozent dozent : dozentenList) {
                                 if (selectedLV.getDozentName().equals(dozent.getName())) {
-                                    tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, dozent.getLV());
+                                    
+                                    for(Dozent dozentLable : dozentenList)
+                                        if(jLabelName.getText().equals(dozentLable.getName())){
+                                          tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, dozent.getLV());  
+                                    }
+                                        
+                                    for(Zug zugLable : zugList){
+                                        if(jLabelName.getText().equals(zugLable.getName())){
+                                            tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, zugLable.getLV());
+                                        }
+                                    }
+
                                     //tableCellRenderer.setZug(null);
                                     for (int i = 1; i < 7; i++) {
                                         jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
@@ -834,7 +836,7 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
 
-    //All LVs from the Dozent giving the selectedLV
+   //All LVs from the Dozent giving the selectedLV
     public void getDozentLVforSelectedLV(LV selectedLV) {
         for (Dozent dozent : dozentenList) {
 

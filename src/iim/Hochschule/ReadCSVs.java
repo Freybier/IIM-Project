@@ -346,15 +346,15 @@ public class ReadCSVs implements Serializable {
     }
 
     public void setLVforZug(List<LV> lvList, List<Zug> zugList) {
-        System.out.println("OI setLVforZUg");
+        //System.out.println("OI setLVforZUg");
         for (LV lv : lvList) {
-            System.out.println(lv.getName() + " " + lv.getZugList().size());
+           // System.out.println(lv.getName() + " " + lv.getZugList().size());
             for (Zug zugLV : lv.getZugList()) {
                 for (Zug zugZug : zugList) {
-                    System.out.println(zugLV.getName() + " " + zugZug.getName());
+                   // System.out.println(zugLV.getName() + " " + zugZug.getName());
                     if (zugLV.getName().equals(zugZug.getName())) {
                         zugZug.addLV(lv);
-                        System.out.println("OI " + lv);
+                        //System.out.println("OI " + lv);
                     }
                 }
             }

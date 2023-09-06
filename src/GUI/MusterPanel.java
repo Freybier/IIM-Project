@@ -346,6 +346,17 @@ public class MusterPanel extends javax.swing.JPanel {
                 jLVList.setModel(setLVDozentList((Dozent)selectedObject));
 
             } else if (selectedObject instanceof LV) {
+                updateInfoPanel((LV)selectedObject);
+                
+                for (int i = 0; i < jLVList.getLastVisibleIndex(); i++) {
+                        String itemName = jLVList.getModel().getElementAt(i).toString();
+                        System.out.println(selectedObject.toString() +"    "+ itemName);
+                        if (itemName.contains(selectedObject.toString())) {
+                            System.out.println("Wen mach ich hier");
+                            jLVList.setSelectedIndex(i); // Programmatically select the item
+                            break;
+                        }
+                }
                 if (((LV) selectedObject).getLeading()) {
                     boolean check = true;
                     for (Leading leading : leadingList) {

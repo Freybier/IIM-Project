@@ -254,7 +254,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 isAddingTab = false; // Setze die Flag wieder auf false
             }
         } else if (isAddingTab && selectedTab == jLabel1 ) {
-            System.out.println("Yo hat geklappt");
+            int previousTabIndex = selectedTabIndex - 1;
+            sourceTabbedPane.setSelectedIndex(previousTabIndex);
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 

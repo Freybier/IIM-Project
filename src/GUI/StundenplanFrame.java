@@ -41,6 +41,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     public MyTableCellRenderer tableCellRenderer;
     public CustomListCellRenderer listCellRenderer;
+    private boolean isAddingTab = false; // Füge diese Variable der Klasse hinzu
 
     /**
      * Creates new form StundenplanFrame
@@ -231,7 +232,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(ActionEvent evt) {
+                        isAddingTab = true;
                         jTabbedPane1.remove(index);
+                        isAddingTab = false;
                     }
                 });
                 popupMenu.add(delete);
@@ -243,14 +246,15 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
         int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
-
+        Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
         if (!isAddingTab && selectedTabIndex != -1) {
-            Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
             if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
                 isAddingTab = true; // Setze die Flag auf true, um die erneute Ausführung zu verhindern
                 addNewTab();
                 isAddingTab = false; // Setze die Flag wieder auf false
             }
+        } else if (isAddingTab && selectedTab == jLabel1 ) {
+            System.out.println("Yo hat geklappt");
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
@@ -291,18 +295,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jColumnFilterActionPerformed
 
-    private boolean isAddingTab = false; // Füge diese Variable der Klasse hinzu
-
-
     private void addNewTab() {
-        /**
-        try {
-            System.out.println("Try to look and feel");
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-        */
         JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
         //JPanel tabContent = new DesignTestPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte

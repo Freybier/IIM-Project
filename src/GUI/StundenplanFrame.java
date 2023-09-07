@@ -311,7 +311,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        Export exportWindow = new Export(lvList, dozentenList, zugList);
+        Export exportWindow = new Export(lvList, dozentenList, zugList, leadingList);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void addNewTab() {

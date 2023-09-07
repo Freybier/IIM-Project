@@ -6,13 +6,14 @@ package iim.Handtuch;
 
 
 import iim.Hochschule.LV;
+import java.io.Serializable;
 
 
 /**
  *
  * @author Yann Leymann
  */
-public class Leading {
+public class Leading implements Serializable {
 
     private String lv;
     private String dozent;

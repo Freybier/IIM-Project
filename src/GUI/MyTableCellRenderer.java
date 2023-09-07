@@ -96,14 +96,14 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
                             }
                         
                     }else if (zug != null) {
-                        System.out.println("zug ungleich null!!");
+                        //System.out.println("zug ungleich null!!");
                         if (scheduledDozent % 2 == 1) {
-                            System.out.println("CYAN!!!!!!!!!");
+                           // System.out.println("CYAN!!!!!!!!!");
                             
                             for (LV lvDozent : dozent.getLV()) {
                                 for (Zug zugLV : lvDozent.getZugList()) {
                                     if (zugLV.getName().equals(zug.getName())) {
-                                        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBLue!!!!!!!!!");
+                                        //System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBLue!!!!!!!!!");
                                         cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
                                         setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
                                     }

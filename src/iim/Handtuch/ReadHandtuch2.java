@@ -42,6 +42,15 @@ public class ReadHandtuch2 {
 
     public static String[][] read(Document doc) {
         // Find the table element
+//        String url = "";
+//        try {
+//            // Fetch the HTML content of the website using Jsoup
+//            doc = Jsoup.connect(url).get();
+//
+//        } catch (IOException e) {
+//            System.out.println(e);
+//        }
+        
         Element table = doc.select("table").first();
 
         // Get all rows from the table

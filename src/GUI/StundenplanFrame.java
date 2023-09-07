@@ -186,7 +186,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setText("Exportieren");
+        jMenuItem4.setText("Export/Laden");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -311,7 +311,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        Export exportWindow = new Export(lvList, dozentenList, zugList);
+        Export exportWindow = new Export(lvList, dozentenList, zugList, leadingList);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void addNewTab() {

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.*;
+import java.nio.file.*;
+import java.util.stream.*;
 
 /**
  *
@@ -56,6 +59,7 @@ public class Export extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -74,6 +78,13 @@ public class Export extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Laden");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -81,11 +92,13 @@ public class Export extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -97,7 +110,9 @@ public class Export extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,6 +138,17 @@ public class Export extends javax.swing.JFrame {
         String name = jTextField1.getText();
         speichern(name);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.lvList = ladenLV();
+        this.dozList = ladenDOZ();
+        this.zugList = ladenZUG();
+        this.leadingList = ladenLEAD();
+        System.out.println(lvList);
+        System.out.println(dozList);
+        System.out.println(zugList);
+        System.out.println(leadingList);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void speichern(String name) {
         try {
@@ -159,30 +185,118 @@ public class Export extends javax.swing.JFrame {
         }
     }
     
-    public List<LV> loadingLV(String name) {
+
+    public List<LV> ladenLV() {
         List<LV> geladeneLVList = new ArrayList<>();
 
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("Data/" + name + ".ser"));
-
-            while (true) {
-                try {
-                    LV lv = (LV) in.readObject();
-                    geladeneLVList.add(lv);
-                } catch (EOFException e) {
-                    // EOFException signalisiert das Ende der Datei
-                    break;
-                }
-            }
-
-            in.close();
-        } catch (IOException | ClassNotFoundException e) {
+        String directoryPath = "Data/";
+        try (Stream<Path> files = Files.list(Paths.get(directoryPath))) {
+            files.filter(path -> path.toString().endsWith("LV.ser"))
+                 .forEach(path -> {
+                     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path.toFile()))) {
+                        while (true) {
+                            try {
+                                LV lv = (LV) in.readObject();
+                                geladeneLVList.add(lv);
+                            } catch (EOFException e) {
+                                // EOFException signalisiert das Ende der Datei
+                                break;
+                            }
+                        }
+                     } catch (IOException | ClassNotFoundException e) {
+                         e.printStackTrace();
+                     }
+                 });
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return geladeneLVList;
     }
+    
+    public List<Dozent> ladenDOZ() {
+        List<Dozent> geladeneDOZList = new ArrayList<>();
 
+        String directoryPath = "Data/";
+        try (Stream<Path> files = Files.list(Paths.get(directoryPath))) {
+            files.filter(path -> path.toString().endsWith("DOZ.ser"))
+                 .forEach(path -> {
+                     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path.toFile()))) {
+                        while (true) {
+                            try {
+                                Dozent doz = (Dozent) in.readObject();
+                                geladeneDOZList.add(doz);
+                            } catch (EOFException e) {
+                                // EOFException signalisiert das Ende der Datei
+                                break;
+                            }
+                        }
+                     } catch (IOException | ClassNotFoundException e) {
+                         e.printStackTrace();
+                     }
+                 });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return geladeneDOZList;
+    }
+
+    public List<Zug> ladenZUG() {
+        List<Zug> geladeneZUGList = new ArrayList<>();
+
+        String directoryPath = "Data/";
+        try (Stream<Path> files = Files.list(Paths.get(directoryPath))) {
+            files.filter(path -> path.toString().endsWith("ZUG.ser"))
+                 .forEach(path -> {
+                     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path.toFile()))) {
+                        while (true) {
+                            try {
+                                Zug zug = (Zug) in.readObject();
+                                geladeneZUGList.add(zug);
+                            } catch (EOFException e) {
+                                // EOFException signalisiert das Ende der Datei
+                                break;
+                            }
+                        }
+                     } catch (IOException | ClassNotFoundException e) {
+                         e.printStackTrace();
+                     }
+                 });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return geladeneZUGList;
+    }
+    
+    public List<Leading> ladenLEAD() {
+        List<Leading> geladeneLEADList = new ArrayList<>();
+
+        String directoryPath = "Data/";
+        try (Stream<Path> files = Files.list(Paths.get(directoryPath))) {
+            files.filter(path -> path.toString().endsWith("LEAD.ser"))
+                 .forEach(path -> {
+                     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path.toFile()))) {
+                        while (true) {
+                            try {
+                                Leading lead = (Leading) in.readObject();
+                                geladeneLEADList.add(lead);
+                            } catch (EOFException e) {
+                                // EOFException signalisiert das Ende der Datei
+                                break;
+                            }
+                        }
+                     } catch (IOException | ClassNotFoundException e) {
+                         e.printStackTrace();
+                     }
+                 });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return geladeneLEADList;
+    }
     
     /**
      * @param args the command line arguments
@@ -190,6 +304,7 @@ public class Export extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;

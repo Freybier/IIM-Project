@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import iim.Handtuch.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
@@ -28,16 +29,18 @@ public class Export extends javax.swing.JFrame {
     private List<LV> lvList;
     private List<Dozent> dozList;
     private List<Zug> zugList;
+    private List<Leading> leadingList;
     
     /**
      * Creates new form Export
      */
-    public Export(List<LV> lvList, List<Dozent> dozList, List<Zug> zugList) {
+    public Export(List<LV> lvList, List<Dozent> dozList, List<Zug> zugList, List<Leading> leadingList) {
         initComponents();
         setVisible(true);
         this.lvList = lvList;
         this.dozList = dozList;
         this.zugList = zugList;
+        this.leadingList = leadingList;
     }
 
     /**
@@ -146,9 +149,17 @@ public class Export extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Data/" + name + "LEAD.ser"));
+            for (Leading i : leadingList) {
+                out.writeObject(i);
+            } 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
-    public List<LV> ladenLV(String name) {
+    public List<LV> loadingLV(String name) {
         List<LV> geladeneLVList = new ArrayList<>();
 
         try {

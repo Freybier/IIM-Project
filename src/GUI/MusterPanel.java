@@ -94,7 +94,6 @@ public class MusterPanel extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jButton1 = new javax.swing.JButton();
         jSuchfeldDoZug = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jLVList = new javax.swing.JList<>();
@@ -111,13 +110,6 @@ public class MusterPanel extends javax.swing.JPanel {
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jSuchfeldDoZug.setText("Suche");
         jSuchfeldDoZug.setToolTipText("SucheDozent/Zug");
@@ -245,8 +237,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                 .addComponent(jRadioDozent)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioZug)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelName)
@@ -257,17 +248,12 @@ public class MusterPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelName)
-                            .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioDozent)
-                            .addComponent(jRadioZug))
-                        .addGap(9, 9, 9)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelName)
+                    .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioDozent)
+                    .addComponent(jRadioZug))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -283,10 +269,6 @@ public class MusterPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jSuchfeldDoZugFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugFocusGained
         // TODO add your handling code here:
@@ -540,7 +522,6 @@ public class MusterPanel extends javax.swing.JPanel {
         JLabel zugNameLabel = new JLabel("   ZugList: " + selectedLV.getZugNameList());
         JLabel swsLabel = new JLabel("   SWS: " + selectedLV.getSWS() + "(" + ((selectedLV.getSWSBlocks() - selectedLV.getSWSBlocksTook())*2) + ")");
         JLabel raumLabel = new JLabel("   RaumNr: " + "-");
-        JLabel fuehrendLabel = new JLabel("   FührenderKurs: " + selectedLV.getLeading());
         JLabel geblocktLabel = new JLabel("   Geblockt: " + selectedLV.getGeblockt());
         
         // Hier können Sie weitere Informationen hinzufügen, je nach Bedarf
@@ -551,7 +532,6 @@ public class MusterPanel extends javax.swing.JPanel {
         jInfoFeld.add(zugNameLabel);
         jInfoFeld.add(dozentenLabel);
         jInfoFeld.add(raumLabel);
-        jInfoFeld.add(fuehrendLabel);
         jInfoFeld.add(geblocktLabel);
         // Fügen Sie weitere Komponenten hinzu
         // Aktualisieren Sie das jInfoFeld-Panel
@@ -987,7 +967,6 @@ public class MusterPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JComboBox<Object> jComboDoZug;
     private javax.swing.JPanel jInfoFeld;

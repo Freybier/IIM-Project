@@ -5,13 +5,24 @@
 package GUI;
 
 import java.io.File;
-
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import iim.Hochschule.LV;
+import iim.Hochschule.Zug;
+import iim.Hochschule.Dozent;
+import iim.Handtuch.Leading;
+import java.io.EOFException;
 /**
  *
  * @author altai
  */
 public class Import extends javax.swing.JFrame {
-
+    public File files[];
     /**
      * Creates new form Import
      */
@@ -20,7 +31,7 @@ public class Import extends javax.swing.JFrame {
         build();
         setVisible(true);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +49,11 @@ public class Import extends javax.swing.JFrame {
         jFileChooser1.setAcceptAllFileFilterUsed(false);
         jFileChooser1.setFileFilter(new MyCustomFilter());
         jFileChooser1.setMultiSelectionEnabled(true);
+        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileChooser1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,18 +84,100 @@ public class Import extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+
+        try {
+            // TODO add your handling code here:
+            this.files = jFileChooser1.getSelectedFiles();
+            readObjectsFromFiles();
+        } catch (IOException ex) {
+            Logger.getLogger(Import.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Import.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jFileChooser1ActionPerformed
+    
+//    public void readObjectFromFile() throws IOException, ClassNotFoundException {
+//        
+//        for(File file : files){
+//            
+//            if(file.toString().contains("LV.ser")){
+//                try (FileInputStream fis = new FileInputStream(file);
+//                ObjectInputStream ois = new ObjectInputStream(fis)) {
+//                List<Object>result = ((List<Object>)ois.readObject());
+//                System.out.println(result);
+//            }
+//            }
+//            if(file.toString().contains("DOZ.ser")){
+//
+//                try (FileInputStream fis = new FileInputStream(file);
+//                ObjectInputStream ois = new ObjectInputStream(fis)) {
+//                List<Dozent>result = ((List<Dozent>)ois.readObject());
+//                System.out.println(result);
+//            }
+//            }
+//            if(file.toString().contains("ZUG.ser")){
+//                try (FileInputStream fis = new FileInputStream(file);
+//                ObjectInputStream ois = new ObjectInputStream(fis)) {
+//                List<Zug> result = ((List<Zug>)ois.readObject());
+//                System.out.println(result);
+//            }
+//            }
+//            if(file.toString().contains("LEAD.ser")){
+//                try (FileInputStream fis = new FileInputStream(file);
+//                ObjectInputStream ois = new ObjectInputStream(fis)) {
+//                List<Leading> result = ((List<Leading>)ois.readObject());
+//                System.out.println(result);
+//            }
+//            }
+//        }
+//    }
+    
+    public void readObjectsFromFiles() throws IOException, ClassNotFoundException {
+    
+
+    for (File file : files) {
+        List<Object> result = new ArrayList<>();
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            
+            while (true) {
+                try {
+                    Object obj = ois.readObject();
+                    result.add(obj);
+                    
+                } catch (EOFException e) {
+                    // Reached the end of the file
+                    break;
+                }
+            }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+    }
+
+}
+            
+    
     class MyCustomFilter extends javax.swing.filechooser.FileFilter {
         @Override
         public boolean accept(File file) {
             // Allow only directories, or files with ".txt" extension
-            return file.isDirectory() || file.getAbsolutePath().endsWith(".txt") || file.getAbsolutePath().endsWith(".csv");
+            System.out.println(file);
+            return file.isDirectory() || file.getAbsolutePath().endsWith(".txt") || file.getAbsolutePath().endsWith(".csv") || file.getAbsolutePath().endsWith(".ser");
         }
         @Override
         public String getDescription() {
             // This description will be displayed in the dialog,
             // hard-coded = ugly, should be done via I18N
-            return "Text documents (*.txt)";
+            return "Serialized-object files (*.ser)";
         }
+        
+        
+    
     }
     /**
      * @param args the command line arguments

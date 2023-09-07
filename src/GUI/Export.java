@@ -142,7 +142,7 @@ public class Export extends javax.swing.JFrame {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Data/" + name + "ZUG.ser"));
             for (Zug i : zugList) {
                 out.writeObject(i);
-            } 
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -90,7 +90,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
         jMenu3.setText("jMenu3");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -308,10 +308,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         Import importWindow = new Import();
+        this.dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        Export exportWindow = new Export(lvList, dozentenList, zugList, leadingList);
+        Speichern speichernWindow = new Speichern(lvList, dozentenList, zugList, leadingList);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void addNewTab() {

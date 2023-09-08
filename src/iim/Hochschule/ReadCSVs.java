@@ -25,7 +25,7 @@ public class ReadCSVs implements Serializable {
 
     public static List<LV> createLVListFromCSV(String handtuchCSVFilePath) {
         List<LV> lvList = new ArrayList<>();
-        Map<String, LV> lvMap = new HashMap<>();
+        //Map<String, LV> lvMap = new HashMap<>();
         Set<String> stringSet = new HashSet<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath));
@@ -40,36 +40,13 @@ public class ReadCSVs implements Serializable {
                 String zugName = parts[zugNameIndex];
 
                 stringSet.add(zugName);
-                /*
-                String lvKey = lvKuerzel + ";" + dozentName + ";" + zugName;
-                if (!lvMap.containsKey(lvKey)) {
-                    LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva);
-                    
-                    if(lvKuerzel.equals("INF") && dozentName.equals("VEN")){
-                        i++;
-                        System.out.println("HUUUUUIIII\t" + i);
-                        
-                    }
-                    lvList.add(newLV);
-                    lvMap.put(lvKey, newLV);
-                }
-
-                if (lvMap.containsKey(lvKey)) {
-                    LV lv = lvMap.get(lvKey);
-                    lv.addZugToNameList(zugName);
-                }
-                lvKey = lvKuerzel + ";" + dozentName;
-                if(lvMap.containsKey(lvKey)) {
-                    LV lv = lvMap.get(lvKey);
-                    lv.addZugToNameList(zugName);
-                }
-                 */
+                
             }
 
             br.close(); // Schließe den BufferedReader
             lvList = setLVsWithOneZug(stringSet, dozentNameIndex, lvKuerzelIndex, handtuchCSVFilePath, lvList);
             lvList = setLVsWithMoreZug(stringSet, dozentNameIndex, lvKuerzelIndex, handtuchCSVFilePath, lvList);
-            lvList = setLVsWithNoDozent(dozentNameIndex, lvKuerzelIndex, handtuchCSVFilePath, lvList);
+            //lvList = setLVsWithNoDozent(dozentNameIndex, lvKuerzelIndex, handtuchCSVFilePath, lvList);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,15 +58,15 @@ public class ReadCSVs implements Serializable {
     private static List<LV> setLVsWithOneZug(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex, String path, List<LV> lvList) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
+            
             String line;
             String[] header = br.readLine().split(";");
             int zugNameIndex = getColumnIndex("Zug", header);
-
             int fullNameIndex = getColumnIndex("Bezeichnung", header);
             int swsIndex = getColumnIndex("SWS", header);
             int geblocktIndex = getColumnIndex("geblockt", header);
             int lvaIndex = getColumnIndex("LVA", header);
-            int i = 0;
+            //int i = 0;
 
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
@@ -288,11 +265,11 @@ public class ReadCSVs implements Serializable {
                 String[] parts = line.split(";");
                 String zugName = parts[zugIndex];
                 String lvKuerzel = parts[lvKuerzelIndex];
-                String zugPO = parts[poIndex];
+               // String zugPO = parts[poIndex];
                 String zugDozent = parts[DozentIndex];
 
                 if (!zugMap.containsKey(zugName)) {
-                    Zug newZug = new Zug(zugName, zugPO);
+                    Zug newZug = new Zug(zugName);
                     zugList.add(newZug);
                     zugMap.put(zugName, newZug);
                 }

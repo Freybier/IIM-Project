@@ -43,8 +43,9 @@ public class IIMProjekt {
 
 
         String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
-        String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchOutput.csv";
+        String handtuchCSVFilePathold = "src/iim/Handtuch/HandtuchOutput.csv";
         
+        String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchNeu.csv";
         
         SwingUtilities.invokeLater(() -> {
             //new StundenplanGUI(dozenten);
@@ -101,7 +102,7 @@ public class IIMProjekt {
         String handtuchOutputUpdatePath = "src/iim/Handtuch/HandtuchOutputUpdate.csv";
         UpdateHandtuchCSV update = new UpdateHandtuchCSV(); 
         update.updateHandtuchCSV(handtuchCSVFilePath, dozentenList, zugList, lvList);
-        update.addParallel(handtuchOutputUpdatePath);
+        //update.addParallel(handtuchOutputUpdatePath);
         
         //lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
         //update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList);

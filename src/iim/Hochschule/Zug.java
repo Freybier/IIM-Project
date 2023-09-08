@@ -19,9 +19,9 @@ public class Zug implements Serializable {
     private List<LV> lvList = new ArrayList<>();
     private boolean leading;
 
-    public Zug(String name, String po) {
+    public Zug(String name) {
         this.name = name;
-        this.po = po;
+        //this.po = po;
     }
     
     public String getName(){

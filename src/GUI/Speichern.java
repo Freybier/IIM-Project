@@ -27,7 +27,7 @@ import java.util.stream.*;
  *
  * @author altai
  */
-public class Export extends javax.swing.JFrame {
+public class Speichern extends javax.swing.JFrame {
 
     private List<LV> lvList;
     private List<Dozent> dozList;
@@ -37,7 +37,7 @@ public class Export extends javax.swing.JFrame {
     /**
      * Creates new form Export
      */
-    public Export(List<LV> lvList, List<Dozent> dozList, List<Zug> zugList, List<Leading> leadingList) {
+    public Speichern(List<LV> lvList, List<Dozent> dozList, List<Zug> zugList, List<Leading> leadingList) {
         initComponents();
         setVisible(true);
         this.lvList = lvList;

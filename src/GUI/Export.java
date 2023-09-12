@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import iim.Handtuch.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
@@ -32,7 +33,7 @@ public class Export extends javax.swing.JFrame {
     /**
      * Creates new form Export
      */
-    public Export(List<LV> lvList, List<Dozent> dozList, List<Zug> zugList) {
+    public Export(List<LV> lvList, List<Dozent> dozList, List<Zug> zugList, List<Leading> LeadingList) {
         initComponents();
         setVisible(true);
         this.lvList = lvList;

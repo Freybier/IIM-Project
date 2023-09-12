@@ -2,8 +2,6 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
-    </Component>
     <Container class="javax.swing.JMenu" name="jMenu3">
       <Properties>
         <Property name="text" type="java.lang.String" value="jMenu3"/>

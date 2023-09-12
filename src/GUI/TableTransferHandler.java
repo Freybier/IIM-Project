@@ -7,7 +7,6 @@ package GUI;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
-import java.awt.Color;
 import javax.swing.*;
 import java.awt.datatransfer.*;
 import java.io.IOException;

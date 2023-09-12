@@ -43,7 +43,7 @@ public class IIMProjekt {
 
 
         String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
-        String handtuchCSVFilePathold = "src/iim/Handtuch/HandtuchOutput.csv";
+        String handtuchCSVFilePathOld = "src/iim/Handtuch/HandtuchOutput.csv";
         
         String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchNeu.csv";
         
@@ -55,7 +55,7 @@ public class IIMProjekt {
         
 
         // Instanz der ProfVerarbeitung-Klasse erstellen
-        DozentToCSV verarbeitung = new DozentToCSV();
+        //DozentToCSV verarbeitung = new DozentToCSV();
 
         // Daten in CSV-Format speichern
         
@@ -72,11 +72,11 @@ public class IIMProjekt {
         ReadCSVs readCSVs = new ReadCSVs();        
         
             
-        String filename = "dozenten.csv";
-        verarbeitung.saveAsCSV(dozentenList, filename);
+        //String dozentenCSV = "dozenten.csv";
+       // verarbeitung.saveAsCSV(dozentenList, dozentenCSV);
         
         String filePath = "src/iim/Handtuch/HandtuchOutput.csv";
-        List<String[]> data = readCsvFromFile(filePath);
+        List<String[]> data = readCsvFromFile(handtuchCSVFilePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data));
         
         
@@ -106,7 +106,7 @@ public class IIMProjekt {
         
         //lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
         //update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList);
-        dozentenList = readCSVs.getDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath);
+        dozentenList = readCSVs.addDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath);
         readCSVs.getLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
         zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
         

@@ -21,7 +21,7 @@ public class LV implements Serializable {
     //private final List<String> dozentenNameList = new ArrayList<>();
     private final String dozentName;
     private List<String> zugNameList = new ArrayList<>();
-    private String leadingLVName;
+    private String leadingZugName;
     private final List<Zug> zugList = new ArrayList<>();
     private String sws;
     private int swsBlocks = 0;
@@ -131,11 +131,11 @@ public class LV implements Serializable {
     public boolean getLeading(){
         return leading;
     }
-    public void setLeadingLVName(String leadingLVName){
-        this.leadingLVName = leadingLVName;
+    public void setLeadingZugName(String leadingZugName){
+        this.leadingZugName = leadingZugName;
     }
-    public String getLeadingLVName(){
-        return leadingLVName;
+    public String getLeadingZugName(){
+        return leadingZugName;
     }
 
     @Override

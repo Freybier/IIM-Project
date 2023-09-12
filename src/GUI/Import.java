@@ -17,12 +17,15 @@ import iim.Hochschule.Zug;
 import iim.Hochschule.Dozent;
 import iim.Handtuch.Leading;
 import java.io.EOFException;
+
 /**
  *
  * @author altai
  */
 public class Import extends javax.swing.JFrame {
+
     public File files[];
+
     /**
      * Creates new form Import
      */
@@ -31,7 +34,7 @@ public class Import extends javax.swing.JFrame {
         build();
         setVisible(true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,9 +98,9 @@ public class Import extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Import.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jFileChooser1ActionPerformed
-    
+
 //    public void readObjectFromFile() throws IOException, ClassNotFoundException {
 //        
 //        for(File file : files){
@@ -133,52 +136,66 @@ public class Import extends javax.swing.JFrame {
 //            }
 //        }
 //    }
-    
     public void readObjectsFromFiles() throws IOException, ClassNotFoundException {
-    
+        List<LV> lvList = new ArrayList<>();
+        List<Dozent> dozentList = new ArrayList<>();
+        List<Zug> zugList = new ArrayList<>();
+        List<Leading> leadingList = new ArrayList<>();
 
-    for (File file : files) {
-        List<Object> result = new ArrayList<>();
-        try (FileInputStream fis = new FileInputStream(file);
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-            
-            while (true) {
-                try {
-                    Object obj = ois.readObject();
-                    result.add(obj);
-                    
-                } catch (EOFException e) {
-                    // Reached the end of the file
-                    break;
+        for (File file : files) {
+            List<Object> result = new ArrayList<>();
+            try (FileInputStream fis = new FileInputStream(file); ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+                while (true) {
+                    try {
+                        Object obj = ois.readObject();
+                        result.add(obj);
+
+                    } catch (EOFException e) {
+                        // Reached the end of the file
+                        break;
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for (Object obj : result) {
+
+                if (obj instanceof LV) {
+                    lvList.add((LV) obj);
+                } else if (obj instanceof Dozent) {
+                    dozentList.add((Dozent) obj);
+                    //System.out.println(result);
+                } else if (obj instanceof Zug) {
+                    zugList.add((Zug) obj);
+                } else if (obj instanceof Leading) {
+                    leadingList.add((Leading) obj);
                 }
             }
-            
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        System.out.println(result);
+        StundenplanFrame gui = new StundenplanFrame(dozentList, zugList, lvList, leadingList);
+
     }
 
-}
-            
-    
     class MyCustomFilter extends javax.swing.filechooser.FileFilter {
+
         @Override
         public boolean accept(File file) {
             // Allow only directories, or files with ".txt" extension
             System.out.println(file);
             return file.isDirectory() || file.getAbsolutePath().endsWith(".txt") || file.getAbsolutePath().endsWith(".csv") || file.getAbsolutePath().endsWith(".ser");
         }
+
         @Override
         public String getDescription() {
             // This description will be displayed in the dialog,
             // hard-coded = ugly, should be done via I18N
             return "Serialized-object files (*.ser)";
         }
-        
-        
-    
+
     }
+
     /**
      * @param args the command line arguments
      */
@@ -209,7 +226,7 @@ public class Import extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
             }
         });
     }

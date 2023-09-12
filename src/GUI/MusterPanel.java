@@ -970,6 +970,12 @@ public class MusterPanel extends javax.swing.JPanel {
 
     }
 
+    public void setImport(List<LV> lvList, List<Dozent> dozentList, List<Zug> zugList, List<Leading> leadingList) {
+        this.lvList = lvList;
+        this.dozentenList = dozentList;
+        this.zugList = zugList;
+        this.leadingList = leadingList;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

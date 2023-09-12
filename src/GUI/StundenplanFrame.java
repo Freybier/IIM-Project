@@ -41,12 +41,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     public MyTableCellRenderer tableCellRenderer;
     public CustomListCellRenderer listCellRenderer;
-    private boolean isAddingTab = false; // Füge diese Variable der Klasse hinzu
+    private boolean isAddingTab = false;
 
     /**
      * Creates new form StundenplanFrame
      */
     public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList, List<Leading> leadingList) {
+        // oArray is the Object Array created from the Handtuch csv
         oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
         this.dozentenList = dozentenList;
         this.zugList = zugList;
@@ -71,7 +72,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jMenu3 = new javax.swing.JMenu();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -229,7 +229,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
     }//GEN-LAST:event_formMouseClicked
-
+   // Action-listener for deleting tabs on right-click if they are not "Handtuch"
     private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
         if (SwingUtilities.isRightMouseButton(evt)) {
 
@@ -239,7 +239,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                 JPopupMenu popupMenu = new JPopupMenu();
                 JMenuItem delete = new JMenuItem("Delete");
                 delete.addActionListener(new ActionListener() {
-
+                    // Action-listener for click on "Delete" in popupmenu
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         isAddingTab = true;
@@ -252,30 +252,34 @@ public class StundenplanFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTabbedPane1MousePressed
-
+    // Action-listener for creating a new tab
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
         int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
         Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
         if (!isAddingTab && selectedTabIndex != -1) {
             if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
-                isAddingTab = true; // Setze die Flag auf true, um die erneute Ausführung zu verhindern
+                isAddingTab = true; // sets flag on true, to prevent an infinite loop
                 addNewTab();
-                isAddingTab = false; // Setze die Flag wieder auf false
+                isAddingTab = false;  
             }
         } else if (isAddingTab && selectedTab == jLabel1 ) {
+            // when the most right tab is deleted, the tab in focus is the left to the deleted one, preventing the jLabel1 being shown
             int previousTabIndex = selectedTabIndex - 1;
             sourceTabbedPane.setSelectedIndex(previousTabIndex);
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
-
+    
+    // action-listener for choosing filter parameter in the second JComboBox in Handtuch 
     private void SubFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubFilterActionPerformed
-        // TODO add your handling code here:
         if (SubFilter.getSelectedItem() != null) {
             try {
+                // "------" is the first String in the list and is equal to no search parameter
                 if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------")) {
+                    // sets RowFilter to null to prevent error and set back the Table to "normal"
                     sorter.setRowFilter(null);
                 } else {
+                    // calling for filterUpdate method when a parameter is chosen, columnNr is needed to know which column to check the parameter for
                     String filter = SubFilter.getSelectedItem().toString();
                     filterUpdate(filter, columnNr);
                 }
@@ -287,21 +291,27 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SubFilterActionPerformed
 
+    // action-listener for first JComboBox, choosing for which column to filter by, exact filter parameter gets chosen in subFilter-ComboBox
     private void jColumnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jColumnFilterActionPerformed
 
         String chosentitle = jColumnFilter.getSelectedItem().toString();
+        // creating a Set to prevent duplicates in list
         Set<String> words = null;
+        
+        // clear previous filter-parameters from comboBox
         SubFilter.removeAllItems();
 
-        for (int i = 0; i < columnNames.length; i++) {
-            if (chosentitle.equals(this.columnNames[i].toString())) {
+        for (Object columnName : columnNames) {
+            if (chosentitle.equals(columnName.toString())) {
                 columnNr = oArray.getColumnIndex(chosentitle);
+                // puts all entries in the oArray in the given column into the set
                 words = oArray.getter(columnNr);
                 break;
             }
         }
+        // if the set is not empty, the subfilter-ComboBox is updated with the set
         if (words != null) {
-            updateHandtuchComboBox(words, SubFilter);
+            updateSubFilterComboBox(words, SubFilter);
             filterUpdate(SubFilter.getSelectedItem().toString(), columnNr);
         }
     }//GEN-LAST:event_jColumnFilterActionPerformed
@@ -313,28 +323,35 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         Export exportWindow = new Export(lvList, dozentenList, zugList, leadingList);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
-
+    
+    // method for creating new tab using the MusterPanel.java
     private void addNewTab() {
         JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
-        //JPanel tabContent = new DesignTestPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
-        String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
-        int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab
-        System.out.println("Neuer Tab");
+        // titel for the new tab
+        String tabTitle = "Tab " + (jTabbedPane1.getTabCount());
+        // position for the new tab
+        int position = jTabbedPane1.getTabCount() - 1;
+        // creating new tab and change current tab to new created tab
         jTabbedPane1.insertTab(tabTitle, null, tabContent, null, position);
         jTabbedPane1.setSelectedComponent(tabContent);
     }
-
+    
+    
     public void filterUpdate(String word, int index) {
-        // Filter the table based on a specific column
-        if (SubFilter.getSelectedItem().toString().equalsIgnoreCase("---------") || SubFilter.getSelectedItem().toString().equalsIgnoreCase(jColumnFilter.getSelectedItem().toString())) {
+        // filter the table based on a specific column
+        String selectedFilter = SubFilter.getSelectedItem().toString();
+        // checks if a correct parameter is chosen ("--------" is the standart first "empty"-parameter) 
+        if (selectedFilter.equalsIgnoreCase("---------") || selectedFilter.equalsIgnoreCase(jColumnFilter.getSelectedItem().toString())) {
             sorter.setRowFilter(null);
         } else {
+            // filters for selected query in the selected column(index == columnNr)
             sorter.setRowFilter(RowFilter.regexFilter(word, index));
         }
 
     }
-
-    public void build() {
+    
+    // basic method to create the style of the window
+    public final void build() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -343,6 +360,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 System.out.println(info.getName());
+                // possible look switch when entered e.g. "Nimbus" instead of "Metal"
                 if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -367,20 +385,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-            }
-        });
     }
-
-    public void buildJTable() {
+    
+    // method to fill the table on Handtuch-tab
+    public final void buildJTable() {
 
         Object[][] data = oArray.getData();
         this.columnNames = data[0];
         Object[][] content = new Object[data.length - 1][];
-
+        
+        // for loop to stop the columnNames from printing inside the Tabel 
         for (int i = 1; i < data.length; i++) {
             content[i - 1] = data[i];
         }
@@ -392,14 +406,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jTable1.setRowSorter(sorter);
         columnNameFilterBox(columnNames);
     }
-
-    public void updateHandtuchComboBox(Set words, JComboBox<String> comboBox) {
+    
+    // method for filling subFilter ComboBox
+    public void updateSubFilterComboBox(Set words, JComboBox<String> comboBox) {
         comboBox.addItem("---------");
         for (Object word : words) {
             comboBox.addItem((String) word);
         }
     }
-
+    
+    // method for filling columnName-ComboBox with given clumnNames from handtuch-csv
     public void columnNameFilterBox(Object[] columnames) {
         Arrays.sort(columnames);
         for (Object title : columnames) {
@@ -409,7 +425,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SubFilter;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> jColumnFilter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

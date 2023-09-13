@@ -4,21 +4,18 @@
  */
 package GUI;
 
-import iim.Handtuch.Leading;
+import iim.Hochschule.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
 import java.io.EOFException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -285,8 +285,10 @@ public class MusterPanel extends javax.swing.JPanel {
         String entry = this.jSuchfeldDoZug.getText();
         findMatchingObjects(entry);
     }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
-
+    
+    // action-listener for the click on the elements in the search-result List
     private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
+        // clear the List from previous search querys
         jComboDoZug.removeAllItems();
         // switching the flags so it doesnt interfere with the RadioButtons
         radioButtonZugBoolean = false;
@@ -301,7 +303,8 @@ public class MusterPanel extends javax.swing.JPanel {
         jRadioZug.revalidate();
         
         Object selectedObject = sucheList.getSelectedValue();
-
+        
+        // check if the clicked search result is either a isntance of LV Zug or Dozent (unnecessary)
         if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
             int tabIndex = jTabbedPane1.getSelectedIndex();
             String jLabelText = selectedObject.toString();
@@ -497,10 +500,10 @@ public class MusterPanel extends javax.swing.JPanel {
 
     private void updateInfoPanel(LV selectedLV) {
 
-        // Löschen Sie alle Komponenten aus dem jInfoFeld-Panel
+        // clear InfoPanel for new input
         jInfoFeld.removeAll();
 
-        // Fügen Sie die Informationen zur Lehrveranstaltung hinzu
+        // the different labels are created here with the infos needed int the InfoPanel
         JLabel nameLabel = new JLabel("   Name: " + selectedLV.getFullName());
         JLabel dozentenLabel = new JLabel("   Dozent: " + selectedLV.getDozentName());
         JLabel zugNameLabel = new JLabel("   ZugList: " + selectedLV.getZugNameList());
@@ -510,9 +513,8 @@ public class MusterPanel extends javax.swing.JPanel {
         JLabel leadingLabel = new JLabel("   leading: " + selectedLV.getLeadingZugName());
         JLabel lva = new JLabel("   LVA: " + selectedLV.getLVA());
 
-        // Hier können Sie weitere Informationen hinzufügen, je nach Bedarf
         jInfoFeld.setLayout(new BoxLayout(jInfoFeld, BoxLayout.Y_AXIS));
-        // Fügen Sie die Labels oder andere Komponenten zum jInfoFeld-Panel hinzu
+        // Here the labels are added to the InfoPanel
         jInfoFeld.add(nameLabel);
         jInfoFeld.add(swsLabel);
         jInfoFeld.add(zugNameLabel);
@@ -521,14 +523,16 @@ public class MusterPanel extends javax.swing.JPanel {
         jInfoFeld.add(geblocktLabel);
         jInfoFeld.add(leadingLabel);
         jInfoFeld.add(lva);
-        // Aktualisieren Sie das jInfoFeld-Panel
+        // we update the InfoPanel
         jInfoFeld.revalidate();
         jInfoFeld.repaint();
     }
 
+    // action-listener for resizing the Table and correcting the rows-size in the Table
     private void jScrollPane3ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jScrollPane3ComponentResized
         jScrollPane3.getViewport().setViewSize(jTable.getPreferredSize());
         int rowCount = jTable.getRowCount();
+        // normally the if statement is unnecessary, but just in case to prevent errors 
         if (rowCount > 0) {
             int newRowHeight = jScrollPane3.getViewport().getExtentSize().height / rowCount;
             jTable.setRowHeight(newRowHeight);

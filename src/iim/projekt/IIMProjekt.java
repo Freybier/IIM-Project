@@ -23,7 +23,7 @@ import iim.pvZeiten.DozentToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
 import GUI.TestYann;
-import iim.Handtuch.Leading;
+import iim.Hochschule.Leading;
 import iim.Handtuch.UpdateHandtuchCSV;
 import iim.Hochschule.LV;
 import iim.Hochschule.ReadCSVs;
@@ -81,7 +81,7 @@ public class IIMProjekt {
         
         
         List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
-        //readCSVs.setLVforZug(lvList, zugList);
+        
         
         readCSVs.addZugToLV(lvList, zugList);
         
@@ -89,58 +89,32 @@ public class IIMProjekt {
          List<String[]> dozentenPVZeitenList = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(dozentenPVZeitenList));
 
-        //DB.speichern(dozenten);
-        
-        /*
-        for(Dozent lecturer : dozenten){
-            if(lecturer.getName().equals("YAN")){
-                System.out.print(lecturer.getAvailable());
-            }
-        }*/
        
-        
+
         String handtuchOutputUpdatePath = "src/iim/Handtuch/HandtuchOutputUpdate.csv";
         UpdateHandtuchCSV update = new UpdateHandtuchCSV(); 
-        update.updateHandtuchCSV(handtuchCSVFilePath, dozentenList, zugList, lvList);
-        //update.addParallel(handtuchOutputUpdatePath);
         
-        //lvList = ReadCSVs.createLVListFromCSV(handtuchOutputUpdatePath);
-        //update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList);
+        
+        
+        
+        
         dozentenList = readCSVs.addDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath);
-        readCSVs.getLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
-        zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
+        readCSVs.addLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
+        //zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
         
         readCSVs.addZugToLV(lvList, zugList);
         
-        List<Leading> leadingList = update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList, zugList);
-        update.setSingleLeading(lvList, leadingList);
-        for(Leading leadingLV: leadingList){
-            //System.out.println(leadingLV.getName() + " " + leadingLV.getZug() + " " + leadingLV.getDozent());
-        }
+        //List<Leading> leadingList = update.findLeadingLVs("src/iim/Handtuch/HandtuchOutput.csv", lvList, zugList);
+       // update.setSingleLeading(lvList, leadingList);
+        
+        
+        
+        //readCSVs.setLVforZug(lvList, zugList);
+        //readCSVs.cleanZugLVListDouble(zugList);
+        //readCSVs.cleanZugLVListWrongLV(zugList);
+       
+        List<Leading> leadingList = readCSVs.getLeadingList();
         readCSVs.setLVLeading(lvList, leadingList);
-        
-        readCSVs.setLVforZug(lvList, zugList);
-        readCSVs.cleanZugLVListDouble(zugList);
-        readCSVs.cleanZugLVListWrongLV(zugList);
-        /*
-        for (LV lv : lvList) {     
-            System.out.println(lv.toString());
-            System.out.println("----------------------------------"); 
-        } 
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"); 
-        for(Zug zug : zugList){
-            System.out.println(zug.getLV());
-            System.out.println("----------------------------------"); 
-        }
-        
-        
-        for(Dozent dozent: dozentenList){
-            System.out.println("Dozent Name: " + dozent.getName());
-            System.out.println("LVs: " + dozent.getLV());
-            System.out.println("------------------------");
-            
-        }*/
-
         StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList, leadingList); 
         TestYann testYann = new TestYann();
         testYann.frame();

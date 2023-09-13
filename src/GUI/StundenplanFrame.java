@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import iim.Handtuch.Leading;
+import iim.Hochschule.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
@@ -283,7 +283,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     filterUpdate(filter, columnNr);
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                
             }
         } else {
             sorter.setRowFilter(null);
@@ -329,11 +329,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
     // method for creating new tab using the MusterPanel.java
     private void addNewTab() {
         JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
+
         // titel for the new tab
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount());
         // position for the new tab
         int position = jTabbedPane1.getTabCount() - 1;
         // creating new tab and change current tab to new created tab
+
         jTabbedPane1.insertTab(tabTitle, null, tabContent, null, position);
         jTabbedPane1.setSelectedComponent(tabContent);
     }
@@ -361,8 +363,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+
                 System.out.println(info.getName());
                 // possible look switch when entered e.g. "Nimbus" instead of "Metal"
+
                 if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;

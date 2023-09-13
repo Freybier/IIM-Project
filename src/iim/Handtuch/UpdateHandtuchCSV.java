@@ -4,6 +4,7 @@
  */
 package iim.Handtuch;
 
+import iim.Hochschule.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
@@ -133,7 +134,7 @@ public class UpdateHandtuchCSV {
     public List<Leading> findLeadingLVs(String csvFilePath, List<LV> lvList, List<Zug> zugList) {
         List<Leading> leadings = new ArrayList<>();
         
-        //System.out.println("HALLLLLLO");
+        
         // Erstelle eine Liste, um die gefundenen Leading-Objekte zu speichern
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
@@ -152,7 +153,7 @@ public class UpdateHandtuchCSV {
                 String dozent = parts[dozentIndex];
                 for (Zug zugCheck : zugList) {
                     if (zugCheck.getName().equals(dozent)) {
-                        //System.out.println(dozent);
+                        
                         leadings.add(setLeadingLV(zug, lv, dozent, csvFilePath));
                     }
                 }
@@ -196,8 +197,8 @@ public class UpdateHandtuchCSV {
                 String dozentCompare = parts[dozentIndex];
 
                 if ( lv.equals(lvCompare) && dozent.equals(zugCompare)) {
-                    Leading leadingLV = new Leading(lvCompare, dozentCompare, zugCompare);
-                    leadingLV.setLeading(true);
+                    Leading leadingLV = new Leading(lvCompare, dozentCompare, zugCompare, true);
+                    
                     return leadingLV;
 
                 }
@@ -210,16 +211,15 @@ public class UpdateHandtuchCSV {
     }
     
     public void setSingleLeading(List<LV> lvList, List<Leading> leadingList){
-        System.out.println("setSingel");
+        
         for(LV lv: lvList){
-            //System.out.println(lv.getZugList().size());
-            //System.out.println(lv.getZugList());
+
             if(lv.getZugList().size() == 2){
                 for(Zug zug : lv.getZugList()){
-                 Leading leadingLV = new Leading(lv.getName(), lv.getDozentName(), zug.getName()); 
-                 leadingLV.setLeading(true);
+                 Leading leadingLV = new Leading(lv.getName(), lv.getDozentName(), zug.getName(), true); 
+                 
                  leadingList.add(leadingLV);
-                 //System.out.println(leadingLV);
+                 
                 }
                 
             }

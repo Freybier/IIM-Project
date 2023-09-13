@@ -83,7 +83,7 @@ public class IIMProjekt {
         List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
         
         
-        readCSVs.addZugToLV(lvList, zugList);
+       
         
         filePath = "dozenten.csv";
          List<String[]> dozentenPVZeitenList = readCsvFromFile(filePath);
@@ -109,12 +109,13 @@ public class IIMProjekt {
         
         
         
-        //readCSVs.setLVforZug(lvList, zugList);
+        readCSVs.setLVforZug(lvList, zugList);
         //readCSVs.cleanZugLVListDouble(zugList);
         //readCSVs.cleanZugLVListWrongLV(zugList);
        
         List<Leading> leadingList = readCSVs.getLeadingList();
-        readCSVs.setLVLeading(lvList, leadingList);
+        
+        
         StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList, leadingList); 
         TestYann testYann = new TestYann();
         testYann.frame();

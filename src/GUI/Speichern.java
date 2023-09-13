@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import iim.Handtuch.Leading;
+import iim.Hochschule.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
@@ -144,10 +144,6 @@ public class Speichern extends javax.swing.JFrame {
         this.dozList = ladenDOZ();
         this.zugList = ladenZUG();
         this.leadingList = ladenLEAD();
-        System.out.println(lvList);
-        System.out.println(dozList);
-        System.out.println(zugList);
-        System.out.println(leadingList);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void speichern(String name) {

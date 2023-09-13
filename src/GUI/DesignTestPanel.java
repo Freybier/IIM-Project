@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import iim.Handtuch.Leading;
+import iim.Hochschule.Leading;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import iim.Hochschule.Dozent;
@@ -140,7 +140,7 @@ public class DesignTestPanel extends javax.swing.JPanel {
                         // Hier überprüfen, ob selectedLV nicht null ist
                         if (selectedLV != null) {
                             // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
-                            System.out.println(selectedLV);
+                            
                             updateInfoPanel(selectedLV);
                             jTable.revalidate();
                             jTable.repaint();
@@ -310,7 +310,7 @@ public class DesignTestPanel extends javax.swing.JPanel {
             tableTransferHandler.setObject(zug);
             tableTransferHandler.setLVJLVList(zug.getLV());
 
-            System.out.println("Zug an listcellrenderer übergeben");
+            
             for (LV lvElement : zug.getLV()) {
                 //listModel.addElement(lvElement.getName());
                 setLVforJTable(lvElement);
@@ -375,7 +375,7 @@ public class DesignTestPanel extends javax.swing.JPanel {
             tableTransferHandler.setDozentenName(dozent.getName());
             tableTransferHandler.setLVJLVList(dozent.getLV());
 
-            System.out.println("Dozent an listcellrenderer übergeben");
+            
             for (LV dozentLV : dozent.getLV()) {
                 setLVforJTable(dozentLV);
                 jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), dozentLV, dozent));
@@ -759,7 +759,7 @@ public class DesignTestPanel extends javax.swing.JPanel {
             if (row >= 0 && col >= 1) {
                 // Hier können Sie Ihre Bearbeitungslogik implementieren
                 //Object cellValue = jTable.getValueAt(row, col);
-                System.out.println("ROW: " + row + "\tCOLUMN: " + col);
+                
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
                     //System.out.println(cellValue.getClass());
@@ -782,7 +782,7 @@ public class DesignTestPanel extends javax.swing.JPanel {
                                     jTable.repaint();
                                 }
                             }
-                            System.out.println("Dozent: " + cellValue.getClass());
+                            
                         }
                     }
                     for (Zug zugTable : zugList) {
@@ -809,7 +809,7 @@ public class DesignTestPanel extends javax.swing.JPanel {
 
                                 }
                             }
-                            System.out.println("Zug: " + cellValue.getClass());
+                            
                         }
                     }
                 }
@@ -878,7 +878,7 @@ public class DesignTestPanel extends javax.swing.JPanel {
     private void jSuchfeldDoZugKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSuchfeldDoZugKeyReleased
         // TODO add your handling code here:
         String entry = this.jSuchfeldDoZug.getText();
-        System.out.println(entry);
+        
         findMatchingObjects(entry);
     }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
 

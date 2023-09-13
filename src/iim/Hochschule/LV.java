@@ -16,9 +16,7 @@ public class LV implements Serializable {
 
     private  String name;
     private final String fullName;
-    //private final String po;
     private long scheduledLV = 0;
-    //private final List<String> dozentenNameList = new ArrayList<>();
     private final String dozentName;
     private List<String> zugNameList = new ArrayList<>();
     private String leadingZugName;
@@ -38,7 +36,7 @@ public class LV implements Serializable {
         this.dozentName = dozentName;
         this.sws = sws;
         try {
-            Double check = Double.parseDouble(sws);
+            Double check = Double.valueOf(sws);
             if(check%0.5 == 0){
                 check = (check + 0.5);
             }
@@ -48,7 +46,7 @@ public class LV implements Serializable {
         this.swsBlocks = (int)(check/2);
         
         } catch (NumberFormatException e) {
-            System.out.println(e);
+            
         }
         this.geblockt = geblockt;
         this.lva = lva;
@@ -65,11 +63,6 @@ public class LV implements Serializable {
         return fullName;
     }
 
-    /*
-    public String getPO(){
-        return po;
-    }
-     */
     public String getDozentName() {
         return dozentName;
     }
@@ -80,7 +73,6 @@ public class LV implements Serializable {
 
     public void addZugToNameList(String zugName) {
         this.zugNameList.add(zugName);
-        //System.out.println(zugNameList);
     }
 
     public List<Zug> getZugList() {
@@ -89,8 +81,6 @@ public class LV implements Serializable {
 
     public void addZug(Zug zug) {
         zugList.add(zug);
-        //addZugToNameList(zug.getName());
-        //System.out.println("add sucsess!");
     }
 
     public long getScheduledLV() {

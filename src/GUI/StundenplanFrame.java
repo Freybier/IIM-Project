@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import iim.Handtuch.Leading;
+import iim.Hochschule.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
@@ -279,7 +279,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
                     filterUpdate(filter, columnNr);
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                
             }
         } else {
             sorter.setRowFilter(null);
@@ -321,7 +321,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
         //JPanel tabContent = new DesignTestPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount()); // Titel für die neue Registerkarte
         int position = jTabbedPane1.getTabCount() - 1; // Position für das neue Tab
-        System.out.println("Neuer Tab");
+        
         jTabbedPane1.insertTab(tabTitle, null, tabContent, null, position);
         jTabbedPane1.setSelectedComponent(tabContent);
     }
@@ -344,7 +344,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                System.out.println(info.getName());
+                
                 if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;

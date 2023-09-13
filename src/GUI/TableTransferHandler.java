@@ -19,7 +19,6 @@ public class TableTransferHandler extends TransferHandler {
     private String dozentenName;
     private List<Dozent> dozentenList;
     private List<Zug> zugList;
-    //private CustomListCellRenderer listCellRenderer;
     private JList jLVList;
     
     private List<LV> lvJLVList;

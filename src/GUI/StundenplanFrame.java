@@ -233,8 +233,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
         if (SwingUtilities.isRightMouseButton(evt)) {
 
             int index = jTabbedPane1.getSelectedIndex();
+            Object clickedElement = jTabbedPane1.getSelectedComponent();
 
-            if (index != 0) {
+            if (index != 0 && clickedElement instanceof MusterPanel) {
                 JPopupMenu popupMenu = new JPopupMenu();
                 JMenuItem delete = new JMenuItem("Delete");
                 delete.addActionListener(new ActionListener() {

@@ -7,19 +7,13 @@ package iim.projekt;
 
 //import iim.GUI.StundenplanFrame;
 
-import GUI.StundenplanGUI;
 import GUI.TxtToCsvTable;
 import static GUI.TxtToCsvTable.readCsvFromFile;
 import iim.Hochschule.Dozent;
 import iim.pvZeiten.pvZeitenToDozent;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import GUI.Export;
 
 import iim.Handtuch.ReadHandtuch2;
-import iim.pvZeiten.DozentToCSV;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
 import GUI.TestYann;
@@ -28,7 +22,6 @@ import iim.Handtuch.UpdateHandtuchCSV;
 import iim.Hochschule.LV;
 import iim.Hochschule.ReadCSVs;
 import iim.Hochschule.Zug;
-import static iim.pvZeiten.pvZeitenToDozent.splittNameWishList;
 
 /**
  *

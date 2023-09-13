@@ -690,36 +690,26 @@ public class DesignTestPanel extends javax.swing.JPanel {
                 jLVList.setModel(setLVDozentList((Dozent)selectedObject));
 
             } else if (selectedObject instanceof LV) {
-                if (((LV) selectedObject).getLeading()) {
-                    boolean check = true;
-                    for (Leading leading : leadingList) {
-                        if (((LV) selectedObject).getDozentName().equals(leading.getDozent()) && ((LV) selectedObject).getName().equals(leading.getLv())) {
+            updateInfoPanel((LV) selectedObject);
+            // when directly selecting an LV in the List, open the list of the leading Zug and select the previous chosen LV      
+            String jLabelText = ((LV)selectedObject).getLeadingZugName();
+            
+            jLabelName.setText(jLabelText);
+            // if-construction for not changing the Handtuch-Title
+            
+            // set content of jLvList
+            jLVList.setModel(setLVZugList( ((LV) selectedObject).getLeadingZug()));
+            
+            for (int i = 0; i <= jLVList.getLastVisibleIndex(); i++) {
+                String itemName = jLVList.getModel().getElementAt(i).toString();
 
-                            for (Zug zugLV : ((LV) selectedObject).getZugList()) {
-
-                                if (zugLV.getName().equals(leading.getZug()) && check) {
-                                    //DefaultListModel<LV> ListModel = new DefaultListModel<LV>();
-
-                                    jLabelName.setText(zugLV.toString());
-                                    jLVList.setModel(setLVZugList(zugLV));
-                                    //System.out.println(" Leading. ");
-                                    check = false;
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    for (Zug zugLV : ((LV) selectedObject).getZugList()) {
-
-                        jLabelName.setText(zugLV.toString());
-                        jLVList.setModel(setLVZugList(zugLV));
-                        //System.out.println(" nur einen Zug. ");
-                        //jTableMouseClicke(evt);
-                    }
+                if (itemName.contains(selectedObject.toString())) {
+                    
+                    jLVList.setSelectedIndex(i);
+                    break;
                 }
-                //System.out.println(" is LV. ");
-                // System.out.println(((LV) selectedObject).getLeading());
             }
+        }
 
         }
         jLVList.revalidate();

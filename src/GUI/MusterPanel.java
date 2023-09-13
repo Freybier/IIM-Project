@@ -307,8 +307,18 @@ public class MusterPanel extends javax.swing.JPanel {
 
         } else if (selectedObject instanceof LV) {
             updateInfoPanel((LV) selectedObject);
-            // when directly selecting an LV in the List, open the list of the leading Zug and select the previous chosen LV
-            // MUSS NACH UNTEN VERSCHOBEN WERDEN!!!!!
+            // when directly selecting an LV in the List, open the list of the leading Zug and select the previous chosen LV      
+            jLabelText = ((LV)selectedObject).getLeadingZugName();
+            
+            jLabelName.setText(jLabelText);
+            // if-construction for not changing the Handtuch-Title
+            if (tabIndex != 0) {
+                // changing the title of the tab
+                jTabbedPane1.setTitleAt(tabIndex, jLabelText);
+            }
+            // set content of jLvList
+            jLVList.setModel(setLVZugList( ((LV) selectedObject).getLeadingZug()));
+            
             for (int i = 0; i <= jLVList.getLastVisibleIndex(); i++) {
                 String itemName = jLVList.getModel().getElementAt(i).toString();
 
@@ -316,49 +326,6 @@ public class MusterPanel extends javax.swing.JPanel {
                     
                     jLVList.setSelectedIndex(i);
                     break;
-                }
-            }
-            if (((LV) selectedObject).getLeading()) {
-                boolean check = true;
-                for (Leading leading : leadingList) {
-                    String LVNameCheckForLeading;
-                    if (leading.getLv().matches("\\d.*")) {
-                        LVNameCheckForLeading = ((LV) selectedObject).getName();
-                    } else {
-                        String[] parts = ((LV) selectedObject).getName().split("\\.");
-                        LVNameCheckForLeading = parts[parts.length - 1];
-                    }
-
-                    if (((LV) selectedObject).getDozentName().equals(leading.getDozent()) && LVNameCheckForLeading.equals(leading.getLv())) {
-
-                        for (Zug zugLV : ((LV) selectedObject).getZugList()) {
-
-                            if (zugLV.getName().equals(leading.getZug()) && check) {
-                                jLabelText = zugLV.toString();
-
-                                jLabelName.setText(jLabelText);
-
-                                if (tabIndex != 0) {
-
-                                    jTabbedPane1.setTitleAt(tabIndex, jLabelText);
-                                }
-                                jLVList.setModel(setLVZugList(zugLV));
-                                check = false;
-                            }
-                        }
-                    }
-
-                }
-            } else {
-                for (Zug zugLV : ((LV) selectedObject).getZugList()) {
-
-                    jLabelText = zugLV.toString();
-                    if (tabIndex != 0) {
-
-                        jTabbedPane1.setTitleAt(tabIndex, jLabelText);
-                    }
-                    jLabelName.setText(jLabelText);
-                    jLVList.setModel(setLVZugList(zugLV));
                 }
             }
         }

@@ -137,7 +137,7 @@ public class ReadCSVs implements Serializable {
                     }
                 }
             }
-            
+
             br.close();
 
         } catch (IOException e) {
@@ -172,20 +172,21 @@ public class ReadCSVs implements Serializable {
                     Zug newZug = new Zug(zugName);
                     zugList.add(newZug);
                     zugSet.add(zugName);
-                }
 
-                //Now netherless the Zug already existed, we now get the Object with the corresponding name.      
-                //We check the present LVname and DozentName of the row and add the corresponding Leading Object     
-                LV matchingLV = lvList.stream()
-                        .filter(lv -> lv.getName().equals(lvKuerzel) && lv.getDozentName().equals(zugDozent))
-                        .findFirst()
-                        .orElse(null);
+                    //Now netherless the Zug already existed, we now get the Object with the corresponding name.      
+                    //We check the present LVname and DozentName of the row and add the corresponding Leading Object     
+                    LV matchingLV = lvList.stream()
+                            .filter(lv -> lv.getName().equals(lvKuerzel) && lv.getDozentName().equals(zugDozent))
+                            .findFirst()
+                            .orElse(null);
 
-                //If found, the Leading Object is added
-                if (matchingLV != null) {
-                    Leading leadingObj = new Leading(lvKuerzel, zugDozent, zugName, true);
-                    leadingObj.setLeadingLV(matchingLV);
-                    leading.add(leadingObj);
+                    //If found, the Leading Object is added
+                    if (matchingLV != null) {
+                        Leading leadingObj = new Leading(lvKuerzel, zugDozent, zugName);
+                        leadingObj.setLeadingLV(matchingLV);
+                        leading.add(leadingObj);
+                        matchingLV.setLeadingZug(newZug);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -196,14 +197,14 @@ public class ReadCSVs implements Serializable {
     }
 
     public List<Dozent> addDozentNotInPVZeiten(List<Dozent> dozenten, String handtuchCSVFilePath, List<LV> lvList) {
-        
+
         //The names of the Object Dozent must be unique. So the names of all already existing elements
         //are copied in a Set.
         Set<String> existingDozenten = new HashSet<>();
         for (Dozent dozent : dozenten) {
             existingDozenten.add(dozent.getName());
         }
-        
+
         //Now we compare the names from the CSV with the names containing the Set an if the name is missing
         //a new Dozent Object is created and added to the Dozent List. The Dozent created this way does not have
         //the long available and the long doesNotWant because the Dozent was not created with the help of 

@@ -25,8 +25,8 @@ public class LV implements Serializable {
     private int swsBlocks = 0;
     private int swsBlocksTook = 0;
     private final boolean geblockt;
-    private boolean leading;
     private final String lva;
+    private Zug leadingZug;
     
 
     public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva) {
@@ -114,18 +114,17 @@ public class LV implements Serializable {
         return this.lva;
     }
     
-    public void setLeading(boolean leading){
-        this.leading = leading;
-    }
-    
-    public boolean getLeading(){
-        return leading;
-    }
     public void setLeadingZugName(String leadingZugName){
         this.leadingZugName = leadingZugName;
     }
     public String getLeadingZugName(){
         return leadingZugName;
+    }
+    public void setLeadingZug(Zug leadingZug){
+        this.leadingZug = leadingZug;
+    }
+    public Zug getLeadingZug(){
+        return leadingZug;
     }
 
     @Override

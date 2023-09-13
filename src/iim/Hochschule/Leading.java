@@ -18,24 +18,21 @@ public class Leading implements Serializable {
     private String lv;
     private String dozent;
     private String zug;
-    private String LVName;
-    private boolean leading;
+
     private LV lvObject;
     
     
 
-    public Leading(String lv, String dozent, String zug ,boolean leading) {
+    public Leading(String lv, String dozent, String zug) {
         this.lv = lv;
         this.dozent = dozent;
         this.zug = zug;
-        this.leading = true;
+;
         
     }
     
     
-    public boolean getLeading(){
-        return leading;
-    }
+
     
     public String getLv(){
         return lv;

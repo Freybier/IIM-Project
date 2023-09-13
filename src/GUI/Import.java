@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
 import iim.Hochschule.Dozent;
-import iim.Handtuch.Leading;
+import iim.Hochschule.Leading;
 import java.io.EOFException;
 
 /**

@@ -49,7 +49,6 @@ public class TableTransferHandler extends TransferHandler {
     }
     public void setObject(Object obj) {
         this.obj = obj;
-        System.out.println(obj);
     }
 
     @Override
@@ -79,7 +78,7 @@ public class TableTransferHandler extends TransferHandler {
             
             //DataFlavor customDataFlavor = new DataFlavor(LV.class, "Custom LV Object");
             //LV lvObjekt = (LV) transferable.getTransferData(customDataFlavor);
-            //System.out.println(data);
+            
             for (LV lv : lvList) {
                 if (lv.getName().equals(data) && lv.getDozentName().equals(dozentenName)) {
                     if (lv.getSWSBlocks() > lv.getSWSBlocksTook()) {
@@ -121,7 +120,7 @@ public class TableTransferHandler extends TransferHandler {
                         }
                         
                         jLVList.setCellRenderer(new CustomListCellRenderer(lvJLVList, lv, obj));
-                        System.out.println("ListCellRenderer geseted");
+                        
                         jTable.setValueAt(data, row, col);
                         jLVList.revalidate();
                         jLVList.repaint();

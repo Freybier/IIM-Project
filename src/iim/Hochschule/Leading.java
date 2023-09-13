@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package iim.Handtuch;
+package iim.Hochschule;
 
 
 import iim.Hochschule.LV;
@@ -24,15 +24,14 @@ public class Leading implements Serializable {
     
     
 
-    public Leading(String lv, String dozent, String zug) {
+    public Leading(String lv, String dozent, String zug ,boolean leading) {
         this.lv = lv;
         this.dozent = dozent;
         this.zug = zug;
+        this.leading = true;
+        
     }
     
-    public void setLeading(boolean leading){
-        this.leading = leading;
-    }
     
     public boolean getLeading(){
         return leading;
@@ -53,4 +52,9 @@ public class Leading implements Serializable {
         return lvObject;
     }
 
+    @Override
+    public String toString() {
+        return zug;
+                
+    }
 }

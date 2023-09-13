@@ -4,7 +4,10 @@
  */
 package GUI;
 
-import iim.Handtuch.Leading;
+
+import iim.Hochschule.Leading;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
@@ -321,9 +324,9 @@ public class MusterPanel extends javax.swing.JPanel {
 
                 for (int i = 0; i < jLVList.getLastVisibleIndex(); i++) {
                     String itemName = jLVList.getModel().getElementAt(i).toString();
-                    System.out.println(selectedObject.toString() + "    " + itemName);
+                    
                     if (itemName.contains(selectedObject.toString())) {
-                        System.out.println("Wen mach ich hier");
+                        
                         jLVList.setSelectedIndex(i); // Programmatically select the item
                         break;
                     }
@@ -338,7 +341,7 @@ public class MusterPanel extends javax.swing.JPanel {
                             String[] parts = ((LV) selectedObject).getName().split("\\.");
                             LVNameCheckForLeading = parts[parts.length - 1];
                         }
-                        System.out.println(leading.getLv());
+                        
                         if (((LV) selectedObject).getDozentName().equals(leading.getDozent()) && LVNameCheckForLeading.equals(leading.getLv())) {
 
                             for (Zug zugLV : ((LV) selectedObject).getZugList()) {
@@ -408,8 +411,6 @@ public class MusterPanel extends javax.swing.JPanel {
 
             // Überprüfen, ob der Klick innerhalb einer gültigen Zelle war
             if (row >= 0 && col >= 1) {
-                // Hier können Sie Ihre Bearbeitungslogik implementieren
-                System.out.println("ROW: " + row + "\tCOLUMN: " + col);
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
                     String cellString = (String) cellValue;
@@ -431,7 +432,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                     jTable.repaint();
                                 }
                             }
-                            System.out.println("Dozent: " + cellValue.getClass());
+                            
                         }
                     }
                     for (Zug zugTable : zugList) {
@@ -457,7 +458,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
                                 }
                             }
-                            System.out.println("Zug: " + cellValue.getClass());
+                            
                         }
                     }
                 }
@@ -554,7 +555,7 @@ public class MusterPanel extends javax.swing.JPanel {
             tableTransferHandler.setDozentenName(dozent.getName());
             tableTransferHandler.setLVJLVList(dozent.getLV());
 
-            System.out.println("Dozent an listcellrenderer übergeben");
+            
             for (LV dozentLV : dozent.getLV()) {
                 setLVforJTable(dozentLV);
                 jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), dozentLV, dozent));
@@ -592,7 +593,7 @@ public class MusterPanel extends javax.swing.JPanel {
             tableTransferHandler.setObject(zug);
             tableTransferHandler.setLVJLVList(zug.getLV());
 
-            System.out.println("Zug an listcellrenderer übergeben");
+            
             int i = 1;
             for (LV lvElement : zug.getLV()) {
                 //listModel.addElement(lvElement.getName());
@@ -804,8 +805,8 @@ public class MusterPanel extends javax.swing.JPanel {
             for (LV lvZug : zug.getLV()) {
 
                 if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
-                    System.out.println(checkList);
-                    System.out.println("help");
+                    
+                    
                     long lvScheduled = lvZug.getScheduledLV();
                     for (int i = 39; i > 5; i--) {
 
@@ -899,7 +900,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
             for (LV lvZug : zug.getLV()) {
                 if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
-                    System.out.println("get Scheduled LV!");
+                    
                     long lvScheduled = lvZug.getScheduledLV();
                     for (int i = 39; i > 5; i--) {
                         if (lvScheduled % 2 == 1) {

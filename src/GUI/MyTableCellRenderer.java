@@ -40,7 +40,7 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
     public void setZug(Zug zug) {
         this.zug = zug;
         if (zug != null) {
-            System.out.println(zug.getName());
+            
         }
     }
 

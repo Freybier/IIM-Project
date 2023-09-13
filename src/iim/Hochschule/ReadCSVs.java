@@ -21,8 +21,9 @@ import java.util.Set;
  * @author Yann Leymann
  */
 public class ReadCSVs implements Serializable {
+
     private static List<Leading> leading = new ArrayList<>();
-    
+
     public static List<LV> createLVListFromCSV(String handtuchCSVFilePath) {
         List<LV> lvList = new ArrayList<>();
 
@@ -59,8 +60,7 @@ public class ReadCSVs implements Serializable {
     }
 
     private static List<LV> setLVsWithOneZug(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex, String path, List<LV> lvList) {
-        
-         
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
 
@@ -98,8 +98,7 @@ public class ReadCSVs implements Serializable {
                     newLV.addZugToNameList(zugName);
                     newLV.setLeadingZugName(zugName);
                     lvList.add(newLV);
-                    
-                    
+
                 }
 
             }
@@ -177,7 +176,7 @@ public class ReadCSVs implements Serializable {
                     Zug newZug = new Zug(zugName);
                     zugList.add(newZug);
                     zugMap.put(zugName, newZug);
-                    
+
                 }
 
                 //Now netherless the Zug already existed, we now get the Object with the corresponding name.      
@@ -191,36 +190,20 @@ public class ReadCSVs implements Serializable {
 
                 //If found we add the matching LV t the zug
                 if (matchingLV != null) {
-                    zug.addLV(matchingLV);
-                    Leading leadingObj = new Leading(lvKuerzel, zugDozent,zugName,true);
+                    //zug.addLV(matchingLV);
+                    Leading leadingObj = new Leading(lvKuerzel, zugDozent, zugName, true);
                     leading.add(leadingObj);
-                    
+
                     System.out.println("Leading Zug: " + leadingObj);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-            for(Zug zug: zugList){
+        for (Zug zug : zugList) {
             System.out.println(zug.getName() + ": " + zug.getLV());
-        } 
-        return zugList;
-    }
-
-    public void addZugToLV(List<LV> lvList, List<Zug> zugList) {
-        //Now that we have the Zug Objects we cann add them to the corresponding LV Objects
-        //With the help of the ZugNameList, wich we create while creating the LV Objects
-        //in th methods setLVsWithOneZug() and setAllZugNamesForLV()
-        for (LV lv : lvList) {
-            List<String> lvZugName = lv.getZugNameList();
-            for (Zug zug : zugList) {
-                for (String zugName : lvZugName) {
-                    if (zugName.equals(zug.getName())) {
-                        lv.addZug(zug);
-                    }
-                }
-            }
         }
+        return zugList;
     }
 
     public List<Dozent> addDozentNotInPVZeiten(List<Dozent> dozenten, String handtuchCSVFilePath) {
@@ -268,100 +251,47 @@ public class ReadCSVs implements Serializable {
                 }
             }
         }
-        Map<String, Integer> nameCountMap = new HashMap<>();
+
         for (Dozent dozent : dozenten) {
-            int count = 0;
+
             for (LV lvDozent : dozent.getLV()) {
                 String name = lvDozent.getName();
-                // Überprüfe, ob der Name bereits in der Map vorhanden ist
-                if (nameCountMap.containsKey(name)) {
-                    // Inkrementiere die Anzahl der Vorkommen
-                    count = nameCountMap.get(name) + 1;
-                    nameCountMap.put(name, count);
-                    // Setze den neuen Namen mit der Anzahl der Vorkommen
-                    lvDozent.setName(count + "." + name);
-                } else {
-                    // Füge den Namen zur Map hinzu, wenn er zum ersten Mal vorkommt
-                    nameCountMap.put(name, 1);
-                    lvDozent.setName(1 + "." + name);
-                }
+
+                lvDozent.setName(name + "__" + lvDozent.getLeadingZugName());
             }
         }
     }
 
-    public void setLVLeading(List<LV> lvList, List<Leading> leadingList) {
+    public void addZugToLV(List<LV> lvList, List<Zug> zugList) {
+        //Now that we have the Zug Objects we can add them to the corresponding LV Objects
+        //With the help of the ZugNameList, wich we create while creating the LV Objects
+        //in th methods setLVsWithOneZug() and setAllZugNamesForLV()
         for (LV lv : lvList) {
-            int count = 0;
-            for (Zug zugLV : lv.getZugList()) {
-                count++;
-            }
-            if (count > 1) {
-                lv.setLeading(true);
+            List<String> lvZugName = lv.getZugNameList();
+            for (Zug zug : zugList) {
+                for (String zugName : lvZugName) {
+                    if (zugName.equals(zug.getName())) {
+                        lv.addZug(zug);
+                    }
+                }
             }
         }
-        //return lvList;
-
     }
 
     public void setLVforZug(List<LV> lvList, List<Zug> zugList) {
-        
+
         for (LV lv : lvList) {
-            
-            for (Zug zugLV : lv.getZugList()) {
+            System.out.println("LV Zug Names: " + lv.getZugList());
+            for (String zugName : lv.getZugNameList()) {
                 for (Zug zugZug : zugList) {
-                    
-                    if (zugLV.getName().equals(zugZug.getName())) {
+
+                    if (zugName.equals(zugZug.getName())) {
                         zugZug.addLV(lv);
-                        
+                        //break;
                     }
                 }
             }
         }
-    }
-
-    public void cleanZugLVListDouble(List<Zug> zugList) {
-
-        for (Zug lvZug : zugList) {
-
-            Set<String> seenNames = new HashSet<>();
-            Iterator<LV> iterator = lvZug.getLV().iterator();
-            while (iterator.hasNext()) {
-                LV obj = iterator.next();
-                String name = obj.getName();
-                if (seenNames.contains(name)) {
-                    iterator.remove(); // Entferne das Objekt aus der Liste
-                } else {
-                    seenNames.add(name); // Füge den Namen zur Menge hinzu
-                }
-            }
-        }
-    }
-
-    public void cleanZugLVListWrongLV(List<Zug> zugList) {
-        List<LV> lvToRemove = new ArrayList<>();
-
-        for (Zug zug : zugList) {
-            List<LV> lvList = zug.getLV();
-            List<LV> lvListCopy = new ArrayList<>(lvList); // Kopie der Liste, um ConcurrentModificationException zu vermeiden
-
-            for (LV lvZug : lvListCopy) {
-                int i = lvZug.getZugList().size();
-                for (Zug zugLVZug : lvZug.getZugList()) {
-                    if (!zugLVZug.getName().equals(zug.getName())) {
-                        i--;
-                    }
-                    if (i <= 0) {
-                        lvToRemove.add(lvZug);
-                    }
-                }
-            }
-        }
-
-// Entferne die gesammelten LV-Objekte außerhalb der Schleife
-        for (Zug zug : zugList) {
-            zug.getLV().removeAll(lvToRemove);
-        }
-
     }
 
     private static int getColumnIndex(String columnName, String[] header) {
@@ -372,8 +302,8 @@ public class ReadCSVs implements Serializable {
         }
         return -1;
     }
-    
-    public List<Leading> getLeadingList(){
+
+    public List<Leading> getLeadingList() {
         return leading;
     }
 

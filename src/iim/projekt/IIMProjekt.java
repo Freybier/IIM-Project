@@ -85,14 +85,14 @@ public class IIMProjekt {
        
 
         String handtuchOutputUpdatePath = "src/iim/Handtuch/HandtuchOutputUpdate.csv";
-        UpdateHandtuchCSV update = new UpdateHandtuchCSV(); 
+        //UpdateHandtuchCSV update = new UpdateHandtuchCSV(); 
         
         
         
         
         
-        dozentenList = readCSVs.addDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath);
-        readCSVs.addLVforDozentfromCSV(dozentenList, lvList, handtuchCSVFilePath);
+        dozentenList = readCSVs.addDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath, lvList);
+        readCSVs.addLVforDozent(dozentenList, lvList);
         //zugList = ReadCSVs.createZugListfromCSV(handtuchOutputUpdatePath, lvList);
         
         readCSVs.addZugToLV(lvList, zugList);

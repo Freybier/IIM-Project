@@ -24,9 +24,9 @@ public class LV implements Serializable {
     private String sws;
     private int swsBlocks = 0;
     private int swsBlocksTook = 0;
-    private boolean geblockt;
+    private final boolean geblockt;
     private boolean leading;
-    private String lva;
+    private final String lva;
     
 
     public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva) {

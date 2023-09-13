@@ -48,6 +48,9 @@ public class Leading implements Serializable {
     public String getZug(){
         return zug;
     }
+    public void setLeadingLV(LV lvObject){
+        this.lvObject = lvObject;
+    }
     public LV getLVObject(){
         return lvObject;
     }

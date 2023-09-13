@@ -285,9 +285,10 @@ public class MusterPanel extends javax.swing.JPanel {
 
     private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
         jComboDoZug.removeAllItems();
-
+        // switching the flags so it doesnt interfere with the RadioButtons
         radioButtonZugBoolean = false;
         radioButtonDozentBoolean = false;
+        // set back radioButtons and update it
         buttonGroup1.clearSelection();
 
         jRadioDozent.repaint();
@@ -295,7 +296,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
         jRadioZug.repaint();
         jRadioZug.revalidate();
-
+        
         Object selectedObject = sucheList.getSelectedValue();
 
         if (selectedObject instanceof LV || selectedObject instanceof Zug || selectedObject instanceof Dozent) {
@@ -401,7 +402,6 @@ public class MusterPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioZugActionPerformed
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
-        // TODO add your handling code here:
         if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() == 1) {
             int row = jTable.rowAtPoint(evt.getPoint());
             int col = jTable.columnAtPoint(evt.getPoint());
@@ -520,7 +520,6 @@ public class MusterPanel extends javax.swing.JPanel {
         jInfoFeld.add(geblocktLabel);
         jInfoFeld.add(leadingLabel);
         jInfoFeld.add(lva);
-        // Fügen Sie weitere Komponenten hinzu
         // Aktualisieren Sie das jInfoFeld-Panel
         jInfoFeld.revalidate();
         jInfoFeld.repaint();

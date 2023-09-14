@@ -686,6 +686,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                 jLVListLV = ((Zug) selectedSearchObject).getLV().get(selectedIndex);
                                 tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
                                 System.out.println("Zug search");
+                                
                                 tableCellRenderer = new MyTableCellRenderer(((Dozent) selectedSearchObject), dozentenList, ((Dozent) selectedSearchObject).getLV());
                                 
                             }

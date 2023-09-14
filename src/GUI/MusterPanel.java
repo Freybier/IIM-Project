@@ -283,7 +283,6 @@ public class MusterPanel extends javax.swing.JPanel {
 
         this.selectedSearchObject = sucheList.getSelectedValue();
 
-        //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
         int tabIndex = jTabbedPane1.getSelectedIndex();
         String jLabelText = selectedSearchObject.toString();
 
@@ -318,7 +317,7 @@ public class MusterPanel extends javax.swing.JPanel {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
             // set content of jLvList
-            jLVList.setModel(setLVZugList( ((LV) selectedObject).getLeadingZug()));
+            jLVList.setModel(setLVZugList( ((LV)selectedSearchObject).getLeadingZug()));
             // when clicking on a LV as search result, automatically "click" on the same object in jLVList
 
             for (int i = 0; i <= jLVList.getLastVisibleIndex(); i++) {
@@ -373,6 +372,7 @@ public class MusterPanel extends javax.swing.JPanel {
             if (row >= 0 && col >= 1) {
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
+                    System.out.println(cellValue);
                     String cellString = (String) cellValue;
                     String check = jLabelName.getText();
                     for (Dozent dozentTable : dozentenList) {
@@ -392,7 +392,6 @@ public class MusterPanel extends javax.swing.JPanel {
                                     jTable.repaint();
                                 }
                             }
-
                         }
                     }
                     for (Zug zugTable : zugList) {

@@ -4,11 +4,8 @@
  */
 package GUI;
 
-import iim.Hochschule.LV;
 import javax.swing.*;
 import java.awt.datatransfer.*;
-import java.io.IOException;
-import java.util.Objects;
 
 public class ListTransferHandler extends TransferHandler {
     private JList<Object> jList;

@@ -228,9 +228,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
     }//GEN-LAST:event_formMouseClicked
-   // Action-listener for deleting tabs on right-click if they are not "Handtuch"
+    // Action-listener for deleting tabs on right-click if they are not "Handtuch"
+    // the getY <= 20 is for only accepting right-clicks on the "tab" itself 
     private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
-        if (SwingUtilities.isRightMouseButton(evt)) {
+        if (SwingUtilities.isRightMouseButton(evt) && evt.getY() <= 20) {
 
             int index = jTabbedPane1.getSelectedIndex();
             Object clickedElement = jTabbedPane1.getSelectedComponent();
@@ -365,7 +366,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 
-                System.out.println(info.getName());
                 // possible look switch when entered e.g. "Nimbus" instead of "Metal"
 
                 if ("Metal".equals(info.getName())) {

@@ -5,8 +5,6 @@
 package GUI;
 
 import iim.Hochschule.Leading;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
@@ -319,7 +317,8 @@ public class MusterPanel extends javax.swing.JPanel {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
             // set content of jLvList
-            jLVList.setModel(setLVZugList(((LV) selectedSearchObject).getLeadingZug()));
+            jLVList.setModel(setLVZugList( ((LV) selectedObject).getLeadingZug()));
+            // when clicking on a LV as search result, automatically "click" on the same object in jLVList
 
             for (int i = 0; i <= jLVList.getLastVisibleIndex(); i++) {
                 String itemName = jLVList.getModel().getElementAt(i).toString();
@@ -345,7 +344,7 @@ public class MusterPanel extends javax.swing.JPanel {
         // sets back jComboBox
         jComboDoZug.removeAllItems();
         updateDozentComboBox(dozentenList, jComboDoZug);
-
+        // clears the Table
         DefaultTableCellRenderer();
     }//GEN-LAST:event_jRadioDozentActionPerformed
 
@@ -359,15 +358,17 @@ public class MusterPanel extends javax.swing.JPanel {
         updateZugComboBox(this.zugList, jComboDoZug);
         jTable.revalidate();
         jTable.repaint();
+        // clears the Table
         DefaultTableCellRenderer();
     }//GEN-LAST:event_jRadioZugActionPerformed
-
+    
+    // action-listener for deleting element in table when left-clicked
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() == 1) {
+        if (evt.getButton() == MouseEvent.BUTTON1) {
             int row = jTable.rowAtPoint(evt.getPoint());
             int col = jTable.columnAtPoint(evt.getPoint());
 
-            // Überprüfen, ob der Klick innerhalb einer gültigen Zelle war
+            // check if the click was inside a legitimate cell
             if (row >= 0 && col >= 1) {
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
@@ -413,15 +414,11 @@ public class MusterPanel extends javax.swing.JPanel {
                                             jTable.repaint();
                                         }
                                     }
-
                                 }
                             }
-
                         }
                     }
                 }
-                // Öffnen Sie ein Eingabefeld oder ein Dialogfeld zur Bearbeitung des Zellwerts
-                // Aktualisieren Sie Ihre Datenstruktur und die Tabelle nach der Bearbeitung
             }
         }
     }//GEN-LAST:event_jTableMouseClicked
@@ -612,25 +609,29 @@ public class MusterPanel extends javax.swing.JPanel {
     }
 
     public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<Object> comboBox) {
+        // adds generic first entry
         comboBox.addItem("---------");
+        // sorting the dozentenListe alphabetically 
         Collections.sort(dozentenListe, (Dozent dozent1, Dozent dozent2) -> dozent1.getName().compareTo(dozent2.getName()));
-
+        // adds each element to the Combobox
         for (Dozent dozent : dozentenListe) {
             comboBox.addItem(dozent);
         }
     }
 
     public void updateZugComboBox(List<Zug> zugListe, JComboBox<Object> comboBox) {
+        // adds generic first entry
         comboBox.addItem("---------");
+        // sorting the zugListe alphabetically 
         Collections.sort(zugListe, (Zug zug1, Zug zug2) -> zug1.getName().compareTo(zug2.getName()));
-
+        // adds each element to the Combobox
         for (Zug zug : zugListe) {
             comboBox.addItem(zug);
         }
     }
-
+    
+    // method for clearing the entries in the Table
     public void emptyJTable() {
-
         for (int row = 0; row < 6; row++) {
             for (int col = 1; col < 7; col++) {
                 jTable.setValueAt("", row, col); // Setzen Sie den Wert auf einen leeren String
@@ -849,7 +850,7 @@ public class MusterPanel extends javax.swing.JPanel {
     public void DefaultTableCellRenderer() {
         DefaultTableCellRenderer defaultRenderer = new DefaultTableCellRenderer();
 
-        // Setze den Renderer für alle Spalten und Zeilen
+        // sets the renderer for every row and column
         for (int i = 0; i < jTable.getColumnCount(); i++) {
             jTable.getColumnModel().getColumn(i).setCellRenderer(defaultRenderer);
         }

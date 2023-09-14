@@ -220,7 +220,7 @@ public class ReadCSVs implements Serializable {
         return dozenten;
     }
 
-    public void addLVforDozent(List<Dozent> dozenten, List<LV> lvList, List<Zug> zugList) {
+    public void addLVforDozent(List<Dozent> dozenten, List<LV> lvList) {
         for (LV lv : lvList) {
             for (Dozent dozent : dozenten) {
                 if (lv.getDozentName().equals(dozent.getName())) {
@@ -229,7 +229,9 @@ public class ReadCSVs implements Serializable {
                 }
             }
         }
-        for (Dozent dozent : dozenten) {
+    }
+    public void addLeadingZugAndChangeLVName(List<Dozent> dozenten, List<LV> lvList, List<Zug> zugList) {
+            for (Dozent dozent : dozenten) {
             for (LV lvDozent : dozent.getLV()) {
                 String name = lvDozent.getName();
                 lvDozent.setName(name + "__" + lvDozent.getLeadingZugName());

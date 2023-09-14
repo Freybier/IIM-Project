@@ -693,7 +693,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                 jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
                                 tableCellRenderer = new MyTableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
                             } else if (selectedSearchObject instanceof LV) {
-                                System.out.println("LV: " + (LV) selectedSearchObject + " LeadingZug: " + ((LV) selectedSearchObject).getLeadingZug());
+
                                 jLVListLV = ((LV) selectedSearchObject).getLeadingZug().getLV().get(selectedIndex);
                                 tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
                                 tableCellRenderer = new MyTableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((LV) selectedSearchObject).getLeadingZug().getLV());
@@ -768,38 +768,31 @@ public class MusterPanel extends javax.swing.JPanel {
 
     //All LVs from the Dozent giving the selectedLV
     public void getDozentLVforSelectedLV(LV selectedLV) {
-        for (Dozent dozent : dozentenList) {
 
-            if (selectedLV.getDozentName().equals(dozent.getName())) {
+        for (LV lvDozent : selectedLV.getDozentLV().getLV()) {
+            long lvScheduled = lvDozent.getScheduledLV();
+            for (int i = 39; i > 5; i--) {
 
-                for (LV lvDozent : dozent.getLV()) {
-                    long lvScheduled = lvDozent.getScheduledLV();
-                    for (int i = 39; i > 5; i--) {
+                if (lvScheduled % 2 == 1) {
 
-                        if (lvScheduled % 2 == 1) {
+                    int row = i % 6;
+                    int column = i / 6;
+                    String cellContent = "";
 
-                            int row = i % 6;
-                            int column = i / 6;
-                            String cellContent = "";
+                    cellContent += lvDozent.getName();
 
-                            cellContent += lvDozent.getName();
-
-                            jTable.setValueAt(cellContent, row, column);
-                            ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
-                        }
-                        lvScheduled = lvScheduled >> 1;
-                    }
+                    jTable.setValueAt(cellContent, row, column);
+                    ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
                 }
+                lvScheduled = lvScheduled >> 1;
             }
         }
     }
 
     public void setLVforJTable(LV lv) {
 
-        //System.out.println(dozentLV);
-        //System.out.println(dozentLV.getScheduledLV());
         if (lv.getScheduledLV() != 0) {
-            //System.out.println("get Scheduled LV!");
+
             long lvScheduled = lv.getScheduledLV();
             for (int i = 39; i > 5; i--) {
                 if (lvScheduled % 2 == 1) {
@@ -835,7 +828,6 @@ public class MusterPanel extends javax.swing.JPanel {
         jTable.repaint();
         List<String> checkList = new ArrayList<>();
         for (Zug zug : lv.getZugList()) {
-
             for (LV lvZug : zug.getLV()) {
                 if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
 
@@ -851,37 +843,26 @@ public class MusterPanel extends javax.swing.JPanel {
 
                             jTable.setValueAt(cellContent, row, column);
                             ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
-
                         }
                         lvScheduled = lvScheduled >> 1;
-
                     }
                 }
             }
         }
-        for (Dozent dozent : dozentenList) {
-            if (lv.getDozentName().equals(dozent.getName())) {
-                for (LV lvDozent : dozent.getLV()) {
-                    long lvScheduled = lvDozent.getScheduledLV();
-                    for (int i = 39; i > 5; i--) {
-                        if (lvScheduled % 2 == 1) {
-                            int row = i % 6;
-                            int column = i / 6;
-                            String cellContent = "";
-
-                            cellContent += lvDozent.getName();
-
-                            jTable.setValueAt(cellContent, row, column);
-                            ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
-
-                        }
-                        lvScheduled = lvScheduled >> 1;
-
-                    }
+        for (LV lvDozent : lv.getDozentLV().getLV()) {
+            long lvScheduled = lvDozent.getScheduledLV();
+            for (int i = 39; i > 5; i--) {
+                if (lvScheduled % 2 == 1) {
+                    int row = i % 6;
+                    int column = i / 6;
+                    String cellContent = "";
+                    cellContent += lvDozent.getName();
+                    jTable.setValueAt(cellContent, row, column);
+                    ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);
                 }
+                lvScheduled = lvScheduled >> 1;
             }
         }
-
     }
 
     public void setImport(List<LV> lvList, List<Dozent> dozentList, List<Zug> zugList, List<Leading> leadingList) {

@@ -96,7 +96,7 @@ public class IIMProjekt {
         readCSVs.setLVforZug(lvList, zugList);
        
         List<Leading> leadingList = readCSVs.getLeadingList();
-        
+        readCSVs.addDozentToLV(dozentenList, lvList);
         
         StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList, leadingList); 
         TestYann testYann = new TestYann();

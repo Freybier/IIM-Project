@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class LV implements Serializable {
 
-    private  String name;
+    private String name;
     private final String fullName;
     private long scheduledLV = 0;
     private final String dozentName;
@@ -27,7 +27,7 @@ public class LV implements Serializable {
     private final boolean geblockt;
     private final String lva;
     private Zug leadingZug;
-    
+    private Dozent dozentLV;
 
     public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva) {
         this.name = name;
@@ -37,24 +37,25 @@ public class LV implements Serializable {
         this.sws = sws;
         try {
             Double check = Double.valueOf(sws);
-            if(check%0.5 == 0){
+            if (check % 0.5 == 0) {
                 check = (check + 0.5);
             }
-            if(check%2 != 0){
+            if (check % 2 != 0) {
                 check++;
-            } 
-        this.swsBlocks = (int)(check/2);
-        
+            }
+            this.swsBlocks = (int) (check / 2);
+
         } catch (NumberFormatException e) {
-            
+
         }
         this.geblockt = geblockt;
         this.lva = lva;
     }
 
-    public void setName(String  name){
+    public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
@@ -94,18 +95,23 @@ public class LV implements Serializable {
     public String getSWS() {
         return this.sws;
     }
+
     public int getSWSBlocks() {
         return this.swsBlocks;
     }
+
     public int getSWSBlocksTook() {
         return this.swsBlocksTook;
-    }    
+    }
+
     public void substractOneSWSBlocksTook() {
         this.swsBlocksTook--;
     }
+
     public void addOneSWSBlocksTook() {
         this.swsBlocksTook++;
     }
+
     public boolean getGeblockt() {
         return this.geblockt;
     }
@@ -113,25 +119,35 @@ public class LV implements Serializable {
     public String getLVA() {
         return this.lva;
     }
-    
-    public void setLeadingZugName(String leadingZugName){
+
+    public void setLeadingZugName(String leadingZugName) {
         this.leadingZugName = leadingZugName;
     }
-    public String getLeadingZugName(){
+
+    public String getLeadingZugName() {
         return leadingZugName;
     }
-    public void setLeadingZug(Zug leadingZug){
+
+    public void setLeadingZug(Zug leadingZug) {
         this.leadingZug = leadingZug;
     }
-    public Zug getLeadingZug(){
+
+    public Zug getLeadingZug() {
         return leadingZug;
+    }
+
+    public void setDozentLV(Dozent dozentLV) {
+        this.dozentLV = dozentLV;
+    }
+
+    public Dozent getDozentLV() {
+        return dozentLV;
     }
 
     @Override
     public String toString() {
         return name;
-                
-    }
 
+    }
 
 }

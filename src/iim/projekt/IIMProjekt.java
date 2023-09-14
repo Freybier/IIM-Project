@@ -86,7 +86,7 @@ public class IIMProjekt {
         
         
         dozentenList = readCSVs.addDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath, lvList);
-        readCSVs.addLVforDozent(dozentenList, lvList);
+        readCSVs.addLVforDozent(dozentenList, lvList, zugList);
         
         readCSVs.addZugToLV(lvList, zugList);
         

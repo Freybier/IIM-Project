@@ -185,7 +185,7 @@ public class ReadCSVs implements Serializable {
                         Leading leadingObj = new Leading(lvKuerzel, zugDozent, zugName);
                         leadingObj.setLeadingLV(matchingLV);
                         leading.add(leadingObj);
-                        matchingLV.setLeadingZug(newZug);
+                        //matchingLV.setLeadingZug(newZug);
                     }
                 }
             }
@@ -220,7 +220,7 @@ public class ReadCSVs implements Serializable {
         return dozenten;
     }
 
-    public void addLVforDozent(List<Dozent> dozenten, List<LV> lvList) {
+    public void addLVforDozent(List<Dozent> dozenten, List<LV> lvList, List<Zug> zugList) {
         for (LV lv : lvList) {
             for (Dozent dozent : dozenten) {
                 if (lv.getDozentName().equals(dozent.getName())) {
@@ -233,6 +233,11 @@ public class ReadCSVs implements Serializable {
             for (LV lvDozent : dozent.getLV()) {
                 String name = lvDozent.getName();
                 lvDozent.setName(name + "__" + lvDozent.getLeadingZugName());
+                for(Zug zug: zugList){
+                    if(lvDozent.getLeadingZugName().equals(zug.getName())){
+                        lvDozent.setLeadingZug(zug);
+                    }
+                }
             }
         }
     }

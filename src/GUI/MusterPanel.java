@@ -688,13 +688,14 @@ public class MusterPanel extends javax.swing.JPanel {
                                 tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
                                 System.out.println("Zug search");
                                 
+                                tableCellRenderer = new MyTableCellRenderer(((Dozent) selectedSearchObject), dozentenList, ((Dozent) selectedSearchObject).getLV());
                                 
                             }
                             else if(selectedSearchObject instanceof Dozent){
                              jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
                              tableCellRenderer = new MyTableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
                              System.out.println("Dozent search");
-                             tableCellRenderer = new MyTableCellRenderer(((Dozent) selectedSearchObject), dozentenList, ((Dozent) selectedSearchObject).getLV());
+                          
                              
                              
                             }

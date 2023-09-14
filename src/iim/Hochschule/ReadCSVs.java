@@ -278,5 +278,16 @@ public class ReadCSVs implements Serializable {
     public List<Leading> getLeadingList() {
         return leading;
     }
+    
+    public void addDozentToLV(List<Dozent> dozentList, List<LV> lvList){
+        for(LV lv :lvList){
+            for(Dozent dozent: dozentList){
+                if(lv.getDozentName().equals(dozent.getName())){
+                    lv.setDozentLV(dozent);
+                    break;
+                }
+            }
+        }
+    }
 
 }

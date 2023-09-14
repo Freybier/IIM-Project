@@ -44,7 +44,8 @@ public class MusterPanel extends javax.swing.JPanel {
     public MyTableCellRenderer tableCellRenderer;
     public CustomListCellRenderer listCellRenderer;
     public JTabbedPane jTabbedPane1;
-
+    public Object selectedSearchObject;
+    public LV jLVListLV;
     /**
      * Creates new form MusterPanel
      */
@@ -279,14 +280,15 @@ public class MusterPanel extends javax.swing.JPanel {
         jRadioZug.repaint();
         jRadioZug.revalidate();
 
-        Object selectedObject = sucheList.getSelectedValue();
+        this.selectedSearchObject = sucheList.getSelectedValue();
 
+        //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
         int tabIndex = jTabbedPane1.getSelectedIndex();
-        String jLabelText = selectedObject.toString();
-        
+        String jLabelText = selectedSearchObject.toString();
+
         // different if-statements for changing the input of the list, differentiated for each class
         // for Zug and Dozent, the jLVList if filled with the LVs belonging to the Zug or Dozent respectively
-        if (selectedObject instanceof Zug) {
+        if (selectedSearchObject instanceof Zug) {
 
             jLabelName.setText(jLabelText);
             // if-construction for not changing the Handtuch-Title
@@ -295,19 +297,19 @@ public class MusterPanel extends javax.swing.JPanel {
                 jTabbedPane1.setTitleAt(tabIndex, jLabelText);
             }
             // set content of jLvList
-            jLVList.setModel(setLVZugList((Zug) selectedObject));
+            jLVList.setModel(setLVZugList((Zug) selectedSearchObject));
 
-        } else if (selectedObject instanceof Dozent) {
+        } else if (selectedSearchObject instanceof Dozent) {
             // changing the title of the tab
-            jLabelName.setText(selectedObject.toString());
+            jLabelName.setText(selectedSearchObject.toString());
             // set content of jLvList
-            jLVList.setModel(setLVDozentList((Dozent) selectedObject));
+            jLVList.setModel(setLVDozentList((Dozent) selectedSearchObject));
 
-        } else if (selectedObject instanceof LV) {
-            updateInfoPanel((LV) selectedObject);
+        } else if (selectedSearchObject instanceof LV) {
+            updateInfoPanel((LV) selectedSearchObject);
             // when directly selecting an LV in the List, open the list of the leading Zug and select the previous chosen LV      
-            jLabelText = ((LV)selectedObject).getLeadingZugName();
-            
+            jLabelText = ((LV) selectedSearchObject).getLeadingZugName();
+
             jLabelName.setText(jLabelText);
             // if-construction for not changing the Handtuch-Title
             if (tabIndex != 0) {
@@ -317,11 +319,12 @@ public class MusterPanel extends javax.swing.JPanel {
             // set content of jLvList
             jLVList.setModel(setLVZugList( ((LV) selectedObject).getLeadingZug()));
             // when clicking on a LV as search result, automatically "click" on the same object in jLVList
+
             for (int i = 0; i <= jLVList.getLastVisibleIndex(); i++) {
                 String itemName = jLVList.getModel().getElementAt(i).toString();
 
-                if (itemName.contains(selectedObject.toString())) {
-                    
+                if (itemName.contains(selectedSearchObject.toString())) {
+
                     jLVList.setSelectedIndex(i);
                     break;
                 }
@@ -337,6 +340,7 @@ public class MusterPanel extends javax.swing.JPanel {
         // switching flags to prevent the DoZuComboBox-action-listener from throwing an error
         this.radioButtonZugBoolean = false;
         this.radioButtonDozentBoolean = true;
+        this.selectedSearchObject = null;
         // sets back jComboBox
         jComboDoZug.removeAllItems();
         updateDozentComboBox(dozentenList, jComboDoZug);
@@ -348,6 +352,7 @@ public class MusterPanel extends javax.swing.JPanel {
         // switching flags to prevent the DoZuComboBox-action-listener from throwing an error
         this.radioButtonDozentBoolean = false;
         this.radioButtonZugBoolean = true;
+        this.selectedSearchObject = null;
         // sets back jComboBox
         jComboDoZug.removeAllItems();
         updateZugComboBox(this.zugList, jComboDoZug);
@@ -648,7 +653,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
                         // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
                         int selectedIndex = jLVList.getSelectedIndex();
-                        LV selectedLV = null;
+                        jLVListLV = null;
                         // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
                         if (radioButtonZugBoolean || radioButtonDozentBoolean) {
 
@@ -669,37 +674,44 @@ public class MusterPanel extends javax.swing.JPanel {
                             if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
 
                                 Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
-                                selectedLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
-                                tableTransferHandler.setDozentenName(selectedLV.getDozentName());
+                                jLVListLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
+                                tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
                             } else if (!radioButtonZugBoolean && radioButtonDozentBoolean) {
 
                                 Dozent selectedDozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
-                                selectedLV = selectedDozent.getLV().get(selectedIndex);
+                                jLVListLV = selectedDozent.getLV().get(selectedIndex);
 
                             }
                         } else {
-                            for (Zug zug : zugList) {
-                                if (zug.getName().equals(jLabelName.getText())) {
-                                    selectedLV = zug.getLV().get(selectedIndex);
-                                    tableTransferHandler.setDozentenName(selectedLV.getDozentName());
-                                }
+                            if(selectedSearchObject instanceof Zug){
+                                jLVListLV = ((Zug) selectedSearchObject).getLV().get(selectedIndex);
+                                tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
+                                System.out.println("Zug search");
+                                
+                                
                             }
-                            for (Dozent dozent : dozentenList) {
-                                if (dozent.getName().equals(jLabelName.getText())) {
-                                    selectedLV = dozent.getLV().get(selectedIndex);
-                                }
+                            else if(selectedSearchObject instanceof Dozent){
+                             jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
+                             tableCellRenderer = new MyTableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
+                             System.out.println("Dozent search");
+                             tableCellRenderer = new MyTableCellRenderer(((Dozent) selectedSearchObject), dozentenList, ((Dozent) selectedSearchObject).getLV());
+                             
+                             
                             }
+                           
                         }
 
                         // Hier überprüfen, ob selectedLV nicht null ist
-                        if (selectedLV != null) {
+                        if (jLVListLV != null) {
+                            
+                            
                             // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
-                            updateInfoPanel(selectedLV);
+                            updateInfoPanel(jLVListLV);
                             jTable.revalidate();
                             jTable.repaint();
 
                             for (Dozent dozent : dozentenList) {
-                                if (selectedLV.getDozentName().equals(dozent.getName())) {
+                                if (jLVListLV.getDozentName().equals(dozent.getName()) && dozent.getDoesHavePVZeiten()) {
 
                                     for (Dozent dozentLable : dozentenList) {
                                         if (jLabelName.getText().equals(dozentLable.getName())) {
@@ -719,13 +731,14 @@ public class MusterPanel extends javax.swing.JPanel {
                                     }
                                     //setLVforJTable(dozent);
                                     //§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-                                } else if (selectedLV.getDozentName().equals("-") || selectedLV.getDozentName().equals("_")) {
+                                } else {
+                                    
                                     DefaultTableCellRenderer();
                                 }
 
                             }
 
-                            getZugLVandDozentLVforSelectedLVinTable(selectedLV);
+                            getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
                             // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
                         }
                     }

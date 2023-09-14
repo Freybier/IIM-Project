@@ -48,6 +48,7 @@ public class MusterPanel extends javax.swing.JPanel {
     public JTabbedPane jTabbedPane1;
     public Object selectedSearchObject;
     public LV jLVListLV;
+
     /**
      * Creates new form MusterPanel
      */
@@ -682,69 +683,35 @@ public class MusterPanel extends javax.swing.JPanel {
 
                             }
                         } else {
-                            if(selectedSearchObject instanceof Zug){
+                            if (selectedSearchObject instanceof Zug) {
                                 jLVListLV = ((Zug) selectedSearchObject).getLV().get(selectedIndex);
                                 tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
-                                System.out.println("Zug search");
-                                
-                                tableCellRenderer = new MyTableCellRenderer(((Dozent) selectedSearchObject), dozentenList, ((Dozent) selectedSearchObject).getLV());
-                                
-                            }
-                            else if(selectedSearchObject instanceof Dozent){
-                             jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
-                             tableCellRenderer = new MyTableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
-                             System.out.println("Dozent search");
-                          
-                             
-                             
-                            }
-                           
-                        }
+                                tableCellRenderer = new MyTableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((Zug) selectedSearchObject).getLV());
 
+                            } else if (selectedSearchObject instanceof Dozent) {
+                                jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
+                                tableCellRenderer = new MyTableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
+                            }
+                        }
                         // Hier überprüfen, ob selectedLV nicht null ist
                         if (jLVListLV != null) {
-                            
-                            
+                           for (int i = 1; i < 7; i++) {
+                                jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
+                            }
+                            if (!jLVListLV.getDozentLV().getDoesHavePVZeiten()) {
+                                DefaultTableCellRenderer();
+                            }                           
+                            getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
+                           
                             // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
                             updateInfoPanel(jLVListLV);
                             jTable.revalidate();
                             jTable.repaint();
-
-                            for (Dozent dozent : dozentenList) {
-                                if (jLVListLV.getDozentName().equals(dozent.getName()) && dozent.getDoesHavePVZeiten()) {
-
-                                    for (Dozent dozentLable : dozentenList) {
-                                        if (jLabelName.getText().equals(dozentLable.getName())) {
-                                            tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, dozent.getLV());
-                                        }
-                                    }
-
-                                    for (Zug zugLable : zugList) {
-                                        if (jLabelName.getText().equals(zugLable.getName())) {
-                                            tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, zugLable.getLV());
-                                        }
-                                    }
-
-                                    //tableCellRenderer.setZug(null);
-                                    for (int i = 1; i < 7; i++) {
-                                        jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
-                                    }
-                                    //setLVforJTable(dozent);
-                                    //§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-                                } else {
-                                    
-                                    DefaultTableCellRenderer();
-                                }
-
-                            }
-
-                            getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
                             // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
                         }
                     }
                 }
             }
-
         });
     }
 

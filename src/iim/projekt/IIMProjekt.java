@@ -16,7 +16,6 @@ import java.util.List;
 import iim.Handtuch.ReadHandtuch2;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
-import GUI.TestYann;
 import iim.Hochschule.LV;
 import iim.Hochschule.Leading;
 import iim.Hochschule.ReadCSVs;
@@ -99,8 +98,6 @@ public class IIMProjekt {
         
         
         StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList, leadingList); 
-        TestYann testYann = new TestYann();
-        testYann.frame();
         
         
 }

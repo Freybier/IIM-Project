@@ -29,6 +29,7 @@ public class ListTransferHandler extends TransferHandler {
         if (selectedValue != null) {
             String selectedString = selectedValue.toString();
             return new StringSelection(selectedString);
+            
         } else {
             return null;
         }

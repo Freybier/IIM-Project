@@ -18,6 +18,7 @@ public class LV implements Serializable {
     private final String fullName;
     private long scheduledLV = 0;
     private final String dozentName;
+    private String secondDozentName;
     private List<String> zugNameList = new ArrayList<>();
     private String leadingZugName;
     private final List<Zug> zugList = new ArrayList<>();
@@ -28,8 +29,9 @@ public class LV implements Serializable {
     private final String lva;
     private Zug leadingZug;
     private Dozent dozentLV;
+    private Dozent secondDozentLV;
 
-    public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva) {
+    public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva, String secondDozentName) {
         this.name = name;
         this.fullName = fullName;
         //this.po = po;
@@ -50,6 +52,7 @@ public class LV implements Serializable {
         }
         this.geblockt = geblockt;
         this.lva = lva;
+        this.secondDozentName = secondDozentName;
     }
 
     public void setName(String name) {
@@ -142,6 +145,17 @@ public class LV implements Serializable {
 
     public Dozent getDozentLV() {
         return dozentLV;
+    }
+
+    public void setSecondDozentLV(Dozent secondDozentLV) {
+        this.secondDozentLV = secondDozentLV;
+    }
+
+    public Dozent getSecondDozentLV() {
+        return secondDozentLV;
+    }
+    public String getSecondDozentName() {
+        return secondDozentName;
     }
 
     @Override

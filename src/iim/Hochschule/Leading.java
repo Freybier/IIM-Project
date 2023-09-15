@@ -20,6 +20,8 @@ public class Leading implements Serializable {
     private String zug;
 
     private LV lvObject;
+    private Zug zugObject;
+    private Dozent dozentObject;
     
     
 
@@ -45,7 +47,7 @@ public class Leading implements Serializable {
     public String getZug(){
         return zug;
     }
-    public void setLeadingLV(LV lvObject){
+    public void setLVObject(LV lvObject){
         this.lvObject = lvObject;
     }
     public LV getLVObject(){

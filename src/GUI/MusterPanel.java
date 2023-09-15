@@ -521,7 +521,6 @@ public class MusterPanel extends javax.swing.JPanel {
             for (int i = 1; i < 7; i++) {
                 jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
             }
-            int i = 1;
             for (LV lvElement : dozent.getLV()) {
 
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();

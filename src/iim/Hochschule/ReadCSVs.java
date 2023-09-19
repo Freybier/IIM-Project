@@ -71,6 +71,7 @@ public class ReadCSVs implements Serializable {
             int swsIndex = getColumnIndex("SWS", header);
             int geblocktIndex = getColumnIndex("geblockt", header);
             int lvaIndex = getColumnIndex("LVA", header);
+            int secondDozentIndex = getColumnIndex("2. Dozent", header);
             //int i = 0;
 
             while ((line = br.readLine()) != null) {
@@ -83,6 +84,7 @@ public class ReadCSVs implements Serializable {
                 String geblocktValue = parts[geblocktIndex];
                 boolean geblockt = geblocktValue.equalsIgnoreCase("true");
                 String lva = parts[lvaIndex];
+                String secondDozentName = parts[secondDozentIndex];
 
                 if (!stringSet.contains(dozentName)) {
                     //Because we have LVs for more than one Zug(example: (LV)1.GLI: (Zug)[ID1, II1, II2, MT1])
@@ -94,7 +96,7 @@ public class ReadCSVs implements Serializable {
                     //RIGHT: (LV)1.GLI: (Zug)[ID1, II1, II2, MT1])
                     //First we add to each LV the Leading Zug name.
                     //The the other Zug names,if the LV has mutilple Zugs, are added in the method: setLVsWithMoreZug
-                    LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva);
+                    LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva, secondDozentName);
                     newLV.addZugToNameList(zugName);
                     newLV.setLeadingZugName(zugName);
                     lvList.add(newLV);
@@ -183,7 +185,7 @@ public class ReadCSVs implements Serializable {
                     //If found, the Leading Object is added
                     if (matchingLV != null) {
                         Leading leadingObj = new Leading(lvKuerzel, zugDozent, zugName);
-                        leadingObj.setLeadingLV(matchingLV);
+                        leadingObj.setLVObject(matchingLV);
                         leading.add(leadingObj);
                         //matchingLV.setLeadingZug(newZug);
                     }
@@ -230,19 +232,24 @@ public class ReadCSVs implements Serializable {
             }
         }
     }
+
     public void addLeadingZugAndChangeLVName(List<Dozent> dozenten, List<LV> lvList, List<Zug> zugList) {
-            for (Dozent dozent : dozenten) {
+        for (Dozent dozent : dozenten) {
             for (LV lvDozent : dozent.getLV()) {
                 String name = lvDozent.getName();
                 lvDozent.setName(name + "__" + lvDozent.getLeadingZugName());
-                for(Zug zug: zugList){
-                    if(lvDozent.getLeadingZugName().equals(zug.getName())){
+                for (Zug zug : zugList) {
+                    if (lvDozent.getLeadingZugName().equals(zug.getName())) {
                         lvDozent.setLeadingZug(zug);
                     }
+
                 }
             }
         }
     }
+
+    
+    
 
     public void addZugToLV(List<LV> lvList, List<Zug> zugList) {
         //Now that we have the Zug Objects we can add them to the corresponding LV Objects
@@ -285,12 +292,18 @@ public class ReadCSVs implements Serializable {
     public List<Leading> getLeadingList() {
         return leading;
     }
-    
-    public void addDozentToLV(List<Dozent> dozentList, List<LV> lvList){
-        for(LV lv :lvList){
-            for(Dozent dozent: dozentList){
-                if(lv.getDozentName().equals(dozent.getName())){
+
+    public void addDozentToLV(List<Dozent> dozentList, List<LV> lvList) {
+        for (LV lv : lvList) {
+            for (Dozent dozent : dozentList) {
+                if (lv.getDozentName().equals(dozent.getName())) {
                     lv.setDozentLV(dozent);
+                    break;
+                }
+            }
+            for (Dozent dozent : dozentList) {
+                if (lv.getSecondDozentName().equals(dozent.getName())) {
+                    lv.setSecondDozentLV(dozent);
                     break;
                 }
             }

@@ -115,6 +115,7 @@ public class TableTransferHandler extends TransferHandler {
                             if (lv.getDozentName().equals(doz.getName())) {
                                 dozentScheduled = dozentScheduled | doz.getScheduledDozent();
                                 doz.setScheduledDozent(dozentScheduled);
+                                //lv.getSecondDozentLV().setScheduledDozent(dozentScheduled);
                             }
                         }
                         

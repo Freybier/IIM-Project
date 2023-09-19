@@ -96,7 +96,7 @@ public class ReadCSVs implements Serializable {
                     //RIGHT: (LV)1.GLI: (Zug)[ID1, II1, II2, MT1])
                     //First we add to each LV the Leading Zug name.
                     //The the other Zug names,if the LV has mutilple Zugs, are added in the method: setLVsWithMoreZug
-                    LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva, secondDozentName);
+                    LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva, secondDozentName, lvKuerzel, dozentName);
                     newLV.addZugToNameList(zugName);
                     newLV.setLeadingZugName(zugName);
                     lvList.add(newLV);

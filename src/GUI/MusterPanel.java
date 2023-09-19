@@ -396,6 +396,7 @@ public class MusterPanel extends javax.swing.JPanel {
                             }
                         }
                     }
+                    //
                     if (getObjectFromName(check, zugList) instanceof Zug) {
                         for (Zug zugTable : zugList) {
                             if (zugTable.getName().equals(check)) {

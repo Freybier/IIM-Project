@@ -39,7 +39,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     //public JTable jTable;
     public TableTransferHandler tableTransferHandler;
 
-    public MyTableCellRenderer tableCellRenderer;
+    public TableCellRenderer tableCellRenderer;
     public CustomListCellRenderer listCellRenderer;
     private boolean isAddingTab = false;
 

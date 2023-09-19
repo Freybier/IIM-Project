@@ -4,25 +4,27 @@
  */
 package GUI;
 
+import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
 import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+
 /**
  *
  * @author Frey
  */
 public class CreateSetzer {
-    
+
     public List<Zug> zugList;
-    
-    public CreateSetzer(List<Zug> zugList){
+
+    public CreateSetzer(List<Zug> zugList) {
         this.zugList = zugList;
         createFile();
     }
-    
-    public void createFile(){
+
+    public void createFile() {
         String csvFilePath = "Data/setzer.csv";
         try {
             // Create a FileWriter and BufferedWriter to write to the CSV file
@@ -30,13 +32,22 @@ public class CreateSetzer {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             // Loop to write data to the CSV file
-            for (int i = 1; i <= 10; i++) {
-                // Generate some sample data (e.g., numbers and strings)
-                String data = "Row " + i + "," + "Value " + i + "," + (i * 2);
-
-                // Write the data to the CSV file
-                bufferedWriter.write(data);
-                bufferedWriter.newLine(); // Add a new line for the next row
+            for (Zug zug : zugList) {
+                for (LV lv : zug.getLV()) {
+                    long sceduler = lv.getScheduledLV();
+                    for(int i = 1; i<=34; i++){
+                        String data;
+                        if(sceduler%2==1){
+                            data = lv.getNickName;
+                        }
+                        sceduler = sceduler >> 1;
+                        // Generate some sample data (e.g., numbers and strings)
+                        
+                        // Write the data to the CSV file
+                        bufferedWriter.write(data);
+                        bufferedWriter.newLine(); // Add a new line for the next row
+                    }
+                }
             }
 
             // Close the BufferedWriter and FileWriter

@@ -373,52 +373,57 @@ public class MusterPanel extends javax.swing.JPanel {
             if (row >= 0 && col >= 1) {
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
-                    System.out.println(cellValue);
                     String cellString = (String) cellValue;
+                    // use the last chosen Dozent/Zug
                     String check = jLabelName.getText();
-                    for (Dozent dozentTable : dozentenList) {
-                        if (dozentTable.getName().equals(check)) {
-                            for (LV lvDozentTable : dozentTable.getLV()) {
-                                if (lvDozentTable.getName().equals(cellString)) {
-                                    int checkSum = 33 - ((col) * 6) + (6 - row);
-                                    long delete = 1;
-                                    delete = delete << checkSum;
-                                    lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
-                                    dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
-                                    lvDozentTable.substractOneSWSBlocksTook();
-                                    tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
-                                    jTable.setValueAt("", row, col);
-                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
-                                    jTable.revalidate();
-                                    jTable.repaint();
+                    // using bit-shift to manipulate the data
+                    // need to ask yann for further explanation
+                    int checkSum = 33 - ((col) * 6) + (6 - row);
+                    long delete = 1 << checkSum;
+                    // if the to-delete-Object is instance of Dozent, we note that in the DozentenList
+                    // Führt im Vergleich zum Main branch fehler beim löschen aus(manchmal aber auch nicht)
+                    if (getObjectFromName(check, dozentenList) instanceof Dozent) {
+                        for (Dozent dozentTable : dozentenList) {
+                            if (dozentTable.getName().equals(check)) {
+                                for (LV lvDozentTable : dozentTable.getLV()) {
+                                    if (lvDozentTable.getName().equals(cellString)) {
+                                        lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
+                                        dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
+                                        lvDozentTable.substractOneSWSBlocksTook();
+                                        tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
+                                        jTable.setValueAt("", row, col);
+                                        jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
-                    for (Zug zugTable : zugList) {
-                        if (zugTable.getName().equals(check)) {
-                            for (LV lvZugTable : zugTable.getLV()) {
-                                if (lvZugTable.getName().equals(cellValue)) {
-                                    int checkSum = 33 - ((col) * 6) + (6 - row);
-                                    long delete = 1;
-                                    delete = delete << checkSum;
-                                    lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
-                                    String dozentLVName = lvZugTable.getDozentName();
-                                    for (Dozent dozentLV : dozentenList) {
-                                        if (dozentLV.getName().equals(dozentLVName)) {
-                                            dozentLV.setScheduledDozent(dozentLV.getScheduledDozent() ^ delete);
-                                            lvZugTable.substractOneSWSBlocksTook();
-                                            tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList, zugTable.getLV());
-                                            jTable.setValueAt("", row, col);
-                                            jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
-                                            jTable.revalidate();
-                                            jTable.repaint();
+                    if (getObjectFromName(check, zugList) instanceof Zug) {
+                        for (Zug zugTable : zugList) {
+                            if (zugTable.getName().equals(check)) {
+                                for (LV lvZugTable : zugTable.getLV()) {
+                                    if (lvZugTable.getName().equals(cellValue)) {
+                                        lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
+                                        String dozentLVName = lvZugTable.getDozentName();
+                                        for (Dozent dozentLV : dozentenList) {
+                                            if (dozentLV.getName().equals(dozentLVName)) {
+                                                dozentLV.setScheduledDozent(dozentLV.getScheduledDozent() ^ delete);
+                                                lvZugTable.substractOneSWSBlocksTook();
+                                                tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList, zugTable.getLV());
+                                                jTable.setValueAt("", row, col);
+                                                jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
+                                                
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
+
+                    jTable.revalidate();
+                    jTable.repaint();
                 }
             }
         }
@@ -796,8 +801,6 @@ public class MusterPanel extends javax.swing.JPanel {
 
     public void setLVforJTable(LV lv) {
 
-        //System.out.println(dozentLV);
-        //System.out.println(dozentLV.getScheduledLV());
         if (lv.getScheduledLV() != 0) {
             //System.out.println("get Scheduled LV!");
             long lvScheduled = lv.getScheduledLV();

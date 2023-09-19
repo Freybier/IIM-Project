@@ -739,7 +739,7 @@ public class MusterPanel extends javax.swing.JPanel {
             System.out.println("Zug list from selectedLV: " + selectedLV.getZugList());
             // List<String> checkList = new ArrayList<>();
             for (LV lvZug : zug.getLV()) {
-
+ //
                 if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
 
                     long lvScheduled = lvZug.getScheduledLV();

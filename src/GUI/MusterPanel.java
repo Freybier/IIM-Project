@@ -377,11 +377,9 @@ public class MusterPanel extends javax.swing.JPanel {
                     // use the last chosen Dozent/Zug
                     String check = jLabelName.getText();
                     // using bit-shift to manipulate the data
-                    // need to ask yann for further explanation
+                    // 33 is the amount of time-blocks, and with the algorithm we empty the correct block
                     int checkSum = 33 - ((col) * 6) + (6 - row);
                     long delete = 1 << checkSum;
-                    // if the to-delete-Object is instance of Dozent, we note that in the DozentenList
-                    // Führt im Vergleich zum Main branch fehler beim löschen aus(manchmal aber auch nicht)
                     if (getObjectFromName(check, dozentenList) instanceof Dozent) {
                         for (Dozent dozentTable : dozentenList) {
                             if (dozentTable.getName().equals(check)) {
@@ -389,48 +387,36 @@ public class MusterPanel extends javax.swing.JPanel {
                                     if (lvDozentTable.getName().equals(cellString)) {
                                         lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
                                         dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
-                                        //if(lvDozentTable.getSecondDozentLV() != null)
-                                        //lvDozentTable.getSecondDozentLV().setScheduledDozent(lvDozentTable.getSecondDozentLV().getScheduledDozent() ^ delete);
                                         lvDozentTable.substractOneSWSBlocksTook();
-                                        tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
+                                        tableCellRenderer = new TableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
                                         jTable.setValueAt("", row, col);
                                         jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
-                                        break;
                                     }
                                 }
                             }
                         }
                     }
+                    //
                     if (getObjectFromName(check, zugList) instanceof Zug) {
-                         for (Zug zugTable : zugList) {
-                        if (zugTable.getName().equals(check)) {
-                            for (LV lvZugTable : zugTable.getLV()) {
-                                if (lvZugTable.getName().equals(cellValue)) {
-                                    int checkSum = 33 - ((col) * 6) + (6 - row);
-                                    long delete = 1;
-                                    delete = delete << checkSum;
-                                    lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
+                        for (Zug zugTable : zugList) {
+                            if (zugTable.getName().equals(check)) {
+                                for (LV lvZugTable : zugTable.getLV()) {
+                                    if (lvZugTable.getName().equals(cellValue)) {
+                                        lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
+                                        lvZugTable.getDozentLV().setScheduledDozent(lvZugTable.getDozentLV().getScheduledDozent() ^ delete);
+                                        lvZugTable.substractOneSWSBlocksTook();
+                                        tableCellRenderer = new TableCellRenderer(lvZugTable.getDozentLV(), dozentenList, zugTable.getLV());
+                                        jTable.setValueAt("", row, col);
+                                        jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
 
-                                    lvZugTable.getDozentLV().setScheduledDozent(lvZugTable.getDozentLV().getScheduledDozent() ^ delete);
-                                    //if( lvZugTable.getSecondDozentLV()!= null)
-                                    //lvZugTable.getSecondDozentLV().setScheduledDozent(lvZugTable.getSecondDozentLV().getScheduledDozent() ^ delete);
-                                    lvZugTable.substractOneSWSBlocksTook();
-                                    tableCellRenderer = new TableCellRenderer(lvZugTable.getDozentLV(), dozentenList, zugTable.getLV());
-                                    jTable.setValueAt("", row, col);
-                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
-                                                
-                                            }
-                                        }
                                     }
-
                                 }
                             }
                         }
                     }
-
-                    jTable.revalidate();
-                    jTable.repaint();
                 }
+                jTable.revalidate();
+                jTable.repaint();
             }
         }
     }//GEN-LAST:event_jTableMouseClicked
@@ -559,7 +545,7 @@ public class MusterPanel extends javax.swing.JPanel {
             tableTransferHandler.setObject(zug);
             tableTransferHandler.setLVJLVList(zug.getLV());
 
-           // int i = 1;
+            // int i = 1;
             for (LV lvElement : zug.getLV()) {
                 //listModel.addElement(lvElement.getName());
                 setLVforJTable(lvElement);
@@ -655,52 +641,52 @@ public class MusterPanel extends javax.swing.JPanel {
 
         jLVList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
-                
+
                 // Überprüfen Sie, ob ein Element ausgewählt wurde
                 if (!jLVList.isSelectionEmpty()) {
-                    
+
                     // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
                     int selectedIndex = jLVList.getSelectedIndex();
                     jLVListLV = null;
                     // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
                     if (radioButtonZugBoolean || radioButtonDozentBoolean) {
-                        
+
                         int tabIndex = jTabbedPane1.getSelectedIndex();
                         String jLabelText = jComboDoZug.getSelectedItem().toString();
-                        
+
                         //Sets the Name in the top left corner of the Panel
                         jLabelName.setText(jLabelText);
                         // if-construction for not changing the Handtuch-Title
                         if (tabIndex != 0) {
-                            
+
                             jTabbedPane1.setTitleAt(tabIndex, jLabelText);
                         }
-                        
+
                         // Direkter Zugriff auf das ausgewählte Dozenten- oder Zug-Objekt
                         //The Radiobuttons decides wich variable radioButtonZugBoolean or radioButtonDozentBoolean is true respectively false
                         //
                         if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
-                            
+
                             Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
                             jLVListLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
                             tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
                         } else if (!radioButtonZugBoolean && radioButtonDozentBoolean) {
-                            
+
                             Dozent selectedDozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
                             jLVListLV = selectedDozent.getLV().get(selectedIndex);
-                            
+
                         }
                     } else {
                         if (selectedSearchObject instanceof Zug) {
                             jLVListLV = ((Zug) selectedSearchObject).getLV().get(selectedIndex);
                             tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
                             tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((Zug) selectedSearchObject).getLV());
-                            
+
                         } else if (selectedSearchObject instanceof Dozent) {
                             jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
                             tableCellRenderer = new TableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
                         } else if (selectedSearchObject instanceof LV) {
-                            
+
                             jLVListLV = ((LV) selectedSearchObject).getLeadingZug().getLV().get(selectedIndex);
                             tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
                             tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((LV) selectedSearchObject).getLeadingZug().getLV());
@@ -715,7 +701,7 @@ public class MusterPanel extends javax.swing.JPanel {
                             DefaultTableCellRenderer();
                         }
                         getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
-                        
+
                         // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
                         updateInfoPanel(jLVListLV);
                         jTable.revalidate();

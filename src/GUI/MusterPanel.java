@@ -41,7 +41,7 @@ public class MusterPanel extends javax.swing.JPanel {
     public TableTransferHandler tableTransferHandler;
     public Boolean radioButtonZugBoolean;
     public Boolean radioButtonDozentBoolean;
-    public MyTableCellRenderer tableCellRenderer;
+    public TableCellRenderer tableCellRenderer;
     public CustomListCellRenderer listCellRenderer;
     public JTabbedPane jTabbedPane1;
     public Object selectedSearchObject;
@@ -385,8 +385,10 @@ public class MusterPanel extends javax.swing.JPanel {
                                     delete = delete << checkSum;
                                     lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
                                     dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
+                                    //if(lvDozentTable.getSecondDozentLV() != null)
+                                    //lvDozentTable.getSecondDozentLV().setScheduledDozent(lvDozentTable.getSecondDozentLV().getScheduledDozent() ^ delete);
                                     lvDozentTable.substractOneSWSBlocksTook();
-                                    tableCellRenderer = new MyTableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
+                                    tableCellRenderer = new TableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
                                     jTable.setValueAt("", row, col);
                                     jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
                                     jTable.revalidate();
@@ -403,18 +405,17 @@ public class MusterPanel extends javax.swing.JPanel {
                                     long delete = 1;
                                     delete = delete << checkSum;
                                     lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
-                                    String dozentLVName = lvZugTable.getDozentName();
-                                    for (Dozent dozentLV : dozentenList) {
-                                        if (dozentLV.getName().equals(dozentLVName)) {
-                                            dozentLV.setScheduledDozent(dozentLV.getScheduledDozent() ^ delete);
-                                            lvZugTable.substractOneSWSBlocksTook();
-                                            tableCellRenderer = new MyTableCellRenderer(dozentLV, dozentenList, zugTable.getLV());
-                                            jTable.setValueAt("", row, col);
-                                            jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
-                                            jTable.revalidate();
-                                            jTable.repaint();
-                                        }
-                                    }
+
+                                    lvZugTable.getDozentLV().setScheduledDozent(lvZugTable.getDozentLV().getScheduledDozent() ^ delete);
+                                    //if( lvZugTable.getSecondDozentLV()!= null)
+                                    //lvZugTable.getSecondDozentLV().setScheduledDozent(lvZugTable.getSecondDozentLV().getScheduledDozent() ^ delete);
+                                    lvZugTable.substractOneSWSBlocksTook();
+                                    tableCellRenderer = new TableCellRenderer(lvZugTable.getDozentLV(), dozentenList, zugTable.getLV());
+                                    jTable.setValueAt("", row, col);
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
+                                    jTable.revalidate();
+                                    jTable.repaint();
+
                                 }
                             }
                         }
@@ -508,7 +509,7 @@ public class MusterPanel extends javax.swing.JPanel {
             jLVList.updateUI();
 
             // LV-Objekt aus den Dozenten auswählen
-            this.tableCellRenderer = new MyTableCellRenderer(dozent, dozentenList, dozent.getLV());
+            this.tableCellRenderer = new TableCellRenderer(dozent, dozentenList, dozent.getLV());
             tableTransferHandler.setDozentenName(dozent.getName());
             tableTransferHandler.setLVJLVList(dozent.getLV());
 
@@ -548,7 +549,7 @@ public class MusterPanel extends javax.swing.JPanel {
             tableTransferHandler.setObject(zug);
             tableTransferHandler.setLVJLVList(zug.getLV());
 
-            int i = 1;
+           // int i = 1;
             for (LV lvElement : zug.getLV()) {
                 //listModel.addElement(lvElement.getName());
                 setLVforJTable(lvElement);
@@ -642,78 +643,74 @@ public class MusterPanel extends javax.swing.JPanel {
 
     public void addSelectionListenerJList() {
 
-        jLVList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-
-                if (!e.getValueIsAdjusting()) {
-
-                    // Überprüfen Sie, ob ein Element ausgewählt wurde
-                    if (!jLVList.isSelectionEmpty()) {
-
-                        // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
-                        int selectedIndex = jLVList.getSelectedIndex();
-                        jLVListLV = null;
-                        // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
-                        if (radioButtonZugBoolean || radioButtonDozentBoolean) {
-
-                            int tabIndex = jTabbedPane1.getSelectedIndex();
-                            String jLabelText = jComboDoZug.getSelectedItem().toString();
-
-                            //Sets the Name in the top left corner of the Panel
-                            jLabelName.setText(jLabelText);
-                            // if-construction for not changing the Handtuch-Title
-                            if (tabIndex != 0) {
-
-                                jTabbedPane1.setTitleAt(tabIndex, jLabelText);
-                            }
-
-                            // Direkter Zugriff auf das ausgewählte Dozenten- oder Zug-Objekt
-                            //The Radiobuttons decides wich variable radioButtonZugBoolean or radioButtonDozentBoolean is true respectively false
-                            //
-                            if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
-
-                                Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
-                                jLVListLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
-                                tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
-                            } else if (!radioButtonZugBoolean && radioButtonDozentBoolean) {
-
-                                Dozent selectedDozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
-                                jLVListLV = selectedDozent.getLV().get(selectedIndex);
-
-                            }
-                        } else {
-                            if (selectedSearchObject instanceof Zug) {
-                                jLVListLV = ((Zug) selectedSearchObject).getLV().get(selectedIndex);
-                                tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
-                                tableCellRenderer = new MyTableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((Zug) selectedSearchObject).getLV());
-
-                            } else if (selectedSearchObject instanceof Dozent) {
-                                jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
-                                tableCellRenderer = new MyTableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
-                            } else if (selectedSearchObject instanceof LV) {
-
-                                jLVListLV = ((LV) selectedSearchObject).getLeadingZug().getLV().get(selectedIndex);
-                                tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
-                                tableCellRenderer = new MyTableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((LV) selectedSearchObject).getLeadingZug().getLV());
-                            }
+        jLVList.addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                
+                // Überprüfen Sie, ob ein Element ausgewählt wurde
+                if (!jLVList.isSelectionEmpty()) {
+                    
+                    // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
+                    int selectedIndex = jLVList.getSelectedIndex();
+                    jLVListLV = null;
+                    // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
+                    if (radioButtonZugBoolean || radioButtonDozentBoolean) {
+                        
+                        int tabIndex = jTabbedPane1.getSelectedIndex();
+                        String jLabelText = jComboDoZug.getSelectedItem().toString();
+                        
+                        //Sets the Name in the top left corner of the Panel
+                        jLabelName.setText(jLabelText);
+                        // if-construction for not changing the Handtuch-Title
+                        if (tabIndex != 0) {
+                            
+                            jTabbedPane1.setTitleAt(tabIndex, jLabelText);
                         }
-                        // Hier überprüfen, ob selectedLV nicht null ist
-                        if (jLVListLV != null) {
-                            for (int i = 1; i < 7; i++) {
-                                jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
-                            }
-                            if (!jLVListLV.getDozentLV().getDoesHavePVZeiten()) {
-                                DefaultTableCellRenderer();
-                            }
-                            getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
-
-                            // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
-                            updateInfoPanel(jLVListLV);
-                            jTable.revalidate();
-                            jTable.repaint();
-                            // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
+                        
+                        // Direkter Zugriff auf das ausgewählte Dozenten- oder Zug-Objekt
+                        //The Radiobuttons decides wich variable radioButtonZugBoolean or radioButtonDozentBoolean is true respectively false
+                        //
+                        if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
+                            
+                            Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
+                            jLVListLV = selectedZug.getLV().get(selectedIndex); // LV-Objekt aus den Zügen auswählen
+                            tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
+                        } else if (!radioButtonZugBoolean && radioButtonDozentBoolean) {
+                            
+                            Dozent selectedDozent = getObjectFromName(jComboDoZug.getSelectedItem().toString(), dozentenList);
+                            jLVListLV = selectedDozent.getLV().get(selectedIndex);
+                            
                         }
+                    } else {
+                        if (selectedSearchObject instanceof Zug) {
+                            jLVListLV = ((Zug) selectedSearchObject).getLV().get(selectedIndex);
+                            tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
+                            tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((Zug) selectedSearchObject).getLV());
+                            
+                        } else if (selectedSearchObject instanceof Dozent) {
+                            jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
+                            tableCellRenderer = new TableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
+                        } else if (selectedSearchObject instanceof LV) {
+                            
+                            jLVListLV = ((LV) selectedSearchObject).getLeadingZug().getLV().get(selectedIndex);
+                            tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
+                            tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((LV) selectedSearchObject).getLeadingZug().getLV());
+                        }
+                    }
+                    // Hier überprüfen, ob selectedLV nicht null ist
+                    if (jLVListLV != null) {
+                        for (int i = 1; i < 7; i++) {
+                            jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
+                        }
+                        if (!jLVListLV.getDozentLV().getDoesHavePVZeiten()) {
+                            DefaultTableCellRenderer();
+                        }
+                        getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
+                        
+                        // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
+                        updateInfoPanel(jLVListLV);
+                        jTable.revalidate();
+                        jTable.repaint();
+                        // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
                     }
                 }
             }
@@ -739,6 +736,7 @@ public class MusterPanel extends javax.swing.JPanel {
     public void getZugLVforSelectedLV(LV selectedLV) {
         List<String> checkList = new ArrayList<>();
         for (Zug zug : selectedLV.getZugList()) {
+            System.out.println("Zug list from selectedLV: " + selectedLV.getZugList());
             // List<String> checkList = new ArrayList<>();
             for (LV lvZug : zug.getLV()) {
 
@@ -753,7 +751,7 @@ public class MusterPanel extends javax.swing.JPanel {
                             int column = i / 6;
                             String cellContent = "";
                             cellContent = (String) jTable.getValueAt(row, column);
-                            cellContent += "   " + zug.getName() + ": " + lvZug.getName() + "   ";
+                            cellContent += "  " + zug.getName() + ": " + lvZug.getName() + "  ";
                             checkList.add(lvZug.getName());
                             jTable.setValueAt(cellContent, row, column);
                             ((AbstractTableModel) jTable.getModel()).fireTableCellUpdated(row, column);

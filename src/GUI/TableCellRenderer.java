@@ -22,14 +22,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class MyTableCellRenderer extends DefaultTableCellRenderer {
+public class TableCellRenderer extends DefaultTableCellRenderer {
 
     private List<Dozent> dozentList;
     private Dozent dozent;
     private Zug zug;
     private List<LV> lvList;
 
-    public MyTableCellRenderer(Dozent dozent, List<Dozent> dozentList,List<LV> lvList) {
+    public TableCellRenderer(Dozent dozent, List<Dozent> dozentList,List<LV> lvList) {
         this.dozent = dozent;
         this.dozentList = dozentList;
         this.lvList = lvList;

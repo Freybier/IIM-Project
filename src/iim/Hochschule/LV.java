@@ -15,10 +15,11 @@ import java.util.List;
 public class LV implements Serializable {
 
     private String name;
+    private String nickName;
     private final String fullName;
     private long scheduledLV = 0;
     private final String dozentName;
-    private String secondDozentName;
+    private final String secondDozentName;
     private List<String> zugNameList = new ArrayList<>();
     private String leadingZugName;
     private final List<Zug> zugList = new ArrayList<>();
@@ -30,8 +31,9 @@ public class LV implements Serializable {
     private Zug leadingZug;
     private Dozent dozentLV;
     private Dozent secondDozentLV;
+    private String handtuchPointer;
 
-    public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva, String secondDozentName) {
+    public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva, String secondDozentName, String nickName, String handtuchPointer) {
         this.name = name;
         this.fullName = fullName;
         //this.po = po;
@@ -53,7 +55,9 @@ public class LV implements Serializable {
         this.geblockt = geblockt;
         this.lva = lva;
         this.secondDozentName = secondDozentName;
-    }
+        this.nickName = nickName;
+        this.handtuchPointer = handtuchPointer;
+                }
 
     public void setName(String name) {
         this.name = name;
@@ -156,6 +160,12 @@ public class LV implements Serializable {
     }
     public String getSecondDozentName() {
         return secondDozentName;
+    }
+    public String getNickName(){
+        return nickName;
+    }
+    public String getHandtuchPointer(){
+        return handtuchPointer;
     }
 
     @Override

@@ -736,7 +736,8 @@ public class MusterPanel extends javax.swing.JPanel {
     public void getZugLVforSelectedLV(LV selectedLV) {
         List<String> checkList = new ArrayList<>();
         for (Zug zug : selectedLV.getZugList()) {
-            System.out.println("Zug list from selectedLV: " + selectedLV.getZugList());
+//            System.out.println("Zug list from selectedLV: " + selectedLV.getZugList());
+//            System.out.println(selectedLV.getHandtuchPointer()  +   "    " + selectedLV.getNickName());
             // List<String> checkList = new ArrayList<>();
             for (LV lvZug : zug.getLV()) {
  //

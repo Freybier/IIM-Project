@@ -197,6 +197,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuItem5.setText("Exportieren");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuItem4.setText("Speichern/Laden");
@@ -328,8 +333,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jColumnFilterActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        Import importWindow = new Import();
-        this.dispose();
+//        Import importWindow = new Import();
+//        this.dispose();
+
+
+        dozentenList = dozentenListOriginal;
+        zugList = zugListOriginal;
+        lvList = lvListOriginal;
+        leadingList = leadingListOriginal;
+        
+        ImportSetzer importSetzer = new ImportSetzer(zugList);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -337,6 +350,11 @@ public class StundenplanFrame extends javax.swing.JFrame {
         Speichern speichernWindow = new Speichern(lvList, dozentenList, zugList, leadingList);
  
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        CreateSetzer createSetzer = new CreateSetzer(zugList);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
     
     // method for creating new tab using the MusterPanel.java
     private void addNewTab() {

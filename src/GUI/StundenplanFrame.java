@@ -36,6 +36,12 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public List<Zug> zugList;
     public List<LV> lvList;
     public List<Leading> leadingList;
+    public final List<Dozent> dozentenListOriginal;
+    public final List<Zug> zugListOriginal;
+    public final List<LV> lvListOriginal;
+    public final List<Leading> leadingListOriginal;
+    
+    
     //public JTable jTable;
     public TableTransferHandler tableTransferHandler;
 
@@ -53,6 +59,10 @@ public class StundenplanFrame extends javax.swing.JFrame {
         this.zugList = zugList;
         this.lvList = lvList;
         this.leadingList = leadingList;
+        this.dozentenListOriginal = dozentenList;
+        this.zugListOriginal = zugList;
+        this.lvListOriginal = lvList;
+        this.leadingListOriginal = leadingList;
         build();
         initComponents();
         buildJTable();

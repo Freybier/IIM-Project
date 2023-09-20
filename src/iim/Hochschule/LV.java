@@ -110,6 +110,9 @@ public class LV implements Serializable {
     public int getSWSBlocksTook() {
         return this.swsBlocksTook;
     }
+    public void setSWSBlocksTookZero(){
+        this.swsBlocksTook = 0;
+    }
 
     public void substractOneSWSBlocksTook() {
         this.swsBlocksTook--;

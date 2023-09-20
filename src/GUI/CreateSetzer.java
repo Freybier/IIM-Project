@@ -47,6 +47,7 @@ public class CreateSetzer {
                             data = zugName+block+eins+nickName+handtuchPointer+raumNr;
                             bufferedWriter.write(data+";");
                             bufferedWriter.write(zugName+";");
+                            bufferedWriter.write(block+";");
                             bufferedWriter.write(eins+";");
                             bufferedWriter.write(nickName+";");
                             bufferedWriter.write(handtuchPointer+";");

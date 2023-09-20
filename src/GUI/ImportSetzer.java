@@ -24,14 +24,24 @@ public class ImportSetzer {
 
     public ImportSetzer(List<Zug> zugList) {
         this.zugList = zugList;
+        importSetzer();
     }
 
     public void importSetzer() {
+        
+        for (Zug zug : zugList) {
+            for (LV lv : zug.getLV()) {
+                lv.setScheduledLV(0);
+                lv.getDozentLV().setScheduledDozent(0);
+                lv.setSWSBlocksTookZero();
+            }
+        }
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("Data/setzer.csv"));
+            System.out.println("Import try");
             String line;
-            String[] header = br.readLine().split(";");
+            //String[] header = br.readLine().split(";");
             int zugNameIndex = 1;
             int scheduledIndex = 2;
             int lvKuerzelIndex = 4;
@@ -45,15 +55,17 @@ public class ImportSetzer {
                 String lvKuerzel = parts[lvKuerzelIndex];
                 String dozentName = parts[dozentNameIndex];
                 String raumNr = parts[raumIndex];
-                
-                for(Zug zug : zugList){
-                    for(LV lv : zug.getLV()){
-                        if(zug.getName().equals(zugName) && lv.getNickName().equals(lvKuerzel) && lv.getDozentName().equals(dozentName)){
+
+                for (Zug zug : zugList) {
+                    for (LV lv : zug.getLV()) {
+                        if (zug.getName().equals(zugName) && lv.getNickName().equals(lvKuerzel) && lv.getDozentName().equals(dozentName) && lv.getLeadingZugName().equals(zugName)) {
                             long scheduler = 1;
                             int shift = Integer.parseInt(scheduled);
-                            scheduler = scheduler << (34-shift);
+                            scheduler = scheduler << (34 - shift);
                             lv.setScheduledLV(lv.getScheduledLV() | scheduler);
                             lv.getDozentLV().setScheduledDozent(lv.getDozentLV().getScheduledDozent() | scheduler);
+                            System.out.println("Wir sind in der if!");
+                            lv.addOneSWSBlocksTook();
                             break;
                         }
                     }

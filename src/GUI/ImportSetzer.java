@@ -66,6 +66,7 @@ public class ImportSetzer {
                             lv.getDozentLV().setScheduledDozent(lv.getDozentLV().getScheduledDozent() | scheduler);
                             System.out.println("Wir sind in der if!");
                             lv.addOneSWSBlocksTook();
+                            lv.setRoomNumber(raumNr);
                             break;
                         }
                     }

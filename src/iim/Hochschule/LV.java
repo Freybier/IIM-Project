@@ -31,9 +31,10 @@ public class LV implements Serializable {
     private Zug leadingZug;
     private Dozent dozentLV;
     private Dozent secondDozentLV;
-    private String handtuchPointer;
+    private String roomNumber = "-";
 
-    public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva, String secondDozentName, String nickName, String handtuchPointer) {
+    //private String handtuchPointer;
+    public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva, String secondDozentName, String nickName) {
         this.name = name;
         this.fullName = fullName;
         //this.po = po;
@@ -56,8 +57,8 @@ public class LV implements Serializable {
         this.lva = lva;
         this.secondDozentName = secondDozentName;
         this.nickName = nickName;
-        this.handtuchPointer = handtuchPointer;
-                }
+        //this.handtuchPointer = handtuchPointer;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -110,7 +111,8 @@ public class LV implements Serializable {
     public int getSWSBlocksTook() {
         return this.swsBlocksTook;
     }
-    public void setSWSBlocksTookZero(){
+
+    public void setSWSBlocksTookZero() {
         this.swsBlocksTook = 0;
     }
 
@@ -161,14 +163,24 @@ public class LV implements Serializable {
     public Dozent getSecondDozentLV() {
         return secondDozentLV;
     }
+
     public String getSecondDozentName() {
         return secondDozentName;
     }
-    public String getNickName(){
+
+    public String getNickName() {
         return nickName;
     }
-    public String getHandtuchPointer(){
-        return handtuchPointer;
+//    public String getHandtuchPointer(){
+//        return handtuchPointer;
+//    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
     @Override

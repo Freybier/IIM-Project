@@ -462,7 +462,7 @@ public class MusterPanel extends javax.swing.JPanel {
         JLabel dozentenLabel = new JLabel("   Dozent: " + selectedLV.getDozentName());
         JLabel zugNameLabel = new JLabel("   ZugList: " + selectedLV.getZugNameList());
         JLabel swsLabel = new JLabel("   SWS: " + selectedLV.getSWS() + "(" + ((selectedLV.getSWSBlocks() - selectedLV.getSWSBlocksTook()) * 2) + ")");
-        JLabel raumLabel = new JLabel("   RaumNr: " + "-");
+        JLabel raumLabel = new JLabel("   RaumNr: " + selectedLV.getRoomNumber());
         JLabel geblocktLabel = new JLabel("   Geblockt: " + selectedLV.getGeblockt());
         JLabel leadingLabel = new JLabel("   leading: " + selectedLV.getLeadingZugName());
         JLabel lva = new JLabel("   LVA: " + selectedLV.getLVA());

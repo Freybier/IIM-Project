@@ -4,6 +4,7 @@
  */
 package GUI;
 
+//import GUI.Import.readObjectsFromFiles.MyCustomFilter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import java.util.logging.Logger;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
 import iim.Hochschule.Dozent;
-import iim.Hochschule.Leading;
 import java.io.EOFException;
 
 /**
@@ -140,7 +140,6 @@ public class Import extends javax.swing.JFrame {
         List<LV> lvList = new ArrayList<>();
         List<Dozent> dozentList = new ArrayList<>();
         List<Zug> zugList = new ArrayList<>();
-        List<Leading> leadingList = new ArrayList<>();
 
         for (File file : files) {
             List<Object> result = new ArrayList<>();
@@ -169,13 +168,12 @@ public class Import extends javax.swing.JFrame {
                     //System.out.println(result);
                 } else if (obj instanceof Zug) {
                     zugList.add((Zug) obj);
-                } else if (obj instanceof Leading) {
-                    leadingList.add((Leading) obj);
+
                 }
+
+                StundenplanFrame gui = new StundenplanFrame(dozentList, zugList, lvList);
             }
         }
-        StundenplanFrame gui = new StundenplanFrame(dozentList, zugList, lvList, leadingList);
-
     }
 
     class MyCustomFilter extends javax.swing.filechooser.FileFilter {

@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public class ReadCSVs implements Serializable {
 
-    private static final List<Leading> leading = new ArrayList<>();
+   
 
     public static List<LV> createLVListFromCSV(String handtuchCSVFilePath) {
         List<LV> lvList = new ArrayList<>();
@@ -96,7 +96,7 @@ public class ReadCSVs implements Serializable {
                     //RIGHT: (LV)1.GLI: (Zug)[ID1, II1, II2, MT1])
                     //First we add to each LV the Leading Zug name.
                     //The the other Zug names,if the LV has mutilple Zugs, are added in the method: setLVsWithMoreZug
-                    LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva, secondDozentName, lvKuerzel, dozentName);
+                    LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva, secondDozentName, lvKuerzel);
                     newLV.addZugToNameList(zugName);
                     newLV.setLeadingZugName(zugName);
                     lvList.add(newLV);
@@ -184,9 +184,7 @@ public class ReadCSVs implements Serializable {
 
                     //If found, the Leading Object is added
                     if (matchingLV != null) {
-                        Leading leadingObj = new Leading(lvKuerzel, zugDozent, zugName);
-                        leadingObj.setLVObject(matchingLV);
-                        leading.add(leadingObj);
+
                         //matchingLV.setLeadingZug(newZug);
                     }
                 }
@@ -289,9 +287,7 @@ public class ReadCSVs implements Serializable {
         return -1;
     }
 
-    public List<Leading> getLeadingList() {
-        return leading;
-    }
+
 
     public void addDozentToLV(List<Dozent> dozentList, List<LV> lvList) {
         for (LV lv : lvList) {

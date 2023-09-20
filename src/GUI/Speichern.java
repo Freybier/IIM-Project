@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import iim.Hochschule.Leading;
+
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
@@ -32,18 +32,18 @@ public class Speichern extends javax.swing.JFrame {
     private List<LV> lvList;
     private List<Dozent> dozList;
     private List<Zug> zugList;
-    private List<Leading> leadingList;
+
     
     /**
      * Creates new form Export
      */
-    public Speichern(List<LV> lvList, List<Dozent> dozList, List<Zug> zugList, List<Leading> leadingList) {
+    public Speichern(List<LV> lvList, List<Dozent> dozList, List<Zug> zugList) {
         initComponents();
         setVisible(true);
         this.lvList = lvList;
         this.dozList = dozList;
         this.zugList = zugList;
-        this.leadingList = leadingList;
+ 
     }
 
     /**
@@ -143,7 +143,7 @@ public class Speichern extends javax.swing.JFrame {
         this.lvList = ladenLV();
         this.dozList = ladenDOZ();
         this.zugList = ladenZUG();
-        this.leadingList = ladenLEAD();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void speichern(String name) {
@@ -171,14 +171,8 @@ public class Speichern extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Data/" + name + "LEAD.ser"));
-            for (Leading i : leadingList) {
-                out.writeObject(i);
-            } 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+ 
+
     }
     
 
@@ -266,33 +260,7 @@ public class Speichern extends javax.swing.JFrame {
         return geladeneZUGList;
     }
     
-    public List<Leading> ladenLEAD() {
-        List<Leading> geladeneLEADList = new ArrayList<>();
-
-        String directoryPath = "Data/";
-        try (Stream<Path> files = Files.list(Paths.get(directoryPath))) {
-            files.filter(path -> path.toString().endsWith("LEAD.ser"))
-                 .forEach(path -> {
-                     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path.toFile()))) {
-                        while (true) {
-                            try {
-                                Leading lead = (Leading) in.readObject();
-                                geladeneLEADList.add(lead);
-                            } catch (EOFException e) {
-                                // EOFException signalisiert das Ende der Datei
-                                break;
-                            }
-                        }
-                     } catch (IOException | ClassNotFoundException e) {
-                         e.printStackTrace();
-                     }
-                 });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return geladeneLEADList;
-    }
+    
     
     /**
      * @param args the command line arguments

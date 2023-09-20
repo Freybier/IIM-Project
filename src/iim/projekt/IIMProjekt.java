@@ -17,7 +17,6 @@ import iim.Handtuch.ReadHandtuch2;
 import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
 import iim.Hochschule.LV;
-import iim.Hochschule.Leading;
 import iim.Hochschule.ReadCSVs;
 import iim.Hochschule.Zug;
 
@@ -94,10 +93,10 @@ public class IIMProjekt {
         
         readCSVs.setLVforZug(lvList, zugList);
        
-        List<Leading> leadingList = readCSVs.getLeadingList();
+
         readCSVs.addDozentToLV(dozentenList, lvList);
         
-        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList, leadingList); 
+        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList); 
         
         
 }

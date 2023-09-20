@@ -42,15 +42,15 @@ public class CreateSetzer {
                             String block = Integer.toString(35-i);
                             String eins = "1";
                             String nickName = lv.getNickName();
-                            String handtuchPointer = lv.getHandtuchPointer();
+                            String dozentName = lv.getDozentName();
                             String raumNr = "-";
-                            data = zugName+block+eins+nickName+handtuchPointer+raumNr;
+                            data = zugName+block+eins+nickName+dozentName+raumNr;
                             bufferedWriter.write(data+";");
                             bufferedWriter.write(zugName+";");
                             bufferedWriter.write(block+";");
                             bufferedWriter.write(eins+";");
                             bufferedWriter.write(nickName+";");
-                            bufferedWriter.write(handtuchPointer+";");
+                            bufferedWriter.write(dozentName+";");
                             bufferedWriter.write(raumNr);
                             bufferedWriter.newLine(); // Add a new line for the next row
                         }

@@ -7,6 +7,7 @@ package GUI;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,9 +22,11 @@ import java.util.logging.Logger;
 public class ImportSetzer {
 
     public List<Zug> zugList;
-
-    public ImportSetzer(List<Zug> zugList) {
+    public File fileName;
+    
+    public ImportSetzer(List<Zug> zugList, File fileName) {
         this.zugList = zugList;
+        this.fileName = fileName;
         importSetzer();
     }
 
@@ -38,7 +41,7 @@ public class ImportSetzer {
         }
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("Data/setzer.csv"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             System.out.println("Import try");
             String line;
             //String[] header = br.readLine().split(";");

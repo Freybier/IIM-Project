@@ -19,13 +19,12 @@ public class CreateSetzer {
 
     public List<Zug> zugList;
 
-    public CreateSetzer(List<Zug> zugList) {
-        this.zugList = zugList;
-        createFile();
+    public CreateSetzer(List<Zug> zugList, String fileName) {
+        createFile(zugList ,fileName);
     }
 
-    public void createFile() {
-        String csvFilePath = "Data/setzer.csv";
+    public void createFile(List<Zug> zugList, String fileName) {
+        String csvFilePath = "Data/" + fileName +".csv";
         try {
             // Create a FileWriter and BufferedWriter to write to the CSV file
             FileWriter fileWriter = new FileWriter(csvFilePath);

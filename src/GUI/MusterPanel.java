@@ -365,7 +365,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
     // action-listener for deleting element in table when left-clicked
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON1) {
+             if (evt.getButton() == MouseEvent.BUTTON1) {
             int row = jTable.rowAtPoint(evt.getPoint());
             int col = jTable.columnAtPoint(evt.getPoint());
 
@@ -373,50 +373,54 @@ public class MusterPanel extends javax.swing.JPanel {
             if (row >= 0 && col >= 1) {
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
+                    System.out.println(cellValue);
                     String cellString = (String) cellValue;
-                    // use the last chosen Dozent/Zug
                     String check = jLabelName.getText();
-                    // using bit-shift to manipulate the data
-                    // 33 is the amount of time-blocks, and with the algorithm we empty the correct block
-                    int checkSum = 33 - ((col) * 6) + (6 - row);
-                    long delete = 1 << checkSum;
-                    if (getObjectFromName(check, dozentenList) instanceof Dozent) {
-                        for (Dozent dozentTable : dozentenList) {
-                            if (dozentTable.getName().equals(check)) {
-                                for (LV lvDozentTable : dozentTable.getLV()) {
-                                    if (lvDozentTable.getName().equals(cellString)) {
-                                        lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
-                                        dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
-                                        lvDozentTable.substractOneSWSBlocksTook();
-                                        tableCellRenderer = new TableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
-                                        jTable.setValueAt("", row, col);
-                                        jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
-                                    }
+                    for (Dozent dozentTable : dozentenList) {
+                        if (dozentTable.getName().equals(check)) {
+                            for (LV lvDozentTable : dozentTable.getLV()) {
+                                if (lvDozentTable.getName().equals(cellString)) {
+                                    int checkSum = 33 - ((col) * 6) + (6 - row);
+                                    long delete = 1;
+                                    delete = delete << checkSum;
+                                    lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
+                                    dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
+                                    //if(lvDozentTable.getSecondDozentLV() != null)
+                                    //lvDozentTable.getSecondDozentLV().setScheduledDozent(lvDozentTable.getSecondDozentLV().getScheduledDozent() ^ delete);
+                                    lvDozentTable.substractOneSWSBlocksTook();
+                                    tableCellRenderer = new TableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
+                                    jTable.setValueAt("", row, col);
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
+                                    jTable.revalidate();
+                                    jTable.repaint();
                                 }
                             }
                         }
                     }
-                    //
-                    if (getObjectFromName(check, zugList) instanceof Zug) {
-                        for (Zug zugTable : zugList) {
-                            if (zugTable.getName().equals(check)) {
-                                for (LV lvZugTable : zugTable.getLV()) {
-                                    if (lvZugTable.getName().equals(cellValue)) {
-                                        lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
-                                        lvZugTable.getDozentLV().setScheduledDozent(lvZugTable.getDozentLV().getScheduledDozent() ^ delete);
-                                        lvZugTable.substractOneSWSBlocksTook();
-                                        tableCellRenderer = new TableCellRenderer(lvZugTable.getDozentLV(), dozentenList, zugTable.getLV());
-                                        jTable.setValueAt("", row, col);
-                                        jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
+                    for (Zug zugTable : zugList) {
+                        if (zugTable.getName().equals(check)) {
+                            for (LV lvZugTable : zugTable.getLV()) {
+                                if (lvZugTable.getName().equals(cellValue)) {
+                                    int checkSum = 33 - ((col) * 6) + (6 - row);
+                                    long delete = 1;
+                                    delete = delete << checkSum;
+                                    lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
 
-                                    }
+                                    lvZugTable.getDozentLV().setScheduledDozent(lvZugTable.getDozentLV().getScheduledDozent() ^ delete);
+                                    //if( lvZugTable.getSecondDozentLV()!= null)
+                                    //lvZugTable.getSecondDozentLV().setScheduledDozent(lvZugTable.getSecondDozentLV().getScheduledDozent() ^ delete);
+                                    lvZugTable.substractOneSWSBlocksTook();
+                                    tableCellRenderer = new TableCellRenderer(lvZugTable.getDozentLV(), dozentenList, zugTable.getLV());
+                                    jTable.setValueAt("", row, col);
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
+                                    jTable.revalidate();
+                                    jTable.repaint();
+
                                 }
                             }
                         }
                     }
                 }
-                jTable.revalidate();
-                jTable.repaint();
             }
         }
     }//GEN-LAST:event_jTableMouseClicked

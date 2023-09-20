@@ -60,12 +60,15 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
         for(LV lv: lvList){
             stringList.add(lv.getName());
         }
-        
-        if (dozent == null || !dozent.getDoesHavePVZeiten()) {
+        //  || !dozent.getDoesHavePVZeiten()
+        if (dozent == null ) {
             cellComponent.setBackground(table.getBackground());
             return cellComponent;
         }
-
+        Color noPVZeitenColor = new Color(220,220,220);
+        Color doesNotWantColor = new Color(250, 227, 75);
+        Color availableColor = new Color(127, 250, 75);
+        Color canNotColor = new Color(250, 75, 75);
         if (!(column == 0)) {
             if (!(column == 6 && row == 5)) {
                 if (!(column == 6 && row == 4)) {
@@ -75,15 +78,15 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                     schiebDoesNotWant = schiebDoesNotWant >> checkSum;
                     scheduledDozent = scheduledDozent >> checkSum;
                     // Überprüfen, ob es sich um die erste Zelle (row = 0, column = 0) handelt
-                    if (schiebAvailable % 2 == 1) {
-                        cellComponent.setBackground(Color.GREEN);
-                    } else if (schiebDoesNotWant % 2 == 1) {
-                        cellComponent.setBackground(Color.YELLOW);
-                    } else if ((schiebAvailable ^ schiebDoesNotWant) % 2 == 0) {
-                        cellComponent.setBackground(Color.RED);
+                    if (schiebAvailable % 2 == 1&& dozent.getDoesHavePVZeiten()) {
+                        cellComponent.setBackground(availableColor);
+                    } else if (schiebDoesNotWant % 2 == 1&& dozent.getDoesHavePVZeiten()) {
+                        cellComponent.setBackground(doesNotWantColor);
+                    } else if ((schiebAvailable ^ schiebDoesNotWant) % 2 == 0 && dozent.getDoesHavePVZeiten()) {
+                        cellComponent.setBackground(canNotColor);
                     } else {
                         // Setzen Sie die Standardhintergrundfarbe für andere Zellen
-                        cellComponent.setBackground(table.getBackground());
+                        cellComponent.setBackground(noPVZeitenColor);
                     }
                     if (scheduledDozent % 2 == 1 && zug == null) {
                         //cellComponent.setForeground(Color.PINK);

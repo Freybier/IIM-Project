@@ -701,7 +701,7 @@ public class MusterPanel extends javax.swing.JPanel {
                             jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
                         }
                         if (!jLVListLV.getDozentLV().getDoesHavePVZeiten()) {
-                            DefaultTableCellRenderer();
+                            //DefaultTableCellRenderer();
                         }
                         getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
 

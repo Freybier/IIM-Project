@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import iim.Hochschule.Leading;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
@@ -35,7 +34,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public List<Dozent> dozentenList;
     public List<Zug> zugList;
     public List<LV> lvList;
-    public List<Leading> leadingList;
+    
     
     
     //public JTable jTable;
@@ -48,13 +47,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
     /**
      * Creates new form StundenplanFrame
      */
-    public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList, List<Leading> leadingList) {
+    public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList) {
         // oArray is the Object Array created from the Handtuch csv
         oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
         this.dozentenList = dozentenList;
         this.zugList = zugList;
         this.lvList = lvList;
-        this.leadingList = leadingList;
+
 
         build();
         initComponents();
@@ -334,7 +333,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
 
-        Speichern speichernWindow = new Speichern(lvList, dozentenList, zugList, leadingList);
+        Speichern speichernWindow = new Speichern(lvList, dozentenList, zugList);
  
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -345,7 +344,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     
     // method for creating new tab using the MusterPanel.java
     private void addNewTab() {
-        JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, leadingList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
+        JPanel tabContent = new MusterPanel(dozentenList, zugList, lvList, jTabbedPane1); // Erhalte den Inhalt der Test-Klasse
 
         // titel for the new tab
         String tabTitle = "Tab " + (jTabbedPane1.getTabCount());

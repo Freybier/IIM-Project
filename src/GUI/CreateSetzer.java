@@ -38,14 +38,23 @@ public class CreateSetzer {
                     for(int i = 1; i<=34; i++){
                         String data;
                         if(sceduler%2==1){
-                            data = lv.getNickName;
+                            String zugName = zug.getName();
+                            String block = Integer.toString(35-i);
+                            String eins = "1";
+                            String nickName = lv.getNickName();
+                            String handtuchPointer = lv.getHandtuchPointer();
+                            String raumNr = "-";
+                            data = zugName+block+eins+nickName+handtuchPointer+raumNr;
+                            bufferedWriter.write(data+";");
+                            bufferedWriter.write(zugName+";");
+                            bufferedWriter.write(eins+";");
+                            bufferedWriter.write(nickName+";");
+                            bufferedWriter.write(handtuchPointer+";");
+                            bufferedWriter.write(raumNr);
+                            bufferedWriter.newLine(); // Add a new line for the next row
                         }
-                        sceduler = sceduler >> 1;
-                        // Generate some sample data (e.g., numbers and strings)
                         
-                        // Write the data to the CSV file
-                        bufferedWriter.write(data);
-                        bufferedWriter.newLine(); // Add a new line for the next row
+                        sceduler = sceduler >> 1;
                     }
                 }
             }

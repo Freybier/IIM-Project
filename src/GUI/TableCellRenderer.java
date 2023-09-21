@@ -23,6 +23,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class TableCellRenderer extends DefaultTableCellRenderer {
 
@@ -53,6 +54,7 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
 
         Component cellComponent = super.getTableCellRendererComponent(
                 table, value, isSelected, hasFocus, row, column);
+        String cellValue = (String) value;
         int checkSum = 0;
         long schiebAvailable = dozent.getAvailable();
         long schiebDoesNotWant = dozent.getDoesNotWant();
@@ -75,7 +77,10 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
             if (!(column == 6 && row == 5)) {
                 if (!(column == 6 && row == 4)) {
                     if (scheduledDozent == 0) {
-
+                        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                        tableModel.setValueAt("", row, column);
+                        table.revalidate();
+                        table.repaint();
                     }
                     checkSum = 33 - ((column) * 6) + (6 - row);
 
@@ -101,6 +106,22 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                         if (!stringList.contains(value.toString())) {
                             cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
                             setBorder(new CompoundBorder(new LineBorder(Color.DARK_GRAY, 5), new EmptyBorder(5, 5, 5, 5)));
+                            if (cellValue.equals("")) {
+                                for (LV lv : dozent.getLV()) {
+                                    long lvScheduled = lv.getScheduledLV();
+                                    lvScheduled = lvScheduled >> checkSum;
+                                    if (lvScheduled % 2 == 1) {
+                                        String lvName = lv.getName();
+                                        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                        tableModel.setValueAt(lvName, row, column);
+                                        table.revalidate();
+                                        table.repaint();
+                                        cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                                        setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
+                                        break;
+                                    }
+                                }
+                            }
                         }
 
                     } else if (zug != null) {
@@ -120,7 +141,33 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                             }
 
                         } else {
-
+//                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+//                            tableModel.setValueAt("", row, column);
+//                            table.revalidate();
+//                            table.repaint();
+                        }
+                    } else {
+                        int i = 0;
+                        for (LV lvDozent : dozent.getLV()) {
+                            for (Zug zugLVDozent : lvDozent.getZugList()) {
+                                for (LV lvZugLVDozent : zugLVDozent.getLV()) {
+                                    long lvScheduled = lvZugLVDozent.getScheduledLV();
+                                    lvScheduled = lvScheduled >> checkSum;
+                                    if (lvScheduled % 2 == 1 && i == 0) {
+                                        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                        tableModel.setValueAt(lvZugLVDozent.getName(), row, column);
+                                        table.revalidate();
+                                        table.repaint();
+                                        i++;                       
+                                    }
+                                }
+                            }
+                        }
+                        if (i == 0) {
+                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                            tableModel.setValueAt("", row, column);
+                            table.revalidate();
+                            table.repaint();
                         }
                     }
                 } else {

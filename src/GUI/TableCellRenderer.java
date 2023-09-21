@@ -16,6 +16,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
@@ -73,6 +74,9 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
         if (!(column == 0)) {
             if (!(column == 6 && row == 5)) {
                 if (!(column == 6 && row == 4)) {
+                    if (scheduledDozent == 0) {
+
+                    }
                     checkSum = 33 - ((column) * 6) + (6 - row);
 
                     schiebAvailable = schiebAvailable >> checkSum;
@@ -100,6 +104,7 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                         }
 
                     } else if (zug != null) {
+
                         //System.out.println("zug ungleich null!!");
                         if (scheduledDozent % 2 == 1) {
                             // System.out.println("CYAN!!!!!!!!!");
@@ -114,6 +119,8 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                                 }
                             }
 
+                        } else {
+
                         }
                     }
                 } else {
@@ -124,14 +131,13 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                 // Setzen Sie die Standardhintergrundfarbe für andere Zellen
                 cellComponent.setBackground((Color.LIGHT_GRAY));
             }
-        } 
-        
-        if(column == 0){
-              setHorizontalAlignment(SwingConstants.CENTER);
-        setFont(new Font("Arial", Font.BOLD, 16));  
-            }
+        }
 
-        
+        if (column == 0) {
+            setHorizontalAlignment(SwingConstants.CENTER);
+            setFont(new Font("Arial", Font.BOLD, 16));
+        }
+
         return cellComponent;
     }
 }

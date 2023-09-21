@@ -8,6 +8,7 @@ import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,6 +96,8 @@ public class MusterPanel extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         jSuchfeldDoZug = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jLVList = new javax.swing.JList<>();
@@ -110,6 +113,8 @@ public class MusterPanel extends javax.swing.JPanel {
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+
+        jScrollPane1.setViewportView(jTree1);
 
         jSuchfeldDoZug.setText("Suche");
         jSuchfeldDoZug.setToolTipText("SucheDozent/Zug");
@@ -314,7 +319,15 @@ public class MusterPanel extends javax.swing.JPanel {
 
             } else if (selectedSearchObject instanceof Dozent) {
                 // changing the title of the tab
+
                 jLabelName.setText(jLabelText);
+
+                
+                if (tabIndex != 0) {
+                    // changing the title of the tabe
+                    jTabbedPane1.setTitleAt(tabIndex, jLabelText);
+                }
+
                 // set content of jLvList
                 jLVList.setModel(setLVDozentList((Dozent) selectedSearchObject));
 
@@ -478,18 +491,28 @@ public class MusterPanel extends javax.swing.JPanel {
 
         // clear InfoPanel for new input
         jInfoFeld.removeAll();
+        Font font = new Font("Arial", Font.BOLD, 18);
 
         // the different labels are created here with the infos needed int the InfoPanel
         JLabel nameLabel = new JLabel("   Name: " + selectedLV.getFullName());
+        nameLabel.setFont(font);
         JLabel dozentenLabel = new JLabel("   Dozent: " + selectedLV.getDozentName());
+        dozentenLabel.setFont(font);
         JLabel zugNameLabel = new JLabel("   ZugList: " + selectedLV.getZugNameList());
+        zugNameLabel.setFont(font);
         JLabel swsLabel = new JLabel("   SWS: " + selectedLV.getSWS() + "(" + ((selectedLV.getSWSBlocks() - selectedLV.getSWSBlocksTook()) * 2) + ")");
+        swsLabel.setFont(font);
         JLabel raumLabel = new JLabel("   RaumNr: " + selectedLV.getRoomNumber());
+        raumLabel.setFont(font);
         JLabel geblocktLabel = new JLabel("   Geblockt: " + selectedLV.getGeblockt());
+        geblocktLabel.setFont(font);
         JLabel leadingLabel = new JLabel("   leading: " + selectedLV.getLeadingZugName());
+        leadingLabel.setFont(font);
         JLabel lva = new JLabel("   LVA: " + selectedLV.getLVA());
+        lva.setFont(font);
 
-        jInfoFeld.setLayout(new BoxLayout(jInfoFeld, BoxLayout.Y_AXIS));
+        //jInfoFeld.setLayout(new BoxLayout(jInfoFeld, BoxLayout.Y_AXIS));
+        jInfoFeld.setLayout(new GridLayout(0,4));
         // Here the labels are added to the InfoPanel
         jInfoFeld.add(nameLabel);
         jInfoFeld.add(swsLabel);
@@ -661,7 +684,7 @@ public class MusterPanel extends javax.swing.JPanel {
                 jTable.setValueAt("", row, col); // Setzen Sie den Wert auf einen leeren String
             }
         }
-
+        
     }
 
     public void addSelectionListenerJList() {
@@ -913,11 +936,13 @@ public class MusterPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelName;
     private javax.swing.JRadioButton jRadioDozent;
     private javax.swing.JRadioButton jRadioZug;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jSuchfeldDoZug;
     private javax.swing.JTable jTable;
+    private javax.swing.JTree jTree1;
     private javax.swing.JList<Object> sucheList;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,6 +8,7 @@ import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
 import java.awt.Component;
+import java.awt.Container;
 
 import java.util.Arrays;
 import java.util.List;
@@ -267,7 +268,13 @@ public class StundenplanFrame extends javax.swing.JFrame {
             int previousTabIndex = selectedTabIndex - 1;
             sourceTabbedPane.setSelectedIndex(previousTabIndex);
         }
+//        for (int i = 0; i < jTabbedPane1.getTabCount(); i++) {
+//                    Component tabComponent = jTabbedPane1.getComponentAt(i);
+//                    tabComponent.repaint();
+//                    tabComponent.revalidate();
+//        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
+    
     
     // action-listener for choosing filter parameter in the second JComboBox in Handtuch 
     private void SubFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubFilterActionPerformed

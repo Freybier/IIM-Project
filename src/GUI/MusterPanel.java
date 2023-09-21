@@ -126,11 +126,13 @@ public class MusterPanel extends javax.swing.JPanel {
             }
         });
 
+        jLVList.setFont(new java.awt.Font("Consolas", 1, 16)); // NOI18N
         jScrollPane2.setViewportView(jLVList);
 
         jLabelName.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         jLabelName.setText("Name:");
 
+        sucheList.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         sucheList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 sucheListMouseClicked(evt);
@@ -223,9 +225,8 @@ public class MusterPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioDozent)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioZug, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1135, Short.MAX_VALUE))))
+                                .addComponent(jRadioZug, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1129, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

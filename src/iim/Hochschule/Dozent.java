@@ -18,10 +18,9 @@ public class Dozent implements Serializable {
     private long available;
     private long doesNotWant;
     private long scheduledDozent = 0;
-    private List<LV> lv = new ArrayList<>();
-    private List<String> lvName = new ArrayList<>();
+    private final List<LV> lv = new ArrayList<>();
+    private final List<String> lvName = new ArrayList<>();
     private boolean pvZeiten = true;
-    private boolean proxy = false;
 
     public Dozent(String name) {
         this.name = name;    
@@ -84,12 +83,7 @@ public class Dozent implements Serializable {
     public boolean getDoesHavePVZeiten(){
         return pvZeiten;
     }
-    public void setProxy(boolean Proxy){
-        this.proxy = proxy;
-    }
-    public boolean getProxy(){
-        return proxy;
-    }
+
     
     @Override
     public String toString() {

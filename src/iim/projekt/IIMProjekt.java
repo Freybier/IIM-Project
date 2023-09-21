@@ -42,7 +42,9 @@ public class IIMProjekt {
         // Instanz der ProfVerarbeitung-Klasse erstellen
         //DozentToCSV verarbeitung = new DozentToCSV();
         // Daten in CSV-Format speichern
-        ReadHandtuch2.readFromFile();
+        
+        ReadHandtuch2.readFromFile("src/iim/Handtuch/Handtuch.html");
+        //ReadHandtuch2.readFromWebsite("file:///C:/Users/Frey/Downloads/Handtuch%20(1).html");
 
         List<LV> lvList = ReadCSVs.createLVListFromCSV(handtuchCSVFilePath);
 

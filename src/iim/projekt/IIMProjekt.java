@@ -30,7 +30,6 @@ public class IIMProjekt {
     public static void main(String[] args) {
 
         String relativePath = "src/iim/pvZeiten/pvZeiten.txt";
-        String handtuchCSVFilePathOld = "src/iim/Handtuch/HandtuchOutput.csv";
 
         String handtuchCSVFilePath = "src/iim/Handtuch/HandtuchNeu.csv";
 
@@ -38,42 +37,28 @@ public class IIMProjekt {
             //new StundenplanGUI(dozenten);
         });
 
-        // Dateinamen für die CSV-Datei
-        // Instanz der ProfVerarbeitung-Klasse erstellen
-        //DozentToCSV verarbeitung = new DozentToCSV();
-        // Daten in CSV-Format speichern
+
         ReadHandtuch2.readFromFile();
+        List<Dozent> dozentList = pvZeitenToDozent.splittNameWishList(relativePath);
+        ReadCSVs.createLVListFromCSV(handtuchCSVFilePath, dozentList);
 
-        List<LV> lvList = ReadCSVs.createLVListFromCSV(handtuchCSVFilePath);
+        
 
-        List<Dozent> dozentenList = pvZeitenToDozent.splittNameWishList(relativePath);
-
-        ReadCSVs readCSVs = new ReadCSVs();
-
-        //String dozentenCSV = "dozenten.csv";
-        // verarbeitung.saveAsCSV(dozentenList, dozentenCSV);
         String filePath = "src/iim/Handtuch/HandtuchOutput.csv";
         List<String[]> data = readCsvFromFile(handtuchCSVFilePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(data));
 
-        List<Zug> zugList = ReadCSVs.createZugListfromCSV(handtuchCSVFilePath, lvList);
+
 
         filePath = "dozenten.csv";
         List<String[]> dozentenPVZeitenList = readCsvFromFile(filePath);
         SwingUtilities.invokeLater(() -> new TxtToCsvTable(dozentenPVZeitenList));
+        
+        List<LV> lvList = ReadCSVs.getLVList();
+        List<Zug> zugList = ReadCSVs.getZugList();
+        dozentList = ReadCSVs.getDozentList();
 
-        String handtuchOutputUpdatePath = "src/iim/Handtuch/HandtuchOutputUpdate.csv";
-
-        dozentenList = readCSVs.addDozentNotInPVZeiten(dozentenList, handtuchOutputUpdatePath, lvList);
-        readCSVs.addLVforDozent(dozentenList, lvList);
-        readCSVs.addLeadingZugAndChangeLVName(dozentenList, lvList, zugList);
-        readCSVs.addZugToLV(lvList, zugList);
-
-        readCSVs.setLVforZug(lvList, zugList);
-
-        readCSVs.addDozentToLV(dozentenList, lvList);
-
-        StundenplanFrame gui = new StundenplanFrame(dozentenList, zugList, lvList);
+        StundenplanFrame gui = new StundenplanFrame(dozentList, zugList, lvList);
 
     }
 }

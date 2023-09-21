@@ -21,15 +21,19 @@ import java.util.Set;
  * @author Yann Leymann
  */
 public class ReadCSVs implements Serializable {
-
+    
+    private static List<LV> lvList = new ArrayList<>();
+    private static List<Zug> zugList = new ArrayList<>();
+    private static List<Dozent> dozentList = new ArrayList<>();
+    private static String path;
    
 
-    public static List<LV> createLVListFromCSV(String handtuchCSVFilePath) {
-        List<LV> lvList = new ArrayList<>();
-
+    public static void createLVListFromCSV(String path, List<Dozent> dozentList) {
+        ReadCSVs.path = path;
+        ReadCSVs.dozentList = dozentList;
         Set<String> stringSet = new HashSet<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath));
+            BufferedReader br = new BufferedReader(new FileReader(path));
             String line;
             String[] header = br.readLine().split(";");
             int zugNameIndex = getColumnIndex("Zug", header);
@@ -41,25 +45,30 @@ public class ReadCSVs implements Serializable {
                 String zugName = parts[zugNameIndex];
 
                 //create a Set with each ZugName. It will be used to create a pseudo List<Zug>
-                //Each LV will have a List<String> with all Zugs visiting it
-                //So hen the Zug objects will be created it will be easyer to conect them
+                //Each LV will have a List<String> with all Zugs visiting it.
+                //The Zug objects will be created later but it will be easyer to conect them with the Set
                 stringSet.add(zugName);
 
             }
 
             br.close();
-            lvList = setLVsWithOneZug(stringSet, dozentNameIndex, lvKuerzelIndex, handtuchCSVFilePath, lvList);
-            lvList = setAllZugNamesForLV(stringSet, dozentNameIndex, lvKuerzelIndex, handtuchCSVFilePath, lvList);
-            //lvList = setLVsWithNoDozent(dozentNameIndex, lvKuerzelIndex, handtuchCSVFilePath, lvList);
+            setLVsWithOneZug(stringSet, dozentNameIndex, lvKuerzelIndex);
+            setAllZugNamesForLV(stringSet, dozentNameIndex, lvKuerzelIndex);
+            createZugListfromCSV();
+            addDozentNotInPVZeiten();
+            addLVforDozent();
+            addLeadingZugAndChangeLVName();
+            addZugToLV();
+            setLVforZug();
+            addDozentToLV();
+            
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return lvList;
     }
 
-    private static List<LV> setLVsWithOneZug(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex, String path, List<LV> lvList) {
+    public static void setLVsWithOneZug(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex) {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
@@ -72,7 +81,6 @@ public class ReadCSVs implements Serializable {
             int geblocktIndex = getColumnIndex("geblockt", header);
             int lvaIndex = getColumnIndex("LVA", header);
             int secondDozentIndex = getColumnIndex("2. Dozent", header);
-            //int i = 0;
 
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
@@ -87,33 +95,29 @@ public class ReadCSVs implements Serializable {
                 String secondDozentName = parts[secondDozentIndex];
 
                 if (!stringSet.contains(dozentName)) {
-                    //Because we have LVs for more than one Zug(example: (LV)1.GLI: (Zug)[ID1, II1, II2, MT1])
+                    //Because we have LVs for more than one Zug(example: (LV)GLI: (Zug)[ID1, II1, II2, MT1])
                     //threre is a Leading Zug for each LV. Each Zug wich is not Leading has in the Dozent column,
                     //not the Dozent name but the Leading Zug name, like a pointer.
-                    //If the Cell in the Column Dozent contains a leading Zug name this LV is not created.  
+                    //If the cell in the column Dozent contains a leading Zug name, no new LV object is created.  
                     //Ensuring that there are not multiple LVs when, in reality, there is only one.
                     //WRONG: (LV)1.GLI: (Zug)[ID1], (LV)2.GLI: (Zug)[II1], (LV)3.GLI: (Zug)[II2], (LV)4.GLI: (Zug)[MT2]
-                    //RIGHT: (LV)1.GLI: (Zug)[ID1, II1, II2, MT1])
+                    //RIGHT: (LV)GLI__ID1: (Zug)[ID1, II1, II2, MT1], ID1 would be the leading Zug for this LV 
                     //First we add to each LV the Leading Zug name.
                     //The the other Zug names,if the LV has mutilple Zugs, are added in the method: setLVsWithMoreZug
                     LV newLV = new LV(lvKuerzel, fullName, dozentName, swsValue, geblockt, lva, secondDozentName, lvKuerzel);
                     newLV.addZugToNameList(zugName);
                     newLV.setLeadingZugName(zugName);
                     lvList.add(newLV);
-
                 }
-
             }
-
             br.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return lvList;
+        
     }
 
-    private static List<LV> setAllZugNamesForLV(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex, String path, List<LV> lvList) {
+    private static void setAllZugNamesForLV(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             String line;
@@ -128,7 +132,7 @@ public class ReadCSVs implements Serializable {
 
                 //If an LV is visited by multiple Zugs, the value in the 'Dozent' column does not
                 //represent the name of a Dozent but rather serves as a reference to the leading Zug.
-                //So if the Value is a Zug we search for the combination of the referenced Zug
+                //So if the value is a Zug we search for the combination of the referenced Zug
                 //and the LV matching the LV in the Row of the 'pointer'. 
                 //If found we add the Zug with the Pointer to the ZugNameList of the referenced LV.
                 if (stringSet.contains(dozentName)) {
@@ -146,17 +150,15 @@ public class ReadCSVs implements Serializable {
             e.printStackTrace();
         }
 
-        return lvList;
     }
 
-    public static List<Zug> createZugListfromCSV(String handtuchCSVFilePath, List<LV> lvList) {
+    public static void createZugListfromCSV() {
         //This method creates Zug Objects and adds them to the ZugList
-        //Furthermore the corresp onding LV Objects wich are viseted by the chosen Zug are added to the Zug Object.
+        //Furthermore the corresponding LV Objects wich are visited by the chosen Zug are added to the Zug Object.
 
-        List<Zug> zugList = new ArrayList<>();
         Set<String> zugSet = new HashSet<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(handtuchCSVFilePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             String[] header = br.readLine().split(";");
             int zugIndex = getColumnIndex("Zug", header);
@@ -192,16 +194,14 @@ public class ReadCSVs implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return zugList;
     }
 
-    public List<Dozent> addDozentNotInPVZeiten(List<Dozent> dozenten, String handtuchCSVFilePath, List<LV> lvList) {
+    public static void addDozentNotInPVZeiten() {
 
         //The names of the Object Dozent must be unique. So the names of all already existing elements
         //are copied in a Set.
         Set<String> existingDozenten = new HashSet<>();
-        for (Dozent dozent : dozenten) {
+        for (Dozent dozent : dozentList) {
             existingDozenten.add(dozent.getName());
         }
 
@@ -213,16 +213,15 @@ public class ReadCSVs implements Serializable {
             if (!existingDozenten.contains(lv.getDozentName())) {
                 Dozent dozent = new Dozent(lv.getDozentName());
                 dozent.setDoesHavePVZeiten(false);
-                dozenten.add(dozent);
+                dozentList.add(dozent);
                 existingDozenten.add(lv.getDozentName());
             }
         }
-        return dozenten;
     }
 
-    public void addLVforDozent(List<Dozent> dozenten, List<LV> lvList) {
+    public static void addLVforDozent() {
         for (LV lv : lvList) {
-            for (Dozent dozent : dozenten) {
+            for (Dozent dozent : dozentList) {
                 if (lv.getDozentName().equals(dozent.getName())) {
                     dozent.addLV(lv);
                     dozent.addLVName(lv.getName());
@@ -231,8 +230,8 @@ public class ReadCSVs implements Serializable {
         }
     }
 
-    public void addLeadingZugAndChangeLVName(List<Dozent> dozenten, List<LV> lvList, List<Zug> zugList) {
-        for (Dozent dozent : dozenten) {
+    public static void  addLeadingZugAndChangeLVName() {
+        for (Dozent dozent : dozentList) {
             for (LV lvDozent : dozent.getLV()) {
                 String name = lvDozent.getName();
                 lvDozent.setName(name + "__" + lvDozent.getLeadingZugName());
@@ -249,7 +248,7 @@ public class ReadCSVs implements Serializable {
     
     
 
-    public void addZugToLV(List<LV> lvList, List<Zug> zugList) {
+    public static void addZugToLV() {
         //Now that we have the Zug Objects we can add them to the corresponding LV Objects
         //With the help of the ZugNameList, wich we create while creating the LV Objects
         //in th methods setLVsWithOneZug() and setAllZugNamesForLV()
@@ -265,7 +264,7 @@ public class ReadCSVs implements Serializable {
         }
     }
 
-    public void setLVforZug(List<LV> lvList, List<Zug> zugList) {
+    public static void setLVforZug() {
 
         for (LV lv : lvList) {
             for (String zugName : lv.getZugNameList()) {
@@ -289,7 +288,7 @@ public class ReadCSVs implements Serializable {
 
 
 
-    public void addDozentToLV(List<Dozent> dozentList, List<LV> lvList) {
+    public static void addDozentToLV() {
         for (LV lv : lvList) {
             for (Dozent dozent : dozentList) {
                 if (lv.getDozentName().equals(dozent.getName())) {
@@ -304,6 +303,16 @@ public class ReadCSVs implements Serializable {
                 }
             }
         }
+    }
+    
+    public static List<LV> getLVList(){
+        return lvList;
+    }
+        public static List<Zug> getZugList(){
+        return zugList;
+    }
+        public static List<Dozent> getDozentList(){
+        return dozentList;
     }
 
 }

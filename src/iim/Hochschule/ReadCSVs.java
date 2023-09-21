@@ -21,12 +21,11 @@ import java.util.Set;
  * @author Yann Leymann
  */
 public class ReadCSVs implements Serializable {
-    
+
     private static List<LV> lvList = new ArrayList<>();
     private static List<Zug> zugList = new ArrayList<>();
     private static List<Dozent> dozentList = new ArrayList<>();
     private static String path;
-   
 
     public static void createLVListFromCSV(String path, List<Dozent> dozentList) {
         ReadCSVs.path = path;
@@ -61,7 +60,6 @@ public class ReadCSVs implements Serializable {
             addZugToLV();
             setLVforZug();
             addDozentToLV();
-            
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -114,7 +112,7 @@ public class ReadCSVs implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     private static void setAllZugNamesForLV(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex) {
@@ -230,23 +228,38 @@ public class ReadCSVs implements Serializable {
         }
     }
 
-    public static void  addLeadingZugAndChangeLVName() {
+    public static void addLeadingZugAndChangeLVName() {
         for (Dozent dozent : dozentList) {
             for (LV lvDozent : dozent.getLV()) {
                 String name = lvDozent.getName();
-                lvDozent.setName(name + "__" + lvDozent.getLeadingZugName());
+
+                int numUnderscores = 0;
+                if (name.length() == 3) {
+                    numUnderscores = 3;
+                } else if (name.length() == 4) {
+                    numUnderscores = 2;
+                }
+
+                StringBuilder newName = new StringBuilder();
+                newName.append(name);
+                for (int i = 0; i < numUnderscores; i++) {
+                    newName.append("_");
+                }
+
+  
+                newName.append(lvDozent.getLeadingZugName());
+
+
+                lvDozent.setName(newName.toString());
+
                 for (Zug zug : zugList) {
                     if (lvDozent.getLeadingZugName().equals(zug.getName())) {
                         lvDozent.setLeadingZug(zug);
                     }
-
                 }
             }
         }
     }
-
-    
-    
 
     public static void addZugToLV() {
         //Now that we have the Zug Objects we can add them to the corresponding LV Objects
@@ -286,8 +299,6 @@ public class ReadCSVs implements Serializable {
         return -1;
     }
 
-
-
     public static void addDozentToLV() {
         for (LV lv : lvList) {
             for (Dozent dozent : dozentList) {
@@ -304,14 +315,16 @@ public class ReadCSVs implements Serializable {
             }
         }
     }
-    
-    public static List<LV> getLVList(){
+
+    public static List<LV> getLVList() {
         return lvList;
     }
-        public static List<Zug> getZugList(){
+
+    public static List<Zug> getZugList() {
         return zugList;
     }
-        public static List<Dozent> getDozentList(){
+
+    public static List<Dozent> getDozentList() {
         return dozentList;
     }
 

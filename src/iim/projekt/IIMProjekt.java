@@ -45,7 +45,7 @@ public class IIMProjekt {
 
 
 
-        ReadHandtuch2.readFromFile();
+
         List<Dozent> dozentList = pvZeitenToDozent.splittNameWishList(relativePath);
         ReadCSVs.createLVListFromCSV(handtuchCSVFilePath, dozentList);
 

@@ -4,7 +4,6 @@
  */
 package GUI;
 
-
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
@@ -51,7 +50,7 @@ public class MusterPanel extends javax.swing.JPanel {
     /**
      * Creates new form MusterPanel
      */
-    public MusterPanel(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList,  JTabbedPane jTabbedPane) {
+    public MusterPanel(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList, JTabbedPane jTabbedPane) {
         this.dozentenList = dozentenList;
         this.zugList = zugList;
         this.lvList = lvList;
@@ -61,7 +60,7 @@ public class MusterPanel extends javax.swing.JPanel {
         initComponents();
         timeToJTable();
         addSelectionListenerJList();
-        
+
         //sets the header of the table to a specific Font and size
         JTableHeader header = jTable.getTableHeader();
         header.setFont(new Font("Arial", Font.BOLD, 16));
@@ -80,8 +79,8 @@ public class MusterPanel extends javax.swing.JPanel {
         for (int i = 0; i < textList.size(); i++) {
             jTable.setValueAt(textList.get(i), i, 0); // Fügen Sie den Text in die erste Spalte ein
         }
-        Dozent Dummy = new Dozent("DMY");
-        jTable.getColumnModel().getColumn(0).setCellRenderer(new TableCellRenderer(Dummy, dozentenList, lvList));
+        Dozent dummy = new Dozent("DMY");
+        jTable.getColumnModel().getColumn(0).setCellRenderer(new TableCellRenderer(dummy, dozentenList, lvList));
     }
 
     /**
@@ -376,7 +375,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
     // action-listener for deleting element in table when left-clicked
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
-             if (evt.getButton() == MouseEvent.BUTTON1) {
+        if (evt.getButton() == MouseEvent.BUTTON1) {
             int row = jTable.rowAtPoint(evt.getPoint());
             int col = jTable.columnAtPoint(evt.getPoint());
 
@@ -549,6 +548,7 @@ public class MusterPanel extends javax.swing.JPanel {
     private DefaultListModel setLVZugList(Zug zug) {
 
         emptyJTable();
+        DefaultTableCellRenderer();
 
         DefaultListModel<Object> listModel = new DefaultListModel<>();
 
@@ -751,7 +751,7 @@ public class MusterPanel extends javax.swing.JPanel {
 //            System.out.println(selectedLV.getHandtuchPointer()  +   "    " + selectedLV.getNickName());
             // List<String> checkList = new ArrayList<>();
             for (LV lvZug : zug.getLV()) {
- //
+                //
                 if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
 
                     long lvScheduled = lvZug.getScheduledLV();
@@ -828,7 +828,12 @@ public class MusterPanel extends javax.swing.JPanel {
         // sets the renderer for every row and column
         for (int i = 1; i < jTable.getColumnCount(); i++) {
             jTable.getColumnModel().getColumn(i).setCellRenderer(defaultRenderer);
+            Dozent dummy = new Dozent("DMY");
+            dummy.setDoesHavePVZeiten(false);
+            jTable.getColumnModel().getColumn(i).setCellRenderer(new TableCellRenderer(dummy, dozentenList, lvList));
+
         }
+
     }
 
     public void getZugforLVinTable(LV lv) {

@@ -267,6 +267,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
             int previousTabIndex = selectedTabIndex - 1;
             sourceTabbedPane.setSelectedIndex(previousTabIndex);
         }
+        jTable1.revalidate();
+        jTable1.repaint();
     }//GEN-LAST:event_jTabbedPane1StateChanged
     
     // action-listener for choosing filter parameter in the second JComboBox in Handtuch 

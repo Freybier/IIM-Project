@@ -48,6 +48,7 @@ public class MusterPanel extends javax.swing.JPanel {
     public JTabbedPane jTabbedPane1;
     public Object selectedSearchObject;
     public LV jLVListLV;
+    public LV lvSelected;
 
     /**
      * Creates new form MusterPanel
@@ -81,8 +82,9 @@ public class MusterPanel extends javax.swing.JPanel {
         for (int i = 0; i < textList.size(); i++) {
             jTable.setValueAt(textList.get(i), i, 0); // Fügen Sie den Text in die erste Spalte ein
         }
-        Dozent dummy = new Dozent("DMY");
-        jTable.getColumnModel().getColumn(0).setCellRenderer(new TableCellRenderer(dummy, dozentenList, lvList));
+        Dozent dummyDozent = new Dozent("DMY");
+        LV dummyLV = new LV("DMY3", "DMY", "DMY", "0", true, "DMY", "DMY1", "DMY2");
+        jTable.getColumnModel().getColumn(0).setCellRenderer(new TableCellRenderer(dummyDozent, dozentenList, lvList, jLabelName.getText(), dummyLV, zugList));
     }
 
     /**
@@ -414,7 +416,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                     //if(lvDozentTable.getSecondDozentLV() != null)
                                     //lvDozentTable.getSecondDozentLV().setScheduledDozent(lvDozentTable.getSecondDozentLV().getScheduledDozent() ^ delete);
                                     lvDozentTable.substractOneSWSBlocksTook();
-                                    tableCellRenderer = new TableCellRenderer(dozentTable, dozentenList, dozentTable.getLV());
+                                    tableCellRenderer = new TableCellRenderer(dozentTable, dozentenList, dozentTable.getLV(), jLabelName.getText(),lvSelected, zugList);
                                     jTable.setValueAt("", row, col);
                                     jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
                                     jTable.revalidate();
@@ -438,7 +440,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                     //if( lvZugTable.getSecondDozentLV()!= null)
                                     //lvZugTable.getSecondDozentLV().setScheduledDozent(lvZugTable.getSecondDozentLV().getScheduledDozent() ^ delete);
                                     lvZugTable.substractOneSWSBlocksTook();
-                                    tableCellRenderer = new TableCellRenderer(lvZugTable.getDozentLV(), dozentenList, zugTable.getLV());
+                                    tableCellRenderer = new TableCellRenderer(lvZugTable.getDozentLV(), dozentenList, zugTable.getLV(), jLabelName.getText(), lvSelected, zugList);
                                     jTable.setValueAt("", row, col);
                                     jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
                                     jTable.revalidate();
@@ -554,7 +556,7 @@ public class MusterPanel extends javax.swing.JPanel {
             jLVList.updateUI();
 
             // LV-Objekt aus den Dozenten auswählen
-            this.tableCellRenderer = new TableCellRenderer(dozent, dozentenList, dozent.getLV());
+            this.tableCellRenderer = new TableCellRenderer(dozent, dozentenList, dozent.getLV(), jLabelName.getText(), lvSelected, zugList);
             tableTransferHandler.setDozentenName(dozent.getName());
             tableTransferHandler.setLVJLVList(dozent.getLV());
 
@@ -730,17 +732,18 @@ public class MusterPanel extends javax.swing.JPanel {
                         if (selectedSearchObject instanceof Zug) {
                             jLVListLV = ((Zug) selectedSearchObject).getLV().get(selectedIndex);
                             tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
-                            tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((Zug) selectedSearchObject).getLV());
+                            tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((Zug) selectedSearchObject).getLV(), jLabelName.getText(), jLVListLV, zugList);
 
                         } else if (selectedSearchObject instanceof Dozent) {
                             jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
-                            tableCellRenderer = new TableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV());
+                            tableCellRenderer = new TableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV(), jLabelName.getText(),jLVListLV, zugList);
                         } else if (selectedSearchObject instanceof LV) {
 
                             jLVListLV = ((LV) selectedSearchObject).getLeadingZug().getLV().get(selectedIndex);
                             tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
-                            tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((LV) selectedSearchObject).getLeadingZug().getLV());
+                            tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((LV) selectedSearchObject).getLeadingZug().getLV(),jLabelName.getText(), jLVListLV, zugList);
                         }
+                        lvSelected = jLVListLV;
                     }
                     // Hier überprüfen, ob selectedLV nicht null ist
                     if (jLVListLV != null) {
@@ -865,7 +868,7 @@ public class MusterPanel extends javax.swing.JPanel {
             jTable.getColumnModel().getColumn(i).setCellRenderer(defaultRenderer);
             Dozent dummy = new Dozent("DMY");
             dummy.setDoesHavePVZeiten(false);
-            jTable.getColumnModel().getColumn(i).setCellRenderer(new TableCellRenderer(dummy, dozentenList, lvList));
+            jTable.getColumnModel().getColumn(i).setCellRenderer(new TableCellRenderer(dummy, dozentenList, lvList, jLabelName.getText(), lvSelected, zugList));
 
         }
 

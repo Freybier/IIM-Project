@@ -31,12 +31,17 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
     private Dozent dozent;
     private Zug zug;
     private List<LV> lvList;
+    private String label;
+    private LV lvSelected;
+    private List<Zug> zugList;
 
-    public TableCellRenderer(Dozent dozent, List<Dozent> dozentList, List<LV> lvList) {
+    public TableCellRenderer(Dozent dozent, List<Dozent> dozentList, List<LV> lvList, String label, LV lvSelected, List<Zug> zugList) {
         this.dozent = dozent;
         this.dozentList = dozentList;
         this.lvList = lvList;
-
+        this.label = label;
+        this.lvSelected = lvSelected;
+        this.zugList = zugList;
         //System.out.println(dozent);
     }
 
@@ -146,28 +151,70 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
 //                            table.revalidate();
 //                            table.repaint();
                         }
-                    } else {
+                    } else if (lvSelected != null) {
+                        String cellInput;
                         int i = 0;
-                        for (LV lvDozent : dozent.getLV()) {
-                            for (Zug zugLVDozent : lvDozent.getZugList()) {
-                                for (LV lvZugLVDozent : zugLVDozent.getLV()) {
-                                    long lvScheduled = lvZugLVDozent.getScheduledLV();
-                                    lvScheduled = lvScheduled >> checkSum;
-                                    if (lvScheduled % 2 == 1 && i == 0) {
-                                        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                                        tableModel.setValueAt(lvZugLVDozent.getName(), row, column);
-                                        table.revalidate();
-                                        table.repaint();
-                                        i++;                       
+                        for (Dozent dozent : dozentList) {
+                            if (dozent.getName().equals(label)) {
+                                for (LV lvDozent : dozent.getLV()) {
+                                    for (Zug zugLVDozent : lvDozent.getZugList()) {
+                                        for (LV lvZugLVDozent : zugLVDozent.getLV()) {
+                                            long lvScheduled = lvZugLVDozent.getScheduledLV();
+                                            lvScheduled = lvScheduled >> checkSum;
+                                            if (lvScheduled % 2 == 1) {
+                                                cellInput = zugLVDozent.getName() + ": " + lvZugLVDozent.getName();
+                                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                                tableModel.setValueAt(cellInput, row, column);
+                                                table.revalidate();
+                                                table.repaint();
+                                                i++;
+                                            }
+                                        }
                                     }
                                 }
                             }
+
                         }
-                        if (i == 0) {
-                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                            tableModel.setValueAt("", row, column);
-                            table.revalidate();
-                            table.repaint();
+
+                        for (Zug zug : zugList) {
+                            if (zug.getName().equals(label)) {
+                                for (Zug zugsSelected : lvSelected.getZugList()) {
+                                    for (LV lvZugsSelected : zugsSelected.getLV()) {
+                                        long lvScheduled = lvZugsSelected.getScheduledLV();
+                                        lvScheduled = lvScheduled >> checkSum;
+                                        if (lvScheduled % 2 == 1) {
+                                            cellInput = zugsSelected.getName() + ": " + lvZugsSelected.getName();
+                                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                            tableModel.setValueAt(cellInput, row, column);
+                                            table.revalidate();
+                                            table.repaint();
+                                            i++;
+                                        }
+                                    }
+                                }
+                            }
+
+//                            int i = 0;
+//                            for (LV lvDozent : dozent.getLV()) {
+//                                for (Zug zugLVDozent : lvDozent.getZugList()) {
+//                                    for (LV lvZugLVDozent : zugLVDozent.getLV()) {
+//                                        long lvScheduled = lvZugLVDozent.getScheduledLV();
+//                                        lvScheduled = lvScheduled >> checkSum;
+//                                        if (lvScheduled % 2 == 1 && i == 0) {
+//
+//                                            table.revalidate();
+//                                            table.repaint();
+//                                            i++;
+//                                        }
+//                                    }
+//                                }
+//                            }
+                            if (i == 0) {
+                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                tableModel.setValueAt("", row, column);
+                                table.revalidate();
+                                table.repaint();
+                            }
                         }
                     }
                 } else {

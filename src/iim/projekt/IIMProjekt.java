@@ -38,6 +38,13 @@ public class IIMProjekt {
         });
 
 
+        
+        
+        ReadHandtuch2.readFromFile("src/iim/Handtuch/Handtuch.html");
+        //ReadHandtuch2.readFromWebsite("file:///C:/Users/Frey/Downloads/Handtuch%20(1).html");
+
+
+
         ReadHandtuch2.readFromFile();
         List<Dozent> dozentList = pvZeitenToDozent.splittNameWishList(relativePath);
         ReadCSVs.createLVListFromCSV(handtuchCSVFilePath, dozentList);

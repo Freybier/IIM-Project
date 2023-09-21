@@ -25,11 +25,11 @@ public class ReadHandtuch2 {
     public static int numRows = 0;
     public static int numCols = 0;
 
-    public static String[][] readFromFile() {
+    public static String[][] readFromFile(String filename) {
         String[][] tableArray = null;
         try {
             // Read the HTML file using Jsoup
-            Document doc = Jsoup.parse(new File("src/iim/Handtuch/Handtuch.html"), "UTF-8");
+            Document doc = Jsoup.parse(new File(filename), "UTF-8");
 
             tableArray = read(doc);
 
@@ -120,7 +120,7 @@ public class ReadHandtuch2 {
 
     // Rest of your existing code (createCSV method) remains the same
     public static void webReader() {
-        String websiteUrl = "https://example.com";  // Replace with the actual website URL
+        String websiteUrl = "file:///C:/Users/Frey/Downloads/Handtuch%20(1).html";  // Replace with the actual website URL
         tableData = readFromWebsite(websiteUrl);
 
         if (tableData != null) {

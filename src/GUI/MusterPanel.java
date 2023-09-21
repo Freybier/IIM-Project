@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -313,7 +314,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
             } else if (selectedSearchObject instanceof Dozent) {
                 // changing the title of the tab
-                jLabelName.setText(selectedSearchObject.toString());
+                jLabelName.setText(jLabelText);
                 // set content of jLvList
                 jLVList.setModel(setLVDozentList((Dozent) selectedSearchObject));
 
@@ -405,8 +406,10 @@ public class MusterPanel extends javax.swing.JPanel {
                                     jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
                                     jTable.revalidate();
                                     jTable.repaint();
+                                    getZugLVandDozentLVforSelectedLVinTable(lvDozentTable);
                                 }
                             }
+
                         }
                     }
                     for (Zug zugTable : zugList) {
@@ -427,6 +430,7 @@ public class MusterPanel extends javax.swing.JPanel {
                                     jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
                                     jTable.revalidate();
                                     jTable.repaint();
+                                    getZugLVandDozentLVforSelectedLVinTable(lvZugTable);
 
                                 }
                             }
@@ -435,6 +439,12 @@ public class MusterPanel extends javax.swing.JPanel {
                 }
             }
         }
+        jTabbedPane1.revalidate();
+        jTabbedPane1.repaint();
+        jTable.revalidate();
+        jTable.repaint();
+        jLVList.revalidate();
+        jLVList.repaint();
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
@@ -887,6 +897,12 @@ public class MusterPanel extends javax.swing.JPanel {
         this.zugList = zugList;
 
     }
+
+    public JTable getJTable() {
+        return jTable;
+    }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

@@ -433,6 +433,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
             jColumnFilter.addItem((String) title);
         }
     }
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SubFilter;

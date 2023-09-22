@@ -43,7 +43,7 @@ public class Zug implements Serializable {
         this.scheduledZug = scheduled;
     }
 
-    public void setLeading(boolean leading) {
+    public void setLeadingZug(boolean leading) {
         this.leading = leading;
     }
 

@@ -427,6 +427,8 @@ public class MusterPanel extends javax.swing.JPanel {
 
                         }
                     }
+                    
+                    // Falls blackboaeder deletet werden soll HIER ändern
                     for (Zug zugTable : zugList) {
                         if (zugTable.getName().equals(check)) {
                             for (LV lvZugTable : zugTable.getLV()) {

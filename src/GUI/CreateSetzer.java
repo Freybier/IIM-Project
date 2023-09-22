@@ -41,7 +41,13 @@ public class CreateSetzer {
                             String block = Integer.toString(35-i);
                             String eins = "1";
                             String nickName = lv.getNickName();
-                            String dozentName = lv.getDozentName();
+                            String dozentName;
+                            if(lv.getLeadingZugName().equals(zugName)){
+                              dozentName = lv.getDozentName();  
+                            }else{
+                                dozentName = lv.getLeadingZugName();
+                            }
+                            
                             String raumNr = "-";
                             data = zugName+block+eins+nickName+dozentName+raumNr;
                             bufferedWriter.write(data+";");

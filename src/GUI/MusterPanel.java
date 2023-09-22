@@ -284,7 +284,8 @@ public class MusterPanel extends javax.swing.JPanel {
         String entry = this.jSuchfeldDoZug.getText();
         findMatchingObjects(entry);
     }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
-
+//Wechsel bei Zügen in der Gui wenn LV ausgewählt werden
+    
     // action-listener for the click on the elements in the search-result List
     private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
         // clear the List from previous search querys

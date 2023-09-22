@@ -512,9 +512,11 @@ public class MusterPanel extends javax.swing.JPanel {
         leadingLabel.setFont(font);
         JLabel lva = new JLabel("   LVA: " + selectedLV.getLVA());
         lva.setFont(font);
-
+        JLabel nickName = new JLabel("   NickName: " + selectedLV.getNickName());
+        nickName.setFont(font);
+        
         //jInfoFeld.setLayout(new BoxLayout(jInfoFeld, BoxLayout.Y_AXIS));
-        jInfoFeld.setLayout(new GridLayout(0,4));
+        jInfoFeld.setLayout(new GridLayout(0,2));
         // Here the labels are added to the InfoPanel
         jInfoFeld.add(nameLabel);
         jInfoFeld.add(swsLabel);
@@ -524,6 +526,7 @@ public class MusterPanel extends javax.swing.JPanel {
         jInfoFeld.add(geblocktLabel);
         jInfoFeld.add(leadingLabel);
         jInfoFeld.add(lva);
+        jInfoFeld.add(nickName);
         // we update the InfoPanel
         jInfoFeld.revalidate();
         jInfoFeld.repaint();
@@ -776,9 +779,9 @@ public class MusterPanel extends javax.swing.JPanel {
         jTable.repaint();
 
         //All LVs from all Zugs wich also has to take selectedLV
-        getZugLVforSelectedLV(selectedLV);
+        //getZugLVforSelectedLV(selectedLV);
         //All LVs from the Dozent giving the selectedLV
-        getDozentLVforSelectedLV(selectedLV);
+        //getDozentLVforSelectedLV(selectedLV);
     }
 
     //All LVs from all Zugs wich also has to take selectedLV

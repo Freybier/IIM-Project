@@ -15,7 +15,7 @@ import java.util.List;
 public class LV implements Serializable {
 
     private String name;
-    private String nickName;
+    private final String nickName;
     private final String fullName;
     private long scheduledLV = 0;
     private final String dozentName;
@@ -32,6 +32,7 @@ public class LV implements Serializable {
     private Dozent dozentLV;
     private Dozent secondDozentLV;
     private String roomNumber = "-";
+    private boolean isScheduled;
 
     //private String handtuchPointer;
     public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva, String secondDozentName, String nickName) {
@@ -98,6 +99,11 @@ public class LV implements Serializable {
 
     public void setScheduledLV(long scheduled) {
         scheduledLV = scheduled;
+        if(scheduledLV == 0){
+            setIsScheduled(false);
+        }else{
+            setIsScheduled(true);
+        }
     }
 
     public String getSWS() {
@@ -181,6 +187,12 @@ public class LV implements Serializable {
 
     public String getRoomNumber() {
         return roomNumber;
+    }
+    public boolean getIsScheduled(){
+        return isScheduled;
+    }
+    public void setIsScheduled(boolean isScheduled){
+        this.isScheduled = isScheduled;
     }
 
     @Override

@@ -154,20 +154,44 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                     } else if (lvSelected != null) {
                         String cellInput;
                         int i = 0;
+                        for (LV lvS : lvSelected.getDozentLV().getLV()) {
+                            long lvScheduled = lvS.getScheduledLV();
+                            lvScheduled = lvScheduled >> checkSum;
+                            if (lvScheduled % 2 == 1) {
+                                //cellInput = "<html>" + zugLVDozent.getName() + ": " + "<br/>" + lvZugLVDozent.getName()+ "<html>";
+                                cellInput = lvS.getName();
+                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                tableModel.setValueAt(cellInput, row, column);
+                                table.revalidate();
+                                table.repaint();
+                                i++;
+                            } else {
+                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                tableModel.setValueAt("", row, column);
+                                table.revalidate();
+                                table.repaint();
+                            }
+                        }
                         for (Dozent dozent : dozentList) {
                             if (dozent.getName().equals(label)) {
                                 for (LV lvDozent : dozent.getLV()) {
-                                    for (Zug zugLVDozent : lvDozent.getZugList()) {
+                                    for (Zug zugLVDozent : lvSelected.getZugList()) {
                                         for (LV lvZugLVDozent : zugLVDozent.getLV()) {
                                             long lvScheduled = lvZugLVDozent.getScheduledLV();
                                             lvScheduled = lvScheduled >> checkSum;
                                             if (lvScheduled % 2 == 1) {
+                                                //cellInput = "<html>" + zugLVDozent.getName() + ": " + "<br/>" + lvZugLVDozent.getName()+ "<html>";
                                                 cellInput = zugLVDozent.getName() + ": " + lvZugLVDozent.getName();
                                                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
                                                 tableModel.setValueAt(cellInput, row, column);
                                                 table.revalidate();
                                                 table.repaint();
                                                 i++;
+                                            } else {
+//                                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+//                                                tableModel.setValueAt("", row, column);
+//                                                table.revalidate();
+//                                                table.repaint();
                                             }
                                         }
                                     }
@@ -189,6 +213,11 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                                             table.revalidate();
                                             table.repaint();
                                             i++;
+                                        } else {
+//                                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+//                                            tableModel.setValueAt("", row, column);
+//                                            table.revalidate();
+//                                            table.repaint();
                                         }
                                     }
                                 }

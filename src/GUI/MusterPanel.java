@@ -7,14 +7,15 @@ package GUI;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
@@ -48,7 +48,9 @@ public class MusterPanel extends javax.swing.JPanel {
     public JTabbedPane jTabbedPane1;
     public Object selectedSearchObject;
     public LV jLVListLV;
+    public LV lastSelectedLV;
     public LV lvSelected;
+
 
     /**
      * Creates new form MusterPanel
@@ -100,6 +102,8 @@ public class MusterPanel extends javax.swing.JPanel {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
+        jDialog1 = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
         jSuchfeldDoZug = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jLVList = new javax.swing.JList<>();
@@ -112,11 +116,31 @@ public class MusterPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jComboDoZug = new javax.swing.JComboBox<>();
+        changeRoomButton = new javax.swing.JButton();
+        changeRoomField = new javax.swing.JTextField();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
         jScrollPane1.setViewportView(jTree1);
+
+        jDialog1.setTitle("Error");
+
+        jLabel1.setText("Bitte wählen Sie eine Lernveranstaltung bevor sie den Raum ändern.");
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jSuchfeldDoZug.setText("Suche");
         jSuchfeldDoZug.setToolTipText("SucheDozent/Zug");
@@ -209,6 +233,19 @@ public class MusterPanel extends javax.swing.JPanel {
             }
         });
 
+        changeRoomButton.setText("Raum ändern");
+        changeRoomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeRoomButtonActionPerformed(evt);
+            }
+        });
+
+        changeRoomField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeRoomFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -233,7 +270,11 @@ public class MusterPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioDozent)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioZug, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jRadioZug, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 500, Short.MAX_VALUE)
+                                .addComponent(changeRoomField, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(changeRoomButton))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1129, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -247,7 +288,9 @@ public class MusterPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioZug)
                             .addComponent(jRadioDozent)
-                            .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboDoZug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(changeRoomButton)
+                            .addComponent(changeRoomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabelName))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -493,11 +536,12 @@ public class MusterPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboDoZugActionPerformed
 
     private void updateInfoPanel(LV selectedLV) {
-
+        lastSelectedLV = selectedLV;
+        
         // clear InfoPanel for new input
         jInfoFeld.removeAll();
         Font font = new Font("Arial", Font.BOLD, 18);
-
+        
         // the different labels are created here with the infos needed int the InfoPanel
         JLabel nameLabel = new JLabel("   Name: " + selectedLV.getFullName());
         nameLabel.setFont(font);
@@ -546,6 +590,27 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jScrollPane3ComponentResized
 
+    private void changeRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeRoomButtonActionPerformed
+        changeRoom();
+    }//GEN-LAST:event_changeRoomButtonActionPerformed
+
+    private void changeRoomFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeRoomFieldActionPerformed
+        changeRoom();
+    }//GEN-LAST:event_changeRoomFieldActionPerformed
+    
+    private void changeRoom(){
+        String RaumNr = changeRoomField.getText();
+        if(RaumNr != null && lastSelectedLV != null){
+            lastSelectedLV.setRoomNumber(RaumNr);
+            updateInfoPanel(lastSelectedLV);
+        }else{
+        jDialog1.setLayout(new FlowLayout());
+        jDialog1.pack(); // Automatically adjust the size of the dialog based on its contents
+        jDialog1.setLocationRelativeTo(this); // Optional: Center the dialog relative to the parent frame
+        jDialog1.setVisible(true);
+        }
+    }
+    
     private DefaultListModel setLVDozentList(Dozent dozent) {
 
         emptyJTable();
@@ -938,10 +1003,14 @@ public class MusterPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton changeRoomButton;
+    private javax.swing.JTextField changeRoomField;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JComboBox<Object> jComboDoZug;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JPanel jInfoFeld;
     private javax.swing.JList<Object> jLVList;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JRadioButton jRadioDozent;
     private javax.swing.JRadioButton jRadioZug;

@@ -8,6 +8,7 @@ import iim.Hochschule.LV;
 import iim.Hochschule.Zug;
 import java.util.List;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -18,15 +19,14 @@ import java.io.IOException;
 public class CreateSetzer {
 
     public List<Zug> zugList;
+    public String path;
 
-    // Constructor for CreateSetzer
-    public CreateSetzer(List<Zug> zugList, String fileName) {
-        createFile(zugList ,fileName);
+    public CreateSetzer(List<Zug> zugList, File file) {
+        createFile(zugList ,file);
     }
 
-    // Creates a Setzter File which can be read and importet for further use
-    public void createFile(List<Zug> zugList, String fileName) {
-        String csvFilePath = "Data/" + fileName +".csv";
+    public void createFile(List<Zug> zugList, File fileName) {
+        String csvFilePath = fileName +".csv";
         try {
             // Create a FileWriter and BufferedWriter to write to the CSV file
             FileWriter fileWriter = new FileWriter(csvFilePath);

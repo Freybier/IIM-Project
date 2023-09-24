@@ -21,6 +21,7 @@ import javax.swing.table.TableRowSorter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  *
@@ -35,10 +36,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public List<Dozent> dozentenList;
     public List<Zug> zugList;
     public List<LV> lvList;
-    
-    
-    
-    //public JTable jTable;
+   
     public TableTransferHandler tableTransferHandler;
 
     public TableCellRenderer tableCellRenderer;
@@ -50,7 +48,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
      */
     public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList, String handtuchCSVFilePath) {
         // oArray is the Object Array created from the Handtuch csv
-        oArray = new CSVToObjectArrayConverter(handtuchCSVFilePath);
+        String absolutPath = new File("").getAbsolutePath();
+        oArray = new CSVToObjectArrayConverter(absolutPath+"\\src\\iim\\Handtuch\\HandtuchNeu.csv");
         this.dozentenList = dozentenList;
         this.zugList = zugList;
         this.lvList = lvList;

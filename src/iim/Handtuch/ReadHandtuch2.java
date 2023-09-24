@@ -12,8 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  *
@@ -83,7 +81,8 @@ public class ReadHandtuch2 {
     }
 
     public static void createCSV(String data[][]) {
-        String filePath = "src/iim/Handtuch/HandtuchOutput.csv";
+        String absolutPath = new File("").getAbsolutePath();
+        String filePath = absolutPath + "\\src\\iim\\Handtuch\\HandtuchOutput.csv";
         try (FileWriter writer = new FileWriter(filePath)) {
             for (int i = 0; i < data.length; i++) {
                 for (int j = 0; j < data[i].length; j++) {
@@ -96,7 +95,6 @@ public class ReadHandtuch2 {
                 }
                 writer.append("\n");
             }
-            System.out.println("CSV file created successfully!");
         } catch (IOException e) {
             System.err.println("Error while creating CSV file: " + e.getMessage());
         }

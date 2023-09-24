@@ -20,6 +20,7 @@ public class ExportFrame extends javax.swing.JFrame {
         initComponents();
         build();
         this.setVisible(true);
+        jFileChooser1.setApproveButtonText("Speichern");
     }
 
     /**
@@ -31,23 +32,14 @@ public class ExportFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        acceptButton = new javax.swing.JButton();
-        fileNameField = new javax.swing.JTextField();
+        jFileChooser1 = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Save File As");
 
-        acceptButton.setText("Accept");
-        acceptButton.addActionListener(new java.awt.event.ActionListener() {
+        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptButtonActionPerformed(evt);
-            }
-        });
-
-        fileNameField.setText("setzer");
-        fileNameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileNameFieldActionPerformed(evt);
+                jFileChooser1ActionPerformed(evt);
             }
         });
 
@@ -56,34 +48,29 @@ public class ExportFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(fileNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(acceptButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fileNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(acceptButton))
-                .addGap(43, 43, 43))
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
-        CreateSetzer createSetzer = new CreateSetzer(this.zugList, fileNameField.getText());
-        this.dispose();
-    }//GEN-LAST:event_acceptButtonActionPerformed
-
-    private void fileNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileNameFieldActionPerformed
-        CreateSetzer createSetzer = new CreateSetzer(this.zugList, fileNameField.getText());
-        this.dispose();
-    }//GEN-LAST:event_fileNameFieldActionPerformed
+    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+        switch (evt.getActionCommand()) {
+            case "ApproveSelection":
+                CreateSetzer createSetzer = new CreateSetzer(this.zugList, jFileChooser1.getSelectedFile());
+                this.dispose();
+                break;
+            case "CancelSelection":
+                this.dispose();
+                break;
+        }
+    }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     public static void build() {
         /* Set the Nimbus look and feel */
@@ -118,7 +105,6 @@ public class ExportFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton acceptButton;
-    private javax.swing.JTextField fileNameField;
+    private javax.swing.JFileChooser jFileChooser1;
     // End of variables declaration//GEN-END:variables
 }

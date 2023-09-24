@@ -70,7 +70,7 @@ public class MusterPanel extends javax.swing.JPanel {
         // makes it possible to drag items from the LV-List to the JTable
         jLVList.setDragEnabled(true);
         jLVList.setTransferHandler(new ListTransferHandler(jLVList));
-        this.tableTransferHandler = new TableTransferHandler(jTable, lvList, dozentenList, zugList, jLVList);
+        this.tableTransferHandler = new TableTransferHandler(jTable, lvList, dozentenList, jLVList);
         jTable.setTransferHandler(tableTransferHandler);
     }
 

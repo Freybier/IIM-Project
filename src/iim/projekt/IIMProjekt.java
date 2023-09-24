@@ -65,7 +65,7 @@ public class IIMProjekt {
         List<Zug> zugList = ReadCSVs.getZugList();
         dozentList = ReadCSVs.getDozentList();
 
-        StundenplanFrame gui = new StundenplanFrame(dozentList, zugList, lvList);
+        StundenplanFrame gui = new StundenplanFrame(dozentList, zugList, lvList, handtuchCSVFilePath);
 
     }
 }

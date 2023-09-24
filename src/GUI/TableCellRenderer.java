@@ -42,14 +42,11 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
         this.label = label;
         this.lvSelected = lvSelected;
         this.zugList = zugList;
-        //System.out.println(dozent);
+
     }
 
     public void setZug(Zug zug) {
         this.zug = zug;
-        if (zug != null) {
-
-        }
     }
 
     @Override
@@ -69,7 +66,7 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
         for (LV lv : lvList) {
             stringList.add(lv.getName());
         }
-        
+
         //  || !dozent.getDoesHavePVZeiten()
         if (dozent == null) {
             cellComponent.setBackground(Color.LIGHT_GRAY);
@@ -80,192 +77,146 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
         Color availableColor = new Color(127, 250, 75);
         Color canNotColor = new Color(250, 75, 75);
         cellComponent.setBackground(noPVZeitenColor);
+
         if (!(column == 0)) {
-            if (!(column == 6 && row == 5)) {
-                if (!(column == 6 && row == 4)) {
-                    if (scheduledDozent == 0) {
-                        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                        tableModel.setValueAt("", row, column);
-                        table.revalidate();
-                        table.repaint();
-                    }
-                    checkSum = 33 - ((column) * 6) + (6 - row);
+            if (!((column == 6 && row == 5) || (column == 6 && row == 4))) {
 
-                    schiebAvailable = schiebAvailable >> checkSum;
-                    schiebDoesNotWant = schiebDoesNotWant >> checkSum;
-                    scheduledDozent = scheduledDozent >> checkSum;
-                    // Überprüfen, ob es sich um die erste Zelle (row = 0, column = 0) handelt
-                    if (schiebAvailable % 2 == 1 && dozent.getDoesHavePVZeiten()) {
-                        cellComponent.setBackground(availableColor);
-                    } else if (schiebDoesNotWant % 2 == 1 && dozent.getDoesHavePVZeiten()) {
-                        cellComponent.setBackground(doesNotWantColor);
-                    } else if ((schiebAvailable ^ schiebDoesNotWant) % 2 == 0 && dozent.getDoesHavePVZeiten()) {
-                        cellComponent.setBackground(canNotColor);
-                    } else {
-                        // Setzen Sie die Standardhintergrundfarbe für andere Zellen
-                        cellComponent.setBackground(noPVZeitenColor);
-                    }
-                    if (scheduledDozent % 2 == 1 && zug == null) {
-                        //cellComponent.setForeground(Color.PINK);
+                if (scheduledDozent == 0) {
+                    DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                    tableModel.setValueAt("", row, column);
+                    table.revalidate();
+                    table.repaint();
+                }
+                checkSum = 33 - ((column) * 6) + (6 - row);
+
+                schiebAvailable = schiebAvailable >> checkSum;
+                schiebDoesNotWant = schiebDoesNotWant >> checkSum;
+                scheduledDozent = scheduledDozent >> checkSum;
+
+                if (schiebAvailable % 2 == 1 && dozent.getDoesHavePVZeiten()) {
+                    cellComponent.setBackground(availableColor);
+                } else if (schiebDoesNotWant % 2 == 1 && dozent.getDoesHavePVZeiten()) {
+                    cellComponent.setBackground(doesNotWantColor);
+                } else if ((schiebAvailable ^ schiebDoesNotWant) % 2 == 0 && dozent.getDoesHavePVZeiten()) {
+                    cellComponent.setBackground(canNotColor);
+                } else {
+                    // Setzen Sie die Standardhintergrundfarbe für andere Zellen
+                    cellComponent.setBackground(noPVZeitenColor);
+                }
+                if (scheduledDozent % 2 == 1 && zug == null) {
+                    //cellComponent.setForeground(Color.PINK);
+                    cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                    setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
+
+                    if (!stringList.contains(value.toString())) {
                         cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
-                        setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
-
-                        if (!stringList.contains(value.toString())) {
-                            cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
-                            setBorder(new CompoundBorder(new LineBorder(Color.DARK_GRAY, 5), new EmptyBorder(5, 5, 5, 5)));
-                            if (cellValue.equals("")) {
-                                for (LV lv : dozent.getLV()) {
-                                    long lvScheduled = lv.getScheduledLV();
-                                    lvScheduled = lvScheduled >> checkSum;
-                                    if (lvScheduled % 2 == 1) {
-                                        String lvName = lv.getName();
-                                        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                                        tableModel.setValueAt(lvName, row, column);
-                                        table.revalidate();
-                                        table.repaint();
-                                        cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
-                                        setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
-                                        break;
-                                    }
+                        setBorder(new CompoundBorder(new LineBorder(Color.DARK_GRAY, 5), new EmptyBorder(5, 5, 5, 5)));
+                        if (cellValue.equals("")) {
+                            for (LV lv : dozent.getLV()) {
+                                long lvScheduled = lv.getScheduledLV();
+                                lvScheduled = lvScheduled >> checkSum;
+                                if (lvScheduled % 2 == 1) {
+                                    String lvName = lv.getName();
+                                    DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                    tableModel.setValueAt(lvName, row, column);
+                                    table.revalidate();
+                                    table.repaint();
+                                    cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                                    setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
+                                    break;
                                 }
                             }
                         }
-
-                    } else if (zug != null) {
-
-                        //System.out.println("zug ungleich null!!");
-                        if (scheduledDozent % 2 == 1) {
-                            // System.out.println("CYAN!!!!!!!!!");
-
-                            for (LV lvDozent : dozent.getLV()) {
-                                for (Zug zugLV : lvDozent.getZugList()) {
-                                    if (zugLV.getName().equals(zug.getName())) {
-                                        //System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBLue!!!!!!!!!");
-                                        cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
-                                        setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
-                                    }
+                    }
+                } else if (zug != null) {
+                    if (scheduledDozent % 2 == 1) {
+                        for (LV lvDozent : dozent.getLV()) {
+                            for (Zug zugLV : lvDozent.getZugList()) {
+                                if (zugLV.getName().equals(zug.getName())) {
+                                    cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
+                                    setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
                                 }
                             }
-
+                        }
+                    }
+                } else if (lvSelected != null) {
+                    String cellInput;
+                    int i = 0;
+                    for (LV lvS : lvSelected.getDozentLV().getLV()) {
+                        long lvScheduled = lvS.getScheduledLV();
+                        lvScheduled = lvScheduled >> checkSum;
+                        if (lvScheduled % 2 == 1) {
+                            //cellInput = "<html>" + zugLVDozent.getName() + ": " + "<br/>" + lvZugLVDozent.getName()+ "<html>";
+                            cellInput = lvS.getName();
+                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                            tableModel.setValueAt(cellInput, row, column);
+                            table.revalidate();
+                            table.repaint();
+                            i++;
                         } else {
-//                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-//                            tableModel.setValueAt("", row, column);
-//                            table.revalidate();
-//                            table.repaint();
+                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                            tableModel.setValueAt("", row, column);
+                            table.revalidate();
+                            table.repaint();
                         }
-                    } else if (lvSelected != null) {
-                        String cellInput;
-                        int i = 0;
-                        for (LV lvS : lvSelected.getDozentLV().getLV()) {
-                            long lvScheduled = lvS.getScheduledLV();
-                            lvScheduled = lvScheduled >> checkSum;
-                            if (lvScheduled % 2 == 1) {
-                                //cellInput = "<html>" + zugLVDozent.getName() + ": " + "<br/>" + lvZugLVDozent.getName()+ "<html>";
-                                cellInput = lvS.getName();
-                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                                tableModel.setValueAt(cellInput, row, column);
-                                table.revalidate();
-                                table.repaint();
-                                i++;
-                            } else {
-                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                                tableModel.setValueAt("", row, column);
-                                table.revalidate();
-                                table.repaint();
-                            }
-                        }
-                        for (Dozent dozent : dozentList) {
-                            if (dozent.getName().equals(label)) {
-                                for (LV lvDozent : dozent.getLV()) {
-                                    for (Zug zugLVDozent : lvSelected.getZugList()) {
-                                        for (LV lvZugLVDozent : zugLVDozent.getLV()) {
-                                            long lvScheduled = lvZugLVDozent.getScheduledLV();
-                                            lvScheduled = lvScheduled >> checkSum;
-                                            if (lvScheduled % 2 == 1) {
-                                                //cellInput = "<html>" + zugLVDozent.getName() + ": " + "<br/>" + lvZugLVDozent.getName()+ "<html>";
-                                                cellInput = zugLVDozent.getName() + ": " + lvZugLVDozent.getName();
-                                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                                                tableModel.setValueAt(cellInput, row, column);
-                                                table.revalidate();
-                                                table.repaint();
-                                                i++;
-                                            } else {
-//                                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-//                                                tableModel.setValueAt("", row, column);
-//                                                table.revalidate();
-//                                                table.repaint();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-
-                        for (Zug zug : zugList) {
-                            if (zug.getName().equals(label)) {
-                                for (Zug zugsSelected : lvSelected.getZugList()) {
-                                    for (LV lvZugsSelected : zugsSelected.getLV()) {
-                                        long lvScheduled = lvZugsSelected.getScheduledLV();
+                    }
+                    for (Dozent dozent : dozentList) {
+                        if (dozent.getName().equals(label)) {
+                            for (LV lvDozent : dozent.getLV()) {
+                                for (Zug zugLVDozent : lvSelected.getZugList()) {
+                                    for (LV lvZugLVDozent : zugLVDozent.getLV()) {
+                                        long lvScheduled = lvZugLVDozent.getScheduledLV();
                                         lvScheduled = lvScheduled >> checkSum;
                                         if (lvScheduled % 2 == 1) {
-                                            cellInput = zugsSelected.getName() + ": " + lvZugsSelected.getName();
+                                            //cellInput = "<html>" + zugLVDozent.getName() + ": " + "<br/>" + lvZugLVDozent.getName()+ "<html>";
+                                            cellInput = zugLVDozent.getName() + ": " + lvZugLVDozent.getName();
                                             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
                                             tableModel.setValueAt(cellInput, row, column);
                                             table.revalidate();
                                             table.repaint();
                                             i++;
-                                        } else {
-//                                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-//                                            tableModel.setValueAt("", row, column);
-//                                            table.revalidate();
-//                                            table.repaint();
                                         }
                                     }
                                 }
                             }
-
-//                            int i = 0;
-//                            for (LV lvDozent : dozent.getLV()) {
-//                                for (Zug zugLVDozent : lvDozent.getZugList()) {
-//                                    for (LV lvZugLVDozent : zugLVDozent.getLV()) {
-//                                        long lvScheduled = lvZugLVDozent.getScheduledLV();
-//                                        lvScheduled = lvScheduled >> checkSum;
-//                                        if (lvScheduled % 2 == 1 && i == 0) {
-//
-//                                            table.revalidate();
-//                                            table.repaint();
-//                                            i++;
-//                                        }
-//                                    }
-//                                }
-//                            }
-                            if (i == 0) {
-                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                                tableModel.setValueAt("", row, column);
-                                table.revalidate();
-                                table.repaint();
-                            }
                         }
                     }
-                } else {
-                    // Setzen Sie die Standardhintergrundfarbe für andere Zellen
-                    cellComponent.setBackground(Color.LIGHT_GRAY);
+                    for (Zug zug : zugList) {
+                        if (zug.getName().equals(label)) {
+                            for (Zug zugsSelected : lvSelected.getZugList()) {
+                                for (LV lvZugsSelected : zugsSelected.getLV()) {
+                                    long lvScheduled = lvZugsSelected.getScheduledLV();
+                                    lvScheduled = lvScheduled >> checkSum;
+                                    if (lvScheduled % 2 == 1) {
+                                        cellInput = zugsSelected.getName() + ": " + lvZugsSelected.getName();
+                                        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                        tableModel.setValueAt(cellInput, row, column);
+                                        table.revalidate();
+                                        table.repaint();
+                                        i++;
+                                    }
+                                }
+                            }
+                        }
+                        if (i == 0) {
+                            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                            tableModel.setValueAt("", row, column);
+                            table.revalidate();
+                            table.repaint();
+                        }
+                    }
                 }
+
             } else {
                 // Setzen Sie die Standardhintergrundfarbe für andere Zellen
                 cellComponent.setBackground((Color.LIGHT_GRAY));
             }
-        }else {setHorizontalAlignment(SwingConstants.CENTER);
+        } else {
+            setHorizontalAlignment(SwingConstants.CENTER);
             setFont(new Font("Arial", Font.BOLD, 16));
-                // Setzen Sie die Standardhintergrundfarbe für andere Zellen
-                cellComponent.setBackground((Color.LIGHT_GRAY));
+            // Setzen Sie die Standardhintergrundfarbe für andere Zellen
+            cellComponent.setBackground((Color.LIGHT_GRAY));
         }
-
-        if (column == 0) {
-            
-        }
-
         return cellComponent;
     }
 }

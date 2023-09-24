@@ -258,21 +258,16 @@ public class StundenplanFrame extends javax.swing.JFrame {
         int selectedTabIndex = sourceTabbedPane.getSelectedIndex();
         Component selectedTab = sourceTabbedPane.getComponentAt(selectedTabIndex);
         if (!isAddingTab && selectedTabIndex != -1) {
-            if (selectedTab == jLabel1) { // Ändern Sie dies auf die tatsächliche Komponente der "+"-Registerkarte
-                isAddingTab = true; // sets flag on true, to prevent an infinite loop
+            if (selectedTab == jLabel1) { // Check if selected tab is the "+" tab and add new tab
+                isAddingTab = true;
                 addNewTab();
-                isAddingTab = false;  
+                isAddingTab = false;
             }
         } else if (isAddingTab && selectedTab == jLabel1 ) {
             // when the most right tab is deleted, the tab in focus is the left to the deleted one, preventing the jLabel1 being shown
             int previousTabIndex = selectedTabIndex - 1;
             sourceTabbedPane.setSelectedIndex(previousTabIndex);
         }
-//        for (int i = 0; i < jTabbedPane1.getTabCount(); i++) {
-//                    Component tabComponent = jTabbedPane1.getComponentAt(i);
-//                    tabComponent.repaint();
-//                    tabComponent.revalidate();
-//        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
     
     
@@ -329,7 +324,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
         ExportFrame expoF = new ExportFrame(zugList);
-        //CreateSetzer createSetzer = new CreateSetzer(zugList);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
     
     // method for creating new tab using the MusterPanel.java

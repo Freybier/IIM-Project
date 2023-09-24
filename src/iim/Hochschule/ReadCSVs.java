@@ -30,7 +30,7 @@ public class ReadCSVs implements Serializable {
     public static void createObjects(String path, List<Dozent> dozentList) {
         Set<String> stringSet = new HashSet<>();
 
-        stringSet = createLVListFromCSV(path, dozentList);
+        stringSet = createZugSet(path, dozentList);
         setLVsWithOneZug(stringSet);
         setAllZugNamesForLV(stringSet);
         createZugListfromCSV();
@@ -42,7 +42,7 @@ public class ReadCSVs implements Serializable {
         addDozentToLV();
     }
 
-    public static Set<String> createLVListFromCSV(String path, List<Dozent> dozentList) {
+    public static Set<String> createZugSet(String path, List<Dozent> dozentList) {
         ReadCSVs.path = path;
         ReadCSVs.dozentList = dozentList;
         Set<String> stringSet = new HashSet<>();

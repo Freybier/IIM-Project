@@ -69,15 +69,17 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
         for (LV lv : lvList) {
             stringList.add(lv.getName());
         }
+        
         //  || !dozent.getDoesHavePVZeiten()
         if (dozent == null) {
-            cellComponent.setBackground(table.getBackground());
+            cellComponent.setBackground(Color.LIGHT_GRAY);
             return cellComponent;
         }
         Color noPVZeitenColor = new Color(220, 220, 220);
         Color doesNotWantColor = new Color(250, 227, 75);
         Color availableColor = new Color(127, 250, 75);
         Color canNotColor = new Color(250, 75, 75);
+        cellComponent.setBackground(noPVZeitenColor);
         if (!(column == 0)) {
             if (!(column == 6 && row == 5)) {
                 if (!(column == 6 && row == 4)) {
@@ -254,11 +256,14 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                 // Setzen Sie die Standardhintergrundfarbe für andere Zellen
                 cellComponent.setBackground((Color.LIGHT_GRAY));
             }
+        }else {setHorizontalAlignment(SwingConstants.CENTER);
+            setFont(new Font("Arial", Font.BOLD, 16));
+                // Setzen Sie die Standardhintergrundfarbe für andere Zellen
+                cellComponent.setBackground((Color.LIGHT_GRAY));
         }
 
         if (column == 0) {
-            setHorizontalAlignment(SwingConstants.CENTER);
-            setFont(new Font("Arial", Font.BOLD, 16));
+            
         }
 
         return cellComponent;

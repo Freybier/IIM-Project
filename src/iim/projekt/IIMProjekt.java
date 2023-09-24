@@ -39,13 +39,13 @@ public class IIMProjekt {
         //ReadHandtuch2.readFromWebsite("file:///C:/Users/Frey/Downloads/Handtuch%20(1).html");
 
         List<Dozent> dozentList = pvZeitenToDozent.splittNameWishList(relativePath);
-        ReadCSVs.createLVListFromCSV(handtuchCSVFilePath, dozentList);
+        ReadCSVs.createObjects(handtuchCSVFilePath, dozentList);
         
         List<LV> lvList = ReadCSVs.getLVList();
         List<Zug> zugList = ReadCSVs.getZugList();
         dozentList = ReadCSVs.getDozentList();
 
-        StundenplanFrame gui = new StundenplanFrame(dozentList, zugList, lvList);
+        StundenplanFrame gui = new StundenplanFrame(dozentList, zugList, lvList, handtuchCSVFilePath);
 
     }
 }

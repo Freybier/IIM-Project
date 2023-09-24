@@ -18,19 +18,16 @@ public class TableTransferHandler extends TransferHandler {
     private List<LV> lvList;
     private String dozentenName;
     private List<Dozent> dozentenList;
-    private List<Zug> zugList;
     private JList jLVList;
     
     private List<LV> lvJLVList;
-    private CustomListCellRenderer listCellRenderer;
 
     private Object obj;
     
-    public TableTransferHandler(JTable jTable, List<LV> lvList, List<Dozent> dozentenList, List<Zug> zugList, JList jLVList) {
+    public TableTransferHandler(JTable jTable, List<LV> lvList, List<Dozent> dozentenList, JList jLVList) {
         this.jTable = jTable;
         this.lvList = lvList;
         this.dozentenList = dozentenList;
-        this.zugList = zugList;
         this.jLVList = jLVList;
         
     }
@@ -44,7 +41,6 @@ public class TableTransferHandler extends TransferHandler {
     }
     
     public void setListCellRenderer(CustomListCellRenderer listCellRenderer){
-        this.listCellRenderer = listCellRenderer;
     }
     public void setObject(Object obj) {
         this.obj = obj;
@@ -75,8 +71,6 @@ public class TableTransferHandler extends TransferHandler {
             String splitter[] = data.split(" ");
             data = splitter[0];
             
-            //DataFlavor customDataFlavor = new DataFlavor(LV.class, "Custom LV Object");
-            //LV lvObjekt = (LV) transferable.getTransferData(customDataFlavor);
             
             for (LV lv : lvList) {
                 if (lv.getName().equals(data) && lv.getDozentName().equals(dozentenName)) {
@@ -115,7 +109,7 @@ public class TableTransferHandler extends TransferHandler {
                             if (lv.getDozentName().equals(doz.getName())) {
                                 dozentScheduled = dozentScheduled | doz.getScheduledDozent();
                                 doz.setScheduledDozent(dozentScheduled);
-                                //lv.getSecondDozentLV().setScheduledDozent(dozentScheduled);
+                                
                             }
                         }
                         
@@ -128,10 +122,6 @@ public class TableTransferHandler extends TransferHandler {
                         return false;
 
                     }
-                    //System.out.println(lv);
-                    //System.out.println(lv.getScheduledLV());
-                    //System.out.println("LVScheduled wurde geseted");
-
                 }
             }
 

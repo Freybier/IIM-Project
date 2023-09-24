@@ -50,7 +50,7 @@ public class CreateSetzer {
                                 dozentName = lv.getLeadingZugName();
                             }
                             
-                            String raumNr = "-";
+                            String raumNr = lv.getRoomNumber();
                             data = zugName+block+eins+nickName+dozentName+raumNr;
                             bufferedWriter.write(data+";");
                             bufferedWriter.write(zugName+";");

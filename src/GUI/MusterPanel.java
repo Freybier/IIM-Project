@@ -28,7 +28,7 @@ import javax.swing.table.JTableHeader;
 
 /**
  *
- * @author altai
+ * @author Feizi, Frey
  */
 public class MusterPanel extends javax.swing.JPanel {
 
@@ -50,10 +50,7 @@ public class MusterPanel extends javax.swing.JPanel {
     public LV lastSelectedLV;
     public LV lvSelected;
 
-
-    /**
-     * Creates new form MusterPanel
-     */
+    // Constructor for MusterPanel
     public MusterPanel(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList, JTabbedPane jTabbedPane) {
         this.dozentenList = dozentenList;
         this.zugList = zugList;
@@ -63,7 +60,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
         initComponents();
         timeToJTable();
-        addSelectionListenerJList();
+        addSelectionListenerJLVList();
 
         //sets the header of the table to a specific Font and size
         JTableHeader header = jTable.getTableHeader();
@@ -72,7 +69,7 @@ public class MusterPanel extends javax.swing.JPanel {
         // makes it possible to drag items from the LV-List to the JTable
         jLVList.setDragEnabled(true);
         jLVList.setTransferHandler(new ListTransferHandler(jLVList));
-        this.tableTransferHandler = new TableTransferHandler(jTable, lvList, dozentenList, zugList, jLVList);
+        this.tableTransferHandler = new TableTransferHandler(jTable, lvList, dozentenList, jLVList);
         jTable.setTransferHandler(tableTransferHandler);
     }
 
@@ -326,8 +323,7 @@ public class MusterPanel extends javax.swing.JPanel {
         String entry = this.jSuchfeldDoZug.getText();
         findMatchingObjects(entry);
     }//GEN-LAST:event_jSuchfeldDoZugKeyReleased
-//Wechsel bei Zügen in der Gui wenn LV ausgewählt werden
-    
+
     // action-listener for the click on the elements in the search-result List
     private void sucheListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucheListMouseClicked
         // clear the List from previous search querys
@@ -367,7 +363,6 @@ public class MusterPanel extends javax.swing.JPanel {
 
                 jLabelName.setText(jLabelText);
 
-                
                 if (tabIndex != 0) {
                     // changing the title of the tabe
                     jTabbedPane1.setTitleAt(tabIndex, jLabelText);
@@ -456,10 +451,8 @@ public class MusterPanel extends javax.swing.JPanel {
                                     delete = delete << checkSum;
                                     lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
                                     dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
-                                    //if(lvDozentTable.getSecondDozentLV() != null)
-                                    //lvDozentTable.getSecondDozentLV().setScheduledDozent(lvDozentTable.getSecondDozentLV().getScheduledDozent() ^ delete);
                                     lvDozentTable.substractOneSWSBlocksTook();
-                                    tableCellRenderer = new TableCellRenderer(dozentTable, dozentenList, dozentTable.getLV(), jLabelName.getText(),lvSelected, zugList);
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
                                     jTable.setValueAt("", row, col);
                                     jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
                                     jTable.revalidate();
@@ -470,7 +463,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
                         }
                     }
-                    
+
                     // Falls blackboaeder deletet werden soll HIER ändern
                     for (Zug zugTable : zugList) {
                         if (zugTable.getName().equals(check)) {
@@ -482,10 +475,8 @@ public class MusterPanel extends javax.swing.JPanel {
                                     lvZugTable.setScheduledLV(lvZugTable.getScheduledLV() ^ delete);
 
                                     lvZugTable.getDozentLV().setScheduledDozent(lvZugTable.getDozentLV().getScheduledDozent() ^ delete);
-                                    //if( lvZugTable.getSecondDozentLV()!= null)
-                                    //lvZugTable.getSecondDozentLV().setScheduledDozent(lvZugTable.getSecondDozentLV().getScheduledDozent() ^ delete);
                                     lvZugTable.substractOneSWSBlocksTook();
-                                    tableCellRenderer = new TableCellRenderer(lvZugTable.getDozentLV(), dozentenList, zugTable.getLV(), jLabelName.getText(), lvSelected, zugList);
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
                                     jTable.setValueAt("", row, col);
                                     jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
                                     jTable.revalidate();
@@ -507,6 +498,8 @@ public class MusterPanel extends javax.swing.JPanel {
         jLVList.repaint();
     }//GEN-LAST:event_jTableMouseClicked
 
+    // When combo box element is clicked
+    // lv list gets filled with lv´s
     private void jComboDoZugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDoZugActionPerformed
         if (jComboDoZug.getSelectedItem() != null) {
             DefaultTableCellRenderer();
@@ -534,13 +527,14 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jComboDoZugActionPerformed
 
+    // Updates the infopanel
     private void updateInfoPanel(LV selectedLV) {
         lastSelectedLV = selectedLV;
-        
+
         // clear InfoPanel for new input
         jInfoFeld.removeAll();
         Font font = new Font("Arial", Font.BOLD, 18);
-        
+
         // the different labels are created here with the infos needed int the InfoPanel
         JLabel nameLabel = new JLabel("   Name: " + selectedLV.getFullName());
         nameLabel.setFont(font);
@@ -560,9 +554,8 @@ public class MusterPanel extends javax.swing.JPanel {
         lva.setFont(font);
         JLabel nickName = new JLabel("   NickName: " + selectedLV.getNickName());
         nickName.setFont(font);
-        
-        //jInfoFeld.setLayout(new BoxLayout(jInfoFeld, BoxLayout.Y_AXIS));
-        jInfoFeld.setLayout(new GridLayout(0,2));
+
+        jInfoFeld.setLayout(new GridLayout(0, 2));
         // Here the labels are added to the InfoPanel
         jInfoFeld.add(nameLabel);
         jInfoFeld.add(swsLabel);
@@ -597,8 +590,8 @@ public class MusterPanel extends javax.swing.JPanel {
     private void changeRoomFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeRoomFieldActionPerformed
         changeRoom();
     }//GEN-LAST:event_changeRoomFieldActionPerformed
-    
-    
+ 
+    // Assigns a roomnumber to the lv
     private void changeRoom(){
         String RaumNr = changeRoomField.getText();
         // makes sure to have a selecteLv and a valid RoomNr input
@@ -615,7 +608,8 @@ public class MusterPanel extends javax.swing.JPanel {
             jDialog1.setVisible(true);
         }
     }
-    
+
+    // Sets LVDozentlist
     private DefaultListModel setLVDozentList(Dozent dozent) {
 
         emptyJTable();
@@ -632,9 +626,8 @@ public class MusterPanel extends javax.swing.JPanel {
             tableTransferHandler.setObject(dozent);
             jLVList.updateUI();
 
-            // enables the custom rendering of cells
-            this.tableCellRenderer = new TableCellRenderer(dozent, dozentenList, dozent.getLV(), jLabelName.getText(), lvSelected, zugList);
 
+            // Choose LV-Objekt Dozent
             tableTransferHandler.setDozentenName(dozent.getName());
             tableTransferHandler.setLVJLVList(dozent.getLV());
             
@@ -644,7 +637,7 @@ public class MusterPanel extends javax.swing.JPanel {
                 jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), dozentLV, dozent));
             }
 
-            // Setzen Sie den Renderer für die gewünschte Spalte (in diesem Fall Spalte 0)
+            // Sets the renderer for preferred column (in this case 0)
             for (int i = 1; i < 7; i++) {
                 jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
             }
@@ -652,15 +645,12 @@ public class MusterPanel extends javax.swing.JPanel {
 
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
                 listModel.addElement(lvElement + " " + swsUebrig);
-
-                //listModel.addElement(lvElement.getName());
-                //jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), lvElement));
-                //System.out.println(lvElement.getName() + "\t" + lvElement.getDozentName());
             }
         }
         return listModel;
     }
 
+    // Sets lvZugList
     private DefaultListModel setLVZugList(Zug zug) {
 
         emptyJTable();
@@ -676,14 +666,10 @@ public class MusterPanel extends javax.swing.JPanel {
             tableTransferHandler.setObject(zug);
             tableTransferHandler.setLVJLVList(zug.getLV());
 
-            // int i = 1;
             for (LV lvElement : zug.getLV()) {
-                //listModel.addElement(lvElement.getName());
                 setLVforJTable(lvElement);
                 jLVList.setCellRenderer(new CustomListCellRenderer(zug.getLV(), lvElement, zug));
-                // jLVList.setCellRenderer(new CustomListCellRenderer(zug.getLV(), lvElement));
 
-                //tableCellRenderer.setZug(zug);
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
                 listModel.addElement(lvElement + " " + swsUebrig);
 
@@ -707,7 +693,7 @@ public class MusterPanel extends javax.swing.JPanel {
         return foundObject;
     }
 
-    // methode to interate through the Dozenten/Zug/LV-List to fetch all Objects that contains the input
+    // method to interate through the Dozenten/Zug/LV-List to fetch all Objects that contains the input
     public void findMatchingObjects(String input) {
 
         DefaultListModel<Object> suchListModel = new DefaultListModel<>();
@@ -736,6 +722,7 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
 
+    // Updates combobox with Dozent
     public void updateDozentComboBox(List<Dozent> dozentenListe, JComboBox<Object> comboBox) {
         // adds generic first entry
         comboBox.addItem("---------");
@@ -747,6 +734,7 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
 
+    // Updates combobox with Zug
     public void updateZugComboBox(List<Zug> zugListe, JComboBox<Object> comboBox) {
         // adds generic first entry
         comboBox.addItem("---------");
@@ -765,21 +753,22 @@ public class MusterPanel extends javax.swing.JPanel {
                 jTable.setValueAt("", row, col); // Setzen Sie den Wert auf einen leeren String
             }
         }
-        
+
     }
 
-    public void addSelectionListenerJList() {
+    // Adds selectionlistener to jLVList
+    public void addSelectionListenerJLVList() {
 
         jLVList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
 
-                // Überprüfen Sie, ob ein Element ausgewählt wurde
+                // Checks what element was chonsen. Decides if Zug or Dozent is put in jLVList
                 if (!jLVList.isSelectionEmpty()) {
 
-                    // Deklarieren Sie selectedLV hier außerhalb des if-Blocks
+                    // Declare selectedLV
                     int selectedIndex = jLVList.getSelectedIndex();
                     jLVListLV = null;
-                    // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
+                    // Checks which radiobutton is chosen
                     if (radioButtonZugBoolean || radioButtonDozentBoolean) {
 
                         int tabIndex = jTabbedPane1.getSelectedIndex();
@@ -793,9 +782,7 @@ public class MusterPanel extends javax.swing.JPanel {
                             jTabbedPane1.setTitleAt(tabIndex, jLabelText);
                         }
 
-                        // Direkter Zugriff auf das ausgewählte Dozenten- oder Zug-Objekt
                         //The Radiobuttons decides wich variable radioButtonZugBoolean or radioButtonDozentBoolean is true respectively false
-                        //
                         if (radioButtonZugBoolean && !radioButtonDozentBoolean) {
 
                             Zug selectedZug = getObjectFromName(jComboDoZug.getSelectedItem().toString(), zugList);
@@ -812,33 +799,27 @@ public class MusterPanel extends javax.swing.JPanel {
                             jLVListLV = ((Zug) selectedSearchObject).getLV().get(selectedIndex);
                             tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
                             tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((Zug) selectedSearchObject).getLV(), jLabelName.getText(), jLVListLV, zugList);
-
                         } else if (selectedSearchObject instanceof Dozent) {
                             jLVListLV = ((Dozent) selectedSearchObject).getLV().get(selectedIndex);
-                            tableCellRenderer = new TableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV(), jLabelName.getText(),jLVListLV, zugList);
+                            tableCellRenderer = new TableCellRenderer((Dozent) selectedSearchObject, dozentenList, ((Dozent) selectedSearchObject).getLV(), jLabelName.getText(), jLVListLV, zugList);
                         } else if (selectedSearchObject instanceof LV) {
 
                             jLVListLV = ((LV) selectedSearchObject).getLeadingZug().getLV().get(selectedIndex);
                             tableTransferHandler.setDozentenName(jLVListLV.getDozentName());
-                            tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((LV) selectedSearchObject).getLeadingZug().getLV(),jLabelName.getText(), jLVListLV, zugList);
+                            tableCellRenderer = new TableCellRenderer(((LV) jLVListLV).getDozentLV(), dozentenList, ((LV) selectedSearchObject).getLeadingZug().getLV(), jLabelName.getText(), jLVListLV, zugList);
                         }
                         lvSelected = jLVListLV;
                     }
-                    // Hier überprüfen, ob selectedLV nicht null ist
+                    // Check if selectedLV is null
                     if (jLVListLV != null) {
                         for (int i = 1; i < 7; i++) {
                             jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
                         }
-                        if (!jLVListLV.getDozentLV().getDoesHavePVZeiten()) {
-                            //DefaultTableCellRenderer();
-                        }
                         getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
 
-                        // Annahme: Sie haben ein JLabel namens lblFullName, um den vollständigen Namen anzuzeigen
                         updateInfoPanel(jLVListLV);
                         jTable.revalidate();
                         jTable.repaint();
-                        // Hier können Sie weitere Informationen anzeigen oder spezifische Aktionen ausführen
                     }
                 }
             }
@@ -853,22 +834,17 @@ public class MusterPanel extends javax.swing.JPanel {
         emptyJTable();
         jTable.revalidate();
         jTable.repaint();
-
         //All LVs from all Zugs wich also has to take selectedLV
-        //getZugLVforSelectedLV(selectedLV);
+        getZugLVforSelectedLV(selectedLV);
         //All LVs from the Dozent giving the selectedLV
-        //getDozentLVforSelectedLV(selectedLV);
+        getDozentLVforSelectedLV(selectedLV);
     }
 
-    //All LVs from all Zugs wich also has to take selectedLV
+    // Gets ZugLV and prints into table
     public void getZugLVforSelectedLV(LV selectedLV) {
         List<String> checkList = new ArrayList<>();
         for (Zug zug : selectedLV.getZugList()) {
-//            System.out.println("Zug list from selectedLV: " + selectedLV.getZugList());
-//            System.out.println(selectedLV.getHandtuchPointer()  +   "    " + selectedLV.getNickName());
-            // List<String> checkList = new ArrayList<>();
             for (LV lvZug : zug.getLV()) {
-                //
                 if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
 
                     long lvScheduled = lvZug.getScheduledLV();
@@ -892,7 +868,7 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
 
-    //All LVs from the Dozent giving the selectedLV
+    // Gets DozentLV and prints into table
     public void getDozentLVforSelectedLV(LV selectedLV) {
 
         for (LV lvDozent : selectedLV.getDozentLV().getLV()) {
@@ -915,6 +891,7 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
 
+    // Sets LV for Table
     public void setLVforJTable(LV lv) {
 
         if (lv.getScheduledLV() != 0) {
@@ -939,18 +916,12 @@ public class MusterPanel extends javax.swing.JPanel {
 
     }
 
+    // Sets the renderer for every row and column
     public void DefaultTableCellRenderer() {
         DefaultTableCellRenderer defaultRenderer = new DefaultTableCellRenderer();
-
-        // sets the renderer for every row and column
         for (int i = 1; i < jTable.getColumnCount(); i++) {
             jTable.getColumnModel().getColumn(i).setCellRenderer(defaultRenderer);
-            Dozent dummy = new Dozent("DMY");
-            dummy.setDoesHavePVZeiten(false);
-            jTable.getColumnModel().getColumn(i).setCellRenderer(new TableCellRenderer(dummy, dozentenList, lvList, jLabelName.getText(), lvSelected, zugList));
-
         }
-
     }
 
     public void getZugforLVinTable(LV lv) {
@@ -1006,7 +977,6 @@ public class MusterPanel extends javax.swing.JPanel {
     public JTable getJTable() {
         return jTable;
     }
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

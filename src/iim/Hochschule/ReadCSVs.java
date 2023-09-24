@@ -27,7 +27,22 @@ public class ReadCSVs implements Serializable {
     private static List<Dozent> dozentList = new ArrayList<>();
     private static String path;
 
-    public static void createLVListFromCSV(String path, List<Dozent> dozentList) {
+    public static void createObjects(String path, List<Dozent> dozentList) {
+        Set<String> stringSet = new HashSet<>();
+
+        stringSet = createLVListFromCSV(path, dozentList);
+        setLVsWithOneZug(stringSet);
+        setAllZugNamesForLV(stringSet);
+        createZugListfromCSV();
+        addDozentNotInPVZeiten();
+        addLVforDozent();
+        addLeadingZugAndChangeLVName();
+        addZugToLV();
+        setLVforZug();
+        addDozentToLV();
+    }
+
+    public static Set<String> createLVListFromCSV(String path, List<Dozent> dozentList) {
         ReadCSVs.path = path;
         ReadCSVs.dozentList = dozentList;
         Set<String> stringSet = new HashSet<>();
@@ -51,28 +66,22 @@ public class ReadCSVs implements Serializable {
             }
 
             br.close();
-            setLVsWithOneZug(stringSet, dozentNameIndex, lvKuerzelIndex);
-            setAllZugNamesForLV(stringSet, dozentNameIndex, lvKuerzelIndex);
-            createZugListfromCSV();
-            addDozentNotInPVZeiten();
-            addLVforDozent();
-            addLeadingZugAndChangeLVName();
-            addZugToLV();
-            setLVforZug();
-            addDozentToLV();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return stringSet;
     }
 
-    public static void setLVsWithOneZug(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex) {
+    public static void setLVsWithOneZug(Set<String> stringSet) {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
 
             String line;
             String[] header = br.readLine().split(";");
+            int lvKuerzelIndex = getColumnIndex("LV-Kürzel", header);
+            int dozentNameIndex = getColumnIndex("Dozent", header);
             int zugNameIndex = getColumnIndex("Zug", header);
             int fullNameIndex = getColumnIndex("Bezeichnung", header);
             int swsIndex = getColumnIndex("SWS", header);
@@ -115,12 +124,14 @@ public class ReadCSVs implements Serializable {
 
     }
 
-    private static void setAllZugNamesForLV(Set<String> stringSet, int dozentNameIndex, int lvKuerzelIndex) {
+    private static void setAllZugNamesForLV(Set<String> stringSet) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             String line;
             String[] header = br.readLine().split(";");
             int zugNameIndex = getColumnIndex("Zug", header);
+            int lvKuerzelIndex = getColumnIndex("LV-Kürzel", header);
+            int dozentNameIndex = getColumnIndex("Dozent", header);
 
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
@@ -246,9 +257,7 @@ public class ReadCSVs implements Serializable {
                     newName.append("_");
                 }
 
-  
                 newName.append(lvDozent.getLeadingZugName());
-
 
                 lvDozent.setName(newName.toString());
 

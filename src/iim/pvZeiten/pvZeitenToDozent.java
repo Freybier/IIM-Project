@@ -20,7 +20,7 @@ public class pvZeitenToDozent {
 
     public static List<Dozent> splittNameWishList(String filename) {
 
-        //This method creates with thehelp of the pvZeiten file a Dozent and adds the long available and the long doesNotWant
+        //This method creates with the help of the pvZeiten file a Dozent and adds the long available and the long doesNotWant
         //the two longs help to determin when the Dozent can/can't work.
         List<Dozent> dozentenList = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class pvZeitenToDozent {
             String line;
             while ((line = br.readLine()) != null) {
                 String name = line.substring(0, 3);
-                String wishList = line.substring(3); // Trim, um führende/trailing Leerzeichen zu entfernen
+                String wishList = line.substring(3); 
 
                 long available = 0;
                 long doesNotWant = 0;

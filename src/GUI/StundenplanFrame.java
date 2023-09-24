@@ -48,9 +48,9 @@ public class StundenplanFrame extends javax.swing.JFrame {
     /**
      * Creates new form StundenplanFrame
      */
-    public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList) {
+    public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList, String handtuchCSVFilePath) {
         // oArray is the Object Array created from the Handtuch csv
-        oArray = new CSVToObjectArrayConverter("src/iim/Handtuch/HandtuchOutputUpdate.csv");
+        oArray = new CSVToObjectArrayConverter(handtuchCSVFilePath);
         this.dozentenList = dozentenList;
         this.zugList = zugList;
         this.lvList = lvList;

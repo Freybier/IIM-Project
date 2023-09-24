@@ -757,19 +757,19 @@ public class MusterPanel extends javax.swing.JPanel {
 
     }
 
-    // Adds selectionlistener to jList
+    // Adds selectionlistener to jLVList
     public void addSelectionListenerJLVList() {
 
         jLVList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
 
-                // Check if element wass chonsen
+                // Checks what element was chonsen. Decides if Zug or Dozent is put in jLVList
                 if (!jLVList.isSelectionEmpty()) {
 
                     // Declare selectedLV
                     int selectedIndex = jLVList.getSelectedIndex();
                     jLVListLV = null;
-                    // jComboDoZug, the Name is missleading. It ist the Name for the dropdown menu next to the Radiobuttons
+                    // Checks which radiobutton is chosen
                     if (radioButtonZugBoolean || radioButtonDozentBoolean) {
 
                         int tabIndex = jTabbedPane1.getSelectedIndex();
@@ -816,9 +816,6 @@ public class MusterPanel extends javax.swing.JPanel {
                         for (int i = 1; i < 7; i++) {
                             jTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
                         }
-                        if (!jLVListLV.getDozentLV().getDoesHavePVZeiten()) {
-                            //DefaultTableCellRenderer();
-                        }
                         getZugLVandDozentLVforSelectedLVinTable(jLVListLV);
 
                         updateInfoPanel(jLVListLV);
@@ -838,25 +835,17 @@ public class MusterPanel extends javax.swing.JPanel {
         emptyJTable();
         jTable.revalidate();
         jTable.repaint();
-        //setWhat(selectedLV);
         //All LVs from all Zugs wich also has to take selectedLV
         getZugLVforSelectedLV(selectedLV);
         //All LVs from the Dozent giving the selectedLV
         getDozentLVforSelectedLV(selectedLV);
     }
 
-//    public void setWhat(selectedLV){
-//        
-//    }
-    //All LVs from all Zugs wich also has to take selectedLV
+    // Gets ZugLV and prints into table
     public void getZugLVforSelectedLV(LV selectedLV) {
         List<String> checkList = new ArrayList<>();
         for (Zug zug : selectedLV.getZugList()) {
-//            System.out.println("Zug list from selectedLV: " + selectedLV.getZugList());
-//            System.out.println(selectedLV.getHandtuchPointer()  +   "    " + selectedLV.getNickName());
-            // List<String> checkList = new ArrayList<>();
             for (LV lvZug : zug.getLV()) {
-                //
                 if (lvZug.getScheduledLV() != 0 && !checkList.contains(lvZug.getName())) {
 
                     long lvScheduled = lvZug.getScheduledLV();
@@ -880,7 +869,7 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
 
-    //All LVs from the Dozent giving the selectedLV
+    // Gets DozentLV and prints into table
     public void getDozentLVforSelectedLV(LV selectedLV) {
 
         for (LV lvDozent : selectedLV.getDozentLV().getLV()) {
@@ -903,6 +892,7 @@ public class MusterPanel extends javax.swing.JPanel {
         }
     }
 
+    // Sets LV for Table
     public void setLVforJTable(LV lv) {
 
         if (lv.getScheduledLV() != 0) {
@@ -927,15 +917,12 @@ public class MusterPanel extends javax.swing.JPanel {
 
     }
 
+    // Sets the renderer for every row and column
     public void DefaultTableCellRenderer() {
         DefaultTableCellRenderer defaultRenderer = new DefaultTableCellRenderer();
-
-        // sets the renderer for every row and column
         for (int i = 1; i < jTable.getColumnCount(); i++) {
             jTable.getColumnModel().getColumn(i).setCellRenderer(defaultRenderer);
-
         }
-
     }
 
     public void getZugforLVinTable(LV lv) {

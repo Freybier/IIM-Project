@@ -19,10 +19,12 @@ public class CreateSetzer {
 
     public List<Zug> zugList;
 
+    // Constructor for CreateSetzer
     public CreateSetzer(List<Zug> zugList, String fileName) {
         createFile(zugList ,fileName);
     }
 
+    // Creates a Setzter File which can be read and importet for further use
     public void createFile(List<Zug> zugList, String fileName) {
         String csvFilePath = "Data/" + fileName +".csv";
         try {

@@ -45,7 +45,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Bitte w&#xe4;hlen Sie eine Lernveranstaltung bevor sie den Raum &#xe4;ndern."/>
+            <Property name="text" type="java.lang.String" value="Stellen Sie sicher, dass Sie eine Lenveranstaltung gew&#xe4;hlt und Sie in der Textzeile eine Raumnummer angegeben haben. "/>
           </Properties>
         </Component>
       </SubComponents>

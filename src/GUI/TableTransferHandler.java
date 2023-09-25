@@ -89,20 +89,17 @@ public class TableTransferHandler extends TransferHandler {
                                 for(LV lvCheck: dozentcheck.getLV()){
                                     if((lvCheck.getScheduledLV() >> check) % 2 == 1){
                                         return false;
-                                    }
-                                    
+                                    }                                   
                                 }
                             }
-                        }
-                        
+                        }                       
                         for(Zug zugLV : lv.getZugList()){
                             for(LV lvZug : zugLV.getLV()){
                                 if((lvZug.getScheduledLV()>> check) % 2 == 1){
                                         return false;
                                     }
                             }
-                        }
-                        
+                        }                       
                         lv.addOneSWSBlocksTook();
                         scheduled = scheduled | lv.getScheduledLV();
                         lv.setScheduledLV(scheduled);
@@ -110,8 +107,7 @@ public class TableTransferHandler extends TransferHandler {
                         for (Dozent doz : dozentenList) {
                             if (lv.getDozentName().equals(doz.getName())) {
                                 dozentScheduled = dozentScheduled | doz.getScheduledDozent();
-                                doz.setScheduledDozent(dozentScheduled);
-                                
+                                doz.setScheduledDozent(dozentScheduled);                              
                             }
                         }
                         

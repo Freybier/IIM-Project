@@ -5,20 +5,14 @@
 package iim.projekt;
 
 //import iim.GUI.StundenplanFrame;
-import GUI.TxtToCsvTable;
-import static GUI.TxtToCsvTable.readCsvFromFile;
 import iim.Hochschule.Dozent;
 import iim.pvZeiten.pvZeitenToDozent;
 import java.util.List;
-
 import iim.Handtuch.ReadHandtuch2;
-import javax.swing.SwingUtilities;
 import GUI.StundenplanFrame;
 import iim.Hochschule.LV;
 import iim.Hochschule.ReadCSVs;
 import iim.Hochschule.Zug;
-import java.io.File;
-import java.nio.file.Paths;
 
 /**
  *

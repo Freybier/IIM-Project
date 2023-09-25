@@ -17,7 +17,6 @@ public class Zug implements Serializable {
     private final String name;
     private long scheduledZug = 0;
     private final List<LV> lvList = new ArrayList<>();
-    //private boolean leading;
 
     public Zug(String name) {
         this.name = name;
@@ -43,13 +42,7 @@ public class Zug implements Serializable {
         this.scheduledZug = scheduled;
     }
 
-//    public void setLeadingZug(boolean leading) {
-//        this.leading = leading;
-//    }
-//
-//    public boolean getLeading() {
-//        return leading;
-//    }
+
 
     @Override
     public String toString() {

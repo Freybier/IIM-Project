@@ -32,9 +32,7 @@ public class LV implements Serializable {
     private Dozent dozentLV;
     private Dozent secondDozentLV;
     private String roomNumber = "-";
-    //private boolean isScheduled;
 
-    //private String handtuchPointer;
     public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva, String secondDozentName, String nickName) {
         this.name = name;
         this.fullName = fullName;
@@ -58,7 +56,7 @@ public class LV implements Serializable {
         this.lva = lva;
         this.secondDozentName = secondDozentName;
         this.nickName = nickName;
-        //this.handtuchPointer = handtuchPointer;
+
     }
 
     public void setName(String name) {
@@ -99,11 +97,7 @@ public class LV implements Serializable {
 
     public void setScheduledLV(long scheduled) {
         scheduledLV = scheduled;
-//        if(scheduledLV == 0){
-//            setIsScheduled(false);
-//        }else{
-//            setIsScheduled(true);
-//        }
+
     }
 
     public String getSWS() {

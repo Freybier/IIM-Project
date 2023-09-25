@@ -68,7 +68,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
         // makes it possible to drag items from the LV-List to the JTable
         jLVList.setDragEnabled(true);
-        jLVList.setTransferHandler(new ListTransferHandler(jLVList));
+        jLVList.setTransferHandler(new LVListTransferHandler(jLVList));
         this.tableTransferHandler = new TableTransferHandler(jTable, lvList, dozentenList, jLVList);
         jTable.setTransferHandler(tableTransferHandler);
     }
@@ -439,7 +439,6 @@ public class MusterPanel extends javax.swing.JPanel {
             if (row >= 0 && col >= 1) {
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
-                    System.out.println(cellValue);
                     String cellString = (String) cellValue;
                     String check = jLabelName.getText();
                     for (Dozent dozentTable : dozentenList) {
@@ -452,9 +451,9 @@ public class MusterPanel extends javax.swing.JPanel {
                                     lvDozentTable.setScheduledLV(lvDozentTable.getScheduledLV() ^ delete);
                                     dozentTable.setScheduledDozent(dozentTable.getScheduledDozent() ^ delete);
                                     lvDozentTable.substractOneSWSBlocksTook();
-                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable));
                                     jTable.setValueAt("", row, col);
-                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable.getLV(), lvDozentTable, dozentTable));
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(dozentTable));
                                     jTable.revalidate();
                                     jTable.repaint();
                                     getZugLVandDozentLVforSelectedLVinTable(lvDozentTable);
@@ -476,9 +475,9 @@ public class MusterPanel extends javax.swing.JPanel {
 
                                     lvZugTable.getDozentLV().setScheduledDozent(lvZugTable.getDozentLV().getScheduledDozent() ^ delete);
                                     lvZugTable.substractOneSWSBlocksTook();
-                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable));
                                     jTable.setValueAt("", row, col);
-                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable.getLV(), lvZugTable, zugTable));
+                                    jLVList.setCellRenderer(new CustomListCellRenderer(zugTable));
                                     jTable.revalidate();
                                     jTable.repaint();
                                     getZugLVandDozentLVforSelectedLVinTable(lvZugTable);
@@ -581,7 +580,7 @@ public class MusterPanel extends javax.swing.JPanel {
             jTable.setRowHeight(newRowHeight);
         }
     }//GEN-LAST:event_jScrollPane3ComponentResized
-    
+
     // action listener to change the roomNr on button press
     private void changeRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeRoomButtonActionPerformed
         changeRoom();
@@ -590,18 +589,18 @@ public class MusterPanel extends javax.swing.JPanel {
     private void changeRoomFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeRoomFieldActionPerformed
         changeRoom();
     }//GEN-LAST:event_changeRoomFieldActionPerformed
- 
+
     // Assigns a roomnumber to the lv
-    private void changeRoom(){
+    private void changeRoom() {
         String RaumNr = changeRoomField.getText();
         // makes sure to have a selecteLv and a valid RoomNr input
-        if(RaumNr != null && lastSelectedLV != null && !RaumNr.equals("")){
+        if (RaumNr != null && lastSelectedLV != null && !RaumNr.equals("")) {
             lastSelectedLV.setRoomNumber(RaumNr);
             updateInfoPanel(lastSelectedLV);
-        }else{
+        } else {
             jDialog1.setLayout(new FlowLayout());
             // Automatically adjust the size of the dialog based on its contents
-            jDialog1.pack(); 
+            jDialog1.pack();
             // Center the dialog relative to the parent frame
             jDialog1.setLocationRelativeTo(this);
             // shows pop-up window
@@ -615,26 +614,25 @@ public class MusterPanel extends javax.swing.JPanel {
         emptyJTable();
 
         DefaultListModel<Object> listModel = new DefaultListModel<>();
-        
+
         // checks if the search bar in use, so to not interrupt
         if (!jSuchfeldDoZug.getText().equals("Suche")) {
             dozent = getObjectFromName(jLabelName.getText(), dozentenList);
         }
-        
+
         if (dozent != null) {
 
             tableTransferHandler.setObject(dozent);
             jLVList.updateUI();
 
-
             // Choose LV-Objekt Dozent
             tableTransferHandler.setDozentenName(dozent.getName());
             tableTransferHandler.setLVJLVList(dozent.getLV());
-            
+
             // get LV-Object from Dozent
             for (LV dozentLV : dozent.getLV()) {
                 setLVforJTable(dozentLV);
-                jLVList.setCellRenderer(new CustomListCellRenderer(dozent.getLV(), dozentLV, dozent));
+                jLVList.setCellRenderer(new CustomListCellRenderer(dozent));
             }
 
             // Sets the renderer for preferred column (in this case 0)
@@ -668,7 +666,7 @@ public class MusterPanel extends javax.swing.JPanel {
 
             for (LV lvElement : zug.getLV()) {
                 setLVforJTable(lvElement);
-                jLVList.setCellRenderer(new CustomListCellRenderer(zug.getLV(), lvElement, zug));
+                jLVList.setCellRenderer(new CustomListCellRenderer(zug));
 
                 int swsUebrig = lvElement.getSWSBlocks() - lvElement.getSWSBlocksTook();
                 listModel.addElement(lvElement + " " + swsUebrig);

@@ -57,7 +57,7 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
         Component cellComponent = super.getTableCellRendererComponent(
                 table, value, isSelected, hasFocus, row, column);
         String cellValue = (String) value;
-        int checkSum = 0;
+        int checkSum;
         long schiebAvailable = dozent.getAvailable();
         long schiebDoesNotWant = dozent.getDoesNotWant();
         long scheduledDozent = dozent.getScheduledDozent();
@@ -67,7 +67,7 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
             stringList.add(lv.getName());
         }
 
-        //  || !dozent.getDoesHavePVZeiten()
+        
         if (dozent == null) {
             cellComponent.setBackground(Color.LIGHT_GRAY);
             return cellComponent;
@@ -92,7 +92,7 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                 schiebAvailable = schiebAvailable >> checkSum;
                 schiebDoesNotWant = schiebDoesNotWant >> checkSum;
                 scheduledDozent = scheduledDozent >> checkSum;
-
+                //After we shifted each number, we set the backround color depending on different longs
                 if (schiebAvailable % 2 == 1 && dozent.getDoesHavePVZeiten()) {
                     cellComponent.setBackground(availableColor);
                 } else if (schiebDoesNotWant % 2 == 1 && dozent.getDoesHavePVZeiten()) {
@@ -100,11 +100,15 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                 } else if ((schiebAvailable ^ schiebDoesNotWant) % 2 == 0 && dozent.getDoesHavePVZeiten()) {
                     cellComponent.setBackground(canNotColor);
                 } else {
-                    // Setzen Sie die Standardhintergrundfarbe für andere Zellen
+                    
                     cellComponent.setBackground(noPVZeitenColor);
                 }
+                
+                //The table of a Dozent will only contain either cells with no border color or blue border color
+                //The dark gray border color will only be shown in a Table from a Zug.
+                //LVs from the Dozent of the most currently selected LV will, wich are not in the Zug of the selected LV are shown in a dark gray border 
                 if (scheduledDozent % 2 == 1 && zug == null) {
-                    //cellComponent.setForeground(Color.PINK);
+                    
                     cellComponent.setFont(cellComponent.getFont().deriveFont(Font.BOLD));
                     setBorder(new CompoundBorder(new LineBorder(Color.BLUE, 5), new EmptyBorder(5, 5, 5, 5)));
 
@@ -208,13 +212,13 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
                 }
 
             } else {
-                // Setzen Sie die Standardhintergrundfarbe für andere Zellen
+                
                 cellComponent.setBackground((Color.LIGHT_GRAY));
             }
         } else {
             setHorizontalAlignment(SwingConstants.CENTER);
             setFont(new Font("Arial", Font.BOLD, 16));
-            // Setzen Sie die Standardhintergrundfarbe für andere Zellen
+            
             cellComponent.setBackground((Color.LIGHT_GRAY));
         }
         return cellComponent;

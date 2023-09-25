@@ -57,7 +57,9 @@ public class TableTransferHandler extends TransferHandler {
         if (!canImport(support)) {
             return false;
         }
-
+        
+        //For the Drag and Drop function
+        //To prevent errrors or conflicts it is not possible to drop a LV on cell, where a relevant LV is already placed
         JTable.DropLocation dl = (JTable.DropLocation) support.getDropLocation();
         int row = dl.getRow();
         int col = dl.getColumn();
@@ -113,7 +115,7 @@ public class TableTransferHandler extends TransferHandler {
                             }
                         }
                         
-                        jLVList.setCellRenderer(new CustomListCellRenderer(lvJLVList, lv, obj));
+                        jLVList.setCellRenderer(new CustomListCellRenderer( obj));
                         
                         jTable.setValueAt(data, row, col);
                         jLVList.revalidate();

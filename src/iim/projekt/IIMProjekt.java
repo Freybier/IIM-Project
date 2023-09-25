@@ -39,7 +39,7 @@ public class IIMProjekt {
         
         // differentialte if you need to read from file or if you need to read from a browser
         ReadHandtuch2.readFromFile(handtuchHTMLReadPath);
-        //ReadHandtuch2.readFromWebsite("file:///C:/Users/Frey/Downloads/Handtuch%20(1).html");
+        //ReadHandtuch2.readFromWebsite(""); // Enter Correct Url where the Handtuch html is found
         
         // creates Dozenten-list from file pvZeiten
         List<Dozent> dozentList = pvZeitenToDozent.splittNameWishList(pvzeiten);

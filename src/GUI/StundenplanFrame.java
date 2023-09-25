@@ -8,7 +8,6 @@ import iim.Hochschule.Dozent;
 import iim.Hochschule.Zug;
 import iim.Hochschule.LV;
 import java.awt.Component;
-import java.awt.Container;
 
 import java.util.Arrays;
 import java.util.List;

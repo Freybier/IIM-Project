@@ -23,31 +23,20 @@ public class ReadHandtuch2 {
     public static int numRows = 0;
     public static int numCols = 0;
 
-    public static String[][] readFromFile(String filename) {
-        String[][] tableArray = null;
+    public static void readFromFile(String filename) {
         try {
             // Read the HTML file using Jsoup
             Document doc = Jsoup.parse(new File(filename), "UTF-8");
 
-            tableArray = read(doc);
+            read(doc);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return tableArray;
     }
 
-    public static String[][] read(Document doc) {
-        // Find the table element
-//        String url = "";
-//        try {
-//            // Fetch the HTML content of the website using Jsoup
-//            doc = Jsoup.connect(url).get();
-//
-//        } catch (IOException e) {
-//            System.out.println(e);
-//        }
+    public static void read(Document doc) {
         
         Element table = doc.select("table").first();
 
@@ -77,12 +66,12 @@ public class ReadHandtuch2 {
         }
         String[][] tableArray = tableData;
         createCSV(tableArray);
-        return tableArray;
     }
 
     public static void createCSV(String data[][]) {
         String absolutPath = new File("").getAbsolutePath();
         String filePath = absolutPath + "\\src\\iim\\Handtuch\\HandtuchOutput.csv";
+        // writes csv file from String Array
         try (FileWriter writer = new FileWriter(filePath)) {
             for (int i = 0; i < data.length; i++) {
                 for (int j = 0; j < data[i].length; j++) {
@@ -100,31 +89,18 @@ public class ReadHandtuch2 {
         }
     }
 
-    public static String[][] readFromWebsite(String url) {
+    public static void readFromWebsite(String url) {
 
-        String[][] tableArray = null;
         try {
             // Fetch the HTML content of the website using Jsoup
             Document doc = Jsoup.connect(url).get();
 
-            tableArray = read(doc);
+            read(doc);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return tableArray;
-    }
-
-    // Rest of your existing code (createCSV method) remains the same
-    public static void webReader() {
-        String websiteUrl = "file:///C:/Users/Frey/Downloads/Handtuch%20(1).html";  // Replace with the actual website URL
-        tableData = readFromWebsite(websiteUrl);
-
-        if (tableData != null) {
-            // Call the createCSV method to create the CSV file
-            createCSV(tableData);
-        }
     }
 
     public static Object[][] getObjectTable() {
@@ -133,7 +109,8 @@ public class ReadHandtuch2 {
 
         return tableObject;
     }
-
+    
+    // converts String array into an Object array
     public static Object[][] convert(String[][] stringArray) {
         numRows = stringArray.length;
         numCols = stringArray[0].length;

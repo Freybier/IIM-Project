@@ -440,11 +440,13 @@ public class MusterPanel extends javax.swing.JPanel {
                 if (jTable.getValueAt(row, col) != null) {
                     Object cellValue = jTable.getValueAt(row, col);
                     String cellString = (String) cellValue;
+                    // use the last chosen Dozent/Zug
                     String check = jLabelName.getText();
                     for (Dozent dozentTable : dozentenList) {
                         if (dozentTable.getName().equals(check)) {
                             for (LV lvDozentTable : dozentTable.getLV()) {
                                 if (lvDozentTable.getName().equals(cellString)) {
+                                    // using bit-shift to manipulate the data
                                     int checkSum = 33 - ((col) * 6) + (6 - row);
                                     long delete = 1;
                                     delete = delete << checkSum;
@@ -463,7 +465,7 @@ public class MusterPanel extends javax.swing.JPanel {
                         }
                     }
 
-                    // Falls blackboaeder deletet werden soll HIER ändern
+                    // if black border shoulf be deleted , change here
                     for (Zug zugTable : zugList) {
                         if (zugTable.getName().equals(check)) {
                             for (LV lvZugTable : zugTable.getLV()) {
@@ -491,8 +493,6 @@ public class MusterPanel extends javax.swing.JPanel {
         }
         jTabbedPane1.revalidate();
         jTabbedPane1.repaint();
-        jTable.revalidate();
-        jTable.repaint();
         jLVList.revalidate();
         jLVList.repaint();
     }//GEN-LAST:event_jTableMouseClicked
@@ -677,20 +677,29 @@ public class MusterPanel extends javax.swing.JPanel {
         return listModel;
     }
 
-    private <T> T getObjectFromName(String name, List<T> objectList) {
-        T foundObject = null;
-        for (T object : objectList) {
-            if (object instanceof Dozent && ((Dozent) object).getName().equals(name)) {
-                foundObject = object;
-                break;
-            } else if (object instanceof Zug && ((Zug) object).getName().equals(name)) {
-                foundObject = object;
-                break;
-            }
+    // This is a generic method that takes a name and a list of objects of type T as input.
+private <T> T getObjectFromName(String name, List<T> objectList) {
+    T foundObject = null;
+    
+    // Iterate through the list of objects.
+    for (T object : objectList) {
+        // Check if the current object is an instance of the 'Dozent' class.
+        if (object instanceof Dozent && ((Dozent) object).getName().equals(name)) {
+            // If it is, set the 'foundObject' to the current object and exit the loop.
+            foundObject = object;
+            break;
         }
-        return foundObject;
+        // Check if the current object is an instance of the 'Zug' class.
+        else if (object instanceof Zug && ((Zug) object).getName().equals(name)) {
+            // If it is, set the 'foundObject' to the current object and exit the loop.
+            foundObject = object;
+            break;
+        }
     }
-
+    
+    // Return the found object (or null if not found).
+    return foundObject;
+}
     // method to interate through the Dozenten/Zug/LV-List to fetch all Objects that contains the input
     public void findMatchingObjects(String input) {
 
@@ -936,7 +945,7 @@ public class MusterPanel extends javax.swing.JPanel {
                         if (lvScheduled % 2 == 1) {
                             int row = i % 6;
                             int column = i / 6;
-                            String cellContent = "";
+                            String cellContent;
                             cellContent = (String) jTable.getValueAt(row, column);
                             cellContent += "   " + zug.getName() + ": " + lvZug.getName() + "   ";
                             checkList.add(lvZug.getName());
@@ -963,17 +972,6 @@ public class MusterPanel extends javax.swing.JPanel {
                 lvScheduled = lvScheduled >> 1;
             }
         }
-    }
-
-    public void setImport(List<LV> lvList, List<Dozent> dozentList, List<Zug> zugList) {
-        this.lvList = lvList;
-        this.dozentenList = dozentList;
-        this.zugList = zugList;
-
-    }
-
-    public JTable getJTable() {
-        return jTable;
     }
 
 

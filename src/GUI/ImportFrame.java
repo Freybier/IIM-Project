@@ -65,9 +65,9 @@ public class ImportFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        // TODO add your handling code here:
+        
         File file = jFileChooser1.getSelectedFile();
-        System.out.println(evt.getActionCommand());
+        
         switch (evt.getActionCommand()) {
             case "ApproveSelection":
                 ImportSetzer setzer = new ImportSetzer(zugList, file);

@@ -7,10 +7,10 @@ package GUI;
 import javax.swing.*;
 import java.awt.datatransfer.*;
 
-public class ListTransferHandler extends TransferHandler {
+public class LVListTransferHandler extends TransferHandler {
     private JList<Object> jList;
 
-    public ListTransferHandler(JList<Object> jList) {
+    public LVListTransferHandler(JList<Object> jList) {
         this.jList = jList;
     }
 
@@ -18,7 +18,7 @@ public class ListTransferHandler extends TransferHandler {
     public int getSourceActions(JComponent c) {
         return COPY;
     }
-
+    //The LVListTransferhandler enables thhe drag 
     @Override
     protected Transferable createTransferable(JComponent c) {
         Object selectedValue = jList.getSelectedValue();

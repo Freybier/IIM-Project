@@ -42,7 +42,7 @@ public class ImportSetzer {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
-            System.out.println("Import try");
+            
             String line;
             //String[] header = br.readLine().split(";");
             int zugNameIndex = 1;
@@ -67,7 +67,7 @@ public class ImportSetzer {
                             scheduler = scheduler << (34 - shift);
                             lv.setScheduledLV(lv.getScheduledLV() | scheduler);
                             lv.getDozentLV().setScheduledDozent(lv.getDozentLV().getScheduledDozent() | scheduler);
-                            System.out.println("Wir sind in der if!");
+                            
                             lv.addOneSWSBlocksTook();
                             lv.setRoomNumber(raumNr);
                             break;

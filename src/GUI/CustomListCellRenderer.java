@@ -27,12 +27,8 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
     private Object obj = null;
     private final Map<Integer, Color> backgroundColors = new HashMap<>();
 
-    private java.util.List<LV> lvJLVList;
-    private LV lv;
 
-    public CustomListCellRenderer(List<LV> lvJLVList, LV lv, Object obj) {
-        this.lvJLVList = lvJLVList;
-        this.lv = lv;
+    public CustomListCellRenderer( Object obj) {
         this.obj = obj;
     }
 

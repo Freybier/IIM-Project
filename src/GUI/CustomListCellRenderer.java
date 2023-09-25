@@ -11,15 +11,10 @@ package GUI;
 import iim.Hochschule.Dozent;
 import iim.Hochschule.LV;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import static java.awt.Color.DARK_GRAY;
 import static java.awt.Color.LIGHT_GRAY;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
-import GUI.StundenplanFrame;
 import iim.Hochschule.Zug;
 
 public class CustomListCellRenderer extends DefaultListCellRenderer {
@@ -41,7 +36,9 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
     public void setBackgroundColor(int index, Color color) {
         backgroundColors.put(index, color);
     }
-
+    
+    //Sets th numbers of SWS left next to the LV and if there are 0 left turns the elemnt from the List gray
+    
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -60,10 +57,10 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
                     list.revalidate();
                     list.repaint();
 
-                    // Überprüfe, ob eine benutzerdefinierte Hintergrundfarbe für diesen Eintrag festgelegt wurde
+                    
                     if (lvZug.getSWSBlocksTook() == lvZug.getSWSBlocks()) {
                         renderer.setBackground(LIGHT_GRAY);
-                        return renderer; // Hier beenden, nachdem die Farbe festgelegt wurde
+                        return renderer; 
                     }
 
                 }
@@ -80,19 +77,20 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
                     list.revalidate();
                     list.repaint();
 
-                    // Überprüfe, ob eine benutzerdefinierte Hintergrundfarbe für diesen Eintrag festgelegt wurde
+                    
                     if (lvDozent.getSWSBlocksTook() == lvDozent.getSWSBlocks()) {
                         renderer.setBackground(LIGHT_GRAY);
-                        return renderer; // Hier beenden, nachdem die Farbe festgelegt wurde
+                        return renderer; 
                     }
 
                 }
             }
         }
-        // Wenn die Bedingung für das aktuelle Element nicht zutrifft, setze den Hintergrund auf die Standardfarbe
+
+        //If the condtions do not fit, the list element has the default color 
         renderer.setBackground(list.getBackground());
 
-        //setBorder(new EmptyBorder(5, 10, 5, 10)); // optional: Füge einen Innenabstand hinzu
+        
         return renderer;
     }
 

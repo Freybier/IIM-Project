@@ -22,8 +22,8 @@ import java.util.Set;
  */
 public class ReadCSVs implements Serializable {
 
-    private static List<LV> lvList = new ArrayList<>();
-    private static List<Zug> zugList = new ArrayList<>();
+    private static final List<LV> lvList = new ArrayList<>();
+    private static final List<Zug> zugList = new ArrayList<>();
     private static List<Dozent> dozentList = new ArrayList<>();
     private static String path;
 

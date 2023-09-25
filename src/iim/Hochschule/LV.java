@@ -14,29 +14,29 @@ import java.util.List;
  */
 public class LV implements Serializable {
 
-    private String name;
-    private final String nickName;
-    private final String fullName;
-    private long scheduledLV = 0;
-    private final String dozentName;
-    private final String secondDozentName;
-    private List<String> zugNameList = new ArrayList<>();
-    private String leadingZugName;
-    private final List<Zug> zugList = new ArrayList<>();
-    private String sws;
-    private int swsBlocks = 0;
-    private int swsBlocksTook = 0;
-    private final boolean geblockt;
-    private final String lva;
-    private Zug leadingZug;
-    private Dozent dozentLV;
-    private Dozent secondDozentLV;
-    private String roomNumber = "-";
+    private String name;//Name with modifications
+    private final String nickName;//Original name from the CSV (3-4 letters)
+    private final String fullName;//Name in full length
+    private long scheduledLV = 0;//The number to see when the LV is scheduled
+    private final String dozentName;//The name of the dozent for the LV
+    private final String secondDozentName;//if there is a 2. Dozent for the LV (not in usage)
+    private List<String> zugNameList = new ArrayList<>();//List of Zug name wich needs to visit this LV
+    private String leadingZugName;//String of the leading Zug
+    private final List<Zug> zugList = new ArrayList<>();//List of Zug objects wich needs to visit this LV
+    private String sws;//Semesterwochenstunden(sws) as a String
+    private int swsBlocks = 0;//sws in blocks 1sws => 1swsBlocks, 2sws => 1swsBlocks, 3sws => 2swsBlocks, 4sws => 2swsBlocks ... 
+    private int swsBlocksTook = 0;//If a LV hast multiple swsBlokcs we need to know how many Blocks are already placed over the week
+    private final boolean geblockt;//checks if a LV is blockt
+    private final String lva;//A String wich indicates what kind of LV the LV is
+    private Zug leadingZug;//Zug object of the Leading Zug
+    private Dozent dozentLV;// Dozent object 
+    private Dozent secondDozentLV;//Second Dozent object (not in usage)
+    private String roomNumber = "-"; //Simple String for the Roomnumber 
 
     public LV(String name, String fullName, String dozentName, String sws, boolean geblockt, String lva, String secondDozentName, String nickName) {
         this.name = name;
         this.fullName = fullName;
-        //this.po = po;
+        
         this.dozentName = dozentName;
         this.sws = sws;
         try {
@@ -56,7 +56,6 @@ public class LV implements Serializable {
         this.lva = lva;
         this.secondDozentName = secondDozentName;
         this.nickName = nickName;
-
     }
 
     public void setName(String name) {
@@ -171,9 +170,7 @@ public class LV implements Serializable {
     public String getNickName() {
         return nickName;
     }
-//    public String getHandtuchPointer(){
-//        return handtuchPointer;
-//    }
+
 
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
@@ -182,12 +179,7 @@ public class LV implements Serializable {
     public String getRoomNumber() {
         return roomNumber;
     }
-//    public boolean getIsScheduled(){
-//        return isScheduled;
-//    }
-//    public void setIsScheduled(boolean isScheduled){
-//        this.isScheduled = isScheduled;
-//    }
+
 
     @Override
     public String toString() {

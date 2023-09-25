@@ -13,14 +13,15 @@ import java.util.List;
  * @author Yann Leymann
  */
 public class Dozent implements Serializable {
-    private final String name;
-    private String wishList;
-    private long available;
-    private long doesNotWant;
-    private long scheduledDozent = 0;
-    private final List<LV> lv = new ArrayList<>();
-    private final List<String> lvName = new ArrayList<>();
-    private boolean pvZeiten = true;
+    
+    private final String name;// Name of the Dozent
+    private String wishList;// String of "X", "x" and " " wich contains the working hours of a Dozent
+    private long available;// A number wich contains the information of the availability
+    private long doesNotWant;// A number wich contains the information of the "doesNotWant" hours
+    private long scheduledDozent = 0;// A number wich contains the information of the scheduling 
+    private final List<LV> lv = new ArrayList<>();// List of LV objects given by the Dozent
+    private final List<String> lvName = new ArrayList<>();//List of LV names given by the Dozent
+    private boolean pvZeiten = true;//A boolean to check if the Dozent has pvZeiten-informations
 
     public Dozent(String name) {
         this.name = name;    

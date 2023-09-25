@@ -14,9 +14,8 @@ import java.util.List;
  */
 public class Zug implements Serializable {
 
-    private final String name;
-    private long scheduledZug = 0;
-    private final List<LV> lvList = new ArrayList<>();
+    private final String name;//Name of the Zug
+    private final List<LV> lvList = new ArrayList<>();//LV object list of all LVs the Zug has to visit 
 
     public Zug(String name) {
         this.name = name;
@@ -33,15 +32,6 @@ public class Zug implements Serializable {
     public void addLV(LV lv) {
         this.lvList.add(lv);
     }
-
-    public long getScheduledZug() {
-        return scheduledZug;
-    }
-
-    public void setScheduledZug(long scheduled) {
-        this.scheduledZug = scheduled;
-    }
-
 
 
     @Override

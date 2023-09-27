@@ -48,7 +48,7 @@ public class StundenplanFrame extends javax.swing.JFrame {
     public StundenplanFrame(List<Dozent> dozentenList, List<Zug> zugList, List<LV> lvList, String handtuchCSVFilePath) {
         // oArray is the Object Array created from the Handtuch csv
         String absolutPath = new File("").getAbsolutePath();
-        oArray = new CSVToObjectArrayConverter(absolutPath+"\\src\\iim\\Handtuch\\HandtuchNeu.csv");
+        oArray = new CSVToObjectArrayConverter(absolutPath+"\\src\\iim\\Handtuch\\Handtuch.csv");
         this.dozentenList = dozentenList;
         this.zugList = zugList;
         this.lvList = lvList;

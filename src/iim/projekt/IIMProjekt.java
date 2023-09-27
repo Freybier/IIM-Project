@@ -28,11 +28,11 @@ public class IIMProjekt {
         String absolutPath = System.getProperty("user.dir");
         String pvzeiten = absolutPath + "\\src\\iim\\pvZeiten\\pvZeiten.txt";
         
-        String handtuchCSVFilePath = absolutPath + "\\src\\iim\\Handtuch\\HandtuchNeu.csv";
-        String handtuchHTMLReadPath = absolutPath + "\\src\\iim\\Handtuch\\Handtuch.html";
+        String handtuchCSVFilePath = absolutPath + "\\src\\iim\\Handtuch\\Handtuch.csv";
         
         // differentialte if you need to read from file or if you need to read from a browser
-        ReadHandtuch2.readFromFile(handtuchHTMLReadPath);
+        //String handtuchHTMLReadPath = absolutPath + "\\src\\iim\\Handtuch\\Handtuch.html";
+        //ReadHandtuch2.readFromFile(handtuchHTMLReadPath);
         //ReadHandtuch2.readFromWebsite(""); // Enter Correct Url where the Handtuch html is found
         
         // creates Dozenten-list from file pvZeiten

@@ -66,8 +66,7 @@ public class ImportSetzer {
                             int shift = Integer.parseInt(scheduled);
                             scheduler = scheduler << (34 - shift);
                             lv.setScheduledLV(lv.getScheduledLV() | scheduler);
-                            lv.getDozentLV().setScheduledDozent(lv.getDozentLV().getScheduledDozent() | scheduler);
-                            
+                            lv.getDozentLV().setScheduledDozent(lv.getDozentLV().getScheduledDozent() | scheduler);                           
                             lv.addOneSWSBlocksTook();
                             lv.setRoomNumber(raumNr);
                             break;

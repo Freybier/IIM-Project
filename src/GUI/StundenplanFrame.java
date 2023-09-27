@@ -85,8 +85,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -195,14 +193,6 @@ public class StundenplanFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem2.setText("Zurücksetzten");
-        jMenu2.add(jMenuItem2);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -433,10 +423,8 @@ public class StundenplanFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jColumnFilter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;

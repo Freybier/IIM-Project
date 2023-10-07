@@ -1,0 +1,547 @@
+Zug;LV-Kürzel;LVA;Bezeichnung;Dozent;2. Dozent;SWS;SWS im Plan;geblockt;online;SPT;Checked
+AM4;CAD2;Ü;CAD 2;BUC; SAL;2; ;false;false;1;true
+AM4;EFE;Vg;Erweiterte Festigkeitslehre;PFU; ;2; ;false;false;1;true
+AM4;ELA;Vg;Elektrische Antriebe;FRA; ;2; ;false;false;1;true
+AM4;FEL1;L;Finite-Elemente-Methode 1-Labor;PFU; ;1; ;false;false;1;true
+AM4;FEM1;Vg;Finite-Elemente-Methode 1;AND; ;2; ;false;false;1;true
+AM4;FHL;L;Förder- und Handhabungstechnik-Labor;STH; ;2; ;false;false;1;true
+AM4;FHT;Vg;Förder- und Handhabungstechnik;STH; ;2; ;false;false;1;true
+AM4;KON;Vg;Konstruktionslehre;DIR; ;2; ;false;false;1;true
+AM4;MTE1;Vg;Messtechnik;GIE; ;2; ;false;false;1;true
+AM4;RTK1;Vg;Regelungstechnik 1;KAL; ;2; ;false;false;1;true
+AM4;SRT;Vg;Steuerungstechnik;HOS; ;2; ;false;false;1;true
+AM4;TES;Vg;Technische Schwingungslehre;HEK; ;2; ;false;false;1;true
+AM4;THD2;Vg;Thermodynamik 2;JAN; ;4; ;true;false;2;true
+AM5;BWT1;Vg;Bewegungstechnik 1;SCA; ;2; ;false;false; ;true
+AM5;IPM;Vg;Internationales Projektmanagement;WIN; ;4; ;false;false;1;true
+AM5;KML1;L;Kolbenmaschinen 1-Labor;RAK; ;2; ;false;false;1;true
+AM5;KOM1;Vg;Kolbenmaschinen 1;VM6; ;2; ;false;false;1;true
+AM5;MDY1;Vg;Maschinendynamik 1;SCA; ;2; ;false;false; ;true
+AM5;MRL;L;Messen-Regeln-Labor;KAL; ;4; ;false;false;1;true
+AM5;MSL;L;Messen-Steuern-Labor;HOS; HOY;3; ;false;false;1;true
+AM5;RTK2;Vg;Regelungstechnik 2;KAL; ;2; ;false;false;1;true
+AM5;STL1;L;Strömungsmaschinen-Labor;VM6; ;1; ;false;false;1;true
+AM5;STM1;Vg;Strömungsmaschinen;VM6; ;2; ;false;false;1;true
+AM6;IKR;Vg;Kosten- und Investitionsrechnung;ANM; ;1; ;false;false;1;true
+AM6;QUM;Vg;Qualitäts- und Umweltmanagement;WIS; ;2; ;false;false;1;true
+VE4;AAT;Vg;Apparate- u. Anlagentechnik;JAS; ;2; ;false;false;1;true
+VE4;CA2V;L;CAD 2;BER; ;3; ;false;false;1;true
+VE4;ELA;Vg;Elektrische Antriebe;FRA; ;2; ;false;false;1;true
+VE4;FFF;Vg;Förderanlagen für Fluide;VM4; ;2; ;false;false;1;true
+VE4;FVA;L;Fließbilder verfahrenst. Anlagen;BER; ;2; ;false;false;1;true
+VE4;GTV;Vg;Grundlagen Thermochemische Verfahrenstechnik;VM3; ;2; ;false;false;1;true
+VE4;GVL;L;Grundlagenlabor Verfahrenstechnik;VM3; ;1; ;false;false;1;true
+VE4;MTEV;Vg;Messtechnik;GOR; ;2; ;false;false;1;true
+VE4;MVT1;Vg;Mechanische Verfahrenstechnik 1;VM3; ;2; ;false;false;1;true
+VE4;RET1;Vg;Reaktionstechnik 1;NAD; WOL;2; ;false;false;1;true
+VE4;RTV1;Vg;Regelungstechnik 1;HOY; ;2; ;false;false;1;true
+VE4;SRTV;Vg;Steuerungstechnik;HOY; ;2; ;false;false;1;true
+VE4;THD2;Vg;Thermodynamik 2;AM4; ;4; ;true;false;2;true
+VE5;AWT;Vg;Abwasserbehandlung u. Trinkwasseraufbereitung;SAK; ;2; ;false;false;1;true
+VE5;IPM;Vg;Internationales Projektmanagement;PS5; ;2; ;false;false;1;true
+VE5;KWT;Vg;Kraftwerkstechnik;JAN; ;2; ;false;false; ;true
+VE5;MRLV;L;Messen-Regeln-Labor;HOY; ;1; ;false;false;1;true
+VE5;MSLV;L;Messen-Steuern-Labor;HOY; ;1; ;false;false;1;true
+VE5;PLLV;L;Prozessleittechnik-Labor;HOF; ;2; ;false;false;1;true
+VE5;PLTV;Vg;Prozessleittechnik;HOY; ;2; ;false;false;1;true
+VE5;RED;Vg;Reinhaltung der Luft;SAK; ;2; ;false;false;1;true
+VE5;RTV2;Vg;Regelungstechnik 2;HOY; ;2; ;false;false;1;true
+VE5;TVL1;L;Thermische Verfahrenstechnik 1 - Labor;JAS; ;1; ;false;false;1;true
+VE5;TVT1;Vg;Thermische Verfahrenstechnik 1;JAS; ;4; ;true;false;2;true
+VE5;UWL;L;Umwelttechnik-Labor;NAD; ;1; ;false;false;1;true
+VE5;WTL;L;Wärmetechnik-Labor;JAN; ;1; ;false;false;1;true
+ET6;HZK;Vg;Heizungstechnik und Kraft-Wärme-Kopplung;VM5; ;2; ;false;false;1;true
+ET6;KAT;Vg;Kältetechnik;VM3; ;2; ;false;false;1;true
+ET6;KKL;L;Kälte- und Klimatechnik-Labor;VM3; ;1; ;false;false;1;true
+ET6;KLT;Vg;Klimatechnik;VM3; ;2; ;false;false;1;true
+ET6;NEL;L;Nachhaltige Energiesysteme-Labor;VM5; ;1; ;false;false;1;true
+ET6;REE;Vg;Regenerative Energien und Brennstoffzellen;VM5; ;2; ;false;false;1;true
+ID1;ELT;Vg;Elektrotechnik;GIL; ;5; ;true;false;3;true
+ID1;GLI;Vg;Grundlagen der Informatik;CAK; ;4; ;true;false;2;true
+ID1;GWK;Vg;Grundlagen Werkstoffkunde;KT1; ;4; ;true;false; ;true
+ID1;MA1D;Vg;Mathematik 1 D;KT1; ;6; ;true;false; ;true
+ID1;PRT;Vg;Präsentation und Kommunikation;KT5; ;2; ;false;false;1;true
+ID1;STK;Vg;Statik;KT1; ;5; ;true;false;3;true
+II2;ADLD; ;Labor Algorithmen und Datenstrukturen;ID3; ;2; ;false;false; ;true
+II3;ADLD; ;Labor Algorithmen und Datenstrukturen;ID3; ;2; ;false;false; ;true
+MT3;ADLD; ;Labor Algorithmen und Datenstrukturen;ID3; ;2; ;false;false; ;true
+ID3;ADLD;L;Labor Algorithmen und Datenstrukturen;CAK; ;2; ;false;false;1;true
+ID3;ALD;Vg;Algorithmen und Datenstrukturen;CAK; ;4; ;true;false;2;true
+ID3;KIN;Vg;Kinematik und Kinetik;KT3; ;4; ;false;false; ;true
+ID3;MTE1;Vg;Messtechnik;KT5; ;2; ;false;false;1;true
+ID3;OOP;L;Objektorientierte Programmierung;VEN; ;3; ;false;false;2;true
+ID3;PJM;Vg;Projektmanagement D;SCK; ;4; ;false;false;1;true
+ID3;RTK1;Vg;Regelungstechnik 1;AM4; ;2; ;false;false;1;true
+ID3;SRT;Vg;Steuerungstechnik;AM4; ;2; ;false;false;1;true
+ID3;SUS;V;Signale und Systeme;STK; ;2; ;false;false;1;true
+ID3;SYP1;L;Systemprogrammierung 1;MAR; ;4; ;true;false;2;true
+II1;ELT;Vg;Elektrotechnik;-; ;5; ;true;false;3;true
+II2;GLI;Vg;Grundlagen der Informatik;ID1; ;4; ;true;false;2;true
+II1;GLI;Vg;Grundlagen der Informatik;ID1; ;4; ;true;false;2;true
+II1;GWK;Vg;Grundlagen Werkstoffkunde;VE1; ;4; ;true;false; ;true
+II1;MAT1;Vg;Mathematik 1;MAR; ;6; ;false;false;3;true
+II1;PHY1;Vg;Physik 1;-; ;4; ;false;false;2;true
+II1;STK;Vg;Statik;M1B; ;5; ;true;false; ;true
+II2;BEL;Vg;Betriebslehre Grundlagen;JTK; ;2; ;false;false;1;true
+II2;CAD1;L;CAD 1;BUC; ;1; ;false;false;1;true
+II2;FES;Vg;Grundlagen Festigkeitslehre;WI2; ;4; ;true;false;2;true
+II2;IKR;Vg;Kosten- und Investitionsrechnung;AM6; ;1; ;false;false;1;true
+II2;MAE1;Vg;Maschinenelemente 1;SAL; ;4; ;true;false;2;true
+II2;MAT2;Vg;Mathematik 2;WI2; ;4; ;true;false;2;true
+II2;PYL; ;Physik-Labor;M3A; ;3; ;false;false; ;true
+M3A;PYL;L;Physik-Labor;PIN; GIE;3; ;false;false;1;true
+II2;REK;Vg;Rechtskunde;FRI; ;1; ;false;false;1;true
+II2;WSP;Sg;Wissenschaftliches Schreiben und Präsentieren;WI3; ;2; ;false;false; ;true
+II2;ALD;Vg;Algorithmen und Datenstrukturen;ID3; ;4; ;true;false;2;true
+II3;ALD;Vg;Algorithmen und Datenstrukturen;ID3; ;4; ;true;false;2;true
+XF1;CAD1; ;CAD 1;BER; ;4; ;false;false; ;true
+2+3;CAD1; ;CAD 1;BER; ;1; ;false;false; ;true
+II3;CAD2;Ü;CAD 2;BUC; ;2; ;false;false;1;true
+II3;KIN;Vg;Kinematik und Kinetik;WI3; ;4; ;false;false; ;true
+II3;KON;Vg;Konstruktionslehre;AM4; ;2; ;false;false;1;true
+II3;KUE1;Ü;Konstruktionsübung 1;DIR; ;1; ;false;false;1;true
+II3;MAT3;Vg;Mathematik 3;M3B; ;4; ;true;false;2;true
+II3;OOP;L;Objektorientierte Programmierung;ID3; ;3; ;true;false;2;true
+II2;OOP;L;Objektorientierte Programmierung;ID3; ;3; ;true;false;2;true
+II5;BWT1;Vg;Bewegungstechnik 1;AM5; ;2; ;false;false; ;true
+II5;MTS;Vg;Modellbildung technischer Systeme;MT5; ;2; ;false;false; ;true
+II5;MDY1;Vg;Maschinendynamik 1;AM5; ;2; ;false;false; ;true
+II5;MRL;L;Messen-Regeln-Labor;AM5; ;4; ;false;false;1;true
+II5;MSL;L;Messen-Steuern-Labor;AM5; ;3; ;false;false;1;true
+II5;NUM;V;Numerische Mathematik;VEN; ;4; ;false;false;2;true
+II5;QUM;Vg;Qualitäts- und Umweltmanagement;FLM; ;2; ;false;false;1;true
+II5;RTK2;Vg;Regelungstechnik 2;AM5; ;2; ;false;false;1;true
+II5;SMS;Vg;Simulationstechnik;MT5; ;2; ;false;false;1;true
+II5;SYP2;L;Systemprogrammierung 2;FUX; ;2; ;false;false;1;true
+KT1;GWK;Vg;Grundlagen Werkstoffkunde;PFA; ;4; ;true;false;2;true
+KT1;MA1D;Vg;Mathematik 1 D;SCA; ;6; ;true;false; ;true
+KT1;PHY1;Vg;Physik 1;GRM; ;4; ;true;false;2;true
+KT1;STK;Vg;Statik;PAS; ;5; ;true;false;3;true
+KT3;CAD1;L;CAD 1;BUC; ;1; ;false;false;1;true
+KT3;INF;Vg;Informatik;CAK; ;2; ;false;false;1;true
+KT3;KIN;Vg;Kinematik und Kinetik;SCA; ;4; ;false;false; ;true
+KT3;KST;Vg;Kunststoffe;SID; ;2; ;false;false; ;true
+KT3;MAE1;Vg;Maschinenelemente 1;REU; ;4; ;true;false;2;true
+KT3;UMF;Vg;Umformen;BIL; ;2; ;false;false;1;true
+KT3;URF;Vg;Urformen;PFA; ;2; ;false;false;1;true
+KT3;WKL;L;Werkstoffkunde-Labor;CLA; ;1; ;false;false;1;true
+KT5;BEL;Vg;Betriebslehre Grundlagen;JTK; ;2; ;false;false;1;true
+KT5;CA2D;Ü;CAD 2 D;BUC; ;1; ;false;false; ;true
+KT5;HUP;Vg;Hydraulik und Pneumatik;VM4; ;4; ;false;false;1;true
+KT5;KON;Vg;Konstruktionslehre;AM4; ;2; ;false;false;1;true
+KT5;KTW;Vg;Kautschukwerkstoffe;ANG; ;1; ;false;false; ;false
+KT5;MAE3;Vg;Maschinenelemente 3;REU; ;2; ;false;false;1;true
+KT5;MTE1;Vg;Messtechnik;GRA; ;2; ;false;false;1;true
+KT5;PJM;Vg;Projektmanagement D;ID3; ;4; ;false;false;1;true
+KT5;PRT;Vg;Präsentation und Kommunikation;WEB; ;2; ;false;false;1;true
+KT5;RTK1;Vg;Regelungstechnik 1;AM4; ;2; ;false;false;1;true
+KT5;SRT;Vg;Steuerungstechnik;AM4; ;2; ;false;false;1;true
+KT5;THD1;Vg;Thermodynamik 1;SAK; ;4; ;true;false;2;true
+M1A;CBK;Vg;Entlastungskurs Chemie;SAK; ;2; ;false;false;1;true
+M1B;CBK;Vg;Entlastungskurs Chemie;M1A; ;2; ;false;false;1;true
+VE1;CBK;Vg;Entlastungskurs Chemie;M1A; ;2; ;false;false;1;true
+WI1;CBK;Vg;Entlastungskurs Chemie;M1A; ;2; ;false;false;1;true
+M1A;CHE;Vg;Chemie;KOE; ;3; ;false;false;1;true
+M1A;ELT;Vg;Elektrotechnik;HOS; ;5; ;true;false;3;true
+M1A;GWK;Vg;Grundlagen Werkstoffkunde;SID; ;4; ;true;false;2;true
+M1A;MATZ;Vg;Entlastungskurs Mathematik;KOE; ;2; ;false;false;3;true
+M1B;MATZ;Vg;Entlastungskurs Mathematik;M1A; ;2; ;false;false;3;true
+II1;MATZ;Vg;Entlastungskurs Mathematik;M1A; ;2; ;false;false;3;true
+WI1;MATZ;Vg;Entlastungskurs Mathematik;M1A; ;2; ;false;false;3;true
+VE1;MATZ;Vg;Entlastungskurs Mathematik;M1A; ;2; ;false;false;3;true
+M1A;MAT1;Vg;Mathematik 1;HAN; ;6; ;false;false;3;true
+WI3;PHY2; ;Physik 2;GRA; ;2; ;false;false; ;true
+II3;PHY2; ;Physik 2;M3B; ;2; ;false;false; ;true
+M3B;PHY2; ;Physik 2;GIE; ;2; ;false;false; ;true
+VE3;PHY2; ;Physik 2;M3A; ;2; ;false;false; ;true
+M3A;PHY2; ;Physik 2;PIN; ;2; ;false;false; ;true
+M1A;PHY1;Vg;Physik 1;GIE; ;4; ;false;false;2;true
+M1A;STK;Vg;Statik;PFA; ;5; ;true;false;3;true
+M1B;CHE;Vg;Chemie;KOE; ;3; ;false;false;1;true
+M1B;ELT;Vg;Elektrotechnik;FRA; ;5; ;true;false;3;true
+M1B;GWK;Vg;Grundlagen Werkstoffkunde;BIL; ;4; ;false;false;2;true
+M1B;MAT1;Vg;Mathematik 1;HAN; ;6; ;false;false;3;true
+M1B;PHY1;Vg;Physik 1;PIN; ;4; ;true;false;2;true
+M1B;STK;Vg;Statik;PFA; ;5; ;true;false;3;true
+M2A;CAD1;L;CAD 1;BUC; ;2; ;false;false;1;true
+M2A;FES;Vg;Grundlagen Festigkeitslehre;PFU; ;4; ;true;false;2;true
+M2A;INF;Vg;Informatik;CAK; ;2; ;false;false;1;true
+M2A;KST;Vg;Kunststoffe;SID; ;2; ;false;false;1;true
+M2A;MAE1;Vg;Maschinenelemente 1;II2; ;4; ;true;false;2;true
+M2A;MAT2;Vg;Mathematik 2;WOL; ;4; ;true;false;2;true
+M2A;SLE;Vg;Strömungslehre;KLO; ;2; ;false;false;1;true
+M2A;THD1;Vg;Thermodynamik 1;HUK; ;4; ;false;false;2;true
+M2A;UMF;Vg;Umformen;BIL; ;2; ;false;false;1;true
+M2A;UUF;Vg;Urformen und Fügen;PFA; ;2; ;false;false;1;true
+M2A;WKL;L;Werkstoffkunde-Labor;CLA; ;2; ;false;false;1;true
+M3A;APG;Ü;Angewandtes Programmieren - Grundlagen;KAS; ;1; ;false;false;1;true
+M3A;BEL;Vg;Betriebslehre Grundlagen;II2; ;2; ;false;false;1;true
+M3A;INK;S;Interkulturelle Handlungskompetenzen Grundlagen;PFE; ;2; ;false;false;1;true
+M3B;INL; ;Informatik-Labor;FUX; ;1; ;false;false; ;true
+M3A;INL;L;Informatik-Labor;FUX; ;2; ;false;false;1;true
+M3A;KIN;Vg;Kinematik und Kinetik;HEK; ;4; ;false;false; ;true
+M3A;KUE1;Ü;Konstruktionsübung 1;SAL; ;1; ;false;false;1;true
+M3A;MAE2;Vg;Maschinenelemente 2;STR; ;4; ;true;false;2;true
+M3A;MAT3;Vg;Mathematik 3;WOL; ;4; ;true;false;2;true
+M3A;REK;Vg;Rechtskunde;II2; ;1; ;false;false;1;true
+M3A;SPA;Vg;Spanen;LIE; ;2; ;false;false;1;true
+M3A;WSP;Sg;Wissenschaftliches Schreiben und Präsentieren;WES; ;2; ;false;false; ;true
+M3B;APG;Ü;Angewandtes Programmieren - Grundlagen;KAS; ;1; ;false;false;1;true
+M3B;BEL;Vg;Betriebslehre Grundlagen;SFF; ;2; ;false;false;1;true
+M3B;INK;S;Interkulturelle Handlungskompetenzen Grundlagen;PFE; ;2; ;false;false;1;true
+M3B;KIN;Vg;Kinematik und Kinetik;M3A; ;4; ;false;false; ;true
+M3B;KUE1;Ü;Konstruktionsübung 1;SAL; ;1; ;false;false;1;true
+M3B;MAE2;Vg;Maschinenelemente 2;RAK; ;4; ;true;false;2;true
+M3B;MAT3;Vg;Mathematik 3;WOL; ;4; ;true;false;2;true
+M3B;PYL;L;Physik-Labor;PIN; ;3; ;false;false;1;true
+M3B;REK;Vg;Rechtskunde;II2; ;1; ;false;false;1;true
+M3B;SPA;Vg;Spanen;LIE; ;2; ;false;false;1;true
+M3B;WSP;Sg;Wissenschaftliches Schreiben und Präsentieren;WES; ;2; ;false;false; ;true
+ME2;ADY;Vg;Aerodynamik;KLO; ;2; ;false;false;1;true
+ME2;CBL;L;Computerorientierte Berechnung Labor;AND; ;1; ;false;false;1;true
+ME2;CBV;Vg;Computergestützte Berechnung;PFU; ;2; ;false;false;1;true
+ME2;CGA;Vg;Computergestützte Auslegung;KLA; ;2; ;false;false;1;true
+ME2;FZS;V, S;Fahrzeugsicherheit;WAD; ;3; ;true;false;2;true
+ME2;FZT;V, S;Fahrzeugtechnik;GAD; ;3; ;true;false; ;false
+ME2;HME2;Vg;Höhere Mechanik 2;AND; ;2; ;false;false;1;true
+ME2;ICB2;V;Integr. CAD - Berechn. 2;SHN; ;1; ;false;false;1;true
+ME2;LBK;Vg;Leichtbaukonstruktion;AND; PFU;2; ;false;false;1;true
+ME2;NUMM;V;Numerische Mathematik;VEN; ;3; ;false;false;1;true
+ME2;PEM;Vg;Produktentwicklung- Methoden, Teile;GUI; ;3; ;true;false;2;true
+ME2;VTP;Vg;Versuchstechnik und -planung;WP2; ;2; ;false;false; ;true
+MT1;ELT;Vg;Elektrotechnik;ID1; ;5; ;true;false;3;true
+MT1;GLI;Vg;Grundlagen der Informatik;ID1; ;4; ;true;false;2;true
+MT1;GWK;Vg;Grundlagen Werkstoffkunde;KT1; ;4; ;true;false;2;true
+MT1;MA1D;Vg;Mathematik 1 D;KT1; ;6; ;true;false; ;true
+MT1;PRT;Vg;Präsentation und Kommunikation;KT5; ;2; ;false;false;1;true
+MT1;STK;Vg;Statik;KT1; ;5; ;true;false;3;true
+MT3;ALD;Vg;Algorithmen und Datenstrukturen;ID3; ;4; ;true;false;2;true
+MT3;CAD1;L;CAD 1;BUC; ;1; ;false;false;1;true
+MT3;DTM;Vg;Digitaltechnik und Mikroprozessortechnik;F11; ;4; ;true;false; ;false
+MT3;IBS;Vg;Industrielle Bussysteme;F12; ;2; ;false;false; ;false
+MT3;KIN;Vg;Kinematik und Kinetik;KT3; ;4; ;false;false; ;true
+MT3;MTE1;Vg;Messtechnik;KT5; ;2; ;false;false;1;true
+MT3;RTK1;Vg;Regelungstechnik 1;AM4; ;2; ;false;false;1;true
+MT3;SRT;Vg;Steuerungstechnik;AM4; ;2; ;false;false;1;true
+MT3;SUS;V;Signale und Systeme;ID3; ;2; ;false;false;1;true
+MT5;BEL;Vg;Betriebslehre Grundlagen;KT5; ;2; ;false;false;1;true
+MT5;ELA;Vg;Elektrische Antriebe;VE4; ;2; ;false;false;1;true
+MT5;FEL1;L;Finite-Elemente-Methode 1-Labor;WIM; ;1; ;false;false;1;true
+MT5;FEM1;Vg;Finite-Elemente-Methode 1;AM4; ;2; ;false;false;1;true
+MT5;IKR;Vg;Kosten- und Investitionsrechnung;AM6; ;1; ;false;false;1;true
+MT5;LEE;Vg;Leistungselektronik;FRA; ;2; ;false;false;1;true
+MT5;MRL;L;Messen-Regeln-Labor;AM5; ;4; ;false;false;1;true
+MT5;MTL;L;Mechatronik-Labor ;STK; ;1; ;false;false;1;true
+MT5;MTS;Vg;Modellbildung technischer Systeme;FRA; ;2; ;false;false;1;true
+MT5;REK;Vg;Rechtskunde;II2; ;1; ;false;false;1;true
+MT5;RTK2;Vg;Regelungstechnik 2;AM5; ;2; ;false;false; ;true
+MT5;SMS;Vg;Simulation mechatronischer Systeme;KAL; ;2; ;false;false;1;true
+MT5;SYP1;L;Systemprogrammierung 1;ID3; ;4; ;true;false;2;true
+MT5;TES;Vg;Technische Schwingungslehre;AM4; ;2; ;false;false;1;true
+PE2;SITM; ;Angewandte Simulationstechnik;MEY; ;2; ;false;false; ;true
+PM2;SITM; ;Angewandte Simulationstechnik;PE2; ;2; ;false;false; ;true
+PE2;PLC; ;Prozessleittechnik CAE;HOY; ;2; ;false;false; ;true
+PE2;PLS; ;Seminar Prozessleittechnik CAE;HOF; ;1; ;false;false; ;true
+PM2;PLC; ;Prozessleittechnik CAE;PE2; ;2; ;false;false; ;true
+PM2;PLS; ;Seminar Prozessleittechnik CAE;PE2; ;1; ;false;false; ;true
+PM2;EFT;V, S;Elemente der Fertigungstechnikplanung;DIR; ;3; ;true;false;2;true
+PE2;IIFP;V;Ingenieurinformatik;FUX; ;2; ;false;false;1;true
+PE2;IIFS;S;Seminar Ingenieurinformatik;FUX; ;1; ;false;false;1;true
+PE2;GSO; ;Global Production and Sourcing;BEG; ;3; ;true;false; ;true
+PM2;GSO; ;Global Production and Sourcing;PE2; ;3; ;true;false; ;true
+PE2;BMM; ;Betriebsmittelmanagement;SCH; ;2; ;false;false; ;true
+PM2;BMM; ;Betriebsmittelmanagement;PE2; ;2; ;false;false; ;true
+PE2;BSI; ;Business Simulation;SCH; GRE;3; ;true;false; ;true
+PM2;BSI; ;Business Simulation;PE2; ;3; ;true;false; ;true
+PE2;SCE; ;Sustainable Circular Economy;NAD; ;2; ;false;false; ;true
+PM2;SCE; ;Sustainable Circular Economy;PE2; ;2; ;false;false; ;true
+PE2;LMP;V;Technische Logisktik;STH; ;3; ;false;false; ;true
+PM2;LMP;V;Technische Logisktik;PE2; ;3; ;false;false; ;true
+PM2;FTC; ;Industrielle Montage;SCH; ;3; ;false;false; ;true
+PE2;APMV;S;Auslegung des Produktionsmanagements (PE/VT) ;SCH; ;2; ;false;false; ;true
+PE2;APVS;V;Seminar Auslegung des Produktionsmanagements (PE/VT) ;SCH; ;1; ;false;false; ;true
+PM2;IIFP;V;Ingenieurinformatik;PE2; ;2; ;false;false;1;true
+PM2;IIFS;S;Seminar Ingenieurinformatik;PE2; ;1; ;false;false;1;true
+PE2;SDC; ;Strömungsdynamik und CFD;GOT; ;4; ;true;false; ;true
+PE2;SDCS;S;Seminar Strömungsdynamik und CFD VT ;GOT; ;1; ;false;false; ;true
+PE2;HMA;V;Höhere Ingenieurmathematik;GOT; ;4; ;true;false; ;true
+PM2;HMA;V;Höhere Ingenieurmathematik;PE2; ;4; ;true;false; ;true
+PS4;CAM1;Ü;CAD/CAM-Systeme;WAD; ;2; ;false;false;1;true
+PS4;CNC1;Vg;CNC-Technik;BOD; ;2; ;false;false;1;true
+PS4;CNL1;L;CNC-Labor;BOD; ;1; ;false;false;1;true
+PS4;EFE;Vg;Erweiterte Festigkeitslehre;AM4; ;2; ;false;false;1;true
+PS4;ELA;Vg;Elektrische Antriebe;AM4; ;2; ;false;false;1;true
+PS4;FEL1;L;Finite-Elemente-Methode 1-Labor;WIM; ;1; ;false;false;1;true
+PS4;FEM1;Vg;Finite-Elemente-Methode 1;AM4; ;2; ;false;false;1;true
+PS4;FLT;Vg;Fertigungsleittechnik;LIE; ;2; ;false;false;1;true
+PS4;HUP;Vg;Hydraulik und Pneumatik;VM4; ;4; ;false;false;1;true
+PS4;MTE1;Vg;Messtechnik;AM4; ;2; ;false;false;1;true
+PS4;RTK1;Vg;Regelungstechnik 1;AM4; ;2; ;false;false;1;true
+PS4;SRT;Vg;Steuerungstechnik;AM4; ;2; ;false;false;1;true
+PS4;TES;Vg;Technische Schwingungslehre;AM4; ;2; ;false;false;1;true
+PS5;BEM;Vg;Betriebsmittel;GIR; ;2; ;false;false;1;true
+PS5;BML;L;Betriebsmittel-Labor;GIR; ;1; ;false;false;1;true
+PS5;FAP;Vg;Fabrikplanung;VM1; ;2; ;false;false; ;true
+PS5;FHL;L;Förder- und Handhabungstechnik-Labor;STH; ;1; ;false;false;1;true
+PS5;FHT;Vg;Förder- und Handhabungstechnik;AM4; ;2; ;false;false;1;true
+PS5;FML;L;Fertigungsmesstechnik-Labor;VM1; ;3; ;false;false;1;true
+PS5;IKR;Vg;Kosten- und Investitionsrechnung;AM6; ;1; ;false;false;1;true
+PS5;IPM;Vg;Internationales Projektmanagement;SPE; ;2; ;false;false;1;true
+PS5;KOP;Vg;Konstruieren und Projektieren;GIR; ;1; ;false;false;1;true
+PS5;MLO1;Vg;Materialflusstechnik und Logistik 1;STH; ;2; ;false;false;1;true
+PS5;PPS;Vg;Produktionsplanung und -steuerung (PPS);VM1; ;2; ;false;false; ;true
+PS5;VIF;Vg;Virtuelle Fertigung;SCH; ;2; ;false;false;1;true
+PS5;VIL;L;Virtuelle Fertigung-Labor;WAD; ;1; ;false;false;1;true
+PS6;ARS;Vg;Arbeitssicherheit und Gesundheitsschutz;KHL; ;2; ;false;false;1;true
+PS6;ASP;Vg;Arbeitssystem- und -prozessgestaltung;WI6; ;2; ;false;false;1;true
+PS6;QUM;Vg;Qualitäts- und Umweltmanagement;AM6; ;2; ;false;false;1;true
+PS6;UFL;L;Umformtechnik-Labor;VM1; ;2; ;false;false;1;true
+PS6;UFM;Vg;Umformmaschinen;VM1; ;2; ;false;false;1;true
+PS6;UFT;Vg;Umformtechnik;VM1; ;2; ;false;false;1;true
+PS6;WZL;L;Werkzeugmaschinen-Labor;VM1; ;2; ;false;false;1;true
+PS6;WZM1;Vg;Werkzeugmaschinen 1;VM1; ;2; ;false;false;1;true
+PS6;WZM2;Vg;Werkzeugmaschinen 2;VM1; ;2; ;false;false;1;true
+PT1;GWK;Vg;Grundlagen Werkstoffkunde;KT1; ;4; ;true;false;2;true
+PT1;MA1D;Vg;Mathematik 1 D;KT1; ;6; ;true;false; ;true
+PT1;PHY1;Vg;Physik 1;KT1; ;4; ;true;false;2;true
+PT1;STK;Vg;Statik;KT1; ;5; ;true;false;3;true
+PT3;CAD1;L;CAD 1;MT3; ;1; ;false;false;1;true
+PT3;INF;Vg;Informatik;KT3; ;2; ;false;false;1;true
+PT3;KIN;Vg;Kinematik und Kinetik;KT3; ;4; ;false;false; ;true
+PT3;KST;Vg;Kunststoffe;KT3; ;2; ;false;false;1;true
+PT3;MAE1;Vg;Maschinenelemente 1;KT3; ;4; ;true;false;2;true
+PT3;UMF;Vg;Umformen;KT3; ;2; ;false;false;1;true
+PT3;URF;Vg;Urformen;PT3; ;2; ;false;false;1;true
+PT3;WKL;L;Werkstoffkunde-Labor;CLA; ;1; ;false;false;1;true
+PT5;BEL;Vg;Betriebslehre Grundlagen;KT5; ;2; ;false;false;1;true
+PT5;CNC1;Vg;CNC-Technik;PS4; ;2; ;false;false;1;true
+PT5;CNL1;L;CNC-Labor;PS4; ;1; ;false;false;1;true
+PT5;IRO;Vg;Robotik Grundlagen;VM2; ;2; ;false;false;1;true
+PT5;MTE1;Vg;Messtechnik;KT5; ;2; ;false;false;1;true
+PT5;PJM;Vg;Projektmanagement D;ID3; ;4; ;false;false;1;true
+PT5;PRT;Vg;Präsentation und Kommunikation;KT5; ;2; ;false;false;1;true
+PT5;RTK1;Vg;Regelungstechnik 1;STK; ;2; ;false;false;1;true
+PT5;SRT;Vg;Steuerungstechnik;AM4; ;2; ;false;false;1;true
+PT5;THD1;Vg;Thermodynamik 1;KT5; ;4; ;true;false;2;true
+PT5;UFM;Vg;Umformmaschinen;VM1; ;2; ;false;false;1;true
+PT5;WZM1;Vg;Werkzeugmaschinen 1;AHL; ;2; ;false;false;1;true
+VE1;CHE;Vg;Chemie;M1A; ;3; ;false;false;1;true
+VE1;ELT;Vg;Elektrotechnik;M1B; ;5; ;true;false;3;true
+VE1;GWK;Vg;Grundlagen Werkstoffkunde;BIL; ;4; ;false;false;2;true
+VE1;MAT1;Vg;Mathematik 1;II1; ;6; ;false;false;3;true
+VE1;PHY1;Vg;Physik 1;M1B; ;4; ;true;false;2;true
+VE1;STK;Vg;Statik;M1A; ;5; ;true;false;3;true
+VE2;CAD1;L;CAD 1;BER; ;1; ;false;false;1;true
+VE2;FES;Vg;Grundlagen Festigkeitslehre;M2A; ;4; ;true;false;2;true
+VE2;INF;Vg;Informatik;M2A; ;2; ;false;false;1;true
+VE2;KST;Vg;Kunststoffe;M2A; ;2; ;false;false;1;true
+VE2;MAE1;Vg;Maschinenelemente 1;II2; ;4; ;true;false;2;true
+VE2;MAT2;Vg;Mathematik 2;M2A; ;4; ;true;false;2;true
+VE2;SLE;Vg;Strömungslehre;M2A; ;2; ;false;false;1;true
+VE2;THD1;Vg;Thermodynamik 1;M2A; ;4; ;false;false;2;true
+VE2;UMF;Vg;Umformen;M2A; ;2; ;false;false;1;true
+VE2;UUF;Vg;Urformen und Fügen;M2A; ;2; ;false;false;1;true
+VE2;WKL;L;Werkstoffkunde-Labor;CLA; ;1; ;false;false;1;true
+VE3;APG;Ü;Angewandtes Programmieren - Grundlagen;KAS; ;1; ;false;false;1;true
+VE3;BEL;Vg;Betriebslehre Grundlagen;M3B; ;2; ;false;false;1;true
+VE3;INK;S;Interkulturelle Handlungskompetenzen Grundlagen;PFE; ;2; ;false;false;1;true
+VE3;INL;L;Informatik-Labor;CAK; ;2; ;false;false;1;true
+VE3;KIN;Vg;Kinematik und Kinetik;M3A; ;4; ;false;false; ;true
+VE3;KUE1;Ü;Konstruktionsübung 1;GUI; ;1; ;false;false;1;true
+VE3;MAE2;Vg;Maschinenelemente 2;M3A; ;4; ;true;false;2;true
+VE3;MAT3;Vg;Mathematik 3;M3A; ;4; ;true;false;2;true
+VE3;PYL;L;Physik-Labor;M3B; ;3; ;false;false;1;true
+VE3;REK;Vg;Rechtskunde;II2; ;1; ;false;false;1;true
+VE3;WSP;Sg;Wissenschaftliches Schreiben und Präsentieren;WI3; ;2; ;false;false;1;true
+VU6;MVL;L;Mechanische Verfahrenstechnik-Labor;VM5; ;1; ;false;false;1;true
+VU6;MVT2;Vg;Mechanische Verfahrenstechnik 2;VM5; ;4; ;true;false;2;true
+VU6;RET2;Vg;Reaktionstechnik 2;VM6; ;2; ;false;false;1;true
+VU6;TVL2;L;Thermische Verfahrenstechnik 2 - Labor;VM6; ;1; ;false;false;1;true
+VU6;TVT2;Vg;Thermische Verfahrenstechnik 2;VM6; ;2; ;false;false;1;true
+WB2;BUR;V;Bürgerliches Recht;PLU; ;4; ;true;false; ;true
+WB2;HGR;V;Handels- und Gesellschaftsrecht;PLU; ;2; ;false;false; ;true
+WB2;VTP;V;Versuchstechnik und -planung;WP2; ;2; ;false;false; ;true
+WI1;CHE;Vg;Chemie;KOE; ;3; ;false;false;1;true
+WI1;ELT;Vg;Elektrotechnik;PAN; ;5; ;true;false;3;true
+WI1;MAT1;Vg;Mathematik 1;HAN; ;6; ;false;false;3;true
+WI1;MIM;V;Mikroökonomie und Makroökonomie;WT5; ;6; ;true;false; ;true
+WI1;PHY1;Vg;Physik 1;GRA; ;4; ;false;false;2;true
+WI1;STK;Vg;Statik;PAS; ;5; ;true;false; ;true
+WI2;BKP;V;Betriebliche Kernprozesse;WT1; ;2; ;false;false; ;true
+WI2;BWL;V;Grundsatzentscheidungen der BWL;WT1; ;2; ;false;false; ;true
+WI2;FES;Vg;Grundlagen Festigkeitslehre;PFU; ;4; ;true;false;2;true
+WI2;GWK;Vg;Grundlagen Werkstoffkunde;M1B; ;4; ;true;false; ;true
+WI2;INF;Vg;Informatik;M2A; ;2; ;false;false;1;true
+WI2;MAT2;Vg;Mathematik 2;WOL; ;4; ;true;false;2;true
+WI2;PRO;V;Produktion;WT1; ;2; ;false;false; ;true
+WI2;SLE;Vg;Strömungslehre;M2A; ;2; ;false;false;1;true
+WI2;THD1;Vg;Thermodynamik 1;M2A; ;4; ;false;false;2;true
+WI2;WKL;L;Werkstoffkunde-Labor;CLA; ;2; ;false;false;1;true
+WI3;APG;Ü;Angewandtes Programmieren - Grundlagen;GRM; ;2; ;false;false;1;true
+WI3;BUF;V;Buchführung;WT3; ;2; ;false;false; ;true
+WI3;CAD1;L;CAD 1;BUC; ;2; ;false;false;1;true
+WI3;FIW;V;Finanzwirtschaft;WT3; ;2; ;false;false; ;true
+WI3;INL;L;Informatik-Labor;GRM; ;2; ;false;false;1;true
+WI3;KIN;Vg;Kinematik und Kinetik;HEK; ;4; ;false;false;2;true
+WI3;MAE1;Vg;Maschinenelemente 1;STR; ;4; ;true;false;2;true
+WI3;MAR;V;Marketing und Vertrieb;WT3; ;2; ;false;false;1;true
+WI3;PYL;L;Physik-Labor;GRM; ;2; ;false;false;1;true
+WI3;STA;Vg;Statistik;WOL; ;4; ;true;false;2;true
+WI3;WSP;Sg;Wissenschaftliches Schreiben und Präsentieren;NAD; ;2; ;false;false;1;true
+WI4;BUR;V;Bürgerliches Recht;WB2; ;4; ;true;false; ;true
+WI4;EXR;V;Externes Rechnungswesen;BLO; ;4; ;true;false; ;true
+WI4;HGR;V;Handels- und Gesellschaftsrecht;WB2; ;2; ;false;false; ;true
+WI4;IFB;Vg;Informationsbeschaffung;NOW; ;1; ;false;false; ;false
+WI4;INR;V;Internes Rechnungswesen;BLO; ;2; ;false;false; ;true
+WI4;KUE1;Ü;Konstruktionsübung 1;VE3; ;1; ;false;false;1;true
+WI4;MTE1;Vg;Messtechnik;AM4; ;2; ;false;false;1;true
+WI4;RTK1;Vg;Regelungstechnik 1;PT5; ;2; ;false;false;1;true
+WI4;SPA;Vg;Spanen;LIE; ;2; ;false;false;1;true
+WI4;SRT;Vg;Steuerungstechnik;HOS; ;2; ;false;false;1;true
+WI4;UMF;Vg;Umformen;M2A; ;2; ;false;false;1;true
+WI4;UUF;Vg;Urformen und Fügen;M2A; ;2; ;false;false;1;true
+WI5;FAP;Vg;Fabrikplanung;VM1; ;2; ;false;false; ;true
+WI5;FHL;L;Förder- und Handhabungstechnik-Labor;STH; ;2; ;false;false;1;true
+WI5;FHT;Vg;Förder- und Handhabungstechnik;AM4; ;2; ;false;false;1;true
+WI5;FLT;Vg;Fertigungsleittechnik;PS4; ;2; ;false;false;1;true
+WI5;INK;S;Interkulturelle Handlungskompetenzen Grundlagen;PFE; ;2; ;false;false;1;true
+WI5;IPM;Vg;Internationales Projektmanagement;PS5; ;2; ;false;false;1;true
+WI5;IRE;Vg;Industrial Relations;MAI; ;1; ;false;false; ;false
+WI5;LML;L;Logistikmanagement Labor;BEG; ;1; ;false;false; ;false
+WI5;LOM;Vg;Logistikmanagement;BEG; ;2; ;false;false; ;false
+WI5;MLO1;Vg;Materialflusstechnik und Logistik 1;PS5; ;2; ;false;false;1;true
+WI5;PPS;Vg;Produktionsplanung und -steuerung (PPS);VM1; ;2; ;false;false; ;true
+WI5;SCM;Vg;Supply Chain Management;BEG; ;2; ;false;false; ;false
+WI5;VER;Vg;Vertriebssteuerung;WEB; ;6; ;true;false; ;true
+WI6;ABR;V;Arbeitsrecht;SIB; ;2; ;false;false; ;true
+WI6;ARS;Vg;Arbeitssicherheit und Gesundheitsschutz;PS6; ;2; ;false;false;1;true
+WI6;ASP;Vg;Arbeitssystem- und -prozessgestaltung;WEB; ;2; ;false;false;1;true
+WI6;PER;V;Personalmanagement;CZO; ;2; ;false;false; ;true
+WI6;QUM;Vg;Qualitäts- und Umweltmanagement;II5; ;2; ;false;false;1;true
+WI6;UNF;V;Unternehmensführung;SNI; ;2; ;false;false; ;true
+WP2;CAA;V;Produktentwicklung und Organisation;BER; ;2; ;false;false;1;true
+WP2;HLW;V;Hochleistungswerkstoffe und Leichtbau;STL; ;2; ;false;false; ;true
+WP2;PEM;V;Methoden, Teile;GUI; ;3; ;true;false;2;true
+WP2;VTP;V;Versuchstechnik und -planung;SCB; ;2; ;false;false; ;true
+WT1;BKP;V;Betriebliche Kernprozesse;HOB; ;2; ;false;false; ;true
+WT1;BWL;V;Grundsatzentscheidungen der BWL;WIE; ;2; ;false;false; ;true
+WT1;INF;Vg;Informatik;KT3; ;2; ;false;false;1;true
+WT1;MA1D;Vg;Mathematik 1 D;KT1; ;6; ;true;false; ;true
+WT1;PRO;V;Produktion;HOB; ;2; ;false;false; ;true
+WT1;STK;Vg;Statik;KT1; ;5; ;true;false;3;true
+WT3;BUF;V;Buchführung;BLO; ;2; ;false;false; ;true
+WT3;FIW;V;Finanzwirtschaft;HEN; ;2; ;false;false; ;true
+WT3;GWK;Vg;Grundlagen Werkstoffkunde;KT1; ;4; ;true;false;2;true
+WT3;KIN;Vg;Kinematik und Kinetik;KT3; ;4; ;false;false; ;true
+WT3;MAR;V;Marketing und Vertrieb;SRP; ;2; ;false;false;1;true
+WT3;PHY1;Vg;Physik 1;KT1; ;4; ;true;false;2;true
+WT5;KUE1;Ü;Konstruktionsübung 1;II3; ;1; ;false;false;1;true
+WT5;MAE2;Vg;Maschinenelemente 2;REU; ;4; ;true;false;2;true
+MT5;MAE2;Vg;Maschinenelemente 2;WT5; ;4; ;true;false;2;true
+WT5;MIM;V;Mikroökonomie und Makroökonomie;BMG; ;6; ;true;false; ;true
+WT5;MTE1;Vg;Messtechnik;KT5; ;2; ;false;false;1;true
+WT5;PJM;Vg;Projektmanagement D;ID3; ;4; ;false;false;1;true
+WT5;PRT;Vg;Präsentation und Kommunikation;KT5; ;2; ;false;false;1;true
+WT5;RTK1;Vg;Regelungstechnik 1;PT5; ;2; ;false;false;1;true
+WT5;SRT;Vg;Steuerungstechnik;WI4; ;2; ;false;false;1;true
+WT5;THD1;Vg;Thermodynamik 1;KT5; ;4; ;true;false;2;true
+XA1;GLI; ;Grundl Info;MAR; ;4; ;false;false; ;true
+XA1;LAU1; ;lineare Algebra;HAN; ;2; ;false;false; ;true
+XA1;LAL1; ;lineare Algebra;VEN; ;4; ;false;false; ;true
+XA5;DSC2; ;Data Science 2;MAR; ;2; ;false;false; ;true
+XA5;FEL1; ;Finite-Elemente-Methode 1-Labor;MT5; ;2; ;false;false; ;true
+XA5;FEM1; ;Finite-Elemente-Methode 1;AM4; ;2; ;false;false; ;true
+XBV;GWK; ;Grundlagen Werkstoffkunde;PFA; ;2; ;false;false; ;true
+XBV;KGR; ;Konstruktionsgrundlagen;PFA; ;1; ;false;false; ;false
+WI2;KGR; ;Konstruktionsgrundlagen;JAE; ;2; ;false;false; ;false
+II1;KGR; ;Konstruktionsgrundlagen;BOD; ;2; ;false;false; ;false
+M1B;KGR; ;Konstruktionsgrundlagen;LUI; ;2; ;false;false; ;false
+M1A;KGR; ;Konstruktionsgrundlagen;WTH; ;2; ;false;false; ;false
+VE1;KGR; ;Konstruktionsgrundlagen;WI2; ;2; ;false;false; ;false
+XF1;KGR; ;Konstruktionsgrundlagen;PFA; ;2; ;false;false; ;false
+XF1;KIN; ;Kinematik und Kinetik;WI3; ;4; ;false;false; ;true
+XF1;MAE1; ;Maschinenelemente 1;SAL; ;4; ;false;false; ;true
+MT5;MTP; ;Mechantronische Produkte;ROL; ;2; ;false;false; ;false
+XF1;MTP; ;Mechantronische Produkte;MT5; ;2; ;false;false; ;true
+XF1;MTS; ;Modellbildung technischer Systeme;MT5; ;2; ;false;false; ;true
+XF1;SHT; ;Sicherheitstechnik;FRA; ;1; ;false;false; ;true
+XF1;STK; ;Statik;WI1; ;5; ;true;false; ;true
+ID1;BTD; ; ;MT1; ;6; ;false;false; ;true
+ID3;BTD; ; ;MT1; ;6; ;false;false; ;true
+KT1;BTD; ; ;__ ; ;38; ;false;false; ;true
+KT3;BTD; ; ;KT1; ;19; ;false;false; ;true
+MT1;BTD; ; ;DUM; ;6; ;false;false; ;true
+PT1;BTD; ; ;KT1; ;19; ;false;false; ;true
+PT3;BTD; ; ;KT1; ;19; ;false;false; ;true
+WB2;BTD; ; ;_  ; ;30; ;false;false; ;true
+WP2;BTD; ; ;WB2; ;30; ;false;false; ;true
+WP2;WMP; ;Block;WMP; ;20; ;false;false; ;true
+WB2;WMB; ; Block;WMB; ;20; ;false;false; ;true
+WT1;BTD; ; ;KT1; ;19; ;false;false; ;true
+WT3;BTD; ; ;KT1; ;19; ;false;false; ;true
+VM1;FAP; ;Fabrikplanung;BEG; ;2; ;false;false; ;true
+VM1;FML; ;Fertigungsmesstechnik-Labor;GRA; ;2; ;false;false; ;true
+VM1;KML2; ;KolbmasL 2;RAK; ;1; ;false;false; ;true
+VM1;KOM2; ;Kolb.mas. 2;RAK; ;4; ;false;false; ;true
+VM1;PPS; ;Produktionsplanung und -steuerung (PPS);BEG; ;2; ;false;false; ;true
+VM1;UFL; ;UmformT-L;BIL; ;3; ;false;false; ;true
+VM1;UFM; ;UmformMa;HAG; ;2; ;false;false; ;true
+VM1;UFT; ;UmformT;BIL; ;2; ;false;false; ;true
+VM1;WZL; ;Werkz.M-L;LIE; ;2; ;false;false; ;true
+VM1;WZM1; ;Werkz.M 1;LIE; ;2; ;false;false; ;true
+VM1;WZM2; ;Werkz.M 2;LIE; ;2; ;false;false; ;true
+VM2;AML; ;Applied Machine Learning;MAR; ;4; ;false;false; ;true
+VM2;IRL; ;IRL;STK; ;1; ;false;false; ;true
+VM2;IRO; ;IRO;HOS; ;2; ;false;false; ;true
+VM2;MLB; ;Machine Learning Basics;KAL; ;2; ;false;false; ;true
+VM2;MSL2; ;MSL2;GIE; ;1; ;false;false; ;true
+VM2;PLL; ;Prozessleittechnik-Labor;HOF; ;2; ;false;false; ;true
+VM2;PLT1; ;Prozessleittechnik;HOF; ;2; ;false;false; ;true
+VM2;PLT2; ;Prozessleittechnik;DIR; ;2; ;false;false; ;true
+VM2;ROA; ;ROA;HOS; ;2; ;false;false; ;true
+VM2;RTK3; ;RTK3;KAL; ;2; ;false;false; ;true
+VM2;SAB; ;SAB;GIE; KAS;2; ;false;false; ;true
+VM3;EST; ;Energiespeicherung und Energietransport;MEY; ;2; ;false;false; ;true
+VM3;GTV; ;Grdlg. Therm.-Chem. Verfahrenstechnik;JAS; ;2; ;false;false; ;true
+VM3;GVL; ;Grdlg. Verfahrenstechnik-Labor;JAS; ;2; ;false;false; ;true
+VM3;KAT; ;Kältetechnik;HUK; ;2; ;false;false; ;true
+VM3;KKL; ;KalteKlima;HUK; ;1; ;false;false; ;true
+VM3;KLT; ;Klimatech;HUK; ;2; ;false;false; ;true
+VM3;MVT1; ;Grdlg. Mechanische Verfahrenstechnik;BER; ;2; ;false;false; ;true
+VM3;RSL; ;Radio+Str-L;GRM; ;2; ;false;false; ;true
+VM3;RST; ;Radio+Strl.;GRM; ;2; ;false;false; ;true
+VM3;SSS; ;StrahlSchuS;GRM; ;2; ;false;false; ;true
+VM3;WAL; ;Labor für Wasserstofftechnologie;MEY; ;1; ;false;false; ;true
+VM3;WAS; ;Wasserstofftechnologie;MEY; ;2; ;false;false; ;true
+VM4;CFL; ;Labor CFD;GOT; ;1; ;false;false; ;true
+VM4;BVM; ;Betrieb von Multicoptern;SID; ;2; ;false;false; ;true
+VM4;MRM; ;Modellierung und Regelung von Multicoptern;KAL; ;2; ;false;false; ;true
+VM4;SBM; ;Steuerung und Bahnberechnung von Multicoptern;HOS; ;2; ;false;false; ;true
+VM4;FFF; ;Förderanlagen für Fluide;JAS; ;2; ;false;false; ;true
+VM4;HUP; ;Hydraulik und Pneumatik;STR; ;4; ;false;false; ;true
+VM4;SFD; ;Strömungen inkompressibler Fluide;GOT; ;4; ;false;false; ;true
+VM4;TSK; ;Strömungsmaschinen-Konstruktion;PIN; ;1; ;false;false; ;true
+VM4;TSL; ;Thermische Strömungsmaschinen Labor;PIN; ;1; ;false;false; ;true
+VM4;TSM; ;Thermische Strömungsmaschinen;PIN; ;2; ;false;false; ;true
+VM5;ABK; ;AbfallKreislauf;SAK; ;2; ;false;false; ;true
+VM5;AGB; ;Allgemeine Grundlagen zu Batteriesystemen;SID; ;2; ;false;false; ;true
+VM5;HZK; ;Heizungstechnik und Kraft-Wärme-Kopplung;HUK; ;2; ;false;false; ;true
+VM5;MVL; ;MechVerftL;LUE;SMU;1; ;false;false; ;true
+VM5;MVT2; ;MechVerft;LUE; ;4; ;false;false; ;true
+VM5;NEL; ;NachhEnergL;JAN; ;1; ;false;false; ;true
+VM5;QUV; ;QUM VEU;SAK; ;2; ;false;false; ;true
+VM5;REE; ;Regen.Energ;JAN; ;2; ;false;false; ;true
+VM5;SEB; ;Spezielle Eigenschaften Batteriesystemen;STE; ;3; ;false;false; ;true
+VM5;UMA; ;Umweltanaly.;SAK; ;2; ;false;false; ;true
+VM6;BPL; ;BioProTeLab;NAD; ;1; ;false;false; ;true
+VM6;EBP; ;Einf.BioPrT;NAD; ;2; ;false;false; ;true
+VM6;KOM1; ;Kolbenmaschinen 1;RAK; ;2; ;false;false; ;true
+VM6;RET2; ;Reaktionstechnik 2;KOE; NAD;2; ;false;false; ;true
+VM6;SHG; ;SteTecHygGe;NAD; ;2; ;false;false; ;true
+VM6;STL1; ;Strömungsmaschinen-Labor			 ;PIN; ;1; ;false;false; ;true
+VM6;STM1; ;Strömungsmaschinen;PIN; ;2; ;false;false; ;true
+VM6;TVL2; ;Thermische Verfahrenstechnik 2 - Labor;JAS; ;1; ;false;false; ;true
+VM6;TVT2; ;Thermische Verfahrenstechnik 2;JAS; ;2; ;false;false; ;true
+VM7;HZK; ;Heizungstechnik und Kraft-Wärme-Kopplung;VM5; ;2; ;false;false; ;true
+VM7;KAT; ;Kältetechnik;VM3; ;2; ;false;false; ;true
+VM7;REE; ;Regenerative Energien und Brennstoffzellen;VM5; ;2; ;false;false; ;true

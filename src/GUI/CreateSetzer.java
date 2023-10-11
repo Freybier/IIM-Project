@@ -22,11 +22,11 @@ public class CreateSetzer {
     public String path;
 
     public CreateSetzer(List<Zug> zugList, File file) {
-        createFile(zugList ,file);
+        createFile(zugList, file);
     }
 
     public void createFile(List<Zug> zugList, File fileName) {
-        String csvFilePath = fileName +".csv";
+        String csvFilePath = fileName + ".stt";
         try {
             // Create a FileWriter and BufferedWriter to write to the CSV file
             FileWriter fileWriter = new FileWriter(csvFilePath);
@@ -36,32 +36,59 @@ public class CreateSetzer {
             for (Zug zug : zugList) {
                 for (LV lv : zug.getLV()) {
                     long sceduler = lv.getScheduledLV();
-                    for(int i = 1; i<=34; i++){
+                    for (int i = 1; i <= 34; i++) {
                         String data;
-                        if(sceduler%2==1){
+                        if (sceduler % 2 == 1) {
                             String zugName = zug.getName();
-                            String block = Integer.toString(35-i);
+                            String block = Integer.toString(35 - i);
                             String eins = "1";
                             String nickName = lv.getNickName();
                             String dozentName;
-                            if(lv.getLeadingZugName().equals(zugName)){
-                              dozentName = lv.getDozentName();  
-                            }else{
+                            if (lv.getLeadingZugName().equals(zugName)) {
+                                dozentName = lv.getDozentName();
+                            } else {
                                 dozentName = lv.getLeadingZugName();
                             }
-                            
+
                             String raumNr = lv.getRoomNumber();
-                            data = zugName+block+eins+nickName+dozentName+raumNr;
-                            bufferedWriter.write(data+";");
-                            bufferedWriter.write(zugName+";");
-                            bufferedWriter.write(block+";");
-                            bufferedWriter.write(eins+";");
-                            bufferedWriter.write(nickName+";");
-                            bufferedWriter.write(dozentName+";");
-                            bufferedWriter.write(raumNr);
+
+                            while (block.length() < 2) {
+                                block = " " + block;
+                            }
+                            while (nickName.length() < 4) {
+                                nickName = nickName + " ";
+                            }
+
+                            while (dozentName.length() < 3) {
+                                dozentName = dozentName + " ";
+                            }
+                            if (raumNr.equals("-")) {
+                                raumNr = "    ";
+                            } else {
+                                if (Character.isLetter(raumNr.charAt(0))) {
+                                    while (raumNr.length() < 4 && Character.isLetter(raumNr.charAt(0))) {
+                                        raumNr = raumNr + " ";
+                                    }
+                                } else {
+                                    while (raumNr.length() < 4) {
+                                        raumNr = " " + raumNr;
+                                    }
+                                }
+
+                            }
+                            String commentSpace = "      ";
+
+                            data = zugName + block + eins + nickName + dozentName + raumNr + commentSpace;
+                            bufferedWriter.write(data);
+//                            bufferedWriter.write(zugName+";");
+//                            bufferedWriter.write(block+";");
+//                            bufferedWriter.write(eins+";");
+//                            bufferedWriter.write(nickName+";");
+//                            bufferedWriter.write(dozentName+";");
+//                            bufferedWriter.write(raumNr);
                             bufferedWriter.newLine(); // Add a new line for the next row
                         }
-                        
+
                         sceduler = sceduler >> 1;
                     }
                 }

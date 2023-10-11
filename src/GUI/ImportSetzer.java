@@ -23,7 +23,7 @@ public class ImportSetzer {
 
     public List<Zug> zugList;
     public File fileName;
-    
+
     public ImportSetzer(List<Zug> zugList, File fileName) {
         this.zugList = zugList;
         this.fileName = fileName;
@@ -31,7 +31,7 @@ public class ImportSetzer {
     }
 
     public void importSetzer() {
-        
+
         for (Zug zug : zugList) {
             for (LV lv : zug.getLV()) {
                 lv.setScheduledLV(0);
@@ -42,44 +42,49 @@ public class ImportSetzer {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
-            
+
             String line;
-            //String[] header = br.readLine().split(";");
-            int zugNameIndex = 1;
-            int scheduledIndex = 2;
-            int lvKuerzelIndex = 4;
-            int dozentNameIndex = 5;
-            int raumIndex = 6;
 
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                String zugName = parts[zugNameIndex];
-                String scheduled = parts[scheduledIndex];
-                String lvKuerzel = parts[lvKuerzelIndex];
-                String dozentName = parts[dozentNameIndex];
-                String raumNr = parts[raumIndex];
+                String zugName = line.substring(0, 3);
+                String scheduled = line.substring(3, 5);
+                String lvKuerzel = line.substring(6, 10);
+                String dozentName = line.substring(10, 13);
+                String raumNr = line.substring(13, 18);
+
+                zugName = zugName.trim();
+                scheduled = scheduled.trim();
+                lvKuerzel = lvKuerzel.trim();
+                dozentName = dozentName.trim();
+                raumNr = raumNr.trim();
+
+                System.out.println("Zugname: " + zugName);
+                System.out.println("Geplante Zeit: " + scheduled);
+                System.out.println("LV-Kürzel: " + lvKuerzel);
+                System.out.println("Dozentenname: " + dozentName);
+                System.out.println("Raumnummer: " + raumNr);
 
                 for (Zug zug : zugList) {
                     for (LV lv : zug.getLV()) {
-                        if (zug.getName().equals(zugName) && lv.getNickName().equals(lvKuerzel) && lv.getDozentName().equals(dozentName) && lv.getLeadingZugName().equals(zugName)) {
+                        if (zug.getName().equals(zugName) && lv.getNickName().equals(lvKuerzel)
+                                && lv.getDozentName().equals(dozentName) && lv.getLeadingZugName().equals(zugName)) {
                             long scheduler = 1;
                             int shift = Integer.parseInt(scheduled);
                             scheduler = scheduler << (34 - shift);
                             lv.setScheduledLV(lv.getScheduledLV() | scheduler);
-                            lv.getDozentLV().setScheduledDozent(lv.getDozentLV().getScheduledDozent() | scheduler);                           
+                            lv.getDozentLV().setScheduledDozent(lv.getDozentLV().getScheduledDozent() | scheduler);
                             lv.addOneSWSBlocksTook();
                             lv.setRoomNumber(raumNr);
                             break;
                         }
                     }
                 }
-
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ImportSetzer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ImportSetzer.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+
 }

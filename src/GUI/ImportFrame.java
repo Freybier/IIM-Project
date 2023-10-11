@@ -22,7 +22,7 @@ public class ImportFrame extends javax.swing.JFrame {
         initComponents();
         build();
         this.setVisible(true);
-        jFileChooser1.setFileFilter(new FileNameExtensionFilter("CSV Files", "csv"));
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("STT Files", "stt"));
     }
 
     /**
